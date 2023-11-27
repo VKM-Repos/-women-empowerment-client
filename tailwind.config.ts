@@ -21,6 +21,8 @@ const config: Config = {
       },
       colors: {
         // Brand Colors
+        primary: '#106840',
+        secondary: '#13FF79',
         btnWarning: '#FF7400',
         primaryBlack: "#0F0F0F",
         primaryWhite: "#FFFFFF",
