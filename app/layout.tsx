@@ -5,8 +5,7 @@ import "./globals.css";
 import { Providers } from "@/lib/utils/providers";
 import { Metadata } from "next";
 import { Inter } from 'next/font/google'
-import Navbar from "@/components/Layout/Navbar";
-import Footer from '@/components/Layout/Footer'
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,10 +23,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <link rel="icon" href="./favicon.ico" sizes="any" />
       </head>
       <body className={inter.className}>
-        <Providers>
-          <Navbar />
+        <Providers>      
           {props.children}
-          <Footer />
         </Providers>
       </body>
     </html>
