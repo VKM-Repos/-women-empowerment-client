@@ -38,7 +38,7 @@ const Navbar = () => {
           <ButtonDrDown />
         </div>
 
-        <div className="w-[250px] flex items-center gap-5">
+        <div className="w-[250px] flex items-center gap-3">
           <Link href='login' className="flex gap-2" onClick={() => { }}>
             <img src={userAccount.src} alt="" />
             Log in
