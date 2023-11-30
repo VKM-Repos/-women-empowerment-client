@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import Logo from "../../../public/icons/logo.svg";
-import userAccount from "../../../public/icons/account-user.svg";
+import Logo from "@/public/icons/logo.svg";
+import userAccount from "@/public/icons/account-user.svg";
 import Link from "next/link";
 import { Avatar } from "@/components/Common/Avatar/Avatar";
 import ButtonDrDown from '@/components/ButtonDropDown'
