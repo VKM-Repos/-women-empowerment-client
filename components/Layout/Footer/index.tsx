@@ -7,7 +7,7 @@ import vhdoLogo from '@/public/icons/vhdo-logo.svg'
 import vkmLogo from '@/public/icons/vkm-logo.svg'
 import footerImg from '@/public/icons/footer-img.svg'
 import eeclip from '@/public/icons/eclipe.svg'
-type LandingPageFooter32falseProps = Omit<
+type FooterProps = Omit<
     React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
     | "language"
     | "beapartofour"
@@ -23,18 +23,18 @@ type LandingPageFooter32falseProps = Omit<
         copyright2022: string;
     }>;
 
-const LandingPageFooter32false: React.FC<LandingPageFooter32falseProps> = (
+const Footer: React.FC<FooterProps> = (
     props,
 ) => {
     return (
-        <>
+        <div className="pt-[6rem]">
             <div className={props.className}>
-                <div className="flex flex-col relative w-full">
-                    <img
+                <div className="flex flex-col relative border-t border-gray-50">
+                    {/* <img
                         className="h-[214px] mt-[-20px] mx-auto object-cover w-full z-[1]"
                         src={eeclip.src}
                         alt="ellipseEight"
-                    />
+                    /> */}
                     <img
                         className="h-[336px] ml-auto mr-[169px] mt-[-142.33px] rounded-[50%] w-[336px] z-[1]"
                         src={footerImg.src}
@@ -108,11 +108,11 @@ const LandingPageFooter32false: React.FC<LandingPageFooter32falseProps> = (
                     {props?.copyright2022}
                 </p>
             </div>
-        </>
+        </div>
     );
 };
 
-LandingPageFooter32false.defaultProps = {
+Footer.defaultProps = {
     language: "share this page to create awarenttess ",
     beapartofour: "Be a part of our community",
     descriptionTwo:
@@ -121,4 +121,4 @@ LandingPageFooter32false.defaultProps = {
     copyright2022: "© Copyright 2022. Viable Helpers Development Organization",
 };
 
-export default LandingPageFooter32false;
+export default Footer;
