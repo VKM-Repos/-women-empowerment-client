@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import Logo from "../../../public/icons/logo.svg";
-import userAccount from "../../../public/icons/account-user.svg";
+import Logo from "@/public/icons/logo.svg";
+import userAccount from "@/public/icons/account-user.svg";
 import Link from "next/link";
 import { Avatar } from "@/components/Common/Avatar/Avatar";
 import ButtonDrDown from '@/components/ButtonDropDown'
@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b-2 border-gray-500 text-secondaryGreen bg-white-100 p-3 px-8">
+      <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-white-100 p-1 px-8">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <span>
@@ -43,7 +43,7 @@ const Navbar = () => {
             <img src={userAccount.src} alt="" />
             Log in
           </Link>
-          <Link href='signup' className="bg-btnWarning px-3 py-1 rounded-sm text-white-100" onClick={() => { }}>
+          <Link href='signup' className="bg-btnWarning px-6 py-2 rounded text-white-100" onClick={() => { }}>
             Sign up
           </Link>
         </div>
