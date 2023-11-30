@@ -505,6 +505,100 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+
+      <div className="bg-[#F0EBD6] self-stretch z-[1] flex w-full flex-col mt-20 pt-12 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
+        <div className="text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
+          Community Discussions
+        </div>
+        <div className="text-black text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
+          A platform that seeks to help Women thrive in their own environment ,
+          <br /> a free space to share with people who can relate, a community
+          for all who want and ask for help.
+        </div>
+        <div className="shadow-sm self-stretch mt-11 max-md:max-w-full max-md:mt-10">
+          <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+            <div className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
+              <div className="justify-center items-stretch bg-white flex grow flex-col w-full pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                <div className="justify-center items-stretch bg-slate-200 flex flex-col p-2.5">
+                  <img
+                    loading="lazy"
+                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&"
+                    className="aspect-square object-contain object-center w-full overflow-hidden max-md:mr-0.5"
+                  />
+                </div>
+                <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  Sensitization
+                </div>
+                <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5 mb-4">
+                  Women in power speaks louder that riots for our rights
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-stretch w-3/12 ml-5 max-md:w-full max-md:ml-0">
+              <div className="justify-center items-stretch bg-white flex grow flex-col w-full pt-6 pb-11 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                <div className="justify-center items-stretch bg-slate-200 flex flex-col px-2.5 py-2.5">
+                  <img
+                    loading="lazy"
+                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&"
+                    className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5"
+                  />
+                </div>
+                <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  Health
+                </div>
+                <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  Tips women will surely need to maintain the upper hand in
+                  discussions.
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-stretch w-3/12 ml-5 max-md:w-full max-md:ml-0">
+              <div className="justify-center items-stretch bg-white flex grow flex-col w-full pt-6 pb-11 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                <div className="justify-center items-stretch bg-slate-200 flex flex-col px-2.5 py-2.5">
+                  <img
+                    loading="lazy"
+                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&"
+                    className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5"
+                  />
+                </div>
+                <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  Girl Power
+                </div>
+                <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  Creating a safe environment for ladies to share their pain and
+                  not feel condemned
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-stretch w-3/12 ml-5 max-md:w-full max-md:ml-0">
+              <div className="justify-center items-stretch bg-white flex grow flex-col w-full pt-6 pb-11 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                <div className="justify-center items-stretch bg-slate-200 flex flex-col px-2.5 py-2.5">
+                  <img
+                    loading="lazy"
+                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&"
+                    className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5"
+                  />
+                </div>
+                <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  Growth
+                </div>
+                <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  Empowering women is all about helping women grow in their
+                  field and become better humans
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button className="text-white-100 text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
+          Join Discussion
+        </button>
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/e70e95b5-f3ea-4e2b-8291-36e328487451?apiKey=12cdcbacd64a44978db653c66e993585&"
+          className="aspect-[0.98] object-contain object-center w-[82px] fill-green-800 opacity-[0.17] overflow-hidden max-w-full ml-12 mt-11 self-start max-md:ml-2.5 max-md:mt-10"
+        />
+      </div>
     </>
   );
 };
