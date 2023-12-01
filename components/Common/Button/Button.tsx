@@ -24,22 +24,22 @@ const Button: React.FC<ButtonProps> = ({
 
     switch (variant) {
       case "primary":
-        classes = "bg-primaryYellow text-primaryBlack rounded-[0.5rem] font-semibold";
+        classes = "bg-btnWarning text-primaryWhite rounded-[0.5rem] font-semibold";
         break;
       case "secondary":
-        classes = "bg-secondaryGreen text-secondaryOffWhite rounded-[0.5rem]";
+        classes = "bg-primaryGreen text-secondaryOffWhite rounded-[0.5rem]";
         break;
       case "outline":
-        classes = "border-primaryYellow border-2 text-primaryBlack rounded-[0.5rem]";
+        classes = "border-btnWarning border-2 text-primaryBlack rounded-[0.5rem]";
         break;
       case "icon-only":
-        classes = "bg-primaryYellow text-primaryBlack rounded-full";
+        classes = "bg-btnWarning text-primaryBlack rounded-full";
         break;
       case "icon-only-secondary":
-        classes = "border-secondaryOffWhite border-2  text-primaryBlack rounded-full";
+        classes = "border-primary border-2  text-primaryBlack rounded-full";
         break;
       case "icon-only-outline":
-        classes = "border-primaryYellow border-2  text-primaryBlack rounded-full";
+        classes = "border-btnWarning border-2  text-primaryBlack rounded-full";
         break;
       default:
         classes = "bg-secondaryOffWhite text-primaryBlack rounded-[0.5rem]";
