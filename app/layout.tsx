@@ -4,11 +4,11 @@ import "./globals.css";
 
 import { Providers } from "@/lib/utils/providers";
 import { Metadata } from "next";
-import { Inter } from 'next/font/google'
+import { Inter, Sora } from 'next/font/google'
 
 
 
-const inter = Inter({ subsets: ['latin'] })
+const sora = Sora({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Women Empowerment",
@@ -22,7 +22,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <head>
         <link rel="icon" href="./favicon.ico" sizes="any" />
       </head>
-      <body className={inter.className}>
+      <body className={sora.className}>
         <Providers>      
           {props.children}
         </Providers>
