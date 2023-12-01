@@ -20,16 +20,16 @@ const Navbar = () => {
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-white-100 p-1 px-8">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <span>
+          <Link href='/'>
             <img src={Logo.src} alt="" className="w-full aspect-auto" />
-          </span>
+          </Link>
         </div>
 
         <div className="flex items-center justify-center w-full mx-auto space-x-8 -bottom-0 w-fulll">
           <Link href='about'>
             About
           </Link>
-          <Link href='about'>
+          <Link href='category'>
             Category
           </Link>
           <Link href='about'>
@@ -38,7 +38,7 @@ const Navbar = () => {
           <ButtonDrDown />
         </div>
 
-        <div className="w-[250px] flex items-center gap-5">
+        <div className="w-[250px] flex items-center gap-3">
           <Link href='login' className="flex gap-2" onClick={() => { }}>
             <img src={userAccount.src} alt="" />
             Log in
