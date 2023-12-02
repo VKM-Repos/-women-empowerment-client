@@ -40,3 +40,22 @@ scrollbar-thumb {
   background: #08382c;
   border-radius: 1rem;
 }
+
+.link:after {
+  display:block;
+  content: '';
+  width: inherit;
+  border-bottom: solid 3px #FF7400;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+
+.link:hover:after { transform: scaleX(1); }
+
+.link.from-left:after {
+  transform-origin: left;
+}
+
+.link.from-right:after {
+  transform-origin: right;
+}
