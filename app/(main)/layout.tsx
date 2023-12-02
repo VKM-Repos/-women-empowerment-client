@@ -9,9 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* <ProtectedPage> */}
-       <Navbar />
+      <Navbar />
       <div className="relative">
-        <div className="w-full min-h-screen flex items-start pt-24 justify-center bg-primaryWhite ">
+        <div className="w-full min-h-screen flex flex-col items-center pt-24 justify-start bg-primaryWhite ">
           {children}
         </div>
       </div>
