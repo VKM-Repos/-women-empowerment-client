@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { TransitionElement, TransitionStart } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import GroupFaces from "@/public/images/group-faces.png";
 import ShootingArrow from "@/public/images/shootingArrow.png";
@@ -15,8 +15,8 @@ import ncws from "@/public/images/ncws.png";
 const AboutPage = () => {
 
   return (
-    <TransitionElement>
-      <section className="w-[95%] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[2rem] min-h-screen ">
+    <TransitionParent>
+      <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[3rem] min-h-screen ">
         <div className="w-full bg-primary h-[40vh] rounded-[2rem] flex items-start pt-[3rem] justify-center relative overflow-hidden">
          <span className=" max-w-2xl flex flex-col items-center justify-start space-y-4 text-center relative z-10">
           <h1 className="text-3xl md:text-5xl font-bold text-primaryWhite">About Women-ally</h1>
@@ -49,7 +49,7 @@ const AboutPage = () => {
           </div>
           <br /><br /><br /><br /><br /><br />
       </section>
-    </TransitionElement>
+    </TransitionParent>
   );
 };
 

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronFilledIcon } from "@/components/Common/Icons/chevronFilled.icon";
+import { ChevronFilledIcon } from "@/components/Common/Icons/ChevronFilled.icon";
 
 type SubLink = {
   text: string;
