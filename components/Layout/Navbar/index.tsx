@@ -36,8 +36,8 @@ const Navbar = () => {
             <MenuItem link="/about" subLinks={null} text="about" />
             <MenuItem link="/category" subLinks={null} text="category" />
             <MenuItem link="/events" subLinks={null} text="events" />
-            <MenuItem link="/community" subLinks={submenuLinks.community} text="community" />
-          </MenuContainer>
+            <MenuItem link="#" subLinks={submenuLinks.community} text="community" />
+        </MenuContainer>
         </div>
 
         <div className="w-1/2 lg:w-1/3 place-content-end flex items-center gap-5">
