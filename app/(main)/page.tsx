@@ -43,7 +43,7 @@ const LandingPage = () => {
             <Organization organizations={db.communities} />
             <div className="flex flex-col items-stretch w-[32%] ml-5 max-md:w-full max-md:ml-0">
               <div className="items-start flex flex-col max-md:mt-5">
-                <Events events={db.events} />
+                <Events organizations={[]} events={db.events} />
                 <News news={db.news} />
               </div>
             </div>

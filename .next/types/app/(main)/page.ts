@@ -1,4 +1,4 @@
-// File: C:\Users\Dell-PC\vkm\women-empowerment-client\app\(main)\page.tsx
+// File: /home/salissadiq/vkm/women-empowerment-client/app/(main)/page.tsx
 import * as entry from '../../../../app/(main)/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

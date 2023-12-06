@@ -1,9 +1,9 @@
 import React from 'react'
-export type Props = Partial<{
+interface EventProps {
     events: any[],
     organizations: any[]
-}>
-export const Events: React.FC<Props> = ({ events = [], organizations = [] }) => {
+}
+export const Events: React.FC<EventProps> = ({ events = [], organizations = [] }) => {
 
     return (
         <>
@@ -12,7 +12,7 @@ export const Events: React.FC<Props> = ({ events = [], organizations = [] }) => 
                 EVENTS
             </div>
             {events.map(event => (
-                <div className="justify-between items-center self-stretch flex gap-5 mt-11 px-4 py-3 max-md:mt-10">
+                <div key={event.id} className="justify-between items-center self-stretch flex gap-5 mt-11 px-4 py-3 max-md:mt-10">
                     <img loading="lazy"
                         srcSet={event.image}
                         className="aspect-square object-contain object-center w-[45px] overflow-hidden shrink-0 max-w-full my-auto rounded-[50%]" />
