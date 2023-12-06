@@ -1,9 +1,9 @@
 import React from 'react'
 
-export type Props = Partial<{
+interface CommProps {
     organization: { name: String, description: String, image: String }
-}>
-export const CommunityCard: React.FC<Props> = ({ organization = {} }) => {
+}
+export const CommunityCard: React.FC<CommProps> = ({ organization = {} }) => {
     return (
         <div
             className="border bg-white self-stretch p-8 rounded-3xl border-solid border-black border-opacity-10 max-md:max-w-full max-md:px-5">
@@ -44,7 +44,7 @@ export const CommunityCard: React.FC<Props> = ({ organization = {} }) => {
                 </div>
                 <div className="flex flex-col items-stretch w-[18%] ml-5 max-md:w-full max-md:ml-0">
                     <img loading="lazy"
-                        srcSet={organization.image}
+                        srcSet={`${organization.image}`}
                         className="aspect-square object-contain object-center w-[132px] justify-center items-center overflow-hidden shrink-0 max-w-full my-auto max-md:mt-10" />
                 </div>
             </div>

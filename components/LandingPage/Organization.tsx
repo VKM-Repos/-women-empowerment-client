@@ -1,9 +1,9 @@
 import React from 'react'
 import { CommunityCard } from './CommunityCard';
-export type Props = Partial<{
+interface OrganizationProps {
     organizations: any[]
-}>;
-export const Organization: React.FC<Props> = ({ organizations = [] }) => {
+}
+export const Organization: React.FC<OrganizationProps> = ({ organizations = [] }) => {
 
     return (
         <div className="flex flex-col items-stretch w-[68%] max-md:w-full max-md:ml-0">
