@@ -41,12 +41,13 @@ const Navbar = () => {
         </div>
 
         <div className="w-1/2 lg:w-1/3 place-content-end flex items-center gap-5">
-          <div className="hidden md:flex text-sm md:text-base">
-            <Link href="login" className="flex items-center gap-2 px-6 py-2" onClick={() => { }}>
+          <div className="hidden md:flex items-center text-sm md:text-base">
+            <Link href="/account/login" className="flex items-center gap-2 px-6 py-2" onClick={() => { }}>
               <Image width={0.5} height={0.5} src={userAccount.src} alt="" className="w-[1.5rem] aspect-square object-contain" />
               Log in
             </Link>
-            <Button label="Sign up" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} />
+            {/* <Button label="Sign up" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} /> */}
+            <Link href="/account/sign-up" className="bg-btnWarning px-3 py-2 rounded-sm text-white-100">Sign up</Link>
           </div>
           <button draggable={false} className="w-[3rem] lg:hidden flex">
             <svg
