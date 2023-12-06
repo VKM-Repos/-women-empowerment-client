@@ -4,7 +4,6 @@ export type Props = Partial<{
     organizations: any[]
 }>
 export const Events: React.FC<Props> = ({ events = [], organizations = [] }) => {
-    console.log(events);
 
     return (
         <>

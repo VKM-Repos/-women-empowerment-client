@@ -9,7 +9,6 @@ import { Organization } from "@/components/LandingPage/Organization";
 import { Events } from "@/components/LandingPage/Events";
 import { News } from "@/components/LandingPage/News";
 
-
 const LandingPage = () => {
   return (
     <TransitionElement>
