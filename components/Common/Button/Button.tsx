@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
 
     switch (variant) {
       case "primary":
-        classes = "bg-btnWarning text-primaryWhite rounded-[0.5rem] font-semibold";
+        classes = "bg-btnWarning text-primaryWhite rounded-[0.5rem] font-light";
         break;
       case "secondary":
         classes = "bg-primaryGreen text-secondaryOffWhite rounded-[0.5rem]";
@@ -90,8 +90,8 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button className={getButtonClasses()} disabled={state === "disabled"} onClick={onClick}>
       {label}
-      {variant === "icon-only" && icon}
-      {variant !== "text-icon" && label && <span className="mr-2">{icon}</span>}
+      {/* {variant === "icon-only" && icon}
+      {variant !== "text-icon" && label && <span className="mr-2">{icon}</span>} */}
     </button>
   );
 };
