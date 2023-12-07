@@ -34,18 +34,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   const variants = {
     hidden: {
-      y: "-50%",
+      // y: "-50%",
+      scale: "50%",
       opacity: 0,
     },
     visible: {
-      y: 0,
+      // y: 0,
+      scale: "100%",
       opacity: 1,
       transition: {
         ...transition,
       },
     },
     exit: {
-      y: "-50%",
+      // y: "-50%",
+      scale: "50%",
       opacity: 0,
       transition,
     },

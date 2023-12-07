@@ -5,7 +5,8 @@ import { BtnDecrease } from "@/components/Common/Icons/BtnDecrease";
 
 interface DateInputProps {
   label: string;
-  color: string;
+  bgClassName: string;
+  textClassName: string;
   value: number;
   min: number;
   max: number;
@@ -14,9 +15,9 @@ interface DateInputProps {
   onChange: (field: string, value: number) => void;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label, color, value, min, max, onIncrease, onDecrease, onChange }) => {
-  const textColorClass = `text-[${color}]`;
-  const bgColorClass = `bg-[${color}]`;
+const DateInput: React.FC<DateInputProps> = ({ label, bgClassName, textClassName, value, min, max, onIncrease, onDecrease, onChange }) => {
+  // const textColorClass = `text-[${color}]`;
+  // const bgColorClass = `bg-[${color}]`;
 
   const handleIncrease = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -43,7 +44,7 @@ const DateInput: React.FC<DateInputProps> = ({ label, color, value, min, max, on
           max={max.toString()}
           value={value}
           onChange={(e) => onChange(label.toLowerCase(), parseInt(e.target.value, 10))}
-          className={`bg-transparent ${textColorClass} text-3xl font-bold w-4/6 text-center`}
+          className={` ${textClassName} bg-transparent text-3xl font-bold w-4/6 text-center`}
         />
         <span className="flex flex-col gap-2">
           <button onClick={(e) => handleIncrease(label.toLowerCase(), e)}>
@@ -55,7 +56,7 @@ const DateInput: React.FC<DateInputProps> = ({ label, color, value, min, max, on
         </span>
       </span>
       <p className={`text-primaryWhite font-normal text-sm md:text-base`}>{label}</p>
-      <div className={`${bgColorClass} absolute bottom-0 w-full h-1`} />
+      <div className={`${bgClassName} absolute bottom-0 w-full h-1`} />
     </div>
   );
 };

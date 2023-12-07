@@ -15,7 +15,7 @@ export default function EventsTab({name, selectedEventType, setSelectedEventType
         selectedEventType
           ? "text-primary"
           : "text-gray-200 hover:text-btnWarning "
-      } text-lg md:text-3xl uppercase transition-colors relative flex flex-col items-center justify-center`}
+      } text-lg md:text-3xl uppercase transition-colors relative flex flex-col items-center justify-center text-center`}
     >
       <span className="relative z-10">{name}</span>
       {selectedEventType && (
