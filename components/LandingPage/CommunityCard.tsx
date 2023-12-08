@@ -44,7 +44,7 @@ export const CommunityCard: React.FC<Props> = ({ organization = {} }) => {
                 </div>
                 <div className="flex flex-col items-stretch w-[18%] ml-5 max-md:w-full max-md:ml-0">
                     <img loading="lazy"
-                        srcSet={organization.image}
+                        src={`${organization.image}`}
                         className="aspect-square object-contain object-center w-[132px] justify-center items-center overflow-hidden shrink-0 max-w-full my-auto max-md:mt-10" />
                 </div>
             </div>

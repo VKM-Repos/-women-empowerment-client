@@ -11,7 +11,7 @@ import {
   UserResponse,
   VerifyTokenResponse,
 } from "../types/auth.types";
-import useStore from "../store/user.store";
+// import useStore from "../store/user.store";
 import { removeToken, storeToken } from "../config/authHelper";
 
 async function handleResponse<T>(response: AxiosResponse): Promise<T> {
@@ -38,7 +38,7 @@ export async function apiCreateUser(
     const user: UserResponse = await handleResponse<UserResponse>(response);
 
     if (user && user.data) {
-      useStore.getState().setUserId(user.data.userId);
+      // useStore.getState().setUserId(user.data.userId);
     }
     return user;
   } catch (error) {

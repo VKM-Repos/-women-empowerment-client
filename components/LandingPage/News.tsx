@@ -1,8 +1,8 @@
 import React from 'react'
-export type Props = Partial<{
+interface NewsProps {
     news: any[]
-}>
-export const News: React.FC<Props> = ({ news = [] }) => {
+}
+export const News: React.FC<NewsProps> = ({ news = [] }) => {
     return (
         <>
             <div
@@ -11,7 +11,7 @@ export const News: React.FC<Props> = ({ news = [] }) => {
             </div>
             {
                 news.map(item => (
-                    <div className="items-stretch self-stretch flex flex-col px-5 py-2.5">
+                    <div key={item.id} className="items-stretch self-stretch flex flex-col px-5 py-2.5">
                         <div className="flex justify-between gap-4 items-start">
                             <div className="text-emerald-950 text-xl underline grow shrink basis-auto">
                                 {item.heading}
