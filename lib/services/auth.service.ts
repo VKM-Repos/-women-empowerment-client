@@ -37,9 +37,9 @@ export async function apiCreateUser(
     const response = await publicApi.post("/auth/create-user", requestData);
     const user: UserResponse = await handleResponse<UserResponse>(response);
 
-    // if (user && user.data) {
-    //   useStore.getState().setUserId(user.data.userId);
-    // }
+    if (user && user.data) {
+      // useStore.getState().setUserId(user.data.userId);
+    }
     return user;
   } catch (error) {
     throw error;

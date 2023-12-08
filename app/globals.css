@@ -59,3 +59,13 @@ scrollbar-thumb {
 .link.from-right:after {
   transform-origin: right;
 }
+
+input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
