@@ -28,10 +28,10 @@ const LandingPage = () => {
             </div>
             <div className="flex gap-4 w-full">
               <p className="text-white-100 text-base font-light">Search for:</p>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Tech</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Gender Equity</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Sensitization</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Feminism</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Tech</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Gender Equity</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Sensitization</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Feminism</button>
             </div>
           </div>
           <div className="-mr-[55px] rounded-br-xl">

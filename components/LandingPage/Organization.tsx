@@ -19,7 +19,7 @@ export const Organization: React.FC<Props> = ({ organizations = [] }) => {
                         ))
                     }
                     <button
-                        className="text-orange-500 text-base justify-center items-stretch border self-center w-[249px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
+                        className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
                         SEE ALL ORGANIZATIONS
                     </button>
                 </div>
