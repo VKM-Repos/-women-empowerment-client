@@ -26,12 +26,12 @@ const LandingPage = () => {
               <input type="text" placeholder="search for organization" className="lg:w-[495px] rounded-tl-md rounded-bl-md px-5 py-3" />
               <button className="bg-btnWarning px-3 py-[10.5px] rounded-br-md rounded-tr-md"><img src={maginify.src} alt="" /></button>
             </div>
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-3 w-full">
               <p className="text-white-100 text-base font-light">Search for:</p>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Tech</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Gender Equity</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Sensitization</button>
-              <button className="bg-white-200 px-3 py-1 rounded-sm text-sm">Feminism</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Tech</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Gender Equity</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Sensitization</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Feminism</button>
             </div>
           </div>
           <div className="-mr-[55px] rounded-br-xl">

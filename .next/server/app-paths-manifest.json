@@ -1,1 +1,7 @@
-{}
+{
+  "/(main)/page": "app/(main)/page.js",
+  "/(main)/events/page": "app/(main)/events/page.js",
+  "/(main)/category/page": "app/(main)/category/page.js",
+  "/(main)/community/page": "app/(main)/community/page.js",
+  "/(main)/about/page": "app/(main)/about/page.js"
+}
