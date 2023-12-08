@@ -1,5 +1,5 @@
 import { CameraIcon } from '@/components/Common/Icons/Camera.icon';
-import { ChevronFilledIcon } from '@/components/Common/Icons/ChevronFilled.icon';
+import { ChevronFilledIcon } from '@/components/Common/Icons/chevronFilled.icon';
 import { LocationIcon } from '@/components/Common/Icons/Location.icon';
 import EventImage from '../../../../public/images/img_womanpowersitting.png';
 import NewsImage from '../../../../public/images/img_womanpowerfitness.png';
