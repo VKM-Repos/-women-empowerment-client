@@ -1,9 +1,9 @@
 import React from 'react'
 
-export type Props = Partial<{
+interface CommProps {
     organization: { name: String, description: String, image: String }
-}>
-export const CommunityCard: React.FC<Props> = ({ organization = {} }) => {
+}
+export const CommunityCard: React.FC<CommProps> = ({ organization = {} }) => {
     return (
         <div
             className="border bg-white self-stretch p-8 rounded-3xl border-solid border-black border-opacity-10 max-md:max-w-full max-md:px-5">
