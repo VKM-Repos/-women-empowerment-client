@@ -35,13 +35,6 @@ const Footer: React.FC<FooterProps> = (props) => {
               width={100}
               height={100}
               className="h-[3rem] object-contain"
-              src={logo.src}
-              alt="downloadremoveb_One"
-            />
-            <Image
-              width={100}
-              height={100}
-              className="h-[3rem] object-contain"
               src={vhdoLogo.src}
               alt="croppedvhdologo"
             />
@@ -60,7 +53,7 @@ const Footer: React.FC<FooterProps> = (props) => {
             <p className="text-sm md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
               {props?.descriptionTwo}
             </p>
-             <Button label="Get started" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => {}} />
+            <Button label="Get started" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} />
           </div>
         </div>
 

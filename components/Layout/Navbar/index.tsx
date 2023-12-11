@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import Logo from "@/public/icons/logo.svg";
+
+import vhdoLogo from "@/public/icons/vhdo-logo.svg";
+
 import userAccount from "@/public/icons/account-user.svg";
 import Link from "next/link";
 import { MenuContainer, MenuItem } from "./Menu";
@@ -27,7 +29,7 @@ const Navbar = () => {
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
         {/* Logo */}
         <Link href="/" className="w-1/3 flex items-center space-x-2">
-          <Image src={Logo.src} alt="" className="w-[4rem] aspect-auto" width={100} height={100} />
+          <Image src={vhdoLogo.src} alt="" className="w-[4rem] aspect-auto" width={100} height={100} />
         </Link>
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
@@ -37,7 +39,7 @@ const Navbar = () => {
             <MenuItem link="/category" subLinks={null} text="category" />
             <MenuItem link="/events" subLinks={null} text="events" />
             <MenuItem link="#" subLinks={submenuLinks.community} text="community" />
-        </MenuContainer>
+          </MenuContainer>
         </div>
 
         <div className="w-1/2 lg:w-1/3 place-content-end flex items-center gap-5">
