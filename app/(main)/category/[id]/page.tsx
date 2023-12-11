@@ -49,9 +49,9 @@ export default function Categrydetails() {
                     View more...
                 </button>
             </div>
-            <div className="text-green-800 text-3xl font-semibold whitespace-nowrap items-stretch justify-center mt-40 py-2.5 self-start max-md:mt-10">
-                Other Categories{" "}
-            </div>
+            <span className="w-full md:w-3/4 flex flex-col space-y-2 mt-[100px]">
+                <h3 className="text-lg md:text-3xl font-bold text-primary">Other Categories </h3>
+                <div className="w-[6rem] h-1 rounded bg-btnWarning" /></span>
             <div className="items-stretch mx-10 overflow-x-scroll mb-[300px] w-[1200px] self-stretch flex gap-5 mt-8 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
                 <div className="justify-center items-center bg-purple-100 flex basis-[0%] flex-col px-12 py-9 rounded-2xl max-md:px-5">
                     <img
