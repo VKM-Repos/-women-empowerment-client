@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 const LoadingCircle: React.FC = () => {
   return (
-    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-[2500]">
+    <div className="fixed inset-0 backdrop-blur-[2px] flex items-center justify-center z-[2500]">
       <motion.svg
-        className="rounded-full shadow-xl"
+        className="rounded-full shadow-md shadow-primary"
         width="50"
         height="50"
         viewBox="0 0 100 100"
@@ -21,7 +21,7 @@ const LoadingCircle: React.FC = () => {
           cx="50"
           cy="50"
           r="8"
-          fill="black"
+          fill="green"
           initial={{ y: 35 }}
           animate={{ y: 35, transition: { duration: 3, repeat: Infinity } }}
         />
