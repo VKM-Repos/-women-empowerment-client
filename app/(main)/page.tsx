@@ -8,12 +8,11 @@ import db from '@/data/db.json'
 import { Organization } from "@/components/LandingPage/Organization";
 import { Events } from "@/components/LandingPage/Events";
 import { News } from "@/components/LandingPage/News";
-import ellipse from "@/public/images/ellipse.svg"
 
 const LandingPage = () => {
   return (
     <TransitionElement>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start">
+      <section className=" w-[95.8%] mx-auto flex flex-col items-center justify-start">
         <div className="lg:-ml-[90%] z-10 lg:-mt-[5%]">
           <img src={doddles.src} alt="" className="lg:w-[208px] lg:max-w-w-[208px]" />
         </div>
@@ -24,7 +23,7 @@ const LandingPage = () => {
               Discover and learn about women organizations with only one click.
             </p>
             <div className="flex justify-center items-center">
-              <input type="text" placeholder="search for organization" className="lg:w-[495px] rounded-tl-md rounded-bl-md px-5 py-3 focus:outline-none" />
+              <input type="text" placeholder="search for organization" className="lg:w-[495px] rounded-tl-md rounded-bl-md px-5 py-3" />
               <button className="bg-btnWarning px-3 py-[10.5px] rounded-br-md rounded-tr-md"><img src={maginify.src} alt="" /></button>
             </div>
             <div className="flex gap-4 w-full">
@@ -63,7 +62,7 @@ const LandingPage = () => {
             <br /> a free space to share with people who can relate, a community
             for all who want and ask for help.
           </div>
-          <div className="self-stretch mt-11 max-md:max-w-full max-md:mt-10">
+          <div className="shadow-sm self-stretch mt-11 max-md:max-w-full max-md:mt-10">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
                 <div
@@ -147,7 +146,7 @@ const LandingPage = () => {
         </div>
 
         <div
-          className="justify-center items-center bg-[#F9F2FF] self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
+          className="justify-center items-center bg-secondaryOffWhite self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
           <div className="text-green-800 text-5xl font-semibold max-w-[379px] self-center mt-16 max-md:text-4xl max-md:mt-10">
             How this works
           </div>
@@ -227,8 +226,6 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          {/* <img src={`${ellipse.src}`} alt="Ellipse image" /> */}
-
         </div>
         <svg className="w-screen" width="1440" height="214" viewBox="0 0 1440 214" fill="none" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="720" cy="-416.5" rx="1623.5" ry="630.5" fill="#F9F2FF" />
