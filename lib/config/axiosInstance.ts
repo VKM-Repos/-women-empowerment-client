@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { getStoredToken } from './authHelper';
 
-const backendApiURL = process.env.NEXT_PUBLIC_API_URL;
+const backendApiURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/'
 
 export const authApi: AxiosInstance = axios.create({
   baseURL: backendApiURL,
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 
@@ -13,7 +13,7 @@ authApi.defaults.headers.common['Content-Type'] = 'application/json';
 
 
 authApi.interceptors.request.use(async (config) => {
-  const userToken = getStoredToken() 
+  const userToken = getStoredToken()
   if (userToken) {
     config.headers['Authorization'] = `Bearer ${userToken}`;
   }
