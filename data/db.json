@@ -1,219 +1,226 @@
 {
-    "categories": [
-        {
-            "id": 1,
-            "name": "Human Rights",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [
-                1,
-                2,
-                3
-            ],
-            "bg": "#E36B0C"
-        },
-        {
-            "id": 2,
-            "name": "Activism",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [
-                4,
-                5
-            ],
-            "bg": "#B3D0EC"
-        },
-        {
-            "id": 3,
-            "name": "Education",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F0FFC4"
-        },
-        {
-            "id": 4,
-            "name": "Health",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#A473B7"
-        },
-        {
-            "id": 5,
-            "name": "Sports",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F8AEE3"
-        },
-        {
-            "id": 6,
-            "name": "Women inTech",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F3DBCA"
-        },
-        {
-            "id": 7,
-            "name": "Girl Child",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#D2B0FF"
-        },
-        {
-            "id": 8,
-            "name": "Law & Politics",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#EAFBE6"
-        },
-        {
-            "id": 9,
-            "name": "Sexual Orientation",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F2E4FF"
-        },
-        {
-            "id": 10,
-            "name": "Science & Engineering",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#E36B0C"
-        },
-        {
-            "id": 11,
-            "name": "Art & LIfestyle",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#7278AE"
-        },
-        {
-            "id": 12,
-            "name": "Entrepreneurship",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#E36B0C"
-        },
-        {
-            "id": 13,
-            "name": "Business & Financeg",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F0EBD6"
-        },
-        {
-            "id": 14,
-            "name": "Grants",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#DFEBF7"
-        },
-        {
-            "id": 15,
-            "name": "Economic Empowerment",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#F2E4FF"
-        },
-        {
-            "id": 16,
-            "name": "Leadership & development",
-            "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "communities": [],
-            "bg": "#B5FFE1"
-        }
-    ],
-    "communities": [
-        {
-            "id": 1,
-            "name": "Women in Tech",
-            "description": "Women in Technology in Nigeria(WITIN) is a Leading Community of Women in Tech. A registered non-profit organization and association, dedicated to the advancement of women and girls.",
-            "website": "https://vhdo.com",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "id": 2,
-            "name": "National Council of Women Societies",
-            "description": "National Council of Women's Societies (NCWS) is a Nigerian non-governmental and non-partisan women's organization composed of a network of independent women organizations in Nigeria binding...",
-            "website": "https://vhdo.com",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "id": 3,
-            "name": "United Nations Women",
-            "description": "The United Nations Entity for Gender Equality and the Empowerment of Women, also known as UN Women, is a United Nations entity working for gender equality and the empowerment of women.",
-            "website": "https://vhdo.com",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "id": 4,
-            "name": " Girls Who Code",
-            "description": "Girls Who Code is an international nonprofit organization that aims to support and increase the number of women in computer science. The organization works toward closing the gender employment difference in computing.",
-            "website": "https://vhdo.com",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "id": 5,
-            "name": "Girls Who Code",
-            "description": "Girls Who Code is an international nonprofit organization that aims to support and increase the number of women in computer science. The organization works toward closing the gender employment difference in computing.",
-            "website": "https://vhdo.com",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&"
-        }
-    ],
-    "events": [
-        {
-            "title": "Internet and safety with girls in ICT",
-            "organization": 1,
-            "date": "23rd November 2022. 12:00 pm (online)",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "title": "Internet and safety with girls in ICT",
-            "organization": 2,
-            "date": "23rd November 2022. 12:00 pm (online)",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "title": "Internet and safety with girls in ICT",
-            "organization": 3,
-            "date": "23rd November 2022. 12:00 pm (online)",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&"
-        },
-        {
-            "title": "Internet and safety with girls in ICT",
-            "organization": 4,
-            "date": "23rd November 2022. 12:00 pm (online)",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&"
-        }
-    ],
-    "news": [
-        {
-            "id": 1,
-            "heading": "Important Safety Concerns For Women In Gyms",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "length": "5 mins read"
-        },
-        {
-            "id": 2,
-            "heading": " Push forward: 10 ways to end violence against women",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "length": "3 mins read"
-        },
-        {
-            "id": 3,
-            "heading": "Fun Fact: Women-Founded Startups Generate More Money Than Male-Founded Startups",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "length": "5 mins read"
-        },
-        {
-            "id": 4,
-            "heading": "Our Reproductive Rights Will Not Be Decided By A Single Vote",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&",
-            "length": "2 mins read"
-        }
-    ],
-    "discussions": [
-        {
-            "title": "Sensitization",
-            "description": "Women in power speaks louder that riots for our rights",
-            "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&"
-        }
-    ]
+  "categories": [
+    {
+      "id": 1,
+      "name": "Human Rights",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f50f22d4-5b91-4bd3-abce-ff495ed65ca3?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [
+        1,
+        2,
+        3
+      ],
+      "bg": "#E36B0C"
+    },
+    {
+      "id": 2,
+      "name": "Activism",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/a1bd5453-8f9e-417e-b72f-be184fca30eb?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [
+        4,
+        5
+      ],
+      "bg": "#B3D0EC"
+    },
+    {
+      "id": 3,
+      "name": "Education",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fadf5829-67db-43f3-8f18-358ed75962ab?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F0FFC4"
+    },
+    {
+      "id": 4,
+      "name": "Health",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b9198505-afca-4f10-a5bc-8cb08829bd1d?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#A473B7"
+    },
+    {
+      "id": 5,
+      "name": "Sports",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/8ec138f4-7422-48ca-85c8-c06d55de5d91?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F8AEE3"
+    },
+    {
+      "id": 6,
+      "name": "Women inTech",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/ae6f1c96-4fd2-4829-9c58-fac57971b0ca?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F3DBCA"
+    },
+    {
+      "id": 7,
+      "name": "Girl Child",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/83ceb0f1-5398-4e0f-abf3-c32a8c61c278?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#D2B0FF"
+    },
+    {
+      "id": 8,
+      "name": "Law & Politics",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/d31d2eb3-c5dc-421e-a2c1-26347c909dba?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#EAFBE6"
+    },
+    {
+      "id": 9,
+      "name": "Sexual Orientation",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/902f0a93-52f9-4941-8b0e-b2847dd2e88f?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F2E4FF"
+    },
+    {
+      "id": 10,
+      "name": "Science & Engineering",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/9f38769b-bcbb-40ab-a9f0-26642445ef32?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#E36B0C"
+    },
+    {
+      "id": 11,
+      "name": "Art & LIfestyle",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/56f6d2dc-0011-4110-81d1-7328ff2664d4?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#7278AE"
+    },
+    {
+      "id": 12,
+      "name": "Entrepreneurship",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/da52ab0c-59e8-4639-a0ea-1841b468b21f?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#E36B0C"
+    },
+    {
+      "id": 13,
+      "name": "Business & Financeg",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1f979501-ba17-46bf-ab23-659977216fae?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F0EBD6"
+    },
+    {
+      "id": 14,
+      "name": "Grants",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/a00ba8b3-c6af-4f9a-bfe6-a5cabc01c832?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#DFEBF7"
+    },
+    {
+      "id": 15,
+      "name": "Economic Empowerment",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e2bf3781-af56-47c3-abd9-a45fada723e7?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#F2E4FF"
+    },
+    {
+      "id": 16,
+      "name": "Leadership & development",
+      "icon": "https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/0e00d200-a387-4cdb-9403-30bf674a19df?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "communities": [],
+      "bg": "#B5FFE1"
+    }
+  ],
+  "communities": [
+    {
+      "id": 1,
+      "name": "Women in Tech",
+      "description": "Women in Technology in Nigeria(WITIN) is a Leading Community of Women in Tech. A registered non-profit organization and association, dedicated to the advancement of women and girls.",
+      "website": "https://vhdo.com",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/9fe7745d-156a-4294-acb9-0595384303ea?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "id": 2,
+      "name": "National Council of Women Societies",
+      "description": "National Council of Women's Societies (NCWS) is a Nigerian non-governmental and non-partisan women's organization composed of a network of independent women organizations in Nigeria binding...",
+      "website": "https://vhdo.com",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/affd4066-710e-4aa9-b074-50f7efd60217?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "id": 3,
+      "name": "United Nations Women",
+      "description": "The United Nations Entity for Gender Equality and the Empowerment of Women, also known as UN Women, is a United Nations entity working for gender equality and the empowerment of women.",
+      "website": "https://vhdo.com",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f7d1c2d9-8e1f-4e8c-8cc5-61213db78829?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "id": 4,
+      "name": " Girls Who Code",
+      "description": "Girls Who Code is an international nonprofit organization that aims to support and increase the number of women in computer science. The organization works toward closing the gender employment difference in computing.",
+      "website": "https://vhdo.com",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5d1c8c05-0e6f-478e-88c1-6c0970c00ffb?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "id": 5,
+      "name": "Girls Who Code",
+      "description": "Girls Who Code is an international nonprofit organization that aims to support and increase the number of women in computer science. The organization works toward closing the gender employment difference in computing.",
+      "website": "https://vhdo.com",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/973902e0-dec5-4b6c-9558-4dfc6a74ac0c?apiKey=12cdcbacd64a44978db653c66e993585&"
+    }
+  ],
+  "events": [
+    {
+      "title": "Internet and safety with girls in ICT",
+      "organization": 1,
+      "date": "23rd November 2022. 12:00 pm (online)",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "title": "Internet and safety with girls in ICT",
+      "organization": 2,
+      "date": "23rd November 2022. 12:00 pm (online)",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "title": "Internet and safety with girls in ICT",
+      "organization": 3,
+      "date": "23rd November 2022. 12:00 pm (online)",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&"
+    },
+    {
+      "title": "Internet and safety with girls in ICT",
+      "organization": 4,
+      "date": "23rd November 2022. 12:00 pm (online)",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&"
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "heading": "Important Safety Concerns For Women In Gyms",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4310333e-3d8b-4e56-9d4c-a0201915f472?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "length": "5 mins read"
+    },
+    {
+      "id": 2,
+      "heading": " Push forward: 10 ways to end violence against women",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/92ed1a2a-13b3-4708-b7a8-1b6db8202033?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "length": "3 mins read"
+    },
+    {
+      "id": 3,
+      "heading": "Fun Fact: Women-Founded Startups Generate More Money Than Male-Founded Startups",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/acfefcb2-7e50-4b3b-88e0-f7a2524ecfc3?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "length": "5 mins read"
+    },
+    {
+      "id": 4,
+      "heading": "Our Reproductive Rights Will Not Be Decided By A Single Vote",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b64c1d31-bad7-4bec-af0c-93c5943f5c3e?apiKey=12cdcbacd64a44978db653c66e993585&",
+      "length": "2 mins read"
+    }
+  ],
+  "discussions": [
+    {
+      "title": "Sensitization",
+      "description": "Women in power speaks louder that riots for our rights",
+      "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&"
+    }
+  ],
+  "users": [
+    {
+      "email": "salissadiq@gmail.com",
+      "password": "$2a$10$uUYpgDujXuqacSSP5CJWAuoPzrtGlr0Qw0GS/JOhLvxMH5AeGoymG",
+      "id": 1
+    }
+  ]
 }
