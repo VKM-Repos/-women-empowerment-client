@@ -227,6 +227,9 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+        <svg className="w-screen" width="1440" height="214" viewBox="0 0 1440 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="720" cy="-416.5" rx="1623.5" ry="630.5" fill="#F9F2FF" />
+        </svg>
       </section>
     </TransitionElement>
   );

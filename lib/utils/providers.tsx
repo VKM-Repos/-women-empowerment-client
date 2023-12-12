@@ -32,12 +32,12 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={client}>
-          <ModalProvider>
-            <SideMenuProvider>
-              <Toaster toastOptions={toastConfig} />
-              {children}
-            </SideMenuProvider>
-          </ModalProvider>
+      <ModalProvider>
+        <SideMenuProvider>
+          <Toaster toastOptions={toastConfig} />
+          {children}
+        </SideMenuProvider>
+      </ModalProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
