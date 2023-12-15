@@ -15,7 +15,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({
 }) => {
 
   return (
-    <article className="w-full grid grid-cols-8 items-center">
+    <article className="w-full grid grid-cols-8 items-center my-5">
       <Image
         src={
           event?.image || "../../../../public/images/group-of-girls.png"
@@ -32,7 +32,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({
         <p className="text-sm text-gray-300">{event.author}</p>
         <p className="text-xs text-info">{event.createdAt} ({event.status})</p>
       </div>
-      
+
     </article>
   );
 };
