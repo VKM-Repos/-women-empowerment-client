@@ -1,8 +1,4 @@
 import React from "react";
-
-import { Line } from "@/components/Line";
-
-import logo from "@/public/icons/logo.svg";
 import vhdoLogo from "@/public/icons/vhdo-logo.svg";
 import vkmLogo from "@/public/icons/vkm-logo.svg";
 import footerImg from "@/public/icons/footer-img.svg";
@@ -47,10 +43,10 @@ const Footer: React.FC<FooterProps> = (props) => {
             />
           </div>
           <div className="flex flex-col gap-5 items-center md:items-start justify-start w-full py-8">
-            <h3 className="md:text-4xl font-semibold text-2xl text-primary w-auto">
+            <h3 className="md:text-4xl font-semibold font-sora text-2xl text-primary w-auto">
               {props?.beapartofour}
             </h3>
-            <p className="text-sm md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
+            <p className="text-sm font-quickSand md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
               {props?.descriptionTwo}
             </p>
             <Button label="Get started" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} />
@@ -68,7 +64,7 @@ const Footer: React.FC<FooterProps> = (props) => {
               height={1}
             />
           </div>
-          <p className="text-base md:text-xl text-gray-100 w-auto text-center my-4">
+          <p className="text-base font-quickSand md:text-xl text-gray-100 w-auto text-center my-4">
             {props?.language}
           </p>
           <div className="flex  items-center justify-center w-auto my-4">
@@ -117,7 +113,7 @@ const Footer: React.FC<FooterProps> = (props) => {
         </div>
       </div>
       <div className="bg-gray-500 h-[0.3px] mt-[17px] w-full" />
-      <p className="text-center md:text-left text-xs md:text-sm py-4 px-2 md:px-8 font-light">
+      <p className="text-center md:text-left text-xs font-quickSand md:text-sm py-4 px-2 md:px-8 font-light">
         © Copyright 2024. Viable Helpers Development Organization
       </p>
     </div>

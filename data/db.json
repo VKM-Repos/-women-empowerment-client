@@ -159,27 +159,35 @@
   ],
   "events": [
     {
+      "id": "1",
       "title": "Internet and safety with girls in ICT",
-      "organization": 1,
-      "date": "23rd November 2022. 12:00 pm (online)",
+      "author": "Women in Tech",
+      "status": "Online",
+      "createdAt": "23rd November 2022. 12:00 pm (online)",
       "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/87f3426c-ae17-4152-a06f-fe242dcdd68d?apiKey=12cdcbacd64a44978db653c66e993585&"
     },
     {
+      "id": "2",
       "title": "Internet and safety with girls in ICT",
-      "organization": 2,
-      "date": "23rd November 2022. 12:00 pm (online)",
+      "author": "Women in Tech",
+      "status": "Online",
+      "createdAt": "23rd November 2022. 12:00 pm (online)",
       "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/49cd6d31-9202-4b30-9d4c-82fe3b723dbf?apiKey=12cdcbacd64a44978db653c66e993585&"
     },
     {
+      "id": "3",
       "title": "Internet and safety with girls in ICT",
-      "organization": 3,
-      "date": "23rd November 2022. 12:00 pm (online)",
+      "author": "Women in Tech",
+      "status": "Online",
+      "createdAt": "23rd November 2022. 12:00 pm (online)",
       "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6ecdebb-628d-496d-920d-e0d7c73dd692?apiKey=12cdcbacd64a44978db653c66e993585&"
     },
     {
+      "id": "4",
       "title": "Internet and safety with girls in ICT",
-      "organization": 4,
-      "date": "23rd November 2022. 12:00 pm (online)",
+      "author": "Women in Tech",
+      "status": "Online",
+      "createdAt": "23rd November 2022. 12:00 pm (online)",
       "image": "https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f0c03cb3-ec5f-40ed-905e-da5d21a53f4e?apiKey=12cdcbacd64a44978db653c66e993585&"
     }
   ],
@@ -221,6 +229,21 @@
       "email": "salissadiq@gmail.com",
       "password": "$2a$10$uUYpgDujXuqacSSP5CJWAuoPzrtGlr0Qw0GS/JOhLvxMH5AeGoymG",
       "id": 1
+    },
+    {
+      "email": "salis@gmail.com",
+      "password": "$2a$10$kNRgxYn6jQspQX4GbekbOONP3XYkJhkKNogkj1a9Q7JBTckpJHKFy",
+      "id": 2
+    },
+    {
+      "email": "salsccoes@gmail.com",
+      "password": "$2a$10$7lwlKPaIY8kVTSuZw/97C.c6/Lb5ycW1MeJyt5TkKWgYQjnRC2xF6",
+      "id": 3
+    },
+    {
+      "email": "salscodes@gmail.com",
+      "password": "$2a$10$36Ag66oqlDHIJHKeK0jsJ.ZPy6031WNVQa4KDA3zYlNp5LF6XIpb2",
+      "id": 4
     }
   ]
 }
