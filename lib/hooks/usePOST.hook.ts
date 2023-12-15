@@ -5,11 +5,10 @@ import { authApi, publicApi } from "@/lib/config/axiosInstance";
 interface queryOptions {
     url: string,
     withAuth: boolean,
-    storeCallback: () => void
 }
-export const usePOST = (url: string, withAuth = true, storeCallback = undefined) => {
+export const usePOST = (url: string, withAuth = true) => {
     const { mutate, isError, isPending, isSuccess, data, error } = useMutation({
-        mutationFn: async (values) => {
+        mutationFn: async (values: any) => {
             const axiosInstance = withAuth ? authApi : publicApi
             const response = await axiosInstance.post(url, values)
             return response?.data

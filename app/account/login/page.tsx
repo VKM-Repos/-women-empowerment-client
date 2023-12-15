@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingCircle from "@/components/Common/Loaders/LoadingCircle";
+import { useAppContext } from "@/lib/context/app-context";
 const Login: React.FC = () => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
@@ -14,7 +15,7 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   })
-
+  const { login, isAuthenticated, user } = useAppContext()
   const { mutate, isPending, isError } = usePOST('/login')
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
@@ -32,12 +33,11 @@ const Login: React.FC = () => {
     event.preventDefault()
     mutate(formData, {
       onSuccess: (data) => {
-        localStorage.setItem('user', data.user)
+        login(data.user)
         router.push('/')
       },
       onError: () => {
         console.log('On page Error');
-
       }
     })
 

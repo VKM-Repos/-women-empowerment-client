@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { ChevronFilledIcon } from "@/components/Common/Icons/chevronFilled.icon";
 
 type SubLink = {
-  icon?: string | null
+  icon?: React.ReactNode | null,
   text: string;
   href: string;
 };
@@ -63,8 +63,9 @@ const SubMenu: React.FC<SubMenuProps> = ({ subLinks }) => {
     <div className="absolute top-[calc(100%_+_1.5rem)] left-1/2 transform -translate-x-1/2 ">
       <div className="bg-primaryWhite backdrop-blur-sm rounded-lg overflow-hidden border border-gray-400 shadow-xl p-4 flex flex-col space-y-4">
         {subLinks.map((item) => (
-          <Link className="link" key={item.href} href={item.href}>
-            {item.icon} {item.text}
+          <Link className="" key={item.href} href={item.href}>
+            <span className="flex items-center gap-7">{item.icon} {item.text}</span>
+            <hr className="mt-2 text-slate-700" />
           </Link>
         ))}
       </div>

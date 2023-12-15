@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,12 +24,15 @@ body {
 
 .scrollable-section {
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 .scrollable-section::-webkit-scrollbar {
-  width: 0rem; /* You can adjust the width as needed */
+  width: 0rem;
+  /* You can adjust the width as needed */
 }
 
 ::-webkit-scrollbar,
@@ -42,15 +47,17 @@ scrollbar-thumb {
 }
 
 .link:after {
-  display:block;
+  display: block;
   content: '';
   width: inherit;
-  border-bottom: solid 3px #FF7400;  
-  transform: scaleX(0);  
+  border-bottom: solid 3px #FF7400;
+  transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
 
-.link:hover:after { transform: scaleX(1); }
+.link:hover:after {
+  transform: scaleX(1);
+}
 
 .link.from-left:after {
   transform-origin: left;
@@ -61,11 +68,11 @@ scrollbar-thumb {
 }
 
 input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-               -webkit-appearance: none;
-                margin: 0;
-        }
- 
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

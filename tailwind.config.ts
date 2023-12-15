@@ -89,6 +89,9 @@ const config: Config = {
       // },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
+        sora: ["Sora", "sans-serif"],
+        quickSand: ["Quicksand", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"]
       },
       fontSize: {
         "extra-small": "12px",
