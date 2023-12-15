@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, ToastPosition } from "react-hot-toast";
 import { SideMenuProvider } from "../context/sidemenu-context";
 import { ModalProvider } from "../context/modal-context";
+import { AppProvider } from "../context/app-context";
 
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -32,12 +33,14 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={client}>
-          <ModalProvider>
-            <SideMenuProvider>
-              <Toaster toastOptions={toastConfig} />
-              {children}
-            </SideMenuProvider>
-          </ModalProvider>
+      <AppProvider>
+        <ModalProvider>
+          <SideMenuProvider>
+            <Toaster toastOptions={toastConfig} />
+            {children}
+          </SideMenuProvider>
+        </ModalProvider>
+      </AppProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
