@@ -1,3 +1,4 @@
+
 import React from 'react'
 import organizationHeader from '@/public/images/organization_header.svg'
 

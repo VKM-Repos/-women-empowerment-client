@@ -7,10 +7,10 @@ import { TransitionElement } from "@/lib/utils/transition";
 import db from '@/data/db.json'
 import { Organization } from "@/components/LandingPage/Organization";
 import { Events } from "@/components/LandingPage/EventsCard";
-import { News } from "@/components/LandingPage/News";
 import ellipse from "@/public/images/ellipse.svg"
 import { CommunityCard } from "@/components/LandingPage/CommunityCard";
 import EventCard from "./(community)/discussions/components/EventCard";
+import NewsCard from "@/components/LandingPage/NewsCard";
 
 const LandingPage = () => {
   return (
@@ -91,17 +91,7 @@ const LandingPage = () => {
               <section className="flex flex-col gap-[0.5rem] py-8">
                 {
                   db.news.map(item => (
-                    <div key={item.id} className="items-stretch self-stretch flex flex-col px-5 py-2.5">
-                      <div className="flex justify-between gap-4 items-start">
-                        <div className="font-sora font-normal text-emerald-950 text-[20px] underline grow shrink basis-auto">
-                          {item.heading}
-                        </div>
-                        <img loading="lazy"
-                          srcSet={item.image}
-                          className="aspect-square object-contain object-center w-[65px] overflow-hidden self-stretch shrink-0 max-w-full" />
-                      </div>
-                      <div className="font-quickSand text-zinc-600 text-xs mt-3">{item.length}</div>
-                    </div>
+                    <NewsCard item={item} />
                   ))
                 }
                 <button
