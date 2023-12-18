@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 interface CommProps {
-    organization: { name: String, description: String, image: String }
+    organization: { id: number; name: String, description: String, image: String }
 }
 export const CommunityCard: React.FC<CommProps> = ({ organization = {} }) => {
     const [fav, setFav] = useState(false)
@@ -38,7 +38,7 @@ export const CommunityCard: React.FC<CommProps> = ({ organization = {} }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/b3b8b990-cbfb-404d-b4ac-400f46957ca8?apiKey=12cdcbacd64a44978db653c66e993585&"
                                     className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full" />
                             </div>
-                            <Link href={`/organization/${organization.name}`} className="items-stretch flex justify-between gap-1.5 px-px">
+                            <Link href={`/organization/${organization.id}`} className="items-stretch flex justify-between gap-1.5 px-px">
                                 <img loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2c0ac05a-4f93-460c-be92-4615a52fcea7?apiKey=12cdcbacd64a44978db653c66e993585&"
                                     className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full" />
