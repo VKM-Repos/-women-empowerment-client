@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import Logo from "@/public/icons/logo.svg";
 import userAccount from "@/public/icons/account-user.svg";
@@ -21,14 +21,18 @@ const Navbar = () => {
     ],
   };
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <header>
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
         {/* Logo */}
-        <Link href="/" className="w-1/3 flex items-center space-x-2">
+        <div className="w-1/3">
+        <Link href="/" className="w-fit flex items-center space-x-2">
           <Image src={Logo.src} alt="" className="w-[4rem] aspect-auto" width={100} height={100} />
         </Link>
+
+        </div>
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
 
@@ -46,8 +50,8 @@ const Navbar = () => {
               <Image width={0.5} height={0.5} src={userAccount.src} alt="" className="w-[1.5rem] aspect-square object-contain" />
               Log in
             </Link>
-            {/* <Button label="Sign up" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} /> */}
-            <Link href="/account/sign-up" className="bg-btnWarning px-3 py-2 rounded-sm text-white-100">Sign up</Link>
+            <Button label="Sign up" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => router.push('/account/sign-up')} />
+            {/* <Link href="" className="bg-btnWarning px-3 py-2 rounded-sm text-white-100">Sign up</Link> */}
           </div>
           <button draggable={false} className="w-[3rem] lg:hidden flex">
             <svg
