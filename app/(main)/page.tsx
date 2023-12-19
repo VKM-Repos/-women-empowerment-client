@@ -6,58 +6,112 @@ import womenInPower from '@/public/images/img_womeninpower1.svg'
 import { TransitionElement } from "@/lib/utils/transition";
 import db from '@/data/db.json'
 import { Organization } from "@/components/LandingPage/Organization";
-import { Events } from "@/components/LandingPage/Events";
-import { News } from "@/components/LandingPage/News";
+import { Events } from "@/components/LandingPage/EventsCard";
+import ellipse from "@/public/images/ellipse.svg"
+import { CommunityCard } from "@/components/LandingPage/CommunityCard";
+import EventCard from "./(community)/discussions/components/EventCard";
+import NewsCard from "@/components/LandingPage/NewsCard";
 
 const LandingPage = () => {
   return (
     <TransitionElement>
-      <section className=" w-[95.8%] mx-auto flex flex-col items-center justify-start">
-        <div className="lg:-ml-[90%] z-10 lg:-mt-[5%]">
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start">
+        <div className="lg:-ml-[90%] z-10 lg:-mt-[3%]">
           <img src={doddles.src} alt="" className="lg:w-[208px] lg:max-w-w-[208px]" />
         </div>
         <div className="bg-primary w-[95.2%] -mt-[170px] rounded-xl flex justify-between items-center ">
           <div className="flex flex-col gap-4 pl-[160px]">
-            <h1 className="text-4xl font-bold text-white-100">Together we are <i className="text-secondary">Able</i></h1>
-            <p className="text-white-100 font-light text-base">
+            <h1 className="text-4xl font-bold text-white-100 font-sora">Together we are <i className="text-secondary">Able</i></h1>
+            <p className="text-white-100 font-light text-base font-Quicksand">
               Discover and learn about women organizations with only one click.
             </p>
             <div className="flex justify-center items-center">
               <input type="text" placeholder="search for organization" className="lg:w-[495px] rounded-tl-md rounded-bl-md px-5 py-3" />
               <button className="bg-btnWarning px-3 py-[10.5px] rounded-br-md rounded-tr-md"><img src={maginify.src} alt="" /></button>
             </div>
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full font-quickSand">
               <p className="text-white-100 text-base font-light">Search for:</p>
-              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Tech</button>
-              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Gender Equity</button>
-              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Sensitization</button>
-              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm">Feminism</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm hover:bg-btnWarning hover:text-white-100">Tech</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm hover:bg-btnWarning hover:text-white-100">Gender Equity</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm hover:bg-btnWarning hover:text-white-100">Sensitization</button>
+              <button className="bg-white-200 px-2 py-1 rounded-sm text-sm hover:bg-btnWarning hover:text-white-100">Feminism</button>
             </div>
           </div>
           <div className="-mr-[55px] rounded-br-xl">
             <img src={womenInPower.src} className="w-[650px] rounded-br-xl" alt="" />
           </div>
         </div>
-        <div className="self-center w-full max-w-[1292px] mt-20 max-md:max-w-full max-md:mt-10">
-          <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-            <Organization organizations={db.communities} />
-            <div className="flex flex-col items-stretch w-[32%] ml-5 max-md:w-full max-md:ml-0">
-              <div className="items-start flex flex-col max-md:mt-5">
-                <Events organizations={[]} events={db.events} />
-                <News news={db.news} />
-              </div>
+
+        <div className="py-[2rem] w-full p-4 mx-auto flex gap-2 relative">
+          <div className="w-4/6 flex flex-col py-4">
+            <div
+              className="text-orange-500 text-3xl font-sora font-bold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+              TOP ORGANIZATIONS
             </div>
+            {/* Organization feeds */}
+            <section className=" flex flex-col gap-10 px-5">
+              {db.communities.length === 0 ? (
+                <p className="no-result">No Organization found</p>
+              ) : (
+                <>
+                  {db.communities.map((item: any) => (
+                    <CommunityCard organization={item} key={item} />
+                  ))}
+
+                </>
+              )}
+              <button
+                className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
+                SEE ALL ORGANIZATIONS
+              </button>
+            </section>
           </div>
+
+          <div className="w-2/6 flex flex-col space-y-10  border-none py-[5rem] sticky top-0 h-screen overflow-y-scroll scrollable-section ">
+            <aside className="w-full p-6 rounded-[1.5rem]">
+              <div className="text-orange-500 text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+                EVENTS
+              </div>
+
+              <section className="flex flex-col gap-[2.5rem]  py-12">
+                {db.events.map(event => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+                <button
+                  className="text-orange-500 text-base justify-center items-stretch border self-center w-[207px] max-w-full mt-6 p-5 rounded-lg border-solid border-orange-500">
+                  SEE MORE EVENTS
+                </button>
+              </section>
+            </aside>
+            <aside className="w-full p-6 rounded-[1.5rem]">
+              <div
+                className="text-orange-500 text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+                NEWS CENTER
+              </div>
+              <section className="flex flex-col gap-[0.5rem] py-8">
+                {
+                  db.news.map(item => (
+                    <NewsCard item={item} />
+                  ))
+                }
+                <button
+                  className="text-orange-500 text-base justify-center items-stretch border shadow-sm self-center  max-w-full mt-10 p-5 rounded-lg border-solid border-orange-500 max-md:mt-10">
+                  MORE FROM NEWS CENTER
+                </button>
+              </section>
+            </aside>
+          </div>
+
         </div>
 
         <div
           className="bg-[#F0EBD6] self-stretch z-[1] flex w-full flex-col mt-20 pt-12 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
           <div
-            className="text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
+            className="font-sora text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
             Community Discussions
           </div>
           <div
-            className="text-black text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
+            className="text-black font-quickSand text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
             A platform that seeks to help Women thrive in their own environment ,
             <br /> a free space to share with people who can relate, a community
             for all who want and ask for help.
@@ -72,10 +126,10 @@ const LandingPage = () => {
                       srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&"
                       className="aspect-square object-contain object-center w-full overflow-hidden max-md:mr-0.5" />
                   </div>
-                  <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
                     Sensitization
                   </div>
-                  <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5 mb-4">
+                  <div className="text-zinc-600 font-quickSand font-[400px] text-sm leading-7 tracking-tight mt-2.5 mb-4">
                     Women in power speaks louder that riots for our rights
                   </div>
                 </div>
@@ -88,10 +142,10 @@ const LandingPage = () => {
                       srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&"
                       className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5" />
                   </div>
-                  <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
                     Health
                   </div>
-                  <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  <div className="text-zinc-600 font-quickSand font-[400px] text-sm leading-7 tracking-tight mt-2.5">
                     Tips women will surely need to maintain the upper hand in
                     discussions.
                   </div>
@@ -105,10 +159,10 @@ const LandingPage = () => {
                       srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&"
                       className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5" />
                   </div>
-                  <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
                     Girl Power
                   </div>
-                  <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  <div className="text-zinc-600 font-quickSand font-[400px] text-sm leading-7 tracking-tight mt-2.5">
                     Creating a safe environment for ladies to share their pain and
                     not feel condemned
                   </div>
@@ -122,10 +176,10 @@ const LandingPage = () => {
                       srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&"
                       className="aspect-[1.01] object-contain object-center w-full overflow-hidden max-md:mr-0.5" />
                   </div>
-                  <div className="text-green-800 text-2xl font-semibold leading-5 mt-5">
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
                     Growth
                   </div>
-                  <div className="text-zinc-600 text-sm leading-7 tracking-tight mt-2.5">
+                  <div className="text-zinc-600 font-quickSand font-[400px] text-sm leading-7 tracking-tight mt-2.5">
                     Empowering women is all about helping women grow in their
                     field and become better humans
                   </div>
@@ -134,7 +188,7 @@ const LandingPage = () => {
             </div>
           </div>
           <button
-            className="text-white-100 text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
+            className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
           <svg className="-mb-[45px]" width="88" height="85" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,12 +200,12 @@ const LandingPage = () => {
         </div>
 
         <div
-          className="justify-center items-center bg-secondaryOffWhite self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
-          <div className="text-green-800 text-5xl font-semibold max-w-[379px] self-center mt-16 max-md:text-4xl max-md:mt-10">
+          className="justify-center items-center bg-[#F9F2FF] self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
+          <div className="text-green-800 font-sora text-5xl font-semibold max-w-[379px] self-center mt-16 max-md:text-4xl max-md:mt-10">
             How this works
           </div>
           <div
-            className="text-black text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
+            className="text-black font-quickSand text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
             This platform serves as a comprehensive resource, bringing together
             all the organizations dedicated to supporting women in Nigeria.
           </div>
@@ -163,10 +217,10 @@ const LandingPage = () => {
                   <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[54%] max-md:w-full max-md:ml-0">
                       <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                        <div className="text-neutral-950 text-2xl font-semibold">
+                        <div className="text-neutral-950 font-sora text-2xl font-semibold">
                           Add organization
                         </div>
-                        <div className="text-black text-opacity-90 text-sm mt-4">
+                        <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
                           You have an organization towards empowering women? join
                           the platform
                         </div>
@@ -186,10 +240,10 @@ const LandingPage = () => {
                   <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[53%] max-md:w-full max-md:ml-0">
                       <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                        <div className="text-neutral-950 text-2xl font-semibold">
+                        <div className="text-neutral-950 font-sora text-2xl font-semibold">
                           Share
                         </div>
-                        <div className="text-black text-opacity-90 text-sm mt-4">
+                        <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
                           Help others become aware of evnets discussions and women
                           organiation .. share
                         </div>
@@ -210,10 +264,10 @@ const LandingPage = () => {
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="flex flex-col items-stretch w-[54%] max-md:w-full max-md:ml-0">
                 <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                  <div className="text-neutral-950 text-2xl font-semibold">
+                  <div className="text-neutral-950 font-sora text-2xl font-semibold">
                     Engage
                   </div>
-                  <div className="text-black text-opacity-90 text-sm mt-4">
+                  <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
                     Discuss your opinions, attend events all on this platforms
                     community
                   </div>
@@ -227,6 +281,9 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+        <svg className="w-screen" width="1440" height="214" viewBox="0 0 1440 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="720" cy="-416.5" rx="1623.5" ry="630.5" fill="#F9F2FF" />
+        </svg>
       </section>
     </TransitionElement>
   );
