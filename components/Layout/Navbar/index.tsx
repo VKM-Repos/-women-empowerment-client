@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import Logo from "@/public/logo.svg"
@@ -56,7 +56,6 @@ const Navbar = () => {
           <Image src={Logo.src} alt="" className="w-[5rem] aspect-auto" width={100} height={100} />
         </Link>
 
-        </div>
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
 
