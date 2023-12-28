@@ -4,8 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-
-import vhdoLogo from "@/public/icons/vhdo-logo.svg";
+import Logo from "@/public/logo.svg"
 import womenAvatar from '@/public/images/womenAvatar.svg'
 import building from '@/public/images/building.svg'
 import userAccount from "@/public/icons/account-user.svg";
@@ -54,7 +53,7 @@ const Navbar = () => {
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
         {/* Logo */}
         <Link href="/" className="w-1/3 flex items-center space-x-2">
-          <Image src={vhdoLogo.src} alt="" className="w-[4rem] aspect-auto" width={100} height={100} />
+          <Image src={Logo.src} alt="" className="w-[5rem] aspect-auto" width={100} height={100} />
         </Link>
 
         </div>
