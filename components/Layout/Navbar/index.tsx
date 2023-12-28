@@ -46,6 +46,7 @@ const Navbar = () => {
     ]
   };
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <header>
@@ -54,6 +55,8 @@ const Navbar = () => {
         <Link href="/" className="w-1/3 flex items-center space-x-2">
           <Image src={Logo.src} alt="" className="w-[5rem] aspect-auto" width={100} height={100} />
         </Link>
+
+        </div>
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
 

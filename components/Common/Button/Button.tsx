@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
         classes = "bg-btnWarning text-primaryWhite rounded-[0.5rem] font-light";
         break;
       case "secondary":
-        classes = "bg-primaryGreen text-secondaryOffWhite rounded-[0.5rem]";
+        classes = "bg-primary text-secondaryOffWhite rounded-[0.5rem]";
         break;
       case "outline":
         classes = "border-btnWarning border-2 text-primaryBlack rounded-[0.5rem]";
