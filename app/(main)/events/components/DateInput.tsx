@@ -44,7 +44,7 @@ const DateInput: React.FC<DateInputProps> = ({ label, bgClassName, textClassName
           max={max.toString()}
           value={value}
           onChange={(e) => onChange(label.toLowerCase(), parseInt(e.target.value, 10))}
-          className={` ${textClassName} bg-transparent text-3xl font-bold w-4/6 text-center`}
+          className={` ${textClassName} bg-transparent text-base md:text-2xl font-bold w-4/6 text-center`}
         />
         <span className="flex flex-col gap-2">
           <button onClick={(e) => handleIncrease(label.toLowerCase(), e)}>
@@ -55,7 +55,7 @@ const DateInput: React.FC<DateInputProps> = ({ label, bgClassName, textClassName
           </button>
         </span>
       </span>
-      <p className={`text-primaryWhite font-normal text-sm md:text-base`}>{label}</p>
+      <p className={`text-primaryWhite font-normal text-base md:text-lg`}>{label}</p>
       <div className={`${bgClassName} absolute bottom-0 w-full h-1`} />
     </div>
   );

@@ -13,7 +13,7 @@ const NewsCard: React.FC<{ news: NewsProps }> = ({
 }) => {
 
   return (
-    <article className="w-full grid grid-cols-8 items-center p-4">
+    <article className="w-full grid grid-cols-8 items-center my-2 cursor-pointer hover:bg-primary/10 p-2 rounded-lg">
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">
         <h4 className="text-sm font-semibold underline">{news?.title}</h4>
         <p className="text-base text-gray-300">{news.readTime}</p>
