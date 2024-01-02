@@ -5,41 +5,21 @@ import Image from "next/image";
 import Rubik from "@/public/images/rubik.png";
 import DateInput from "./components/DateInput";
 import EventsTab from "./components/EventsTab";
-import EventCard, { allEvents, onlineEvents, physicalEvents } from "./components/EventCard";
+import EventCard from "./components/EventCard";
 
+import db from '@/data/db.json'
 
 interface EventTab {
   name: string;
-  component: React.ReactNode;
 }
 
- const PhysicalEvents = () => {
-  return (
-    <TransitionFromBottom>
-      {physicalEvents.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
-    </TransitionFromBottom>
-  )
-}
- const OnlineEvents = () => {
-  return (
-    <TransitionFromBottom>
-      {onlineEvents.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
-    </TransitionFromBottom>
-  )
-}
 
 const tabs: EventTab[] = [
   {
     name: 'Online',
-    component: <OnlineEvents />
   },
   {
     name: 'Physical',
-    component: <PhysicalEvents />
   },
 ];
 
@@ -52,14 +32,21 @@ const EventsPage = () => {
   })
 
 
-  const fetchEvents = async ({ day, month, year }: { day: number; month: number; year: number }) => {
-    // Fake API call to mimic response
-    const response = await new Promise<{ data: any[] }>((resolve) =>
-      setTimeout(() => resolve({ data: [] }), 1000)
-    );
+   const filteredEvents = db.events.filter(
+    (event) =>
+      (selectedEventType.name === 'Online' && event.status.toLowerCase() === 'online') ||
+      (selectedEventType.name === 'Physical' && event.status.toLowerCase() === 'physical')
+  );
 
-    return response.data;
-  };
+
+  // const fetchEvents = async ({ day, month, year }: { day: number; month: number; year: number }) => {
+  //   // Fake API call to mimic response
+  //   const response = await new Promise<{ data: any[] }>((resolve) =>
+  //     setTimeout(() => resolve({ data: [] }), 1000)
+  //   );
+
+  //   return response.data;
+  // };
 
  const increment = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
   event.preventDefault();
@@ -83,9 +70,9 @@ const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) =>
 
   return (
     <TransitionParent>
-      <section className="w-[95vw] mx-auto flex flex-col items-start justify-start space-y-[5rem] py-[0.5rem] pb-[4rem] min-h-screen ">
-        <div className="w-full bg-primary h-[50vh] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
-         <div className="w-full md:w-1/3 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
+      <section className="w-[95vw] mx-auto flex flex-col items-start justify-start space-y-[3rem] py-[0.5rem] pb-[4rem] min-h-screen ">
+        <div className="w-full bg-primary md:h-[25rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
+         <div className="w-full lg:w-1/3 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
           <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite text-center md:text-left">The Best Women Illuminating Conferences</h1>
           <form  className="w-full">
             <fieldset>
@@ -128,11 +115,11 @@ const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) =>
             </fieldset>
           </form>
          </div>
-         <Image src={Rubik} alt="rubik" className="absolute bottom-0 right-10 w-4/5 md:w-1/4 opacity-20 md:opacity-100 aspect-square object-cover" />
+         <Image src={Rubik} alt="rubik" className="absolute bottom-0 right-10 w-4/5 md:w-2/4 lg:w-1/4  opacity-20 lg:opacity-100 aspect-square object-cover" />
         </div>
 
         <div className="w-fit flex  gap-10 relative px-4">
-          <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-200 rounded-full" />
+          {/* <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-200 rounded-full z-10" /> */}
           {tabs.map((tab) => (
             <EventsTab
               key={tab.name}
@@ -143,7 +130,9 @@ const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) =>
           ))}
         </div>
         <div className="min-h-screen w-full px-4">
-            {selectedEventType.component}    
+            {filteredEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}  
         </div>
       </section>
     </TransitionParent>

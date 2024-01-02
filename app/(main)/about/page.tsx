@@ -17,9 +17,9 @@ const AboutPage = () => {
   return (
     <TransitionParent>
       <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[3rem] min-h-screen ">
-        <div className="w-full bg-primary h-[40vh] rounded-[2rem] flex items-start pt-[3rem] justify-center relative overflow-hidden">
+        <div className="w-full bg-primary h-[20rem] rounded-[2rem] flex items-start pt-[3rem] justify-center relative overflow-hidden">
           <span className=" max-w-2xl flex flex-col items-center justify-start space-y-4 text-center relative z-10">
-            <h1 className="text-3xl md:text-5xl font-bold text-primaryWhite">About Women-ally</h1>
+            <h1 className="text-3xl md:text-5xl font-bold text-primaryWhite">About Women Hub</h1>
             <p className="text-base font-light w-2/3 mx-auto text-primaryWhite">A site to find all Nigeria based women organizations, creating awareness for general public</p>
           </span>
           <Image src={GroupFaces} alt="group Of Women" className="absolute bottom-0 left-0 w-4/5 md:w-1/3 aspect-auto" />

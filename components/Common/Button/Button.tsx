@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
         classes = "bg-primary text-secondaryOffWhite rounded-[0.5rem]";
         break;
       case "outline":
-        classes = "border-btnWarning border-2 text-primaryBlack rounded-[0.5rem]";
+        classes = "border-btnWarning border-2 text-btnWarning rounded-[0.5rem]";
         break;
       case "icon-only":
         classes = "bg-btnWarning text-primaryBlack rounded-full";
