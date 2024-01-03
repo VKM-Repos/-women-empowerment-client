@@ -21,8 +21,8 @@ const LandingPage = () => {
         </div>
         <div className="bg-primary w-[95.2%] -mt-[170px] rounded-xl flex justify-between items-center ">
           <div className="flex flex-col gap-4 pl-[160px]">
-            <h1 className="text-4xl font-sora font-bold text-white-100 ">Together we are <i className="text-secondary">Able</i></h1>
-            <p className="text-white-100 font-quickSand font-light text-base">
+            <h1 className="text-4xl font-bold text-white-100 font-sora">Together we are <i className="text-secondary">Able</i></h1>
+            <p className="text-white-100 font-light text-base font-Quicksand">
               Discover and learn about women organizations with only one click.
             </p>
             <div className="flex justify-center items-center">

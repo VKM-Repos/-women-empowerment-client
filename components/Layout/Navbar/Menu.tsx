@@ -59,15 +59,21 @@ export const MenuItem: React.FC<MenuItemProps> = ({ link, subLinks, text, icon, 
 };
 
 const SubMenu: React.FC<SubMenuProps> = ({ subLinks }) => {
+  const pathname = usePathname();
+
   return (
     <div className="absolute top-[calc(100%_+_1.5rem)] left-1/2 transform -translate-x-1/2 ">
       <div className="bg-primaryWhite backdrop-blur-sm rounded-lg overflow-hidden border border-gray-400 shadow-xl p-4 flex flex-col space-y-4">
-        {subLinks.map((item) => (
-          <Link className="" key={item.href} href={item.href}>
-            <span className="flex items-center gap-7">{item.icon} {item.text}</span>
-            <hr className="mt-2 text-slate-700" />
-          </Link>
-        ))}
+        {subLinks.map((item) => {
+          const isLinkActive = pathname.startsWith(item.text);
+          return (
+            <Link className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`} key={item.href} href={item.href}>
+              <span className="flex items-center gap-7 link">{item.icon} {item.text}</span>
+              {/* <hr className="mt-2 text-slate-700" /> */}
+            </Link>
+          )
+        }
+        )}
       </div>
     </div>
   );

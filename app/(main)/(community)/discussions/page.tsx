@@ -69,9 +69,8 @@ const DiscussionsPage = () => {
 
             <div className="w-2/6 flex flex-col space-y-8 border-none py-[5rem] sticky top-0 -mt-[5rem] h-screen overflow-y-scroll scrollable-section ">
               <aside className="w-full p-6 rounded-[1.5rem]">
-                <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">Events</h3>
-
-                <section className="flex flex-col gap-[2.5rem] border-t border-gray-400 py-12">
+                <h3 className="text-2xl font-semibold text-primary pb-1 uppercase">Events</h3>
+                <section className="flex flex-col gap-[0.5rem] border-t border-gray-400 py-4">
                   {eventData.length === 0 ? null : (
                     <>
                       {eventData.map((items: any) => (
@@ -84,7 +83,7 @@ const DiscussionsPage = () => {
               </aside>
               <aside className="w-full  p-6 rounded-[1.5rem]">
                 <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">News Center</h3>
-                <section className="flex flex-col gap-[0.5rem] border-t border-gray-400 py-8">
+                <section className="flex flex-col gap-[0.5rem] border-t border-gray-400 py-4">
                   {newsData.length === 0 ? null : (
                     <>
                       {newsData.map((items: any) => (
