@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
 import Image from "next/image";
 import Rubik from "@/public/images/rubik.png";
@@ -8,6 +8,7 @@ import EventsTab from "./components/EventsTab";
 import EventCard from "./components/EventCard";
 
 import db from '@/data/db.json'
+import EventCardLoader from "./components/EventCardLoader";
 
 interface EventTab {
   name: string;
@@ -23,55 +24,64 @@ const tabs: EventTab[] = [
   },
 ];
 
+
 const EventsPage = () => {
   const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
-  const [ date, setDate] = useState({
+  const [date, setDate] = useState({
     day: new Date().getDay(),
     month: new Date().getMonth() + 1,
     year: new Date().getFullYear()
-  })
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [events, setEvents] = useState<any>([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      // Simulating API call with a timeout
+      const response = await new Promise<{ data: any[] }>((resolve) =>
+        setTimeout(() => resolve({ data: db.events }), 2000)
+      );
 
-   const filteredEvents = db.events.filter(
-    (event) =>
-      (selectedEventType.name === 'Online' && event.status.toLowerCase() === 'online') ||
-      (selectedEventType.name === 'Physical' && event.status.toLowerCase() === 'physical')
-  );
+      setEvents(response.data);
+      setIsLoading(false);
+    };
 
+    fetchData();
+  }, [selectedEventType]);
 
-  // const fetchEvents = async ({ day, month, year }: { day: number; month: number; year: number }) => {
-  //   // Fake API call to mimic response
-  //   const response = await new Promise<{ data: any[] }>((resolve) =>
-  //     setTimeout(() => resolve({ data: [] }), 1000)
-  //   );
+  useEffect(() => {
+    setFilteredEvents(
+      events.filter(
+        (event: any) =>
+          (selectedEventType.name === 'Online' && event.status.toLowerCase() === 'online') ||
+          (selectedEventType.name === 'Physical' && event.status.toLowerCase() === 'physical')
+      )
+    );
+  }, [selectedEventType, date, events]);
 
-  //   return response.data;
-  // };
+  const increment = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setDate((prevDate: any) => ({
+      ...prevDate,
+      [field]: prevDate[field] + 1,
+    }));
+  };
 
- const increment = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
-  event.preventDefault();
-  setDate((prevDate: any) => ({
-    ...prevDate,
-    [field]: prevDate[field] + 1,
-  }));
-};
-
-const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
-  event.preventDefault();
-  setDate((prevDate: any) => ({
-    ...prevDate,
-    [field]: prevDate[field] - 1,
-  }));
-};
-
-
-
+  const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setDate((prevDate: any) => ({
+      ...prevDate,
+      [field]: prevDate[field] - 1,
+    }));
+  };
   
 
   return (
     <TransitionParent>
       <section className="w-[95vw] mx-auto flex flex-col items-start justify-start space-y-[3rem] py-[0.5rem] pb-[4rem] min-h-screen ">
-        <div className="w-full bg-primary md:h-[25rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
+        <div className=" w-full bg-primary md:h-[30rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
          <div className="w-full lg:w-1/3 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
           <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite text-center md:text-left">The Best Women Illuminating Conferences</h1>
           <form  className="w-full">
@@ -119,7 +129,7 @@ const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) =>
         </div>
 
         <div className="w-fit flex  gap-10 relative px-4">
-          {/* <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-200 rounded-full z-10" /> */}
+          <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
           {tabs.map((tab) => (
             <EventsTab
               key={tab.name}
@@ -129,9 +139,11 @@ const decrement = (field: string, event: React.MouseEvent<HTMLButtonElement>) =>
             />
           ))}
         </div>
-        <div className="min-h-screen w-full px-4">
-            {filteredEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
+        <div className="min-h-screen w-full px-1">
+            {filteredEvents && isLoading ? [1, 2, 3, 4].map((event: any) => (
+              <EventCardLoader key={event?.id} event={event} />
+            )) : filteredEvents.map((event: any) => (
+              <EventCard key={event?.id} event={event} />
             ))}  
         </div>
       </section>

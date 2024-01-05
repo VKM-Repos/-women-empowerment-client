@@ -4,8 +4,9 @@ import Image from "next/image";
 interface NewsProps {
   id: string;
   image?: string;
-  title: string;
-  readTime: string;
+  heading: string;
+  length: string;
+
 }
 
 const NewsCard: React.FC<{ news: NewsProps }> = ({
@@ -13,10 +14,10 @@ const NewsCard: React.FC<{ news: NewsProps }> = ({
 }) => {
 
   return (
-    <article className="w-full grid grid-cols-8 items-center my-2 cursor-pointer hover:bg-primary/10 p-2 rounded-lg">
+    <article className="w-full h-[4rem] md:h-[7rem] grid grid-cols-8 items-center cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2">
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">
-        <h4 className="text-sm font-semibold underline">{news?.title}</h4>
-        <p className="text-base text-gray-300">{news.readTime}</p>
+        <h4 className="text-sm font-semibold underline">{news?.heading}</h4>
+        <p className="text-sm text-gray-300">{news.length}</p>
       </div>
             <Image
                 src={
@@ -26,7 +27,7 @@ const NewsCard: React.FC<{ news: NewsProps }> = ({
                 width={100}
                 height={100}
                 // layout="responsive"
-                className="col-span-2 w-full md:w-1/2 mx-auto aspect-square rounded-xl object-cover"
+                className="col-span-2 w-full md:w-2/3 place-self-center justify-self-end aspect-square rounded-xl object-cover"
             />
       
     </article>

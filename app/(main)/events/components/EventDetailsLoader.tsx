@@ -1,49 +1,31 @@
-'use client'
-import LoadingCircle from "@/components/Common/Loaders/LoadingCircle";
-import { useModal } from "@/lib/context/modal-context";
-import Modal from "@/components/Common/Modal/Modal";
-import { AnimatePresence } from "framer-motion";
-// import { allEvents } from "../../../components/EventCard";
-import Image from "next/image";
-import Icon from "@/components/Common/Icons/Icon";
-import Link from "next/link";
-// import { eventData } from "../../(community)/discussions/sampledata";
-import db from '@/data/db.json'
 
+import React from 'react'
 
+type Props = {
+    events: any
+}
 
-export default function EventsDetailsPage({ params }: { params: { id: string } }) {
-  const { hideModal } = useModal()
-  const events = db.events.find((event) => event.id === params.id);
-
-  if (!events) {
-    return <LoadingCircle />;
-  }
-
-  console.log(events);
-
-
+export default function EventDetailsLoader({events}: Props) {
   return (
-    <Modal onClose={hideModal} isOpen={true}>
-      <AnimatePresence initial={false} mode="wait">
-        <div className="w-2/3 mx-auto bg-[#F6F7F8] flex flex-col gap-10 items-center h-full p-6 rounded-[1rem] relative">
-          <button onClick={hideModal} className="absolute top-5 right-5">
+     <div className="w-2/3 mx-auto bg-[#F6F7F8] flex flex-col gap-10 items-center h-full p-6 rounded-[1rem] relative">
+          <button onClick={()=>{}} className="absolute top-5 right-5">
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713" stroke="black" strokeWidth="1.58394" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
           </button>
-          <div className="grid grid-cols-2 gap-10">
+          <div className="w-full h-full grid grid-cols-2 gap-10">
             <div className="col-span-1 flex flex-col items-start justify-center gap-5 p-8">
-              <Image src={events.image} alt='' width={100} height={100} layout="responsive" className="" />
-              <h3 className="uppercase text-base font-bold text-primary">{events.title}</h3>
+              <div className="w-full h-[22rem] bg-gray-500 animate-pulse" />
+              <span className="w-full h-4 bg-gray-400 rounded animate-pulse"></span>
+              <span className="w-1/4 h-4 bg-gray-400 rounded animate-pulse"></span>
             </div>
-            <div className="col-span-1 flex flex-col items-start justify-start gap-10">
-              <h3 className="font-semibold text-xl ">Details</h3>
+            <div className="col-span-1 flex flex-col items-start justify-start gap-5">
+              <span className="w-1/5 h-4 bg-gray-400 rounded animate-pulse"></span>
               <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                 <div className=" flex items-center gap-4">
-                  <Image src={events.image} alt={events.title} width={100} height={100} objectFit="cover" className="w-[3rem] aspect-square rounded-full border border-gray-500" />
-                  <h5 className="text-gray-200 font-semibold text-base">Women in tech</h5>
+                  <div className="w-[3rem] aspect-square rounded-full border bg-gray-500 animate-pulse" />
+                  <span className="w-1/2 h-4 bg-gray-400 rounded animate-pulse"></span>
                 </div>
                 <div className=" flex items-center gap-4">
                   {/* <Icon name="" size={20} /> */}
@@ -52,10 +34,10 @@ export default function EventsDetailsPage({ params }: { params: { id: string } }
                     <path d="M11.7383 7.44971V12.0695L14.0482 14.3795" stroke="#106840" strokeWidth="1.18796" />
                   </svg>
 
-                  <span className="flex flex-col gap-1 items-start">
-                    <h5 className="text-gray-200 text-sm">August 30, 2022 at 10:00 AM - 12:00 PM</h5>
-                    <h5 className="text-gray-200 text-sm">September 3, 2022 at 11:00 AM - 1:00PM</h5>
-                    <button onClick={() => { }} className="text-info hover:underline text-sm">Add to calender</button>
+                  <span className="w-full flex flex-col gap-4 items-start">
+                     <p className="w-1/2 h-2 bg-gray-400 rounded animate-pulse"></p>
+                     <p className="w-2/3 h-2 bg-gray-400 rounded animate-pulse"></p>
+                     <p className="w-1/4 h-2 bg-gray-400 rounded animate-pulse"></p>
                   </span>
                 </div>
                 <div className=" flex items-center gap-4">
@@ -64,18 +46,21 @@ export default function EventsDetailsPage({ params }: { params: { id: string } }
                     <path d="M2.49805 13.6769V6.28516H10.8138C12.8549 6.28516 14.5096 7.93985 14.5096 9.98102V17.3728H6.19392C4.15274 17.3728 2.49805 15.718 2.49805 13.6769Z" stroke="#106840" strokeWidth="1.18796" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M20.9778 7.20909H21.6708C21.6708 6.95352 21.5301 6.71871 21.3048 6.59811C21.0794 6.47752 20.806 6.49074 20.5934 6.6325L20.9778 7.20909ZM16.8199 9.98099L16.4356 9.4044L16.127 9.61012V9.98099H16.8199ZM20.9778 16.4488L20.5934 17.0253C20.806 17.1671 21.0794 17.1804 21.3048 17.0598C21.5301 16.9391 21.6708 16.7043 21.6708 16.4488H20.9778ZM16.8199 13.6769H16.127V14.0477L16.4356 14.2534L16.8199 13.6769ZM20.5934 6.6325L16.4356 9.4044L17.2043 10.5575L21.3622 7.78568L20.5934 6.6325ZM21.3622 15.8722L17.2043 13.1003L16.4356 14.2534L20.5934 17.0253L21.3622 15.8722ZM16.127 9.98099V13.6769H17.5129V9.98099H16.127ZM21.6708 16.4488V7.20909H20.2848V16.4488H21.6708Z" fill="#106840" />
                   </svg>
-                  <p className="text-sm text-gray-200">Online Event</p>
+                  <p className="w-1/4 h-2 bg-gray-400 rounded animate-pulse"></p>
                 </div>
               </div>
-              <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
-                <p className="text-sm text-gray-200">Are you passionate about blogging or looking to dive into the world of writing? Whether you&apos;re a seasoned writer or just starting your writing journey, our Writing Club is the perfect place for you. Join us to reflect on our blogging experience of this year and get inspiration!</p>
-
+              <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-3">
+                <p className="w-full h-2 bg-gray-400 rounded animate-pulse"></p>
+                <p className="w-[80%] h-2 bg-gray-400 rounded animate-pulse"></p>
+                <p className="w-full h-2 bg-gray-400 rounded animate-pulse"></p>
+                <p className="w-[40%] h-2 bg-gray-400 rounded animate-pulse"></p>
+                <p className="w-full h-2 bg-gray-400 rounded animate-pulse"></p>
               </div>
             </div>
           </div>
 
           <div className=" flex gap-10">
-            <button className="border border-primary text-primary text-base px-4 py-2 rounded-md flex items-center space-x-2">
+            <button disabled={!events} className="border border-primary text-primary text-base px-4 py-2 rounded-md flex items-center space-x-2">
               {/* <Icon name="" size={24} /> */}
               <span>Share</span>
               <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +70,7 @@ export default function EventsDetailsPage({ params }: { params: { id: string } }
               </svg>
 
             </button>
-            <button className="border border-primary bg-primary text-primaryWhite text-base px-4 py-2 rounded-md flex items-center space-x-2">
+            <button disabled={!events} className="border border-primary bg-primary text-primaryWhite text-base px-4 py-2 rounded-md flex items-center space-x-2">
               {/* <Icon name="" size={24} /> */}
               <span>Visit Website</span>
               <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +82,5 @@ export default function EventsDetailsPage({ params }: { params: { id: string } }
             </button>
           </div>
         </div>
-      </AnimatePresence>
-    </Modal>
   )
 }

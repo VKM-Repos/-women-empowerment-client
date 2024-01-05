@@ -65,7 +65,7 @@ function CreateOrganizationPage() {
 
     const handleNext = (e: any) => {
       e.preventDefault();
-      if (step < 9) {
+      if (step <= 8 ) {
         // Get the form data using the react-hook-form watch function
         const formData = watch();
 
@@ -115,6 +115,7 @@ function CreateOrganizationPage() {
           reset();
           //   push to the org detailed page with its id as the params
           //   router.push(`/organization/${id}`);
+            router.push(`/organization/1`);
           console.log("successful registration", response.message);
         } else {
           if (response instanceof Error) {
