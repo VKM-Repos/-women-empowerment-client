@@ -1,5 +1,6 @@
 'use client'
 
+import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import db from "@/data/db.json";
@@ -8,12 +9,11 @@ import { useEffect, useState } from "react";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
-import DiscussionCardThumbnail from "../components/DiscussionCardThumbnail";
-import DiscussionDetailsLoader from "../components/DiscussionDetailsLoader";
+import DiscussionCardThumbnail from "../../../components/DiscussionCardThumbnail";
+import DiscussionDetailsLoader from "../../../components/DiscussionDetailsLoader";
 
 
-
-export default function DiscussionDetailsPage({ params }: { params: { id: string } }) {
+export default function DiscussionDetailsModal({ params }: { params: { id: string } }) {
   const [discussions, setDiscussions] = useState<any | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -46,11 +46,12 @@ export default function DiscussionDetailsPage({ params }: { params: { id: string
     fetchEvent();
   }, [formattedId]);
   return (
-     <AnimatePresence initial={false} mode="wait">
+    <Modal onClose={router.back} isOpen={true}>
+      <AnimatePresence initial={false} mode="wait">
       {isLoading || !discussions ? (
-        <div className="mb-[7rem]"><DiscussionDetailsLoader discussion={discussions} /></div>
+        <DiscussionDetailsLoader discussion={discussions} />
       ) : (
-          <div className="w-3/4 mx-auto bg-primaryWhite flex flex-col gap-10 items-center h-full p-4 rounded-[1rem] relative overflow-y-scroll mb-[7rem]">
+          <div className="w-3/4 mx-auto bg-primaryWhite flex flex-col gap-10 items-center h-[85vh] p-4 rounded-[1rem] relative overflow-y-scroll">
             <button onClick={router.back} className="absolute top-5 right-5">
               <svg
                 width="27"
@@ -208,5 +209,6 @@ export default function DiscussionDetailsPage({ params }: { params: { id: string
           </div>
         )}
         </AnimatePresence>
+    </Modal>
   )
 }

@@ -14,7 +14,7 @@ interface DiscussionProps {
   comments: string;
 }
 
-const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
+const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
   discussion,
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -30,8 +30,8 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
   };
 
   return (
-    <Link href={`/discussions/${discussion.id}`} as={`/discussions/${formatIdToTitle(discussion.title)}`} scroll={false} >
-      <article className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-center">
+    <div className="cursor-pointer" >
+      <article className="w-full my-2 grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.5rem] p-2 items-center">
         <Image
           src={
             discussion?.image || "../../../../public/images/group-of-girls.png"
@@ -40,22 +40,22 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
           width={100}
           height={100}
           // layout="responsive"
-          className="col-span-2 lg:col-span-1 w-full aspect-square rounded-full object-contain"
+          className="col-span-1 w-full aspect-square rounded-full object-contain"
         />
 
-        <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-1">
-          <h4 className="text-lg font-normal">{discussion?.title}</h4>
-          <p className="font-light text-lg text-gray-300">
+        <div className="col-span-7 flex flex-col items-start justify-start gap-1">
+          <h4 className="text-sm font-normal">{discussion?.title}</h4>
+          <p className="font-light text-xs text-gray-300">
             {truncatedText(discussion?.description, 150)}
             &nbsp;
             {discussion.description.length > 100 && (
               // <span className="text-info text-xs">See more</span>
-               <span className="text-sm font-medium text-gray-200">
+               <span className="text-xs font-medium text-gray-200">
               - {discussion.author}
             </span>
             )}
           </p>
-          <span className="w-full flex items-center justify-between text-base">
+          <span className="w-full flex items-center justify-between text-xs">
             <span>{discussion.createdAt}</span>
             <span className="text-primary flex space-x-2">
               <Icon name="" /> {discussion.comments} comments
@@ -63,8 +63,8 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
           </span>
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 
-export default DiscussionCard;
+export default DiscussionCardThumbnail;

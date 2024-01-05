@@ -1,35 +1,67 @@
 "use client";
-import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import React, { useEffect, useState } from "react";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import DoodlesA from "@/public/images/doodles-a.png";
 import DoodlesB from "@/public/images/doodles-b.png";
 import Group from "@/public/images/group-of-girls.png";
 import Button from "@/components/Common/Button/Button";
 import DiscussionCard from "./components/DiscussionCard";
-import { discussionData, eventData, newsData } from "./sampledata";
 import EventCard from "./components/EventCard";
 import NewsCard from "./components/NewsCard";
 
+import db from "@/data/db.json";
+import DiscussionCardLoader from "./components/DiscussionCardLoader";
+import { useModal } from "@/lib/context/modal-context";
+import CreateDiscussionModal from "./components/CreateDiscussionModal";
 
 const DiscussionsPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [discussions, setDiscussions] = useState<any>([]);
+   const { showModal } = useModal();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      // Simulating API call with a timeout
+      const response = await new Promise<{ data: any[] }>((resolve) =>
+        setTimeout(() => resolve({ data: db.discussions }), 2000)
+      );
+
+      setDiscussions(response.data);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleStartDiscussion = () => {
+    showModal(<CreateDiscussionModal />);
+  }
 
   return (
     <TransitionParent>
       <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[4rem] min-h-screen">
-        <div className="w-full bg-primary h-[50vh] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
+        <div className=" w-full bg-primary md:h-[27rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
           <div className="w-full md:w-1/2 flex flex-col items-start justify-start space-y-6 text-left relative z-[50]">
-            
             <div className="flex flex-col items-center justify-start gap-5 relative w-full z-[50]">
-            <p className="text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-left">
-             “A girl should not expect special privileges because of her sex but neither should she adjust to prejudice and discrimination.”
-            </p>
-            <p className=" w-full text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-right italic">
-             - Betty Friedan
-            </p>
+              <p className="text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-left">
+                “A girl should not expect special privileges because of her sex
+                but neither should she adjust to prejudice and discrimination.”
+              </p>
+              <p className=" w-full text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-right italic">
+                - Betty Friedan
+              </p>
             </div>
             <span className="w-full flex justify-center md:justify-start">
-            <Button label="Start a new discussion" fullWidth={false} size="medium" variant="primary" state="default" onClick={() => {}} />
+              <Button
+                label="Start a new discussion"
+                fullWidth={false}
+                size="medium"
+                variant="primary"
+                state="default"
+                onClick={handleStartDiscussion}
+              />
             </span>
           </div>
           <Image
@@ -49,55 +81,70 @@ const DiscussionsPage = () => {
           />
         </div>
 
-        <div className="py-[2rem] w-full p-4 mx-auto flex gap-2 relative">
-            <div className="w-4/6 flex flex-col py-4">  
-            <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">Latest Discussions</h3>       
-              {/* Discussion feeds */}
-              <section className=" flex flex-col gap-10 ">
-                {discussionData.length === 0 ? (
-                  <p className="no-result">No discussion found</p>
-                ) : (
+        <div className=" w-full p-4 mx-auto flex gap-2 relative">
+          <div className="w-4/6 flex flex-col py-4">
+            <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">
+              Latest Discussions
+            </h3>
+            {/* Discussion feeds */}
+            <section className=" flex flex-col gap-4 ">
+                  {discussions && isLoading
+                    ? [1, 2, 3, 4].map((item: any) => (
+                        <DiscussionCardLoader key={item?.id} />
+                      ))
+                    : discussions.map((item: any) => (
+                        <DiscussionCard key={item?.id} discussion={item} />
+                      ))}       
+            </section>
+          </div>
+
+          <div className="w-2/6 flex flex-col space-y-8 bg-gray-500/5 rounded-lg py-[5rem] sticky top-0 -mt-[5rem] h-screen overflow-y-scroll scrollable-section ">
+            <aside className="w-full p-6 rounded-[1.5rem]">
+              <h3 className="text-2xl font-semibold text-primary uppercase">
+                Events
+              </h3>
+              <section className="flex flex-col gap-[0.1rem] border-t border-gray-400 py-1">
+                {db.events.length === 0 ? null : (
                   <>
-                    {discussionData.map((item: any) => (
-                      <DiscussionCard key={item.id} discussion={item} />
+                    {db.events.map((items: any) => (
+                      <EventCard key={items.id} event={items} />
                     ))}
-                    
+                    <div className="py-4"></div>
+                    <Button
+                      variant="outline"
+                      fullWidth
+                      label="SEE MORE EVENTS"
+                      size="medium"
+                      onClick={() => {}}
+                    />
                   </>
                 )}
               </section>
-            </div>
-
-            <div className="w-2/6 flex flex-col space-y-8 border-none py-[5rem] sticky top-0 -mt-[5rem] h-screen overflow-y-scroll scrollable-section ">
-              <aside className="w-full p-6 rounded-[1.5rem]">
-                <h3 className="text-2xl font-semibold text-primary pb-1 uppercase">Events</h3>
-                <section className="flex flex-col gap-[0.5rem] border-t border-gray-400 py-4">
-                  {eventData.length === 0 ? null : (
-                    <>
-                      {eventData.map((items: any) => (
-                        <EventCard key={items.id} event={items} />
-                      ))}
-                      <Button variant="outline" fullWidth label="SEE MORE EVENTS" size="medium" onClick={() => {}}/>
-                    </>
-                  )}
-                </section>
-              </aside>
-              <aside className="w-full  p-6 rounded-[1.5rem]">
-                <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">News Center</h3>
-                <section className="flex flex-col gap-[0.5rem] border-t border-gray-400 py-4">
-                  {newsData.length === 0 ? null : (
-                    <>
-                      {newsData.map((items: any) => (
-                        <NewsCard key={items.id} news={items} />
-                      ))}
-                         <Button variant="outline" fullWidth label="MORE FROM NEWS CENTER" size="medium" onClick={() => {}}/>
-                    </>
-                  )}
-                </section>
-              </aside>
-            </div>
-
+            </aside>
+            <aside className="w-full  p-6 rounded-[1.5rem]">
+              <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">
+                News Center
+              </h3>
+              <section className="flex flex-col gap-[0.1rem] border-t border-gray-400 py-1">
+                {db.news.length === 0 ? null : (
+                  <>
+                    {db.news.map((items: any) => (
+                      <NewsCard key={items.id} news={items} />
+                    ))}
+                    <div className="py-4"></div>
+                    <Button
+                      variant="outline"
+                      fullWidth
+                      label="MORE FROM NEWS CENTER"
+                      size="medium"
+                      onClick={() => {}}
+                    />
+                  </>
+                )}
+              </section>
+            </aside>
+          </div>
         </div>
-
       </section>
     </TransitionParent>
   );

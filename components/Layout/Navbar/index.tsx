@@ -89,15 +89,18 @@ const Navbar = () => {
     <header>
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
         {/* Logo */}
-        <Link href="/" className="w-1/3 flex items-center space-x-2">
+        <div className="w-1/3">
+           <Link href="/" className="w-fit flex items-center space-x-2">
           <Image
             src={Logo.src}
             alt=""
-            className="w-[5rem] aspect-auto"
+            className="w-[4rem] aspect-auto"
             width={100}
             height={100}
           />
         </Link>
+        </div>
+       
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
           <MenuContainer>
@@ -117,7 +120,7 @@ const Navbar = () => {
             <div className="hidden md:flex items-center text-sm md:text-base">
               <Link
                 href="/account/login"
-                className="flex items-center gap-2 px-6 py-2"
+                className="flex items-center gap-2 px-6 py-2 text-light"
                 onClick={() => {}}
               >
                 <Image
@@ -131,7 +134,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/account/sign-up"
-                className="bg-btnWarning px-3 py-2 rounded-sm text-white-100"
+                className="bg-btnWarning px-6 py-2 rounded-md font-light text-white-100"
               >
                 Sign up
               </Link>
