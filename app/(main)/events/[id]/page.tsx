@@ -78,7 +78,7 @@ export default function EventsDetailsPage({
                   width={100}
                   height={100}
                   layout="responsive"
-                  className="w-full h-[20rem]"
+                  className="w-full h-[16rem]"
                 />
                 <h3 className="uppercase text-base font-bold text-primary">
                   {events.title}

@@ -81,7 +81,7 @@ const Button: React.FC<ButtonProps> = ({
     if (fullWidth) {
       classes += " w-full flex items-center justify-center";
     } else {
-      classes += " inline-block flex items-center justify-center";
+      classes += " flex items-center justify-center";
     }
 
     return classes;
