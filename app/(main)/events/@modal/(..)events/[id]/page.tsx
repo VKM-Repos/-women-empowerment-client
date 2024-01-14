@@ -1,5 +1,5 @@
 "use client";
-import LoadingCircle from "@/components/Common/Loaders/LoadingCircle";
+import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -76,14 +76,16 @@ export default function EventsDetailsModal({
             </button>
             <div className="grid grid-cols-2 gap-10">
               <div className="col-span-1 flex flex-col items-start justify-center gap-5 p-8">
-                <Image
+                <div className="w-full p-8">
+                  <Image
                   src={events.image}
                   alt=""
                   width={100}
                   height={100}
                   layout="responsive"
-                  className="w-full h-[20rem]"
+                  className="w-full h-[16rem]"
                 />
+                </div>
                 <h3 className="uppercase text-base font-bold text-primary">
                   {events.title}
                 </h3>

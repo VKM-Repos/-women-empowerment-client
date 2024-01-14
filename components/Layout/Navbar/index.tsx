@@ -90,28 +90,29 @@ const Navbar = () => {
       <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
         {/* Logo */}
         <div className="w-1/3">
-           <Link href="/" className="w-fit flex items-center space-x-2">
-          <Image
-            src={Logo.src}
-            alt=""
-            className="w-[4rem] aspect-auto"
-            width={100}
-            height={100}
-          />
-        </Link>
+          <Link href="/" className="w-fit flex items-center space-x-2">
+            <Image
+              src={Logo.src}
+              alt=""
+              className="w-[4rem] aspect-auto"
+              width={100}
+              height={100}
+            />
+          </Link>
         </div>
-       
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
           <MenuContainer>
             <MenuItem link="/about" subLinks={null} text="about" />
             <MenuItem link="/category" subLinks={null} text="category" />
+            <MenuItem link="/projects" subLinks={null} text="projects" />
             <MenuItem link="/events" subLinks={null} text="events" />
             <MenuItem
               link="#"
               subLinks={submenuLinks.community}
               text="community"
             />
+            <MenuItem link="/blog" subLinks={null} text="blog" />
           </MenuContainer>
         </div>
 

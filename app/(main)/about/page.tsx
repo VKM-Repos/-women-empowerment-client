@@ -16,8 +16,8 @@ import Goal4 from "@/public/images/goal-4.png";
 const AboutPage = () => {
   return (
     <TransitionParent>
-      <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[4rem] pb-[3rem] min-h-screen">
-        <div className="w-full bg-primary h-[23rem] rounded-[2rem] flex items-start pt-[3rem] justify-center relative overflow-hidden">
+      <section className=" w-[95%] mx-auto flex flex-col items-center justify-start space-y-[4rem] pb-[3rem] min-h-screen relative">
+        <div className="w-full bg-primary h-[23rem] rounded-[2rem] flex items-center justify-center relative overflow-hidden">
           <span className=" max-w-2xl flex flex-col items-center justify-start space-y-4 text-center relative z-10">
             <h1 className="text-3xl md:text-5xl font-bold text-primaryWhite">
               About Women Hub
@@ -46,7 +46,10 @@ const AboutPage = () => {
               During the 1st Gender and Inclusion Summit on November 16, 2022, a
               critical gap in information on women empowerment programs was
               revealed. Participants raised poignant questions concerning women
-              empowerment programs. Shockingly, the existence of implemented
+              empowerment programs. 
+            </p>
+            <p className="text-base md:text-lg w-full font-light">
+              Shockingly, the existence of implemented
               projects was doubted, and the effectiveness of communication
               strategies from the government, development partners, and civil
               society was brought into question. This led to the birth of Women
@@ -64,8 +67,10 @@ const AboutPage = () => {
         </div>
          
 
-        <div  className="w-screen h-[120vh] flex items-start justify-center clip-svg relative py-16" >
-          <Image src={Clip} alt="" layout="fill"  className="absolute inset-0" />
+        <div  className="w-screen h-[120vh] flex items-start justify-center clip-svg relative top-0 left-0 py-16 overflow-hidden" >
+    
+            <Image src={Clip} alt="" layout="fill" />
+      
           <div className="w-full relative flex items-center justify-center">
             <h5 className="text-[32px] mt-4 font-semibold text-primary">Our Goals</h5>
             <div className="w-full flex items-center justify-between absolute top-1/2 inset-x-0">
