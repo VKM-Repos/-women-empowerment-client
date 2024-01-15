@@ -38,7 +38,7 @@ const SupportPage = () => {
   return (
     <TransitionParent>
       <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[4rem] min-h-screen ">
-        <div className="w-full bg-primary h-[50vh] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
+        <div className="w-full bg-primary md:h-[27rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
           <div className="w-full md:w-1/2 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
             <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite text-center md:text-left">
               Hi, Need some help?

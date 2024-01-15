@@ -1,11 +1,10 @@
 'use client'
 
+import LoadingThinkingWomen from '@/components/Common/Loaders/LoadingThinkingWomen';
 import React from 'react';
 
 const Loading: React.FC = () => {
-  return (
-      <div className='bg-transparent'>Loading...</div>
-  );
+  return <LoadingThinkingWomen />
 };
 
 export default Loading;

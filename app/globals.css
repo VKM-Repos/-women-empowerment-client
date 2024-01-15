@@ -20,6 +20,10 @@
   }
 }
 
+.clip-svg {
+  clip-path: url(#clipPath1);
+}
+
 html {
   scroll-behavior: smooth;
 }

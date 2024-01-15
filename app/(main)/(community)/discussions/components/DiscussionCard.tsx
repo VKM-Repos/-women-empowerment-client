@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Icon from "@/components/Common/Icons/Icon";
 import Link from "next/link";
+import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 
 interface DiscussionProps {
   id: string;
@@ -10,7 +11,7 @@ interface DiscussionProps {
   author: string;
   description: string;
   createdAt: string;
-  comments: number;
+  comments: string;
 }
 
 const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
@@ -29,8 +30,8 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
   };
 
   return (
-    <Link href={`/discussions/${discussion.id}`} passHref>
-      <article className="w-full grid grid-cols-8 border-2 gap-5 border-gray-500 hover:bg-secondaryOffWhite cursor-pointer rounded-[0.8rem] p-4 md:p-8 items-center">
+    <Link href={`/discussions/${discussion.id}`} as={`/discussions/${formatIdToTitle(discussion.title)}`} scroll={false} >
+      <article className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-center">
         <Image
           src={
             discussion?.image || "../../../../public/images/group-of-girls.png"
@@ -42,18 +43,17 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
           className="col-span-2 lg:col-span-1 w-full aspect-square rounded-full object-contain"
         />
 
-        <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-3">
-          <h4 className="text-lg font-semibold">{discussion?.title}</h4>
-          <p className="text-base text-gray-300">
-            {truncatedText(discussion?.description, 80)}
+        <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-1">
+          <h4 className="text-lg font-normal">{discussion?.title}</h4>
+          <p className="font-light text-lg text-gray-300">
+            {truncatedText(discussion?.description, 150)}
             &nbsp;
             {discussion.description.length > 100 && (
-              <span className="text-info text-xs">See more</span>
-            )}
-            <br />
-            <span className="font-bold text-gray-200">
+              // <span className="text-info text-xs">See more</span>
+               <span className="text-sm font-medium text-gray-200">
               - {discussion.author}
             </span>
+            )}
           </p>
           <span className="w-full flex items-center justify-between text-base">
             <span>{discussion.createdAt}</span>

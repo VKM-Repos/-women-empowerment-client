@@ -15,7 +15,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({
 }) => {
 
   return (
-    <article className="w-full grid grid-cols-8 items-center my-2 cursor-pointer hover:bg-primary/10 p-2 rounded-lg">
+    <article className="w-full h-[4rem] md:h-[7rem] grid grid-cols-8 items-center my-1 cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-4 md:gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2">
       <Image
         src={
           event?.image || "../../../../public/images/group-of-girls.png"
@@ -24,7 +24,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({
         width={100}
         height={100}
         // layout="responsive"
-        className="col-span-2  w-full md:w-1/2 mx-auto aspect-square rounded-full object-contain"
+        className="col-span-2  w-full md:w-2/3 place-self-center justify-self-center aspect-square rounded-full object-contain"
       />
 
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">

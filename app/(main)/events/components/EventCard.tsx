@@ -1,13 +1,10 @@
 import { CameraIcon } from '@/components/Common/Icons/Camera.icon';
 import { LocationIcon } from '@/components/Common/Icons/Location.icon';
-import EventImage from '../../../../public/images/img_womanpowersitting.png';
-import NewsImage from '../../../../public/images/img_womanpowerfitness.png';
-
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { ChevronRightIcon } from '@/components/Common/Icons';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import formatIdToTitle from '@/lib/utils/formatIdToTitle';
 
 type EventProps = {
   id: string;
@@ -22,8 +19,9 @@ type EventProps = {
 
 
 const EventCard: React.FC<{ event: EventProps }> = ({ event }) => {
+
   return (
-    <Link href={`/events/${event.id}`} className='w-full grid grid-cols-8 items-center border-t border-gray-500 py-2 md:py-4 p-2 hover:bg-primary/10 rounded'>
+    <Link href={`/events/${event.id}`} as={`/events/${formatIdToTitle(event.title)}`} scroll={false}  className='w-full grid grid-cols-8 items-center border-t border-gray-500 md:p-4 p-2 drop-shadow-sm gap-4 hover:bg-primary/10 transform transition-all ease-in-out duration-75 hover:rounded'>
       <div className='col-span-1'>
         <Image
           src={event?.image || "../../../../public/images/group-of-girls.png"}

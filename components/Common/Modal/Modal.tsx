@@ -13,30 +13,40 @@ interface ModalProps
   children: React.ReactNode;
 }
 
-interface ModalProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  isOpen: boolean;
-  children: React.ReactNode;
-}
-
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const overlay = useRef(null);
   const wrapper = useRef(null);
   const router = useRouter();
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        document.body.style.overflow = "hidden";
+        onClose;
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("click", handleOutsideClick);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, onClose]);
+
 
   const transition = { duration: 0.3, ease: "easeInOut" };
 
   const variants = {
     hidden: {
-      // y: "-50%",
       scale: "50%",
       opacity: 0,
     },
     visible: {
-      // y: 0,
       scale: "100%",
       opacity: 1,
       transition: {
@@ -44,7 +54,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       },
     },
     exit: {
-      // y: "-50%",
       scale: "50%",
       opacity: 0,
       transition,
@@ -52,7 +61,8 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   };
 
   const onDismiss = useCallback(() => {
-    router.back();
+    onClose()
+    // router.back();
   }, [router]);
 
   const onClick: MouseEventHandler = useCallback(
@@ -77,7 +87,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   }, [onKeyDown]);
 
   return (
-    <div>
+    <>
       {isOpen && (
         <motion.div
           key="modal-bg"
@@ -102,6 +112,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </div>
+    </>
   );
 }

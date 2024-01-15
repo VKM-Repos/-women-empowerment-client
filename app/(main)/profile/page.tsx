@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 
 import db from '@/data/db.json'
 import EventCard from '../(community)/discussions/components/EventCard'
-import NewsCard from '@/components/LandingPage/NewsCard'
-export default function page() {
+import NewsCard from '../(community)/discussions/components/NewsCard'
+
+export default function ProfilePage() {
     const [showPassword, setShowPassword] = useState(false)
     const handleShowPassword = () => {
         setShowPassword(prevState => !prevState)
@@ -106,7 +107,7 @@ export default function page() {
                             <div className="bg-neutral-200 self-stretch shrink-0 h-px mt-4" />
                             {
                                 db.news.map(item => (
-                                    <NewsCard item={item} />
+                                    <NewsCard key={item.id} news={item} />
                                 ))
                             }
                             <div className="text-orange-500 text-base whitespace-nowrap justify-center items-center border border-[color:var(--Secondary-Colour,#FF7400)] self-center w-[347px] max-w-full mt-5 px-16 py-2.5 rounded-lg border-solid max-md:px-5">
