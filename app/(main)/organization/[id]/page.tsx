@@ -1,6 +1,7 @@
 
 import React from 'react'
 import organizationHeader from '@/public/images/organization_header.svg'
+import Link from 'next/link'
 
 export default function OrganizationDetails() {
     return (
@@ -286,13 +287,13 @@ export default function OrganizationDetails() {
                                     <span className="text-black text-opacity-60">
                                         Volunteers needed for upcoming inform the street 2022 agenda{" "}
                                     </span>
-                                    <a
+                                    <Link
                                         href="https://women-in-tech.org/"
                                         className="text-orange-500 underline"
                                         target="_blank"
                                     >
                                         Join us
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
