@@ -103,7 +103,7 @@ const LandingPage = () => {
         {/* Hero */}
         <div className="bg-primary w-[98%] md:w-[95%] lg:h-[30rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[6rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
-            <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-semibold flex flex-nowrap items-start justify-center gap-1">
+            <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
               Together we are
               <AnimatePresence mode="wait" initial={false}>
                 <span className="inline-block overflow-hidden">
@@ -121,10 +121,10 @@ const LandingPage = () => {
                 </span>
               </AnimatePresence>
             </h1>
-            <p className="text-white-100 font-light text-base font-Quicksand text-center">
+            <p className="text-white-100 font-light text-base font-quickSand text-center">
               Discover and learn about women organizations with only one click.
             </p>
-            <div className="md:w-full w-[95%] mx-auto flex justify-center items-center">
+            <div className="md:w-full w-[95%] mx-auto flex justify-center items-center font-quickSand">
               <input
                 type="text"
                 name=""
@@ -141,14 +141,14 @@ const LandingPage = () => {
                 <Icon name="img_search" className="" />
               </button>
             </div>
-            <div className="hidden lg:flex w-full items-start justify-start space-x-4">
+            <div className="hidden lg:flex w-full items-start justify-start space-x-4 font-quickSand">
               <span className="text-primaryWhite text-sm md:text-base md:whitespace-nowrap">
                 Popular questions:{" "}
               </span>
               <span className="flex flex-wrap items-center justify-start gap-1 md:gap-5">
                 {searchTerms.map((term) => (
                   <button
-                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80 font-light text-xs md:text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
+                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80  text-xs md:text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
                     key={term}
                     onClick={(e) => handleSearch(term, e)}
                   >
@@ -197,7 +197,7 @@ const LandingPage = () => {
 
           <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full py-4 rounded-[1.5rem] ">
-              <div className="text-orange-500 text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+              <div className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
                 EVENTS
               </div>
 
@@ -212,7 +212,7 @@ const LandingPage = () => {
             </aside>
 
             <aside className="w-full py-6 rounded-[1.5rem]">
-              <div className="text-orange-500 text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+              <div className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                 NEWS CENTER
               </div>
               <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
