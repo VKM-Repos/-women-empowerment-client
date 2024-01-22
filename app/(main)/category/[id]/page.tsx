@@ -55,7 +55,7 @@ export default function CategoryDetailsPage({
   return (
     <>
       {isLoading || !category ? (
-        <div className="mt-8 mb-[7rem]">
+        <div className="mt-8 mb-[7rem] min-h-screen">
           <LoadingThinkingWomen />
         </div>
       ) : (

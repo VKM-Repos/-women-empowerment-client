@@ -1,90 +1,33 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import doddles from "@/public/images/img_circledoodle.png";
-import maginify from "@/public/images/img_search.svg";
 import womenInPower from "@/public/images/img_womeninpower1.svg";
 import { TransitionElement } from "@/lib/utils/transition";
 import db from "@/data/db.json";
-import { Organization } from "@/components/LandingPage/Organization";
-import { Events } from "@/components/LandingPage/EventsCard";
-import ellipse from "@/public/images/ellipse.svg";
 import { CommunityCard } from "@/components/LandingPage/CommunityCard";
 import EventCard from "./(community)/discussions/components/EventCard";
 import Image from "next/image";
 import Icon from "@/components/Common/Icons/Icon";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import NewsCard from "./(community)/discussions/components/NewsCard";
-
-
-const communityDiscussionTopics = [
-  {
-    id: "1",
-    topic: "Sensitization",
-    desc: "Women in power speaks louder that riots for our rights",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-  {
-    id: "2",
-    topic: "Health",
-    desc: "Tips women will surely need to maintain the upper hand indiscussions.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-  {
-    id: "3",
-    topic: "Girl Power",
-    desc: "                    Creating a safe environment for ladies to share their pain and not feel condemned",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-  {
-    id: "4",
-    topic: "Growth",
-    desc: " Empowering women is all about helping women grow in their field and become better humans",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e5961b25-f66c-4c2e-9680-e706dc3ea692?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-]
-
-const featuredProjects = [
-  {
-    id: "1",
-    topic: "A360 Project",
-    desc: "To ignite transforming change in Nigeria’s Education sector, fostering an ecosystem where education, excellence is recognized and celebrated",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/525b2f46-be25-4721-b43c-5cb642182b00?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-  {
-    id: "2",
-    topic: "Reporta Health",
-    desc: "To ignite transforming change in Nigeria’s Education sector, fostering an ecosystem where education, excellence is recognized and celebrated",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/afedf1c5-8a5d-487a-8a46-f5cde8be68a5?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-  {
-    id: "3",
-    topic: "UNICEF - child safety",
-    desc: "To ignite transforming change in Nigeria’s Education sector, fostering an ecosystem where education, excellence is recognized and celebrated",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fdbae476-32ff-4e3d-8589-a1630a88b08e?apiKey=12cdcbacd64a44978db653c66e993585&",
-  },
-
-]
+import Link from "next/link";
+import {
+  communityDiscussionTopics,
+  featuredProjects,
+  howItWorks,
+  searchTerms,
+} from "@/lib/utils/constants";
 
 const LandingPage = () => {
-  const searchTerms = [
-    "Technology",
-    "Gender Equity",
-    "Sensitization",
-    "Feminism",
-    "How to add an organization",
-  ];
+ 
 
   const handleSearch = (
     selectedTerm: string,
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
-
 
   const words = ["Able", "Strong", "Women"];
 
@@ -100,7 +43,7 @@ const LandingPage = () => {
       opacity: 1,
       transition: {
         ...transition,
-        delay: 0.5, // Delay before new word appears
+        delay: 0.5, 
       },
     },
     exit: {
@@ -122,36 +65,51 @@ const LandingPage = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const controls = useAnimation();
+
+  const handlePrevClick = () => {
+    const newIndex = (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
+    setActiveIndex(newIndex);
+  };
+
+  const handleNextClick = () => {
+    const newIndex = (activeIndex + 1) % featuredProjects.length;
+    setActiveIndex(newIndex);
+  };
+
+  useEffect(() => {
+    controls.start({ x: `-${activeIndex * 107}%` });
+  }, [activeIndex, controls])
+  
+
   return (
     <TransitionElement>
       <section className=" w-screen mx-auto flex flex-col items-center justify-start">
-        <div className="z-10 absolute top-5 left-0 hidden md:block">
+        <div className="z-10 absolute top-5 left-0 block">
           <Image
             src={doddles}
             alt="doodles"
-            layout="responsive"
-            width={10}
-            height={10}
-            className="lg:max-w-[12rem] max-w-[7rem]"
+            width={200}
+            height={200}
+            className="lg:w-[12rem] w-[8rem] aspect-auto"
           />
         </div>
 
         {/* Hero */}
-        <div className="bg-primary w-[95%] lg:h-[30rem] h-[25rem] rounded-[1rem] flex justify-start items-center p-2 md:p-16 relative overflow-hidden">
-          <div className="w-full lg:w-1/2 flex flex-col items-start gap-4 relative left-0 lg:left-[5%]">
-            <h1 className="md:text-[46px] text-[28px] text-center text-primaryWhite font-bold flex flex-nowrap items-start justify-center gap-2">
-              Together we are 
+        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[30rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
+          <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[6rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
+            <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-semibold flex flex-nowrap items-start justify-center gap-1">
+              Together we are
               <AnimatePresence mode="wait" initial={false}>
-                <span
-                  style={{
-                    overflow: "hidden",
-                    display: "inline-block",
-                  }}
-                  key={words[currentWordIndex]}
-                >
+                <span className="inline-block overflow-hidden">
                   <motion.span
                     style={{ display: "inline-block" }}
-                    // key={words[currentWordIndex]}
+                    key={words[currentWordIndex]}
                     variants={itemVariants}
                     initial="hidden"
                     animate="visible"
@@ -166,7 +124,7 @@ const LandingPage = () => {
             <p className="text-white-100 font-light text-base font-Quicksand text-center">
               Discover and learn about women organizations with only one click.
             </p>
-            <div className="w-full flex justify-center items-center">
+            <div className="md:w-full w-[95%] mx-auto flex justify-center items-center">
               <input
                 type="text"
                 name=""
@@ -174,23 +132,23 @@ const LandingPage = () => {
                 placeholder="Search for organization"
                 // value={searchTerm}
                 // onChange={handleSearchInputChange}
-                className="w-[95%] py-3 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
+                className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2 "
               />
               <button
                 // onClick={(e) => handleSearch(searchTerm, e)}
-                className="bg-btnWarning p-4 rounded-br-md rounded-tr-md"
+                className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md"
               >
                 <Icon name="img_search" className="" />
               </button>
             </div>
-            <div className="w-full flex items-start justify-start space-x-4">
-              <span className="text-primaryWhite font-semibold text-base md:whitespace-nowrap">
+            <div className="hidden lg:flex w-full items-start justify-start space-x-4">
+              <span className="text-primaryWhite text-sm md:text-base md:whitespace-nowrap">
                 Popular questions:{" "}
               </span>
               <span className="flex flex-wrap items-center justify-start gap-1 md:gap-5">
                 {searchTerms.map((term) => (
                   <button
-                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80 font-light text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
+                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80 font-light text-xs md:text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
                     key={term}
                     onClick={(e) => handleSearch(term, e)}
                   >
@@ -200,44 +158,46 @@ const LandingPage = () => {
               </span>
             </div>
           </div>
-          <div className="absolute bottom-0 -right-10 hidden md:block">
-              <Image
-                src={womenInPower}
-                alt="group of women"
-                layout="intrinsic"
-                width={100}
-                height={100}
-                className="w-[650px] rounded-br-xl"
-              />
+          <div className="md:col-span-1 relative lg:absolute bottom-0 right-0 block z-10">
+            <Image
+              src={womenInPower}
+              alt="group of women"
+              width={100}
+              height={100}
+              className="lg:w-[40rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
+            />
           </div>
         </div>
 
-          {/* Organizations, events and news  */}
-        <div className="w-full p-4 mx-auto flex flex-col lg:flex-row gap-2 relative">
-          <div className="lg:w-4/6 w-full flex flex-col py-4">
+        {/* Organizations, events and news  */}
+        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative">
+          <div className="lg:col-span-4 w-full flex flex-col py-4">
             <div className="text-orange-500 text-2xl font-sora font-bold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               TOP ORGANIZATIONS
             </div>
             {/* Organization feeds */}
-            <section className=" flex flex-col gap-10 px-5">
+            <section className=" flex flex-col gap-4 md:px-5 px-2">
               {db.communities.length === 0 ? (
                 <p className="no-result">No Organization found</p>
               ) : (
                 <>
                   {db.communities.map((item: any) => (
-                    <CommunityCard organization={item} key={item} />
+                    <CommunityCard organization={item} key={item.id} />
                   ))}
                 </>
               )}
-              <button onClick={() => {}} className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
+              <button
+                onClick={() => {}}
+                className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10"
+              >
                 SEE ALL ORGANIZATIONS
               </button>
             </section>
           </div>
 
-          <div className="lg:w-2/6 w-full flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
-            <aside className="w-full py-4 rounded-[1.5rem]">
-              <div className="text-orange-500 text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+            <aside className="w-full py-4 rounded-[1.5rem] ">
+              <div className="text-orange-500 text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
                 EVENTS
               </div>
 
@@ -267,46 +227,51 @@ const LandingPage = () => {
           </div>
         </div>
 
-          {/* Discussions */}
-        <div className="bg-[#F0EBD6] self-stretch z-[1] flex w-full flex-col pt-12 px-16 max-md:max-w-full max-md:px-5">
-          <h3 className="font-sora text-center text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
-            Community Discussions
-          </h3>
-          <p className="text-black my-8 text-opacity-90 md:text-center text-left text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
-            A platform that seeks to help Women thrive in their own environment,
-            <br /> a free space to share with people who can relate, a community
-            for all who want and ask for help.
-          </p>
-         
-            <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0"> 
-              {communityDiscussionTopics.map((discussion) => (
-                  <div key={discussion.id} className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[28rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
-                      <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[15rem]">
-                        <img
-                          loading="lazy"
-                          srcSet={discussion.image}
-                          className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
-                        />
-                      </div>
-                      <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
-                        {discussion.topic}
-                      </div>
-                      <div className="text-sm text-gray-200 mt-4">
-                        {discussion.desc}
-                      </div>
-                    </div>
-                  </div>
-              ))}
-              
-            </div>
-         
+        {/* Discussions */}
+        <div className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20  relative">
+          <div className="w-[90%] mx-auto">
+            <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
+              Community Discussions
+            </h3>
+            <p className="text-gray-100 my-8 md:text-center text-left text-base self-center">
+              A platform that seeks to help Women thrive in their own
+              environment,
+              <br /> a free space to share with people who can relate, a
+              community for all who want and ask for help.
+            </p>
+          </div>
+
+          <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-scroll lg:overflow-x-hidden px-4 md:px-16 w-auto">
+            {communityDiscussionTopics.map((discussion) => (
+              <div
+                key={discussion.id}
+                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 aspect-square w-full md:w-1/2 lg:w-[25%] xl:w-[24%] h-[25rem] shadow-lg pt-6 px-6 rounded-3xl "
+              >
+                <div className="w-full bg-slate-200 h-[60%] overflow-hidden flex items-start">
+                  <motion.img
+                    loading="lazy"
+                    srcSet={discussion.image}
+                    className="w-full aspect-square"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 h-[40%]">
+                  <h6 className="text-green-800 font-sora text-lg md:text-xl lg:text-2xl  font-semibold leading-5">
+                    {discussion.topic}
+                  </h6>
+                  <p className="text-xs md:text-sm  text-gray-200">
+                    {discussion.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <button className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
 
           <svg
-            className="-mb-[45px]"
+            className=" relative -bottom-10 z-20"
             width="88"
             height="85"
             viewBox="0 0 88 85"
@@ -321,61 +286,109 @@ const LandingPage = () => {
           </svg>
         </div>
 
+        {/* Projects */}
+        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20  relative z-2">
+          <div className="w-[90%] mx-auto">
+            <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
+              Women Hub Projects
+            </h3>
+            <p className="text-gray-100 my-8 md:text-center text-left text-base self-center">
+              A platform that seeks to help Women thrive in their own
+              environment,
+              <br /> a free space to share with people who can relate, a
+              community for all who want and ask for help.
+            </p>
+          </div>
 
-          {/* Projects */}
-        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col space-y-6 pt-12 px-16 max-md:max-w-full max-md:px-5">
-          <h3 className="font-sora text-center text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
-            Women Hub Projects
-          </h3>
-          <p className="text-black my-8 text-opacity-90 text-left md:text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
-            A platform that seeks to help Women thrive in their own environment,
-            <br /> a free space to share with people who can relate, a community
-            for all who want and ask for help.
-          </p>
-         
-            <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0"> 
-              {featuredProjects.map((project) => (
-                  <div key={project.id} className="flex flex-col items-stretch w-1/3 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[35rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
-                      <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[20rem] relative">
-                        <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
-                        <img
-                          loading="lazy"
-                          srcSet={project.image}
-                          className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
-                        />
-                        <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">completed</span>
-                      </div>
-                      <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
-                        {project.topic}
-                      </div>
-                      <div className="text-sm text-gray-200 mt-4">
-                        {project.desc}
-                      </div>
-                    </div>
-                  </div>
-              ))}
-              
-            </div>
-         
-         <div className="flex items-center justify-between py-4">
+          <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-hidden px-4 md:px-16 w-auto">
+            {featuredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                animate={controls}
+                transition={{ ease: 'easeInOut', duration: 0.5 }}
+                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 aspect-square w-full md:w-1/2 lg:w-1/3 xl:w-1/3 h-[25rem] lg:h-[30rem] shadow-lg pt-6 px-6 rounded-3xl "
+              >
+                <div className="w-full bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
+                  <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
+                  <motion.img
+                    loading="lazy"
+                    srcSet={project.image}
+                    className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
+                  />
+                  <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">
+                    completed
+                  </span>
+                </div>
+                <div className="flex flex-col gap-2 h-[40%]">
+                  <h6 className="text-green-800 font-sora text-lg md:text-xl lg:text-2xl  font-semibold leading-5">
+                    {project.topic}
+                  </h6>
+                  <p className="text-xs md:text-sm  text-gray-200">
+                    {project.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="w-[90%] mx-auto flex items-center justify-between py-4">
             <span className="flex gap-5 items-center justify-center">
-              <button className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
-                <svg width="32" height="38" viewBox="0 0 32 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.34128 19H26.4402" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <button onClick={handlePrevClick} className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
+                <svg
+                  width="32"
+                  height="38"
+                  viewBox="0 0 32 38"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.34128 19H26.4402"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
-
               </button>
-              <button className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26.6587 16.1099H5.55981" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <button onClick={handleNextClick} className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.6587 16.1099H5.55981"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </span>
-            <button className="text-primary font-semibold text-sm md:text-base mr-0 md:mr-8">View all</button>
-         </div>
+            <Link
+              href="projects"
+              className="text-primary font-semibold text-sm md:text-base mr-0 md:mr-8"
+            >
+              View all
+            </Link>
+          </div>
 
           <svg
             className="-mb-[45px]"
@@ -402,82 +415,33 @@ const LandingPage = () => {
             This platform serves as a comprehensive resource, bringing together
             all the organizations dedicated to supporting women in Nigeria.
           </div>
-          <div className="self-stretch mt-16 max-md:max-w-full max-md:mt-10">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-                <div className="justify-between self-stretch bg-pink-300 grow w-full px-10 py-11 rounded-3xl max-md:max-w-full max-md:px-5">
-                  <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                    <div className="flex flex-col items-stretch w-[54%] max-md:w-full max-md:ml-0">
-                      <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                        <div className="text-neutral-950 font-sora text-2xl font-semibold">
-                          Add organization
-                        </div>
-                        <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
-                          You have an organization towards empowering women?
-                          join the platform
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-stretch w-[46%] ml-5 max-md:w-full max-md:ml-0">
-                      <img
-                        loading="lazy"
-                        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/d0dec30b-9670-4956-8f75-9f6a66e82975?apiKey=12cdcbacd64a44978db653c66e993585&"
-                        className="aspect-[1.07] object-contain object-center w-full overflow-hidden max-md:mt-10"
-                      />
-                    </div>
-                  </div>
+
+          <div className="w-full my-[4rem] md:w-[90%] mx-auto flex flex-wrap items-center justify-center gap-10">
+            {howItWorks.map((item) => (
+              <div
+                style={{ backgroundColor: item.color }}
+                key={item.id}
+                className="w-full md:w-[37rem] h-[17rem] p-8 grid grid-cols-1 md:grid-cols-5 gap-4 place-content-center rounded-[1rem] overflow-hidden"
+              >
+                <div className="w-full md:col-span-3 flex flex-col gap-6 items-center justify-center">
+                  <h3 className="text-lg md:text-2xl font-bold text-center font-sora">
+                    {item.topic}
+                  </h3>
+                  <h3 className="text-sm md:text-base text-left text-gray-200 font-quickSand">
+                    {item.desc}
+                  </h3>
+                </div>
+                <div className="w-full md:col-span-2 flex items-center justify-center">
+                  <motion.img
+                    src={item.image}
+                    alt={item.topic}
+                    className=" w-[6rem] md:w-[10rem] aspect-square object-contain bg-contain "
+                  />
                 </div>
               </div>
-              <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-                <div className="self-stretch bg-orange-200 grow w-full px-10 py-9 rounded-3xl max-md:max-w-full max-md:px-5">
-                  <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                    <div className="flex flex-col items-stretch w-[53%] max-md:w-full max-md:ml-0">
-                      <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                        <div className="text-neutral-950 font-sora text-2xl font-semibold">
-                          Share
-                        </div>
-                        <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
-                          Help others become aware of evnets discussions and
-                          women organiation .. share
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-stretch w-[47%] ml-5 max-md:w-full max-md:ml-0">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/87880df5-931f-4c38-8e44-87c89d38f7d6?apiKey=12cdcbacd64a44978db653c66e993585&"
-                        className="aspect-square object-contain object-center w-full fill-indigo-50 overflow-hidden max-md:mt-10"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="justify-between self-center bg-green-200 w-[631px] max-w-full mt-10 mb-10 px-10 py-8 rounded-3xl max-md:mb-10 max-md:px-5">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-[54%] max-md:w-full max-md:ml-0">
-                <div className="justify-center items-stretch self-stretch flex flex-col my-auto max-md:mt-10">
-                  <div className="text-neutral-950 font-sora text-2xl font-semibold">
-                    Engage
-                  </div>
-                  <div className="text-black text-opacity-90 font-quickSand text-sm mt-4">
-                    Discuss your opinions, attend events all on this platforms
-                    community
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[46%] ml-5 max-md:w-full max-md:ml-0">
-                <img
-                  loading="lazy"
-                  srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ccb8180-b425-4312-b0b0-b20155b693cf?apiKey=12cdcbacd64a44978db653c66e993585&"
-                  className="aspect-square object-contain object-center w-full overflow-hidden max-md:mt-8"
-                />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-
 
         <svg
           className="w-screen"

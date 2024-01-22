@@ -210,3 +210,11 @@ export default function DiscussionDetailsPage({ params }: { params: { id: string
         </AnimatePresence>
   )
 }
+
+// export async function generateStaticParams() {
+//     return posts.map((post) => ({
+//         params: {
+//             postId: post.id,
+//         },
+//     }));
+// }
