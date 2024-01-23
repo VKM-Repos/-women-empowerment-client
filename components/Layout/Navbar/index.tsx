@@ -78,7 +78,7 @@ const Navbar = () => {
     ],
     organisation: [
       { icon: "", text: "View Organization", href: "/view-oraganization" },
-      { icon: "", text: "manage Organization", href: "/manage-oraganization" },
+      { icon: "", text: "manage Organization", href: "/organization/manage" },
       { icon: "", text: "Add Event", href: "/add-event" },
     ],
   };
@@ -122,7 +122,7 @@ const Navbar = () => {
               <Link
                 href="/account/login"
                 className="flex items-center gap-2 px-6 py-2 text-light"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <Image
                   width={0.5}

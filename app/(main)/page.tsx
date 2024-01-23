@@ -140,7 +140,7 @@ const LandingPage = () => {
         <div className="bg-primary w-[95%] lg:h-[30rem] h-[25rem] rounded-[1rem] flex justify-start items-center p-2 md:p-16 relative overflow-hidden">
           <div className="w-full lg:w-1/2 flex flex-col items-start gap-4 relative left-0 lg:left-[5%]">
             <h1 className="md:text-[46px] text-[28px] text-center text-primaryWhite font-bold flex flex-nowrap items-start justify-center gap-2">
-              Together we are 
+              Together we are
               <AnimatePresence mode="wait" initial={false}>
                 <span
                   style={{
@@ -156,7 +156,7 @@ const LandingPage = () => {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="text-secondary"
+                    className="text-secondary italic px-2"
                   >
                     {words[currentWordIndex]}
                   </motion.span>
@@ -201,18 +201,18 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="absolute bottom-0 -right-10 hidden md:block">
-              <Image
-                src={womenInPower}
-                alt="group of women"
-                layout="intrinsic"
-                width={100}
-                height={100}
-                className="w-[650px] rounded-br-xl"
-              />
+            <Image
+              src={womenInPower}
+              alt="group of women"
+              layout="intrinsic"
+              width={100}
+              height={100}
+              className="w-[650px] rounded-br-xl"
+            />
           </div>
         </div>
 
-          {/* Organizations, events and news  */}
+        {/* Organizations, events and news  */}
         <div className="w-full p-4 mx-auto flex flex-col lg:flex-row gap-2 relative">
           <div className="lg:w-4/6 w-full flex flex-col py-4">
             <div className="text-orange-500 text-2xl font-sora font-bold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
@@ -229,7 +229,7 @@ const LandingPage = () => {
                   ))}
                 </>
               )}
-              <button onClick={() => {}} className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
+              <button onClick={() => { }} className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10">
                 SEE ALL ORGANIZATIONS
               </button>
             </section>
@@ -267,7 +267,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-          {/* Discussions */}
+        {/* Discussions */}
         <div className="bg-[#F0EBD6] self-stretch z-[1] flex w-full flex-col pt-12 px-16 max-md:max-w-full max-md:px-5">
           <h3 className="font-sora text-center text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
             Community Discussions
@@ -277,30 +277,30 @@ const LandingPage = () => {
             <br /> a free space to share with people who can relate, a community
             for all who want and ask for help.
           </p>
-         
-            <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0"> 
-              {communityDiscussionTopics.map((discussion) => (
-                  <div key={discussion.id} className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[28rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
-                      <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[15rem]">
-                        <img
-                          loading="lazy"
-                          srcSet={discussion.image}
-                          className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
-                        />
-                      </div>
-                      <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
-                        {discussion.topic}
-                      </div>
-                      <div className="text-sm text-gray-200 mt-4">
-                        {discussion.desc}
-                      </div>
-                    </div>
+
+          <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0">
+            {communityDiscussionTopics.map((discussion) => (
+              <div key={discussion.id} className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
+                <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[28rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                  <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[15rem]">
+                    <img
+                      loading="lazy"
+                      srcSet={discussion.image}
+                      className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
+                    />
                   </div>
-              ))}
-              
-            </div>
-         
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
+                    {discussion.topic}
+                  </div>
+                  <div className="text-sm text-gray-200 mt-4">
+                    {discussion.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+          </div>
+
           <button className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
@@ -322,7 +322,7 @@ const LandingPage = () => {
         </div>
 
 
-          {/* Projects */}
+        {/* Projects */}
         <div className="bg-[#EEEEED] self-stretch flex w-full flex-col space-y-6 pt-12 px-16 max-md:max-w-full max-md:px-5">
           <h3 className="font-sora text-center text-green-800 text-5xl font-semibold max-w-[600px] self-center mt-9 max-md:max-w-full max-md:text-4xl">
             Women Hub Projects
@@ -332,50 +332,50 @@ const LandingPage = () => {
             <br /> a free space to share with people who can relate, a community
             for all who want and ask for help.
           </p>
-         
-            <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0"> 
-              {featuredProjects.map((project) => (
-                  <div key={project.id} className="flex flex-col items-stretch w-1/3 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[35rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
-                      <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[20rem] relative">
-                        <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
-                        <img
-                          loading="lazy"
-                          srcSet={project.image}
-                          className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
-                        />
-                        <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">completed</span>
-                      </div>
-                      <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
-                        {project.topic}
-                      </div>
-                      <div className="text-sm text-gray-200 mt-4">
-                        {project.desc}
-                      </div>
-                    </div>
+
+          <div className="gap-5 flex max-md:flex-col items-start max-md:gap-0">
+            {featuredProjects.map((project) => (
+              <div key={project.id} className="flex flex-col items-stretch w-1/3 max-md:w-full max-md:ml-0">
+                <div className="justify-center items-stretch bg-primaryWhite flex-col w-full h-[35rem] shadow-lg pt-6 pb-12 px-6 rounded-3xl max-md:mt-5 max-md:px-5">
+                  <div className="justify-center items-center bg-slate-200 flex flex-col p-2.5 h-[20rem] relative">
+                    <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
+                    <img
+                      loading="lazy"
+                      srcSet={project.image}
+                      className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
+                    />
+                    <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">completed</span>
                   </div>
-              ))}
-              
-            </div>
-         
-         <div className="flex items-center justify-between py-4">
+                  <div className="text-green-800 font-sora text-2xl font-semibold leading-5 mt-5">
+                    {project.topic}
+                  </div>
+                  <div className="text-sm text-gray-200 mt-4">
+                    {project.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+          </div>
+
+          <div className="flex items-center justify-between py-4">
             <span className="flex gap-5 items-center justify-center">
               <button className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
                 <svg width="32" height="38" viewBox="0 0 32 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.34128 19H26.4402" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5.34128 19H26.4402" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
 
               </button>
               <button className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26.6587 16.1099H5.55981" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M26.6587 16.1099H5.55981" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </button>
             </span>
             <button className="text-primary font-semibold text-sm md:text-base mr-0 md:mr-8">View all</button>
-         </div>
+          </div>
 
           <svg
             className="-mb-[45px]"

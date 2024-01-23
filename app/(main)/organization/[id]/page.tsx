@@ -1,6 +1,9 @@
 
 import React from 'react'
 import organizationHeader from '@/public/images/organization_header.svg'
+import orgProfile from '@/public/images/org_profile.svg'
+import orgProfile2 from '@/public/images/org_profile_2.svg'
+import Image from 'next/image'
 
 export default function OrganizationDetails() {
     return (
@@ -9,112 +12,132 @@ export default function OrganizationDetails() {
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[66%] max-md:w-full max-md:ml-0">
                         <div className="items-start flex grow flex-col  max-md:max-w-full max-md:mt-8">
-                            <div className='w-full'>
-                                <img
-                                    loading="lazy"
-                                    src={organizationHeader.src}
-                                    className="w-full"
-                                />
-                            </div>
-                            <div className="z-[1] w-[526px] max-w-full ml-9 -mt-[150px] self-start max-md:mt-10">
-                                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                                    <div className="flex flex-col items-stretch w-[42%] max-md:w-full max-md:ml-0">
-                                        <img
-                                            loading="lazy"
-                                            srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/586127c89a4967874c4f2dfd60d73adbd0b76430a3a80f8c5a9dbea9fb5687f9?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                            className="aspect-square object-contain object-center w-[212px] shadow-sm overflow-hidden shrink-0 max-w-full rounded-[50%] max-md:mt-7"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col items-stretch w-[58%] ml-5 max-md:w-full max-md:ml-0">
-                                        <div className="text-white-100 font-sora text-4xl font-bold tracking-wide whitespace-nowrap my-auto max-md:mt-10">
-                                            Women in Tech
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="border  rounded-lg border-t-0 bg-white self-stretch flex flex-col py-10 -mt-[50px] items-end max-md:max-w-full">
-                                <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
-                                    <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
-                                        Follow us:
-                                    </div>
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/abce849794dda183fd45fa5521042c17bc79420d3659f4eb5e28dc5eda375573?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                        className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
-                                    />
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/c96d60d7fa6857b2f5a19eed2c499199a72e0c354b908409249d5aedff7bc773?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                        className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
-                                    />
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b8ba7a75a4769ac3c7bd1c9fa32e3c4284005ef2934d6ae315caff2253fa819?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                        className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
-                                    />
-                                </div>
-                                <div className="self-stretch flex flex-col mt-7 px-12 items-start max-md:max-w-full max-md:px-5">
-                                    <div className="text-green-400 font-sora text-2xl tracking-wide whitespace-nowrap">
-                                        About
-                                    </div>
-                                    <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-7 max-md:max-w-full">
-                                        Women in Tech is the world’s leading organization for
-                                        Inclusion, Diversity & Equity in STEAM. Our community counts
-                                        over 200.000 members across the world with chapters in all 6
-                                        continents. With our Head Office in Paris, we are a Global
-                                        Movement with chapters in 6 continents, counting over
-                                        200.000 members.
-                                        <br />
-                                        <br />
-                                        Our community is represented by persons of all abilities –
-                                        regardless of gender, race, ethnicity, class, age or sexual
-                                        orientation.
-                                    </div>
-                                    <div className="self-stretch flex w-[80%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
-                                        <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                                            <div className="items-center flex grow basis-[0%] flex-col">
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe855fcb572283e4eadd53dce8006539c57e6a12eafb2e323cc4a06312ab4e10?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                                    className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
-                                                />
-                                                <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
-                                                    Road 17, 1st avenue gwarinpa, <br />
-                                                    FCT, Abuja.
-                                                </div>
-                                            </div>
-                                            <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
-                                            {/*  */}
-                                        </div>
 
-                                        <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
-                                            <div className="items-center self-stretch flex flex-col">
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c5797671bbfcf56da0e2d3a278b42ea250363c208432483a2e75edf7f0edb96?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                                    className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
-                                                />
-                                                <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                    contact@womenintech.org
+
+                            <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
+                                <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-black      border-opacity-10 max-md:max-w-full max-md:mt-5">
+                                    <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
+                                    <div className='z-10 flex justify-end pt-10 px-8 cursor-pointer'>
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.334 16C13.334 16.7073 13.6149 17.3855 14.115 17.8856C14.6151 18.3857 15.2934 18.6667 16.0007 18.6667C16.7079 18.6667 17.3862 18.3857 17.8863 17.8856C18.3864 17.3855 18.6673 16.7073 18.6673 16C18.6673 15.2928 18.3864 14.6145 17.8863 14.1144C17.3862 13.6143 16.7079 13.3333 16.0007 13.3333C15.2934 13.3333 14.6151 13.6143 14.115 14.1144C13.6149 14.6145 13.334 15.2928 13.334 16ZM13.334 8.00001C13.334 8.70725 13.6149 9.38553 14.115 9.88563C14.6151 10.3857 15.2934 10.6667 16.0007 10.6667C16.7079 10.6667 17.3862 10.3857 17.8863 9.88563C18.3864 9.38553 18.6673 8.70725 18.6673 8.00001C18.6673 7.29277 18.3864 6.61449 17.8863 6.11439C17.3862 5.61429 16.7079 5.33334 16.0007 5.33334C15.2934 5.33334 14.6151 5.61429 14.115 6.11439C13.6149 6.61449 13.334 7.29277 13.334 8.00001ZM13.334 24C13.334 24.7073 13.6149 25.3855 14.115 25.8856C14.6151 26.3857 15.2934 26.6667 16.0007 26.6667C16.7079 26.6667 17.3862 26.3857 17.8863 25.8856C18.3864 25.3855 18.6673 24.7073 18.6673 24C18.6673 23.2928 18.3864 22.6145 17.8863 22.1144C17.3862 21.6143 16.7079 21.3333 16.0007 21.3333C15.2934 21.3333 14.6151 21.6143 14.115 22.1144C13.6149 22.6145 13.334 23.2928 13.334 24Z" fill="white" />
+                                        </svg>
+
+                                    </div>
+                                    <span className="w-full h-[20rem] self-stretch flex flex-col pt-9 px-2  items-end max-md:max-w-full">
+
+                                        <div className="self-stretch z-[1]  max-md:max-w-full max-md:mt-10 max-md:mb-2.5">
+                                            <div className="gap-5 flex mt-[40px] max-md:flex-col max-md:items-stretch max-md:gap-0">
+                                                <div className="flex flex-col items-stretch w-[28%] max-md:w-full max-md:ml-0">
+                                                    <div className="bg-white flex flex-col justify-center items-center aspect-square w-full rounded-[105px] max-md:mt-7">
+                                                        <div className="flex-col shadow-sm overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-[50%] max-md:px-5">
+                                                            <img
+                                                                loading="lazy"
+                                                                srcSet={orgProfile.src}
+                                                                className="absolute h-full w-full object-cover object-center inset-0 hover:-z-10"
+                                                            />
+                                                            <img
+                                                                loading="lazy"
+                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
+                                                                className="w-10 h-10 object-contain object-center justify-center items-center overflow-hidden max-w-full my-8"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
+                                                    <div className="text-white text-4xl font-sora font-bold tracking-wide my-auto max-md:max-w-full max-md:mt-10">
+                                                        Women Research Foundation
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
-                                            <div className="bg-neutral-200 w-px shrink-0 h-[31px] my-auto" />
-                                            <div className="items-center self-stretch flex flex-col">
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c626735b6b0c9477b5b357937dd2772719655ba3defd6ec7dbae27affe114e1?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                                    className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
-                                                />
-                                                <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                    +234 90 732 732
+                                    </span>
+                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[50px] items-end max-md:max-w-full">
+                                        <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
+                                            <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
+                                                Follow us:
+                                            </div>
+                                            <img
+                                                loading="lazy"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/abce849794dda183fd45fa5521042c17bc79420d3659f4eb5e28dc5eda375573?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
+                                            />
+                                            <img
+                                                loading="lazy"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/c96d60d7fa6857b2f5a19eed2c499199a72e0c354b908409249d5aedff7bc773?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
+                                            />
+                                            <img
+                                                loading="lazy"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b8ba7a75a4769ac3c7bd1c9fa32e3c4284005ef2934d6ae315caff2253fa819?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
+                                            />
+                                        </div>
+                                        <div className="self-stretch flex flex-col mt-7 px-12 items-start max-md:max-w-full max-md:px-5">
+                                            <div className="text-green-400 font-sora text-2xl tracking-wide whitespace-nowrap">
+                                                About
+                                            </div>
+                                            <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-7 max-md:max-w-full">
+                                                Women in Tech is the world’s leading organization for
+                                                Inclusion, Diversity & Equity in STEAM. Our community counts
+                                                over 200.000 members across the world with chapters in all 6
+                                                continents. With our Head Office in Paris, we are a Global
+                                                Movement with chapters in 6 continents, counting over
+                                                200.000 members.
+                                                <br />
+                                                <br />
+                                                Our community is represented by persons of all abilities –
+                                                regardless of gender, race, ethnicity, class, age or sexual
+                                                orientation.
+                                            </div>
+                                            <div className="self-stretch flex w-[80%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+                                                <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
+                                                    <div className="items-center flex grow basis-[0%] flex-col">
+                                                        <img
+                                                            loading="lazy"
+                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe855fcb572283e4eadd53dce8006539c57e6a12eafb2e323cc4a06312ab4e10?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                            className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                                        />
+                                                        <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
+                                                            Road 17, 1st avenue gwarinpa, <br />
+                                                            FCT, Abuja.
+                                                        </div>
+                                                    </div>
+                                                    <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
+                                                    {/*  */}
+                                                </div>
+
+                                                <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
+                                                    <div className="items-center self-stretch flex flex-col">
+                                                        <img
+                                                            loading="lazy"
+                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c5797671bbfcf56da0e2d3a278b42ea250363c208432483a2e75edf7f0edb96?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                            className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                                        />
+                                                        <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
+                                                            contact@womenintech.org
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
+                                                    <div className="bg-neutral-200 w-px shrink-0 h-[31px] my-auto" />
+                                                    <div className="items-center self-stretch flex flex-col">
+                                                        <img
+                                                            loading="lazy"
+                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c626735b6b0c9477b5b357937dd2772719655ba3defd6ec7dbae27affe114e1?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                                            className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                                        />
+                                                        <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
+                                                            +234 90 732 732
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </span>
                             </div>
+
+
                             <div className="items-stretch flex gap-2.5 mt-10 self-start">
                                 <button className="text-white-100 text-2xl tracking-wide whitespace-nowrap items-stretch bg-[#65B891] grow justify-center px-8 py-4 rounded-lg max-md:px-5">
                                     Images
