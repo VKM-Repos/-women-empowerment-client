@@ -18,15 +18,11 @@ export type LoginRequest = {
   password: string;
 };
 
-export type CreateUserRequest = {
-  firstName: string;
-  lastName: string;
-  username?: string;
+export type RegisterUserRequest = {
   email: string;
   password: string;
-  referralCode?: string;
-  userType: string;
 };
+
 
 export type UserResponse = {
   status: boolean;

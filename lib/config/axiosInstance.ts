@@ -16,7 +16,8 @@ authApi.defaults.headers.common["Content-Type"] = "application/json";
 authApi.interceptors.request.use(async (config) => {
   const session = await getSession();
 
-  const userToken = session?.user?.accessToken;  // change later
+  // const userToken = session?.user?.accessToken;  // change later
+  const userToken = '';  
 
   if (userToken) {
     config.headers["Authorization"] = `Bearer ${userToken}`;

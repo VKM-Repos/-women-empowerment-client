@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import doddles from "@/public/images/img_circledoodle.png";
 import womenInPower from "@/public/images/img_womeninpower1.svg";
-import { TransitionElement } from "@/lib/utils/transition";
+import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
 import db from "@/data/db.json";
 import { CommunityCard } from "@/components/LandingPage/CommunityCard";
 import EventCard from "./(community)/discussions/components/EventCard";
@@ -88,7 +88,7 @@ const LandingPage = () => {
   
 
   return (
-    <TransitionElement>
+    <TransitionParent>
       <section className=" w-screen mx-auto flex flex-col items-center justify-start">
         <div className="z-10 absolute top-5 left-0 block">
           <Image
@@ -454,7 +454,7 @@ const LandingPage = () => {
           <ellipse cx="720" cy="-416.5" rx="1623.5" ry="630.5" fill="#F9F2FF" />
         </svg>
       </section>
-    </TransitionElement>
+    </TransitionParent>
   );
 };
 

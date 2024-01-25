@@ -26,18 +26,18 @@ export const CategoryCard: React.FC<{ category: CategoryProps }> = ({
     <Link
       href={`/category/${category.id}`}
       as={`/category/${formatIdToTitle(category.title)}`}
-      className="w-[20rem] aspect-square flex flex-col items-center justify-center gap-5 drop-shadow-sm transform transition-all ease-in-out duration-300 rounded-[0.7rem] shadow-md p-4 overflow-hidden bg-btnWarning/20 hover:bg-primary/70"
+      className="lg:w-[20rem] md:w-[14rem] w-[10rem] aspect-square flex flex-col items-center justify-center gap-2 md:gap-5 drop-shadow-sm transform transition-all ease-in-out duration-300 rounded-[0.5rem] shadow-md p-2 overflow-hidden bg-btnWarning/20 hover:bg-primary/70"
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
     >
       <motion.img
         loading="lazy"
         srcSet={category.icon}
-        className="w-1/2 mx-auto aspect-square overflow-hidden drop-shadow-lg"
+        className="h-2/3  mx-auto flex bg-center mt-8 md:aspect-square overflow-hidden drop-shadow-lg"
         animate={imageControls}
       />
       <motion.h6
-        className="text-black text-xl font-medium"
+        className="text-black text-xs md:text-xl font-semibold flex items-center justify-center h-1/3 w-full text-center font-quickSand"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
