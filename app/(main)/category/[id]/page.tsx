@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Organization } from "@/components/LandingPage/Organization";
 import db from "@/data/db.json";
 import { CommunityCard } from "@/components/LandingPage/CommunityCard";
-
 import EventCard from "../../(community)/discussions/components/EventCard";
 import NewsCard from "../../(community)/discussions/components/NewsCard";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Icon from "@/components/Common/Icons/Icon";
 import Button from "@/components/Common/Button/Button";
@@ -87,16 +84,14 @@ export default function CategoryDetailsPage({
                   </button>
                 </div>
               </div>
-                <div className="md:col-span-1 absolute bottom-0 md:right-0 right-1/4 block z-1">
-                  <motion.img
+              <div className="md:col-span-1 absolute bottom-0 md:right-0 right-1/4 block z-1">
+                <motion.img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/1c43bb1d-5bd1-4831-872b-474116f3e3dc?apiKey=12cdcbacd64a44978db653c66e993585&"
-                    className="lg:w-[20rem] w-[12rem] mx-auto aspect-auto rounded-br-xl"
-                  />
-                </div>
-              <div className="w-fit absolute right-0 bottom-0">
-               
+                  className="lg:w-[20rem] w-[12rem] mx-auto aspect-auto rounded-br-xl"
+                />
               </div>
+              <div className="w-fit absolute right-0 bottom-0"></div>
             </div>
 
             <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative">
@@ -173,14 +168,14 @@ export default function CategoryDetailsPage({
               </span>
 
               <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-auto px-4 md:px-16 w-auto">
-                
-                        {db.categories.map((category) => (
-                  <div key={category.id}  className="md:w-[20rem] w-[10rem] aspect-square">
-                    <CategoryCard  category={category} />
+                {db.categories.map((category) => (
+                  <div
+                    key={category.id}
+                    className="md:w-[20rem] w-[10rem] aspect-square"
+                  >
+                    <CategoryCard category={category} />
                   </div>
                 ))}
-             
-             
               </div>
             </div>
           </section>

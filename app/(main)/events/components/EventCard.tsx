@@ -31,10 +31,10 @@ const EventCard: React.FC<{ event: EventProps }> = ({ event }) => {
           className="w-full md:w-2/3  aspect-square rounded-full object-contain"
         />
       </div>
-      <div className='col-span-6 flex flex-col gap-2'>
-        <h5 className='text-gray-100 font-bold text-base md:text-xl'>{event.title}</h5>
-        <p className='text-gray-300 font-light text-sm md:text-base'>{event.period}</p>
-        <span className='text-xs md:text-sm text-btnWarning font-medium flex items-center'>
+      <div className='w-full col-span-7 md:col-span-6 flex flex-col items-start gap-0 md:gap-2'>
+        <h5 className='text-gray-100 font-bold font-sora text-base md:text-xl truncate whitespace-nowrap w-full block'>{event.title}</h5>
+        <p className='text-gray-300 font-light font-quickSand text-sm md:text-base'>{event.period}</p>
+        <span className='text-xs md:text-sm font-sora text-btnWarning font-medium flex items-center'>
           {event.status === 'Online' ? (
             <>
               <CameraIcon /> &nbsp; {event.status} &nbsp; {event.author}
@@ -47,7 +47,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({ event }) => {
           ) : null}{' '}
         </span>
       </div>
-      <div className='col-span-1 flex justify-end'>
+      <div className='hidden col-span-1 md:flex justify-end'>
         <div className="w-6 aspect-square text-gray-400 rounded-full flex items-center justify-center">
           <ChevronRightIcon />
         </div>
