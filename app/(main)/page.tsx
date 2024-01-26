@@ -172,9 +172,9 @@ const LandingPage = () => {
         {/* Organizations, events and news  */}
         <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative">
           <div className="lg:col-span-4 w-full flex flex-col py-4">
-            <div className="text-orange-500 text-2xl font-sora font-bold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+            <h3 className="text-orange-500 text-2xl font-sora font-semibold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               TOP ORGANIZATIONS
-            </div>
+            </h3>
             {/* Organization feeds */}
             <section className=" flex flex-col gap-4 md:px-5 px-2">
               {db.communities.length === 0 ? (
@@ -188,7 +188,7 @@ const LandingPage = () => {
               )}
               <button
                 onClick={() => {}}
-                className="text-orange-500 text-base justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10"
+                className="text-orange-500 text-base font-quickSand justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10"
               >
                 SEE ALL ORGANIZATIONS
               </button>
@@ -197,29 +197,29 @@ const LandingPage = () => {
 
           <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full py-4 rounded-[1.5rem] ">
-              <div className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+              <h3 className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
                 EVENTS
-              </div>
+              </h3>
 
               <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
                 {db.events.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
-                <button className="text-orange-500 text-base justify-center items-stretch border self-center w-[207px] max-w-full mt-6 p-5 rounded-lg border-solid border-orange-500">
+                <button className="font-quickSand text-orange-500 text-base justify-center items-stretch border self-center w-[207px] max-w-full mt-6 p-5 rounded-lg border-solid border-orange-500">
                   SEE MORE EVENTS
                 </button>
               </section>
             </aside>
 
             <aside className="w-full py-6 rounded-[1.5rem]">
-              <div className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+              <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                 NEWS CENTER
-              </div>
+              </h3>
               <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
                 ))}
-                <button className="text-orange-500 text-base justify-center items-stretch border shadow-sm self-center  max-w-full mt-10 p-5 rounded-lg border-solid border-orange-500 max-md:mt-10">
+                <button className=" font-quickSand text-orange-500 text-base justify-center items-stretch border shadow-sm self-center  max-w-full mt-10 p-5 rounded-lg border-solid border-orange-500 max-md:mt-10">
                   MORE FROM NEWS CENTER
                 </button>
               </section>

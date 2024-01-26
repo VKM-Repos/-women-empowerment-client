@@ -28,7 +28,7 @@ const EventCard: React.FC<{ event: EventProps }> = ({
       />
 
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">
-        <h4 className="text-sm font-semibold">{event?.title}</h4>
+        <h4 className="text-sm font-semibold truncate whitespace-nowrap w-full block">{event?.title}</h4>
         <p className="text-sm text-gray-300 font-quickSand">{event.author}</p>
         <p className="text-xs text-info">{event.createdAt} ({event.status})</p>
       </div>

@@ -30,9 +30,9 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
   };
 
   return (
-    <Link href={`/discussions/${discussion.id}`} as={`/discussions/${formatIdToTitle(discussion.title)}`} scroll={false} >
-      <article className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-center">
-        <Image
+    <Link href={`/discussions/${discussion.id}`} as={`/discussions/${formatIdToTitle(discussion.title)}`} scroll={false} className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75 cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-start" >   
+        <div className="col-span-2 lg:col-span-1">
+           <Image
           src={
             discussion?.image || "../../../../public/images/group-of-girls.png"
           }
@@ -40,29 +40,30 @@ const DiscussionCard: React.FC<{ discussion: DiscussionProps }> = ({
           width={100}
           height={100}
           // layout="responsive"
-          className="col-span-2 lg:col-span-1 w-full aspect-square rounded-full object-contain"
+          className=" w-full aspect-square rounded-full object-contain"
         />
+        </div>
 
         <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-1">
-          <h4 className="text-lg font-normal">{discussion?.title}</h4>
-          <p className="font-light text-lg text-gray-300">
+          <h4 className="text-gray-100 font-bold font-sora text-base md:text-xl truncate whitespace-nowrap w-full block">{discussion?.title}</h4>
+          <p className="text-gray-300 font-light font-quickSand text-sm md:text-base">
             {truncatedText(discussion?.description, 150)}
             &nbsp;
             {discussion.description.length > 100 && (
               // <span className="text-info text-xs">See more</span>
-               <span className="text-sm font-medium text-gray-200">
+               <span className="text-xs md:text-sm font-sora font-medium text-gray-200">
               - {discussion.author}
             </span>
             )}
           </p>
-          <span className="w-full flex items-center justify-between text-base">
+          <span className="w-full flex items-center justify-between text-xs md:text-sm font-sora">
             <span>{discussion.createdAt}</span>
             <span className="text-primary flex space-x-2">
               <Icon name="" /> {discussion.comments} comments
             </span>
           </span>
         </div>
-      </article>
+    
     </Link>
   );
 };

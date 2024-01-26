@@ -79,9 +79,9 @@ const Button: React.FC<ButtonProps> = ({
     }
 
     if (fullWidth) {
-      classes += " w-full flex items-center justify-center font-quickSand";
+      classes += " w-full flex items-center justify-center font-quickSand font-semibold";
     } else {
-      classes += " flex items-center justify-center font-quickSand";
+      classes += " flex items-center justify-center font-quickSand font-semibold";
     }
 
     return classes;
