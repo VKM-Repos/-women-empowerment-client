@@ -82,12 +82,12 @@ export default function EventsDetailsPage({
                       className="md:h-[20rem] h-[12rem] aspect-square"
                     />
                   </div>
-                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary">
+                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
                     {events.title}
                   </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
-                  <h3 className="font-semibold text-xl ">Details</h3>
+                  <h3 className="font-semibold text-xl  font-sora">Details</h3>
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <div className=" flex items-center gap-4">
                       <Image
@@ -98,7 +98,7 @@ export default function EventsDetailsPage({
                         objectFit="cover"
                         className="w-[3rem] aspect-square rounded-full border border-gray-500"
                       />
-                      <h5 className="text-gray-200 font-semibold text-base">
+                      <h5 className="text-gray-200 font-semibold text-base font-quickSand">
                         Women in tech
                       </h5>
                     </div>
@@ -123,7 +123,7 @@ export default function EventsDetailsPage({
                         />
                       </svg>
 
-                      <span className="flex flex-col gap-1 items-start">
+                      <span className="flex flex-col gap-1 items-start font-sora">
                         <h5 className="text-gray-200 text-sm">
                           August 30, 2022 at 10:00 AM - 12:00 PM
                         </h5>
@@ -159,11 +159,11 @@ export default function EventsDetailsPage({
                           fill="#106840"
                         />
                       </svg>
-                      <p className="text-sm text-gray-200">Online Event</p>
+                      <p className="text-sm text-gray-200 font-sora">Online Event</p>
                     </div>
                   </div>
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
-                    <p className="text-sm text-gray-200">
+                    <p className="text-sm text-gray-200 font-quickSand">
                       Are you passionate about blogging or looking to dive into
                       the world of writing? Whether you&apos;re a seasoned
                       writer or just starting your writing journey, our Writing
@@ -174,7 +174,7 @@ export default function EventsDetailsPage({
                 </div>
               </div>
 
-              <div className=" flex gap-10">
+              <div className="font-quickSand flex gap-10">
                 <button className="border border-primary text-primary text-base px-4 py-2 rounded-md flex items-center space-x-2">
                   {/* <Icon name="" size={24} /> */}
                   <span>Share</span>
