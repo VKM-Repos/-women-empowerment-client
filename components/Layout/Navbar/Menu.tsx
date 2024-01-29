@@ -42,7 +42,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ link, subLinks, text, icon, 
   };
 
   return (
-    <div className="relative " onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className="relative " onClick={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link href={link} className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`}>
         <span className="link">{text} {icon}</span>
         {subLinks

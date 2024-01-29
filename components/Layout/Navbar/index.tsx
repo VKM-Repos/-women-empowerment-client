@@ -78,50 +78,65 @@ const Navbar = () => {
     ],
     organisation: [
       { icon: "", text: "View Organization", href: "/view-oraganization" },
-      { icon: "", text: "manage Organization", href: "/manage-oraganization" },
+      { icon: "", text: "manage Organization", href: "/organization/manage" },
       { icon: "", text: "Add Event", href: "/add-event" },
     ],
   };
   const pathname = usePathname();
   const router = useRouter();
 
+  const handleSideMenu = () => {
+
+  }
+
   return (
     <header>
-      <nav className="fixed top-0 inset-x-0 z-[250] flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite p-1 px-2 md:px-8">
+      <nav className="fixed top-0 inset-x-0 z-[250] font-sora flex items-center justify-between text-secondaryGreen bg-primaryWhite px-2 md:px-8 py-3 md:py-0">
+        <div className="w-1/3 flex gap-4 items-center justify-between md:py-2">
+          {/*side menu button */}
+        <button className="lg:hidden block" onClick={handleSideMenu}>
+          <svg width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 7.96732H28.6667" stroke="currentColor" strokeWidth="2.125" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M6 15.9673H28.6667" stroke="currentColor" strokeWidth="2.125" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M6 23.9673H28.6667" stroke="currentColor" strokeWidth="2.125" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        
         {/* Logo */}
-        <div className="w-1/3">
+        <div className="w-full">
           <Link href="/" className="w-fit flex items-center space-x-2">
             <Image
               src={Logo.src}
               alt=""
-              className="w-[4rem] aspect-auto"
+              className="w-[3rem] md:w-[4rem] aspect-auto"
               width={100}
               height={100}
             />
           </Link>
+        </div>
         </div>
 
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
           <MenuContainer>
             <MenuItem link="/about" subLinks={null} text="about" />
             <MenuItem link="/category" subLinks={null} text="category" />
-            <MenuItem link="/projects" subLinks={null} text="projects" />
             <MenuItem link="/events" subLinks={null} text="events" />
             <MenuItem
               link="#"
               subLinks={submenuLinks.community}
               text="community"
             />
+            <MenuItem link="/projects" subLinks={null} text="projects" />
             <MenuItem link="/blog" subLinks={null} text="blog" />
           </MenuContainer>
         </div>
 
-        <div className="w-1/2 lg:w-1/3 place-content-end flex items-center gap-5">
+        <div className="w-fit lg:w-1/3 place-content-end flex items-center gap-5">
           {!isAuthenticated ? (
-            <div className="hidden md:flex items-center text-sm md:text-base">
+            <div className="flex items-center text-xs md:text-base">
               <Link
                 href="/account/login"
-                className="flex items-center gap-2 px-6 py-2 text-light"
+                className="flex items-center gap-2 px-4 py-2 text-light"
                 onClick={() => {}}
               >
                 <Image
@@ -135,7 +150,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/account/sign-up"
-                className="bg-btnWarning px-6 py-2 rounded-md font-light text-white-100"
+                className="bg-btnWarning px-4 py-2 rounded-md font-light text-white-100"
               >
                 Sign up
               </Link>
@@ -161,31 +176,7 @@ const Navbar = () => {
               />
             </MenuContainer>
           )}
-          <button draggable={false} className="w-[3rem] lg:hidden flex">
-            <svg
-              viewBox="-7.04 -7.04 78.08 78.08"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="#FF7400"
-              strokeWidth="1.5"
-              transform="matrix(1, 0, 0, 1, 0, 0)"
-            >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                stroke="#CCCCCC"
-                strokeWidth="0.128"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <line x1="16" y1="20" x2="48" y2="20"></line>
-                <line x1="16" y1="44" x2="48" y2="44"></line>
-                <line x1="48" y1="32" x2="16" y2="32"></line>
-                <rect x="8" y="8" width="48" height="48"></rect>
-              </g>
-            </svg>
-          </button>
+        
         </div>
       </nav>
     </header>

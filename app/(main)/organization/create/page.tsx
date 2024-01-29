@@ -218,7 +218,7 @@ function CreateOrganizationPage() {
 
   return (
     <AnimatePresence initial={true} mode="wait">
-      <div className="w-full min-h-screen overflow-hidden fixed top-0 bg-primaryWhite z-[200] py-[5rem] scrollable-section flex justify-center items-center">
+      <div className="w-full min-h-screen top-0 bg-primaryWhite z-[200] py-[5rem] scrollable-section flex justify-center items-center">
         <RenderForm />
       </div>
     </AnimatePresence>

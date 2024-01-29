@@ -18,7 +18,7 @@ import CreateDiscussionModal from "./components/CreateDiscussionModal";
 const DiscussionsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [discussions, setDiscussions] = useState<any>([]);
-   const { showModal } = useModal();
+  const { showModal } = useModal();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,23 +37,23 @@ const DiscussionsPage = () => {
 
   const handleStartDiscussion = () => {
     showModal(<CreateDiscussionModal />);
-  }
+  };
 
   return (
     <TransitionParent>
-      <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[4rem] min-h-screen">
-        <div className=" w-full bg-primary md:h-[27rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
-          <div className="w-full md:w-1/2 flex flex-col items-start justify-start space-y-6 text-left relative z-[50]">
-            <div className="flex flex-col items-center justify-start gap-5 relative w-full z-[50]">
-              <p className="text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-left">
+      <section className=" w-screen flex flex-col items-center justify-start">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+          <div className="w-full md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-[50]">
+            <div className="pt-4 flex flex-col items-center justify-start gap-5 relative w-full z-[50] font-sora">
+              <p className="text-xl md:text-4xl text-primaryWhite text-left">
                 “A girl should not expect special privileges because of her sex
                 but neither should she adjust to prejudice and discrimination.”
               </p>
-              <p className=" w-full text-xl md:text-3xl font-light tracking-wide text-primaryWhite text-center md:text-right italic">
+              <p className=" w-full text-xl md:text-4xl text-primaryWhite text-right italic">
                 - Betty Friedan
               </p>
             </div>
-            <span className="w-full flex justify-center md:justify-start">
+            <span className="w-full flex justify-start">
               <Button
                 label="Start a new discussion"
                 fullWidth={false}
@@ -64,15 +64,19 @@ const DiscussionsPage = () => {
               />
             </span>
           </div>
-          <Image
-            src={Group}
-            alt="group"
-            className="absolute bottom-0 right-10 w-4/5 md:w-1/4 opacity-20 md:opacity-100 aspect-square object-contain z-[20]"
-          />
+          <div className="md:col-span-1 absolute bottom-0 right-0 block z-10">
+            <Image
+              src={Group}
+              alt="group"
+              width={1000}
+              height={1000}
+              className="lg:w-[18rem] w-[8rem] mx-auto aspect-auto rounded-br-xl"
+            />
+          </div>
           <Image
             src={DoodlesA}
             alt="doodles"
-            className="absolute -top-[25%] right-0 w-4/5 md:w-1/2 aspect-square object-cover z-1"
+            className="absolute top-[25%] md:-top-[15%] opacity-60 md:opacity-100 right-0 w-4/5 md:w-1/2 aspect-square object-cover z-1"
           />
           <Image
             src={DoodlesB}
@@ -81,64 +85,74 @@ const DiscussionsPage = () => {
           />
         </div>
 
-        <div className=" w-full p-4 mx-auto flex gap-2 relative">
-          <div className="w-4/6 flex flex-col py-4">
-            <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">
+        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-4 mt-16 pb-[7rem]">
+          <div className="lg:col-span-4 w-full flex flex-col py-4">
+            <h3 className="text-2xl font-semibold font-sora text-primary pb-4 uppercase">
               Latest Discussions
             </h3>
             {/* Discussion feeds */}
-            <section className=" flex flex-col gap-4 ">
-                  {discussions && isLoading
-                    ? [1, 2, 3, 4].map((item: any) => (
-                        <DiscussionCardLoader key={item?.id} />
-                      ))
-                    : discussions.map((item: any) => (
-                        <DiscussionCard key={item?.id} discussion={item} />
-                      ))}       
+            <section className=" flex flex-col gap-4">
+              {discussions && isLoading
+                ? [1, 2, 3, 4].map((item: any) => (
+                    <DiscussionCardLoader key={item?.id} />
+                  ))
+                : discussions.map((item: any) => (
+                    <DiscussionCard key={item?.id} discussion={item} />
+                  ))}
+                  <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE MORE DISCUSSIONS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
             </section>
           </div>
 
-          <div className="w-2/6 flex flex-col space-y-8 bg-gray-500/5 rounded-lg py-[5rem] sticky top-0 -mt-[5rem] h-screen overflow-y-scroll scrollable-section ">
-            <aside className="w-full p-6 rounded-[1.5rem]">
-              <h3 className="text-2xl font-semibold text-primary uppercase">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none pb-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+            <aside className="w-full py-4 rounded-[1.5rem]">
+              <h3 className="text-2xl font-semibold font-sora pb-4 text-primary uppercase">
                 Events
               </h3>
-              <section className="flex flex-col gap-[0.1rem] border-t border-gray-400 py-1">
+              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] border-t border-gray-500  py-1">
                 {db.events.length === 0 ? null : (
                   <>
                     {db.events.map((items: any) => (
                       <EventCard key={items.id} event={items} />
                     ))}
                     <div className="py-4"></div>
-                    <Button
-                      variant="outline"
-                      fullWidth
-                      label="SEE MORE EVENTS"
-                      size="medium"
-                      onClick={() => {}}
-                    />
+                    <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE MORE EVENTS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
                   </>
                 )}
               </section>
             </aside>
-            <aside className="w-full  p-6 rounded-[1.5rem]">
-              <h3 className="text-2xl font-semibold text-primary pb-4 uppercase">
+            <aside className="w-full  py-6 rounded-[1.5rem]">
+              <h3 className="text-2xl font-sora font-semibold text-primary pb-4 uppercase">
                 News Center
               </h3>
-              <section className="flex flex-col gap-[0.1rem] border-t border-gray-400 py-1">
+              <section className="flex flex-col gap-[0.1rem] border-t border-gray-500 py-1">
                 {db.news.length === 0 ? null : (
                   <>
                     {db.news.map((items: any) => (
                       <NewsCard key={items.id} news={items} />
                     ))}
                     <div className="py-4"></div>
-                    <Button
-                      variant="outline"
-                      fullWidth
-                      label="MORE FROM NEWS CENTER"
-                      size="medium"
-                      onClick={() => {}}
-                    />
+                    <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="MORE FROM NEWS CENTER"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
                   </>
                 )}
               </section>

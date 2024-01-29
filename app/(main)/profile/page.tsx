@@ -75,9 +75,9 @@ export default function ProfilePage() {
                                         counting over 200.000 members.
                                     </textarea>
                                 </div>
-                                <div className="text-white-100 text-center text-base font-medium font-sora whitespace-nowrap justify-center items-stretch rounded bg-green-800 self-center mt-6 px-8 py-3.5 max-md:px-5">
+                                <button className="text-white-100 text-center text-base font-medium font-sora whitespace-nowrap justify-center items-stretch rounded bg-green-800 self-center mt-6 px-8 py-3.5 max-md:px-5">
                                     Update
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>

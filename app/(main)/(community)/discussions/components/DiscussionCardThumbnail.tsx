@@ -44,8 +44,8 @@ const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
         />
 
         <div className="col-span-7 flex flex-col items-start justify-start gap-1">
-          <h4 className="text-sm font-normal">{discussion?.title}</h4>
-          <p className="font-light text-xs text-gray-300">
+          <h4 className="text-sm font-normal font-sora w-full block whitespace-nowrap truncate">{discussion?.title}</h4>
+          <p className="font-quickSand text-xs text-gray-300">
             {truncatedText(discussion?.description, 150)}
             &nbsp;
             {discussion.description.length > 100 && (
@@ -55,7 +55,7 @@ const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
             </span>
             )}
           </p>
-          <span className="w-full flex items-center justify-between text-xs">
+          <span className="w-full flex items-center justify-between text-xs font-sora">
             <span>{discussion.createdAt}</span>
             <span className="text-primary flex space-x-2">
               <Icon name="" /> {discussion.comments} comments

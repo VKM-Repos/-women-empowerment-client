@@ -37,13 +37,13 @@ const SupportPage = () => {
 
   return (
     <TransitionParent>
-      <section className="w-[95vw] mx-auto flex flex-col items-center justify-start space-y-[5rem] py-[0.5rem] pb-[4rem] min-h-screen ">
-        <div className="w-full bg-primary md:h-[27rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
-          <div className="w-full md:w-1/2 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
-            <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite text-center md:text-left">
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] ">
+        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
+          <div className="w-full md:col-span-1 flex flex-col items-start justify-start py-4 gap-2 md:gap-4 relative left-0 z-20">
+            <h1 className="text-2xl md:text-4xl font-semibold text-primaryWhite text-center md:text-left font-sora">
               Hi, Need some help?
             </h1>
-            <div className="flex items-center justify-start relative w-full">
+            <div className="flex items-center justify-start relative w-full font-quickSand">
               <input
                 type="text"
                 name=""
@@ -60,14 +60,14 @@ const SupportPage = () => {
                 <Icon name="img_search" className="" />
               </button>
             </div>
-            <div className="w-full flex items-start justify-start space-x-4">
-              <span className="text-primaryWhite font-semibold text-base whitespace-nowrap">
+            <div className="w-full flex items-start justify-start space-x-4 font-sora">
+              <span className="hidden md:block text-primaryWhite font-semibold text-base whitespace-nowrap">
                 Popular questions:{" "}
               </span>
-              <span className="flex flex-wrap items-center justify-start gap-5">
+              <span className="flex flex-wrap items-center justify-start gap-1 md:gap-5 font-quickSand">
                 {searchTerms.map((term) => (
                   <button
-                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80 font-light text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
+                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80 md:text-sm text-xs rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
                     key={term}
                     onClick={(e) => handleSearch(term, e)}
                   >
@@ -77,28 +77,38 @@ const SupportPage = () => {
               </span>
             </div>
           </div>
-          <Image
+
+             <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
+            <Image
+              src={Support}
+              alt="rubik"
+              width={1000}
+              height={1000}
+              className="lg:w-[25rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
+            />
+          </div>
+          {/* <Image
             src={Support}
             alt="support"
             className="absolute bottom-0 right-10 w-4/5 md:w-1/4 opacity-20 md:opacity-100 aspect-square object-cover"
-          />
+          /> */}
         </div>
 
-        <div className="py-[2rem]">
-          <h3 className="font-semibold text-lg md:text-4xl text-gray-100 py-4">
+        <div className="w-[95%] mx-auto">
+          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
             FAQ
           </h3>
-          <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-10 ">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
             {Array.from({ length: 9 }, (_, i) => (
               <div
                 key={i}
-                className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-center text-center justify-center gap-2 drop-shadow-md p-4"
+                className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-start justify-center gap-2 drop-shadow-md p-4"
               >
-                <h6 className="text-base font-semibold text-gray-200">
+                <h6 className="text-base font-semibold text-gray-200 font-sora">
                   Can i add multiple organizations?
                 </h6>
-                <p className="text-xs font-semibold text-btnWarning">Answer</p>
-                <p className="text-sm font-light text-gray-100">
+                <p className="text-xs font-semibold text-btnWarning font-quickSand">Answer</p>
+                <p className="text-sm text-gray-100 font-quickSand">
                   Yes, you can add multiple organizations by clicking &lsquo;Add
                   Organization&rsquo; button and entering their details.
                 </p>
@@ -116,11 +126,11 @@ const SupportPage = () => {
             />
           </div>
           <div className="w-full flex flex-col items-center justify-center gap-5">
-            <h4 className="text-center text-base md:text-2xl font-normal text-gray-100">
+            <h4 className="text-center text-base md:text-2xl font-normal text-gray-100 font-sora">
               Would you like to contact us?
             </h4>
-            <p className="text-light text-sm md:text-base text-gray-300">Fill in the form below</p>
-            <form className="w-full md:w-2/3 mx-auto" action="">
+            <p className="text-light text-sm md:text-base text-gray-300 font-sora">Fill in the form below</p>
+            <form className="w-full md:w-2/3 mx-auto px-4 font-quickSand" action="">
               <fieldset className="flex flex-col gap-5">
                 <input
                   type="email"
@@ -152,20 +162,20 @@ const SupportPage = () => {
           </div>
         </div>
 
-         <div className="w-full py-[2rem]">
-          <h3 className="font-semibold text-lg md:text-4xl text-gray-100 py-4">
+         <div className="w-[95%] mx-auto pb-[7rem] ">
+          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
             Help Line
           </h3>
-          <div className="w-full grid grid-cols-2 lg:grid-cols-3 border-2 border-gray-400 rounded-lg">
+          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
             {Array.from({ length: 15 }, (_, i) => (
               <div
                 key={i}
                 className="w-full flex flex-col items-center text-center justify-center p-4"
               >
-                <p className="text-base font-light text-gray-100 flex items-center justify-center space-x-2">
-                  <span>Domestic violence</span>
+                <p className="text-base font-light text-gray-100 flex items-center justify-center space-x-2 font-sora">
+                  <span className="">Domestic violence</span>
                   <span>-</span>
-                  <span className="text-primary">0808000123456</span>
+                  <span className="text-primary font-quickSand font-semibold">0808000123456</span>
                 </p>
               </div>
             ))}

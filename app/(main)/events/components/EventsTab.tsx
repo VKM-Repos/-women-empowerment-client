@@ -8,6 +8,8 @@ type EventTabProps = {
 }
 
 export default function EventsTab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
+  console.log(selectedEventType);
+  
   return (
     <button
       onClick={() => setSelectedEventType(name)}
@@ -17,7 +19,7 @@ export default function EventsTab({name, selectedEventType, setSelectedEventType
           : "text-gray-200 hover:text-btnWarning "
       } text-lg md:text-3xl uppercase transition-colors relative flex flex-col items-center justify-center text-center`}
     >
-      <span className="relative z-10 font-light">{name}</span>
+      <span className="relative z-10 font-normal font-sora">{name}</span>
       {selectedEventType && (
         <motion.span
           layoutId="pill-tab"
