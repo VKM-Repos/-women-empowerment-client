@@ -5,23 +5,8 @@ import footerImg from "@/public/icons/footer-img.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Common/Button/Button";
-type FooterProps = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  | "language"
-  | "beapartofour"
-  | "descriptionTwo"
-  | "getstarted"
-  | "copyright2022"
-> &
-  Partial<{
-    language: string;
-    beapartofour: string;
-    descriptionTwo: string;
-    getstarted: string;
-    copyright2022: string;
-  }>;
 
-const Footer: React.FC<FooterProps> = (props) => {
+const Footer: React.FC = () => {
   return (
     <div className="w-full pt-[1rem]">
       <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 items-end">
@@ -44,12 +29,19 @@ const Footer: React.FC<FooterProps> = (props) => {
           </div>
           <div className="flex flex-col gap-5 items-center md:items-start justify-start w-full py-8">
             <h3 className="md:text-4xl font-semibold font-sora text-2xl text-primary w-auto">
-              {props?.beapartofour}
+              Be a part of our community
             </h3>
             <p className="text-sm font-quickSand md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
-              {props?.descriptionTwo}
+              Our Community Membership offers professional individuals and corporations an opportunity to connect and support each other.
             </p>
-            <Button label="Get started" fullWidth={false} size="medium" state="active" variant="primary" onClick={() => { }} />
+            <Button
+              label="Get started"
+              fullWidth={false}
+              size="medium"
+              state="active"
+              variant="primary"
+              onClick={() => {}}
+            />
           </div>
         </div>
 
@@ -65,7 +57,7 @@ const Footer: React.FC<FooterProps> = (props) => {
             />
           </div>
           <p className="text-base font-quickSand md:text-xl text-gray-100 w-auto text-center my-4">
-            {props?.language}
+            Share this page to create awareness
           </p>
           <div className="flex  items-center justify-center w-auto my-4">
             <Link href="">
@@ -118,14 +110,6 @@ const Footer: React.FC<FooterProps> = (props) => {
       </p>
     </div>
   );
-};
-
-Footer.defaultProps = {
-  language: "share this page to create awareness ",
-  beapartofour: "Be a part of our community",
-  descriptionTwo:
-    "Our Community Membership offers professional individuals and corporations an opportunity to connect and support each other.",
-  getstarted: "Get started",
 };
 
 export default Footer;

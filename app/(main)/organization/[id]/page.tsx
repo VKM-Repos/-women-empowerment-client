@@ -499,13 +499,13 @@ console.log(selectedEventType);
                                     <span className="text-black text-opacity-60">
                                         Volunteers needed for upcoming inform the street 2022 agenda{" "}
                                     </span>
-                                    <a
+                                    <Link
                                         href="https://women-in-tech.org/"
                                         className="text-orange-500 underline"
                                         target="_blank"
                                     >
                                         Join us
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
