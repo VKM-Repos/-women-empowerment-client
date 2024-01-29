@@ -57,10 +57,10 @@ export default function CategoryDetailsPage({
         </div>
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <section className="w-screen flex flex-col items-center justify-start space-y-[4rem] min-h-screen">
-            <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 pt-8 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden ">
+          <section className="w-screen flex flex-col items-center justify-start space-y-[2rem] min-h-screen">
+            <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[20rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden ">
               <div className="w-full flex flex-col gap-2 items-start relative z-10">
-                <h6 className="md:text-[26px] text-[18px] text-center text-primaryWhite font-sora font-semibold">
+                <h6 className="md:text-[26px] text-sm text-center text-primaryWhite font-sora font-semibold">
                   Find organizations based on:
                 </h6>
                 <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-sora font-semibold">
@@ -74,11 +74,11 @@ export default function CategoryDetailsPage({
                     placeholder={`Search for organizations under ${category.title}`}
                     // value={searchTerm}
                     // onChange={handleSearchInputChange}
-                    className="w-[95%] py-3 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
+                    className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
                   />
                   <button
                     // onClick={(e) => handleSearch(searchTerm, e)}
-                    className="bg-btnWarning p-4 rounded-br-md rounded-tr-md"
+                    className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md"
                   >
                     <Icon name="img_search" className="" />
                   </button>
@@ -88,7 +88,7 @@ export default function CategoryDetailsPage({
                 <motion.img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/1c43bb1d-5bd1-4831-872b-474116f3e3dc?apiKey=12cdcbacd64a44978db653c66e993585&"
-                  className="lg:w-[20rem] w-[12rem] mx-auto aspect-auto rounded-br-xl"
+                  className="lg:w-[20rem] w-[8rem] mx-auto aspect-auto rounded-br-xl"
                 />
               </div>
               <div className="w-fit absolute right-0 bottom-0"></div>
@@ -120,7 +120,7 @@ export default function CategoryDetailsPage({
 
               <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
                 <aside className="w-full p-1 ">
-                  <div className="text-[#65B891] text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+                  <div className="text-primary font-sora text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
                     EVENTS
                   </div>
 
@@ -139,7 +139,7 @@ export default function CategoryDetailsPage({
                   </section>
                 </aside>
                 <aside className="w-full">
-                  <div className="text-[#65B891] text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+                  <div className="text-primary font-sora text-3xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                     NEWS CENTER
                   </div>
                   <section className="flex flex-col gap-[0.1rem] py-2">

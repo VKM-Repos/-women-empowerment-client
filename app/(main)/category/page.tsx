@@ -16,7 +16,7 @@ const CategoryPage = () => {
             Please select any of the category below to begin
           </p>
 
-          <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem] py-[5rem]">
+          <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem] ">
             {db.categories.map((category) => (
               <CategoryCard key={category.id} category={category} />
             ))}

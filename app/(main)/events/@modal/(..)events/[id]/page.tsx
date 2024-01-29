@@ -3,7 +3,7 @@ import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWom
 import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import Icon from "@/components/Common/Icons/Icon";
+import DefaultImage from "@/public/images/defaultEventsImage.png";
 import db from "@/data/db.json";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -77,15 +77,14 @@ export default function EventsDetailsModal({
                   />
                 </svg>
               </button>
-            <div className="w-full mx-auto flex flex-col gap-10 items-center h-[90vh] my-auto px-4  overflow-y-scroll">
+            <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
                 <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5">
-                  <div className=" h-4/5 mx-auto flex items-center justify-center p-4 overflow-hidden">
+                  <div className=" h-4/5 mx-auto flex items-center justify-center overflow-hidden">
                     <motion.img
-                      src={events.image}
+                      src={DefaultImage.src}
                       alt={events.title}
-                    
-                      className="md:h-[20rem] h-[12rem] aspect-square"
+                      className="md:h-[20rem] h-[15rem] w-full"
                     />
                   </div>
                   <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
@@ -181,7 +180,7 @@ export default function EventsDetailsModal({
               </div>
 
               <div className="font-quickSand flex gap-10">
-                <button className="border border-primary text-primary text-base px-4 py-2 rounded-md flex items-center space-x-2">
+                <button className="border border-primary text-primary text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
                   {/* <Icon name="" size={24} /> */}
                   <span>Share</span>
                   <svg
@@ -214,7 +213,7 @@ export default function EventsDetailsModal({
                     />
                   </svg>
                 </button>
-                <button className="border border-primary bg-primary text-primaryWhite text-base px-4 py-2 rounded-md flex items-center space-x-2">
+                <button className="border border-primary bg-primary text-primaryWhite text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
                   {/* <Icon name="" size={24} /> */}
                   <span>Visit Website</span>
                   <svg

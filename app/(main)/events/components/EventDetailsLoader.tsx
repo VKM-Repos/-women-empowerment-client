@@ -24,7 +24,7 @@ export default function EventDetailsLoader({ events }: Props) {
           />
         </svg>
       </button>
-      <div className="w-full mx-auto flex flex-col items-center justify-start h-[90vh] my-auto px-4  overflow-y-scroll">
+      <div className="w-full mx-auto flex flex-col items-center justify-start h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
           <div className="col-span-1 flex flex-col items-start justify-start gap-5">
             <div className="w-full h-[22rem] bg-gray-500 animate-pulse" />

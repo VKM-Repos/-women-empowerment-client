@@ -80,8 +80,8 @@ const EventsPage = () => {
 
   return (
     <TransitionParent>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[5rem]">
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[2rem]">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
          <div className="w-full md:w-3/4 md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
           <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">The Best Women Illuminating Conferences</h1>
           <form  className="w-full">
@@ -126,20 +126,20 @@ const EventsPage = () => {
           </form>
          </div>
         
-             <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
+          <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
             <Image
               src={Rubik}
               alt="rubik"
               width={1000}
               height={1000}
-              className="lg:w-[25rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
+              className="lg:w-[25rem] w-[10rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
         </div>
 
         <div className="w-full md:w-[95%] mx-auto space-y-4">
             <div className="w-fit flex  gap-10 relative px-4">
-          <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
+          <div className="absolute w-0.5 h-8 my-1 md:my-0 md:h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
           {tabs.map((tab) => (
             <EventsTab
               key={tab.name}

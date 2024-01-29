@@ -55,16 +55,16 @@ body {
   /* You can adjust the width as needed */
 }
 
-::-webkit-scrollbar,
+/* ::-webkit-scrollbar,
 scrollbar {
-  width: 2px;
-}
+  width: 10px;
+} */
 
-::-webkit-scrollbar-thumb,
+/* ::-webkit-scrollbar-thumb,
 scrollbar-thumb {
   background: #08382c;
   border-radius: 1rem;
-}
+} */
 
 .link:after {
   display: block;

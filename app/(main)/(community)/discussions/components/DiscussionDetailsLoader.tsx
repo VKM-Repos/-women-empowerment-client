@@ -6,7 +6,7 @@ import React from "react";
 export default function DiscussionDetailsLoader() {
   return (
     <div className="lg:w-3/4 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
-      <div className="w-full mx-auto flex flex-col gap-10 items-center h-[90vh] my-auto px-4  overflow-y-scroll">
+      <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
         <div className="w-full col-span-1 flex flex-col items-start justify-start gap-4">
           <span className="w-full h-4 bg-gray-400  animate-pulse"></span>

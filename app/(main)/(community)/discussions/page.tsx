@@ -41,8 +41,8 @@ const DiscussionsPage = () => {
 
   return (
     <TransitionParent>
-      <section className="w-screen mx-auto flex flex-col items-center justify-start space-y-[5rem] overflow-x-hidden">
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
+      <section className=" w-screen flex flex-col items-center justify-start">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-[50]">
             <div className="pt-4 flex flex-col items-center justify-start gap-5 relative w-full z-[50] font-sora">
               <p className="text-xl md:text-4xl text-primaryWhite text-left">
@@ -70,13 +70,13 @@ const DiscussionsPage = () => {
               alt="group"
               width={1000}
               height={1000}
-              className="lg:w-[18rem] w-[10rem] mx-auto aspect-auto rounded-br-xl"
+              className="lg:w-[18rem] w-[8rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
           <Image
             src={DoodlesA}
             alt="doodles"
-            className="absolute top-[25%] md:-top-[15%] right-0 w-4/5 md:w-1/2 aspect-square object-cover z-1"
+            className="absolute top-[25%] md:-top-[15%] opacity-60 md:opacity-100 right-0 w-4/5 md:w-1/2 aspect-square object-cover z-1"
           />
           <Image
             src={DoodlesB}
@@ -85,7 +85,7 @@ const DiscussionsPage = () => {
           />
         </div>
 
-        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-2 pb-[8rem]">
+        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-4 mt-16 pb-[7rem]">
           <div className="lg:col-span-4 w-full flex flex-col py-4">
             <h3 className="text-2xl font-semibold font-sora text-primary pb-4 uppercase">
               Latest Discussions
@@ -99,6 +99,14 @@ const DiscussionsPage = () => {
                 : discussions.map((item: any) => (
                     <DiscussionCard key={item?.id} discussion={item} />
                   ))}
+                  <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE MORE DISCUSSIONS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
             </section>
           </div>
 
@@ -114,9 +122,14 @@ const DiscussionsPage = () => {
                       <EventCard key={items.id} event={items} />
                     ))}
                     <div className="py-4"></div>
-                    <button className="font-quickSand text-orange-500 text-base justify-center items-stretch border self-center w-[207px] max-w-full mt-6 p-5 rounded-lg border-solid border-orange-500">
-                      SEE MORE EVENTS
-                    </button>
+                    <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE MORE EVENTS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
                   </>
                 )}
               </section>
@@ -132,9 +145,14 @@ const DiscussionsPage = () => {
                       <NewsCard key={items.id} news={items} />
                     ))}
                     <div className="py-4"></div>
-                    <button className=" font-quickSand text-orange-500 text-base justify-center items-stretch border shadow-sm self-center  max-w-full mt-10 p-5 rounded-lg border-solid border-orange-500 max-md:mt-10">
-                      MORE FROM NEWS CENTER
-                    </button>
+                    <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="MORE FROM NEWS CENTER"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
                   </>
                 )}
               </section>

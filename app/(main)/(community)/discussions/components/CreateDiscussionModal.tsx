@@ -14,7 +14,7 @@ export default function CreateDiscussionModal({}: Props) {
   const router = useRouter();
 
   // const { isAuthenticated } = useAppContext();
-  const  isAuthenticated  = true;
+  const  isAuthenticated  = false;
 
   return (
     <Modal onClose={hideModal} isOpen={true}>

@@ -17,6 +17,7 @@ import {
   howItWorks,
   searchTerms,
 } from "@/lib/utils/constants";
+import Button from "@/components/Common/Button/Button";
 
 const LandingPage = () => {
  
@@ -89,21 +90,21 @@ const LandingPage = () => {
 
   return (
     <TransitionParent>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start">
+      <section className=" w-screen flex flex-col items-center justify-start">
         <div className="z-10 absolute top-5 left-0 block">
           <Image
             src={doddles}
             alt="doodles"
             width={200}
             height={200}
-            className="lg:w-[12rem] w-[8rem] aspect-auto"
+            className="lg:w-[10rem] w-[6rem] aspect-auto"
           />
         </div>
 
         {/* Hero */}
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[30rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
-          <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[6rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
-            <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+          <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[2.5rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
+            <h1 className="md:text-[45px] text-[24px] text-center text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
               Together we are
               <AnimatePresence mode="wait" initial={false}>
                 <span className="inline-block overflow-hidden">
@@ -121,10 +122,10 @@ const LandingPage = () => {
                 </span>
               </AnimatePresence>
             </h1>
-            <p className="text-white-100 font-light text-base font-quickSand text-center">
+            <p className="text-white-100 font-light text-sm md:text-base font-quickSand text-left">
               Discover and learn about women organizations with only one click.
             </p>
-            <div className="md:w-full w-[95%] mx-auto flex justify-center items-center font-quickSand">
+            <div className="w-full mx-auto flex justify-center items-center font-quickSand">
               <input
                 type="text"
                 name=""
@@ -170,13 +171,13 @@ const LandingPage = () => {
         </div>
 
         {/* Organizations, events and news  */}
-        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative">
+        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-4">
           <div className="lg:col-span-4 w-full flex flex-col py-4">
-            <h3 className="text-orange-500 text-2xl font-sora font-semibold items-stretch justify-center px-5 mx-5 py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+            <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               TOP ORGANIZATIONS
             </h3>
             {/* Organization feeds */}
-            <section className=" flex flex-col gap-4 md:px-5 px-2">
+            <section className=" flex flex-col gap-4">
               {db.communities.length === 0 ? (
                 <p className="no-result">No Organization found</p>
               ) : (
@@ -186,18 +187,20 @@ const LandingPage = () => {
                   ))}
                 </>
               )}
-              <button
-                onClick={() => {}}
-                className="text-orange-500 text-base font-quickSand justify-center items-stretch border self-center w-[255px] max-w-full mt-8 p-5 rounded-lg border-solid border-orange-500 mb-10"
-              >
-                SEE ALL ORGANIZATIONS
-              </button>
+              <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE ALL ORGANIZATIONS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
             </section>
           </div>
 
           <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full py-4 rounded-[1.5rem] ">
-              <h3 className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+              <h3 className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-3 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
                 EVENTS
               </h3>
 
@@ -205,13 +208,18 @@ const LandingPage = () => {
                 {db.events.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
-                <button className="font-quickSand text-orange-500 text-base justify-center items-stretch border self-center w-[207px] max-w-full mt-6 p-5 rounded-lg border-solid border-orange-500">
-                  SEE MORE EVENTS
-                </button>
+                <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="SEE MORE EVENTS"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
               </section>
             </aside>
 
-            <aside className="w-full py-6 rounded-[1.5rem]">
+            <aside className="w-full py-4 rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                 NEWS CENTER
               </h3>
@@ -219,9 +227,14 @@ const LandingPage = () => {
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
                 ))}
-                <button className=" font-quickSand text-orange-500 text-base justify-center items-stretch border shadow-sm self-center  max-w-full mt-10 p-5 rounded-lg border-solid border-orange-500 max-md:mt-10">
-                  MORE FROM NEWS CENTER
-                </button>
+                <div className="w-fit mx-auto my-8">
+                      <Button
+                        label="MORE FROM NEWS CENTER"
+                        variant="outline"
+                        fullWidth={false}
+                        size="normal"
+                      />
+                    </div>
               </section>
             </aside>
           </div>

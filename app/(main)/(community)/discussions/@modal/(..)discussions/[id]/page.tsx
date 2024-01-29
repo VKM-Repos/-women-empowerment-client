@@ -69,7 +69,7 @@ export default function DiscussionDetailsModal({ params }: { params: { id: strin
                 />
               </svg>
             </button>
-            <div className="w-full mx-auto flex flex-col gap-10 items-center h-[90vh] my-auto px-4  overflow-y-scroll">
+            <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
               <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
                   <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">{discussions.title}</h3>
