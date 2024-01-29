@@ -9,7 +9,7 @@ export default function ManageOrganization() {
             <div className="self-stretch w-full mt-12 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[31%] max-md:w-full max-md:ml-0">
-                        <span className="items-stretch  bg-white flex grow flex-col w-full px-14 py-11 rounded-2xl border border-stone-800 border-solid border-black border-opacity-10 max-md:mt-5 max-md:px-5">
+                        <span className="items-stretch  bg-white flex grow flex-col w-full px-14 py-11 rounded-2xl border border-gray-500 max-md:mt-5 max-md:px-5">
                             <div className="text-black text-xl tracking-wide whitespace-nowrap font-sora">
                                 Manage Organization
                             </div>
@@ -23,8 +23,8 @@ export default function ManageOrganization() {
                             </span>
                         </span>
                     </div>
-                    <div className="flex flex-col items-stretch w-[69%] ml-5 max-md:w-full max-md:ml-0">
-                        <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-black      border-opacity-10 max-md:max-w-full max-md:mt-5">
+                    <div className="flex flex-col items-stretch w-[70%] ml-5 max-md:w-full max-md:ml-0">
+                        <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
                             <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
                             <div className='z-10 flex justify-end pt-10'>
                                 <img
@@ -33,13 +33,13 @@ export default function ManageOrganization() {
                                     className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full mr-12 max-md:mr-2.5 cursor-pointer z-10 "
                                 />
                             </div>
-                            <span className="w-full h-[20rem] self-stretch flex flex-col pt-9 px-2  items-end max-md:max-w-full">
+                            <span className="w-full flex flex-col px-2  items-end max-md:max-w-full">
 
-                                <div className="self-stretch z-[1]  max-md:max-w-full max-md:mt-10 max-md:mb-2.5">
-                                    <div className="gap-5 flex mt-[40px] max-md:flex-col max-md:items-stretch max-md:gap-0">
-                                        <div className="flex flex-col items-stretch w-[28%] max-md:w-full max-md:ml-0">
-                                            <div className="bg-white flex flex-col justify-center items-center aspect-square w-full rounded-[105px] max-md:mt-7">
-                                                <div className="flex-col shadow-sm overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-[50%] max-md:px-5">
+                                <div className="z-[1]  max-md:max-w-full  ">
+                                    <div className="gap-10 flex items-center px-10">
+                                        <div className="flex flex-col w-[28%] max-md:w-full max-md:ml-0">
+                                            <div className="bg-white flex flex-col  items-center aspect-square w-full rounded-[105px] ">
+                                                <div className="flex-col overflow-hidden relative flex aspect-square w-[212px] justify-center items-center rounded-[50%]">
                                                     <img
                                                         loading="lazy"
                                                         srcSet={orgProfile.src}
@@ -53,8 +53,8 @@ export default function ManageOrganization() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
-                                            <div className="text-white text-4xl font-sora font-bold tracking-wide my-auto max-md:max-w-full max-md:mt-10">
+                                        <div className="flex flex-col w-full max-md:w-full text-white-100">
+                                            <div className="text-white-100 text-2xl font-sora font-bold my-auto max-md:max-w-full ">
                                                 Women Research Foundation
                                             </div>
                                         </div>
@@ -62,35 +62,35 @@ export default function ManageOrganization() {
                                 </div>
                             </span>
                             <form action="">
-                                <div className='flex flex-col gap-5 mt-[20px] px-[100px] font-quickSand'>
+                                <div className='flex flex-col gap-5  px-[100px] font-quickSand'>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Org Name</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
                                     </div>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Website</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
                                     </div>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Facebook</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
                                     </div>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Email</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
                                     </div>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Location</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
                                     </div>
                                     <div className='flex items-center gap-5'>
                                         <label className='font-sora flex-[0.3]' htmlFor="">Contact</label>
-                                        <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
+                                        <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
                                     </div>
 
                                     <div className='flex gap-5'>
                                         <div className="text-black flex-[0.3]">Bio</div>
-                                        <textarea className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
+                                        <textarea className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
                                             Our community counts over 200.000 members across the world
                                             with chapters in all 6 continents. With our Head Office in
                                             Paris, we are a Global Movement with chapters in 6 continents,
