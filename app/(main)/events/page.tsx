@@ -81,13 +81,13 @@ const EventsPage = () => {
 
   return (
     <TransitionParent>
-      <section className="w-[95vw] mx-auto flex flex-col items-start justify-start space-y-[3rem] py-[0.5rem] pb-[4rem] min-h-screen ">
-        <div className=" w-full bg-primary md:h-[30rem] h-[20rem] rounded-[2rem] px-2 md:px-12 flex items-start pt-[3rem] justify-start relative overflow-hidden">
-         <div className="w-full lg:w-1/3 flex flex-col items-start justify-start space-y-6 text-left relative z-10">
-          <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite text-center md:text-left">The Best Women Illuminating Conferences</h1>
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[2rem]">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+         <div className="w-full md:w-3/4 md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
+          <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">The Best Women Illuminating Conferences</h1>
           <form  className="w-full">
             <fieldset>
-              <legend className="text-primaryWhite py-2">Find an Event:</legend>
+              <legend className="text-primaryWhite py-2 font-quickSand">Find an Event:</legend>
               <div className="w-full grid grid-cols-3 gap-4 ">
               <DateInput
                 label="Day"
@@ -126,11 +126,21 @@ const EventsPage = () => {
             </fieldset>
           </form>
          </div>
-         <Image src={Rubik} alt="rubik" className="absolute bottom-0 right-10 w-4/5 md:w-2/4 lg:w-1/4  opacity-20 lg:opacity-100 aspect-square object-cover" />
+        
+          <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
+            <Image
+              src={Rubik}
+              alt="rubik"
+              width={1000}
+              height={1000}
+              className="lg:w-[25rem] w-[10rem] mx-auto aspect-auto rounded-br-xl"
+            />
+          </div>
         </div>
 
-        <div className="w-fit flex  gap-10 relative px-4">
-          <div className="absolute w-0.5 h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
+        <div className="w-full md:w-[95%] mx-auto space-y-4">
+            <div className="w-fit flex  gap-10 relative px-4">
+          <div className="absolute w-0.5 h-8 my-1 md:my-0 md:h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
           {tabs.map((tab) => (
             <EventsTab
               key={tab.name}
@@ -147,6 +157,9 @@ const EventsPage = () => {
               <EventCard key={event?.id} event={event} />
             ))}  
         </div>
+        </div>
+
+      
       </section>
     </TransitionParent>
   );

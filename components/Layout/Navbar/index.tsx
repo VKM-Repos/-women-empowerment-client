@@ -91,7 +91,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="fixed top-0 inset-x-0 z-[250] font-sora flex items-center justify-between border-b border-gray-500 text-secondaryGreen bg-primaryWhite px-2 md:px-8 py-3 md:py-0">
+      <nav className="fixed top-0 inset-x-0 z-[250] font-sora flex items-center justify-between text-secondaryGreen bg-primaryWhite px-2 md:px-8 py-3 md:py-0">
         <div className="w-1/3 flex gap-4 items-center justify-between md:py-2">
           {/*side menu button */}
         <button className="lg:hidden block" onClick={handleSideMenu}>

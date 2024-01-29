@@ -8,15 +8,15 @@ const DiscussionCardLoader: React.FC<{}> = ({}) => {
         <div className="w-full aspect-square rounded-full border bg-gray-500 animate-pulse" />
 
         <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-1">
-          <span className="w-full h-4 bg-gray-400  animate-pulse"></span>
+          <span className="w-full h-4 bg-gray-400 rounded  animate-pulse"></span>
           <span className="w-full flex flex-col gap-4 items-start">
-            <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
-            <p className="w-2/3 h-2 bg-gray-400  animate-pulse"></p>
+            <p className="w-1/2 h-2 bg-gray-400 rounded  animate-pulse"></p>
+            <p className="w-2/3 h-2 bg-gray-400 rounded  animate-pulse"></p>
           
           </span>
           <span className="w-full flex items-center justify-between text-base">
-            <p className="w-1/4 h-2 bg-gray-400  animate-pulse"></p>
-            <p className="w-1/4 h-2 bg-gray-400  animate-pulse"></p>
+            <p className="w-1/4 h-2 bg-gray-400 rounded  animate-pulse"></p>
+            <p className="w-1/4 h-2 bg-gray-400 rounded  animate-pulse"></p>
           </span>
         </div>
       </div>

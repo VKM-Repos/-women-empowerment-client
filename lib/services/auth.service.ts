@@ -5,7 +5,7 @@ import {
   ChangePasswordRequest,
   ResetCodeRequest,
   LoginRequest,
-  CreateUserRequest,
+  RegisterUserRequest,
   ErrorResponse,
   LoginResponse,
   UserResponse,
@@ -31,7 +31,7 @@ async function handleResponse<T>(response: AxiosResponse): Promise<T> {
 }
 
 export async function apiCreateUser(
-  requestData: CreateUserRequest
+  requestData: RegisterUserRequest
 ): Promise<UserResponse> {
   try {
     const response = await publicApi.post("/auth/create-user", requestData);

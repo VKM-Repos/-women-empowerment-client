@@ -2,16 +2,13 @@ import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
 import React from "react";
 
-type Props = {
-  discussion: any;
-};
 
-export default function DiscussionDetailsLoader({ discussion }: Props) {
+export default function DiscussionDetailsLoader() {
   return (
-    <div className="w-3/4 mx-auto bg-primaryWhite h-[85vh] p-4 rounded-[1rem] relative overflow-hidden">
-      <div className="bg-primaryWhite flex flex-col gap-10 items-center h-[85vh] py-6 relative overflow-hidden">
-        <div className="w-full grid grid-cols-2 gap-10">
-        <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
+    <div className="lg:w-3/4 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
+      <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
+        <div className="w-full col-span-1 flex flex-col items-start justify-start gap-4">
           <span className="w-full h-4 bg-gray-400  animate-pulse"></span>
           <span className="w-1/4 h-4 bg-gray-400  animate-pulse"></span>
 
@@ -46,10 +43,11 @@ export default function DiscussionDetailsLoader({ discussion }: Props) {
           </div>
 
           <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="w-full grid grid-cols-8 gap-2 p-2">
-              <div className="w-[3rem] aspect-square rounded-full border bg-gray-500 animate-pulse" />
-              <div className="col-span-7 flex flex-col gap-1">
+          <div className="w-full">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+            <div key={item} className="w-full grid grid-cols-8 gap-x-5 p-2">
+              <div className="w-[3rem] col-span-2 aspect-square rounded-full border bg-gray-500 animate-pulse" />
+              <div className="col-span-6 flex flex-col gap-1">
                 <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
                 <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
                 <div className="w-full flex items-center justify-start gap-4">
@@ -62,6 +60,7 @@ export default function DiscussionDetailsLoader({ discussion }: Props) {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5">

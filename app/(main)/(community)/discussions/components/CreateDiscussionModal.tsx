@@ -13,15 +13,16 @@ export default function CreateDiscussionModal({}: Props) {
   const { hideModal } = useModal();
   const router = useRouter();
 
-  const { isAuthenticated } = useAppContext();
+  // const { isAuthenticated } = useAppContext();
+  const  isAuthenticated  = false;
 
   return (
     <Modal onClose={hideModal} isOpen={true}>
       <AnimatePresence initial={false} mode="wait">
         {!isAuthenticated ? (
-          <div className="w-1/3 mx-auto bg-primaryWhite rounded-[1.2rem] px-8 py-4 pb-8 flex flex-col relative">
+          <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
             <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">
-              <span className="capitalize text-lg font-normal flex items-center gap-5 px-4">
+              <span className="capitalize text-lg font-normal font-sora flex items-center gap-5 px-4">
                 <button onClick={hideModal}>
                   <svg
                     width="22"
@@ -41,7 +42,7 @@ export default function CreateDiscussionModal({}: Props) {
               </span>
             </nav>
             <div className="w-full h-full flex flex-col mt-[15%] items-center justify-center gap-4">
-              <p className="text-sm text-gray-200">
+              <p className="text-sm text-gray-200 font-quickSand">
                 You have to Login to start your discussion
               </p>
               <Button
@@ -61,7 +62,7 @@ export default function CreateDiscussionModal({}: Props) {
                                 before:content-[''] before:w-1/4 before:h-0.5 before:bg-gray-500 before:rounded
                                 after:content-[''] after:w-1/4 after:h-0.5 after:bg-gray-500 after:rounded
                                 ">
-                  <p className="text-base">or</p>
+                  <p className="text-base font-sora">or</p>
                 </div>
 
                 <button className=" shadow rounded border border-gray-500 flex items-center px-4 p-2 gap-4">
@@ -102,10 +103,10 @@ export default function CreateDiscussionModal({}: Props) {
                       </defs>
                     </svg>
                   </span>
-                  <span className="text-sm">Continue with google</span>
+                  <span className="text-sm font-sora">Continue with google</span>
                 </button>
               </div>
-              <span className="text-sm font-light">
+              <span className="text-sm font-quuckSand">
                 Don&apos;t have an account?{" "}
                 <Link
                   className=" text-btnWarning underline"
@@ -118,9 +119,9 @@ export default function CreateDiscussionModal({}: Props) {
             </div>
           </div>
         ) : (
-          <div className="w-1/3 mx-auto bg-primaryWhite rounded-[1.2rem] px-8 py-4 pb-8 flex flex-col relative">
+          <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
             <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">
-              <span className="capitalize text-lg font-normal flex items-center gap-5 px-4">
+              <span className="capitalize text-lg font-sora font-normal flex items-center gap-5 px-4">
                 <button onClick={hideModal}>
                   <svg
                     width="22"
@@ -140,7 +141,7 @@ export default function CreateDiscussionModal({}: Props) {
               </span>
             </nav>
             <div className="w-full h-full flex flex-col mt-[15%] items-center justify-center gap-4">
-              <form className="w-full">
+              <form className="w-full font-quickSand">
                 <fieldset className="w-full flex flex-col gap-5 text-sm">
                   <label htmlFor="title">
                     <input
@@ -173,7 +174,7 @@ export default function CreateDiscussionModal({}: Props) {
                   state="active"
                   onClick={() => {}}
                 />
-                <button className="text-btnWarning text-sm" onClick={hideModal}>
+                <button className="text-btnWarning text-sm font-quickSand" onClick={hideModal}>
                   cancel
                 </button>
               </div>
