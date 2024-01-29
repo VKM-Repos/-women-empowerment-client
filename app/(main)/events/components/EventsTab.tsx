@@ -8,6 +8,8 @@ type EventTabProps = {
 }
 
 export default function EventsTab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
+  console.log(selectedEventType);
+  
   return (
     <button
       onClick={() => setSelectedEventType(name)}

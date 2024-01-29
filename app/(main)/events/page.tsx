@@ -77,6 +77,7 @@ const EventsPage = () => {
     }));
   };
   
+// console.log(selectedEventType);
 
   return (
     <TransitionParent>

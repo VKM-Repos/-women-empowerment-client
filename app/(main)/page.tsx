@@ -114,7 +114,7 @@ const LandingPage = () => {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="text-secondary"
+                    className="text-secondary italic px-2"
                   >
                     {words[currentWordIndex]}
                   </motion.span>

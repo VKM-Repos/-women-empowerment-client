@@ -78,7 +78,7 @@ const Navbar = () => {
     ],
     organisation: [
       { icon: "", text: "View Organization", href: "/view-oraganization" },
-      { icon: "", text: "manage Organization", href: "/manage-oraganization" },
+      { icon: "", text: "manage Organization", href: "/organization/manage" },
       { icon: "", text: "Add Event", href: "/add-event" },
     ],
   };
