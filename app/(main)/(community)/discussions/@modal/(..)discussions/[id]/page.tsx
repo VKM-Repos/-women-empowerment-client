@@ -49,7 +49,7 @@ export default function DiscussionDetailsModal({ params }: { params: { id: strin
     <Modal onClose={router.back} isOpen={true}>
       <AnimatePresence initial={false} mode="wait">
       {isLoading || !discussions ? (
-        <DiscussionDetailsLoader discussion={discussions} />
+        <DiscussionDetailsLoader />
       ) : (
           <div className="lg:w-3/4 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
             <button onClick={router.back} className="w-fit absolute top-0 right-1">

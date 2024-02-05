@@ -26,8 +26,8 @@ const AuthWrap: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (session && status === "authenticated") {
-      updateToken(session.user.accessToken);
-      setAuthUser(session.user);
+      // updateToken(session.user.accessToken);
+      // setAuthUser(session.user);
     }
   }, [session, status]);
 
