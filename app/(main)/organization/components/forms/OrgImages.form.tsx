@@ -1,47 +1,82 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { CreateOrganizationRequest } from "@/lib/types/organization.types";
 import { TransitionParent } from "@/lib/utils/transition";
 import Button from "@/components/Common/Button/Button";
 import StepEightImg from "@/public/images/create-8.png";
 import Image from "next/image";
+import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import { motion } from "framer-motion";
 
 interface OrgImagesFormProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSkip: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleNext: () => void;
   handleGoBack: () => void;
+  handleSkip: () => void;
 }
 
 const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
-  handleChange,
-  handleSkip,
+  handleNext,
   handleGoBack,
+  handleSkip,
 }) => {
+  const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateOrganizationRequest>();
+    setValue,
+    watch,
+  } = useForm<{ images: string[] }>();
 
-  
+  // Set default value from the store on initial render
+  useEffect(() => {
+    setValue("images", data.images || []);
+  }, [data.images, setValue]);
+
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
-  const handleImage = async (e: any) => {
-    const imageFile = e.target.files[0];
-    handleChange;
+
+
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const imageFiles = e.target.files;
+
+  if (imageFiles) {
+    const imageUrlPromises = Array.from(imageFiles).map((imageFile) => {
+      return new Promise<string>((resolve) => {
+        const imageUrl = URL.createObjectURL(imageFile);
+        resolve(imageUrl);
+      });
+    });
+
+    const imageUrls = await Promise.all(imageUrlPromises);
+
+    // Update the images array in the store
+    setData({ images: [...(data.images || []), ...imageUrls] });
+
+    // Display a preview of all images
+    imageUrls.forEach((imageUrl) => {
+      console.log("Image URL:", imageUrl);
+    });
+  }
+};
+
+
+  const removeImage = (index: number) => {
+    const updatedImages = [...(data.images || [])];
+    updatedImages.splice(index, 1);
+    setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<CreateOrganizationRequest> = (data) => {
-    // Perform any additional validation or processing if needed
-    console.log(data);
+  const onSubmit: SubmitHandler<{ images: string[] }> = () => {
+    handleNext();
   };
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center p-12">
-        <div className="lg:col-span-2">
+      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
+        <div className="lg:col-span-2 hidden lg:block">
           <Image
             src={StepEightImg}
             alt=""
@@ -51,30 +86,43 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
           />
         </div>
 
-        <div className="lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-[3rem] flex flex-col space-y-6 items-start ">
-          <h1 className="text-primary text-3xl font-bold">Add Images</h1>
-          <p>
+        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
+          <h1 className="text-primary text-3xl font-bold font-sora">Add Images</h1>
+          <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. This serves as an
             identification for your organization and it will be displayed on the
             site
           </p>
-          <form className="w-full" >
+          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
-              {/* <input
-                className="w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                type="file"
-                {...register("images", { required: "This field is required" })}
-                onChange={handleChange}
-              /> */}
-               <div className="w-full focus:outline-none ">
+              <div className="w-full focus:outline-none ">
                 <input
                   ref={inputRef}
                   type="file"
-                  
                   onChange={handleImage}
                   className="hidden"
+                  multiple  // Allow multiple file selection
                 />
-                <div className="flex items-start">
+                <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
+                  {watch("images") &&
+                    watch("images").map((imageUrl, index) => (
+                     
+                        <span key={index} className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
+                           <motion.img
+                              src={imageUrl}
+                              alt={`image Preview ${index + 1}`}
+                              className="w-full object-contain"
+                            />
+                            <button
+                              type="button"
+                              className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                              onClick={() => removeImage(index)}
+                            >
+                              remove
+                            </button>
+                        </span>
+              
+                    ))}
                   <button
                     type="button"
                     onClick={handleChooseFile}
@@ -109,7 +157,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 </span>
               )}
             </div>
-             <span className="w-full flex gap-10 relative">
+            <span className="w-full flex gap-10 relative">
               <Button
                 label="Go Back"
                 variant="secondary"
@@ -122,7 +170,6 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 variant="secondary"
                 fullWidth={false}
                 size="medium"
-                onClick={handleSkip}
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"
