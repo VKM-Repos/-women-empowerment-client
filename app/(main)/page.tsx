@@ -241,7 +241,7 @@ const LandingPage = () => {
         </div>
 
         {/* Discussions */}
-        <div className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20  relative">
+        <div className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20 font-quickSand  relative">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Community Discussions
@@ -300,7 +300,7 @@ const LandingPage = () => {
         </div>
 
         {/* Projects */}
-        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20  relative z-2">
+        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20 font-quickSand  relative z-2">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Women Hub Projects
