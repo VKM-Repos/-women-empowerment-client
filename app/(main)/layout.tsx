@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "@/components/Layout/Navbar";
-import ProtectedPage from "./protectedPage";
+// import ProtectedPage from "./protectedPage";
 import Footer from "@/components/Layout/Footer";
 
 

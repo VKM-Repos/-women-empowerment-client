@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-hot-toast';
-import { isAuthenticated } from '@/lib/config/authHelper';
+// import React, { useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
+// import { toast } from 'react-hot-toast';
+// import { isAuthenticated } from '@/lib/config/authHelper';
 
 
-interface ProtectedPageProps {
-  children: React.ReactNode;
-}
+// interface ProtectedPageProps {
+//   children: React.ReactNode;
+// }
 
-const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
-  const router = useRouter();
+// const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
+//   const router = useRouter();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      if (!isAuthenticated()) {
-        toast.error('User not authenticated. Redirecting to login...');
-        router.push('/account/login');
-      }
-    };
+//   useEffect(() => {
+//     const checkAuth = async () => {
+//       if (!isAuthenticated()) {
+//         toast.error('User not authenticated. Redirecting to login...');
+//         router.push('/account/login');
+//       }
+//     };
 
-    checkAuth();
-  }, []);
+//     checkAuth();
+//   }, []);
 
-  return <>{isAuthenticated() ? children : null}</>;
-};
+//   return <>{isAuthenticated() ? children : null}</>;
+// };
 
-export default ProtectedPage;
+// export default ProtectedPage;
