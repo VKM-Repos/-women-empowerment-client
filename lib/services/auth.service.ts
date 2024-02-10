@@ -12,7 +12,7 @@ import {
   VerifyTokenResponse,
 } from "../types/auth.types";
 // import useStore from "../store/user.store";
-import { removeToken, storeToken } from "../config/authHelper";
+// import { removeToken, storeToken } from "../config/authHelper";
 
 async function handleResponse<T>(response: AxiosResponse): Promise<T> {
   const contentType = response.headers["content-type"] || "";
@@ -34,7 +34,7 @@ export async function apiCreateUser(
   requestData: RegisterUserRequest
 ): Promise<UserResponse> {
   try {
-    const response = await publicApi.post("/auth/create-user", requestData);
+    const response = await publicApi.post("/auth/register", requestData);
     const user: UserResponse = await handleResponse<UserResponse>(response);
 
     if (user && user.data) {
@@ -56,14 +56,10 @@ export async function apiLoginUser(
   };
 
   try {
-    const response = await publicApi.post("/auth/login", requestPayload);
+    const response = await publicApi.post("/auth/token", requestPayload);
     const loginResponse: LoginResponse = await handleResponse<LoginResponse>(
       response
     );
-
-    if (loginResponse.data.accessToken && loginResponse.data.tokenType === "BEARER") {
-      storeToken(loginResponse.data.accessToken);
-    }
 
     return loginResponse.data.accessToken;
   } catch (error) {

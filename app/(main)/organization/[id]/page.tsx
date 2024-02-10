@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { Menu } from '../components/Menu'
 import Tab from '../components/Tab'
 import { TransitionParent } from '@/lib/utils/transition'
+import Link from 'next/link'
 interface EventTab {
     name: string;
   }
@@ -58,7 +59,7 @@ console.log(selectedEventType);
     return (
         <TransitionParent>
             <section className="bg-white flex flex-col items-stretch mb-[300px]">
-            <div className="w-full mt-9 px-14 max-md:max-w-full max-md:px-5">
+            <div className="w-full mt-1 px-14 max-md:max-w-full max-md:px-5">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[66%] max-md:w-full max-md:ml-0">
                         <div className="items-start flex grow flex-col  max-md:max-w-full max-md:mt-8">
@@ -100,7 +101,7 @@ console.log(selectedEventType);
                                             </div>
                                         </div>
                                     </span>
-                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[90px] items-end max-md:max-w-full">
+                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[130px] items-end max-md:max-w-full">
                                         <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
                                             <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
                                                 Follow us:

@@ -12,7 +12,7 @@ export default function ProfilePage() {
     }
     return (
         <section className="bg-white flex flex-col items-center mb-[250px]">
-            <div className="justify-between z-[1] w-full max-w-[1300px] mt-14 max-md:max-w-full max-md:mt-10">
+            <div className="justify-between z-[1] w-full max-w-[1300px] mt-5 max-md:max-w-full max-md:mt-10">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <div className="flex flex-col items-stretch w-[66%] max-md:w-full max-md:ml-0">
                         <div className="bg-white flex flex-col w-full pt-11 pb-5 px-20 rounded-2xl border border-stone-800 border-solid border-black border-opacity-10 max-md:max-w-full max-md:mt-10 max-md:px-5">
@@ -40,7 +40,7 @@ export default function ProfilePage() {
                                     </button>
                                 </div>
                             </div>
-                            <div className='flex flex-col gap-5 mt-10'>
+                            <div className='flex flex-col gap-5 mt-7'>
                                 <div className='flex items-center gap-5'>
                                     <label className='font-sora flex-[0.3]' htmlFor="">Username</label>
                                     <input type='text' className="font-quickSand flex-1 border border-stone-800 border-solid border-black border-opacity-10 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Sarah Bling' />

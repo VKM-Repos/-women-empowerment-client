@@ -22,10 +22,11 @@ export const usePOST = (url: string, withAuth = true) => {
             toast.success('Successfully login')
 
         },
-        onError: (err: { response: { data: string } }) => {
+        onError: (err: { response: { data: any } }) => {
             // (err?.data?.message instanceof Array) ? toast.error(err?.data?.message[0]) : toast.error(err?.data?.message)
             // console.log('Error >>>>>', err.response?.data)
-            toast.error(err.response?.data)
+            const {status, detail}  = err.response.data
+            toast.error(detail || 'Something went wrong')
 
 
         }

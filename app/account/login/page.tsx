@@ -12,6 +12,10 @@ import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { LoginRequest } from "@/lib/types/auth.types";
+import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const router = useRouter()
@@ -21,7 +25,7 @@ const Login: React.FC = () => {
     password: ''
   })
   const { login, isAuthenticated, user } = useAppContext()
-  const { mutate, isPending, isError } = usePOST('/login')
+  const { mutate, isPending, isError } = usePOST('auth/token')
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
   }
@@ -34,11 +38,25 @@ const Login: React.FC = () => {
       }
     })
   }
-  const handleLogin = (event: any) => {
+  const handleLogin = async (event: any) => {
+
+
     event.preventDefault()
+    // try{
+    //   const {email, password} = formData
+    //   const response = await signIn('credentials', {email, password, redirect: false})
+
+    //   if(response?.ok){
+    //     console.log('Login suceess');
+        
+    //   }
+    // }catch(error) {
+
+    // }
     mutate(formData, {
       onSuccess: (data) => {
-        login(data.user)
+        login(data, data.token)
+        console.log(data);
         router.push('/')
       },
       onError: () => {
@@ -47,6 +65,37 @@ const Login: React.FC = () => {
     })
 
   }
+
+  // const {
+  //   register, 
+  //   formState: {errors}, 
+  //   handleSubmit,
+  // } = useForm<LoginRequest>()
+
+  // async function loginUser(data:LoginRequest) {
+  //   // add a loading state here
+  //   setIsPending(true)
+  //   try{
+  //     const {email, password} = formData
+  //     const response = await signIn('credentials', formData)
+
+  //     if(!response?.ok){
+  //       toast.error('login failed')
+  //       return;
+  //     }
+  //       toast.success('login successful')
+  //       router.push('/')
+
+  //   }catch(error: any) {
+  //     console.error(error.message)
+  //   } finally {
+  //     setIsPending(false)
+  //   }
+  // }
+
+  // const onSubmitHandler: SubmitHandler<LoginRequest> = async (data) => {
+  //   loginUser(data)
+  // }
   return (
     <TransitionParent>
       <main >
@@ -80,7 +129,7 @@ const Login: React.FC = () => {
                   <div className="flex w-full flex-col mt-4 px-10 max-md:max-w-full">
                     <form onSubmit={handleLogin} className="flex flex-col">
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
-                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Username" className="w-full focus:outline-none" autoComplete="off" required />
+                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Email" className="w-full focus:outline-none" autoComplete="off" required />
                       </div>
 
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start max-md:max-w-full max-md:px-5 mt-5 flex gap-3">
@@ -104,7 +153,7 @@ const Login: React.FC = () => {
                       <Link href={'/account/forgot-password'} className="text-rose-500 text-center text-xs font-medium whitespace-nowrap mr-4 mt-1.5 self-end max-md:mr-2.5">
                         Forgot Password?
                       </Link>
-                      <button className="text-white-100 text-base whitespace-nowrap items-stretch bg-green-800 self-center justify-center mt-4 px-12 py-2.5 rounded-lg max-md:px-5">
+                      <button className="text-white-100 text-base whitespace-nowrap items-stretch bg-primary self-center justify-center mt-4 px-12 py-2.5 rounded-lg max-md:px-5">
                         Login
                       </button>
                     </form>
