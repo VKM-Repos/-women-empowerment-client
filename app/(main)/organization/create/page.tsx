@@ -1,10 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { CreateOrganizationRequest } from "@/lib/types/organization.types";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import OrgNameForm from "../components/forms/OrgName.form";
 import OrgCategoryForm from "../components/forms/OrgCategory.form";
 import OrgLogoForm from "../components/forms/OrgLogo.form";
@@ -14,6 +13,8 @@ import OrgContactForm from "../components/forms/OrgContact.form";
 import OrgDescriptionForm from "../components/forms/OrgDescription.form";
 import OrgImagesForm from "../components/forms/OrgImages.form";
 import OrgStepComplete from "../components/forms/OrgStepComplete";
+import { OrganizationFormStore, useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import toast from "react-hot-toast";
 
 interface CreateOrgResponse {
   status: boolean;
@@ -29,138 +30,63 @@ interface ErrorResponse {
 
 function CreateOrganizationPage() {
   const router = useRouter();
+  const { step, setStep, data, setData, resetStore } = useOrganizationFormStore();
 
   const RenderForm = () => {
-    const [step, setStep] = useState(1);
-
-    const [data, setData] = useState({
-      OrgName: "",
-      category: [],
-      logo: "",
-      webUrl: "",
-      facebookUrl: "",
-      address: [],
-      email: "",
-      phone: "",
-      description: "",
-      images: [],
-    });
-
-    const handleChange = (event: any) => {
-      event.preventDefault();
-      const { name, value } = event.target;
-      setData({
-        ...data,
-        [name]: value,
-      });
-    };
-
-    const {
-      register,
-      formState: { errors },
-      handleSubmit,
-      watch,
-      reset,
-    } = useForm<CreateOrganizationRequest>();
-
-    const handleNext = (e: any) => {
-      e.preventDefault();
-      if (step <= 8 ) {
-        // Get the form data using the react-hook-form watch function
-        const formData = watch();
-
-        // Update the data state with the current form data
-        setData((prevData: any) => ({
-          ...prevData,
-          ...formData,
-        }));
-
-        // Move to the next step
-        setStep((prevStep) => prevStep + 1);
-      } else {
-        handleSubmit(onSubmitHandler);
-      }
+    const handleNext = () => {
+      console.table(data)
+      console.log('prev data', data);
+      
+      setStep(step + 1);
     };
 
     const handleGoBack = () => {
       if (step > 1) {
-        setStep((prevStep) => prevStep - 1);
+        setStep(step - 1);
       }
     };
 
-    const handleSkip = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      setStep((prevStep) => prevStep + 1);
+    const handleSkip = () => {
+      setStep(step + 1);
     };
 
-    async function createOrganization(data: CreateOrganizationRequest) {
-      // Commenting the real API call for now
-      // store.setRequestLoading(true);
 
-      // Dummy API call that returns a 200 status and empty data
-      const dummyApiCreateOrg = async (requestData: any) => {
-        return { status: true, message: "Dummy API call successful" };
-      };
+   async function createOrganization() {
+    const formData = useOrganizationFormStore.getState().data;
+    console.log('final form data:', formData);
 
-      const requestData = {
-        // all data
-      };
-
-      try {
-        const response: CreateOrgResponse | ErrorResponse =
-          await dummyApiCreateOrg(requestData);
-
-        if (response.status) {
-          toast.success(`Org created successfully, ${response.message}`);
-          reset();
-          //   push to the org detailed page with its id as the params
-          //   router.push(`/organization/${id}`);
-            router.push(`/organization/1`);
-          console.log("successful registration", response.message);
-        } else {
-          if (response instanceof Error) {
-            toast.error(`There has been an error, ${response.message}`);
-            console.log("There has been an error", response);
-          }
-        }
-      } catch (error: any) {
-        if (error instanceof Error) {
-          // Handle errors
-          console.error(error.message);
-          toast.error(`There has been an error: ${error.message}`);
-        }
-      } finally {
-        // store.setRequestLoading(false);
+    try {
+      if (formData) {       
+        toast.success('org created successfully');
+        handleNext();
       }
+    } catch (error) {
+      console.log('error dey');
     }
+  }
 
-    const onSubmitHandler: SubmitHandler<CreateOrganizationRequest> = (
-      data
-    ) => {
-      createOrganization(data);
-      console.log(data);
+    const {
+    handleSubmit,
+  } = useForm<CreateOrganizationRequest>();
+
+    const onSubmitHandler: SubmitHandler<CreateOrganizationRequest> = () => {
+      createOrganization();
     };
 
     switch (step) {
       case 1:
-        return (
-          <OrgNameForm
-            handleChange={handleChange}
-            handleNext={handleNext}
-          />
-        );
+        return <OrgNameForm handleNext={handleNext} />;
       case 2:
         return (
           <OrgCategoryForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleNext}
             handleGoBack={handleGoBack}
           />
         );
       case 3:
         return (
           <OrgLogoForm
-            handleChange={handleChange}
+            handleNext={handleNext}
             handleSkip={handleSkip}
             handleGoBack={handleGoBack}
           />
@@ -168,49 +94,41 @@ function CreateOrganizationPage() {
       case 4:
         return (
           <OrgLinksForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleNext}
             handleGoBack={handleGoBack}
           />
         );
       case 5:
         return (
           <OrgAddressForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleNext}
             handleGoBack={handleGoBack}
           />
         );
       case 6:
         return (
           <OrgContactForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleNext}
             handleGoBack={handleGoBack}
           />
         );
       case 7:
         return (
           <OrgDescriptionForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleNext}
             handleGoBack={handleGoBack}
           />
         );
       case 8:
         return (
           <OrgImagesForm
-            handleChange={handleChange}
-            handleSkip={handleSkip}
+            handleNext={handleSubmit(onSubmitHandler)}
+            handleSkip={handleSubmit(onSubmitHandler)}
             handleGoBack={handleGoBack}
           />
         );
       case 9:
-        return (
-          <OrgStepComplete
-            handleSkip={handleSkip} 
-          />
-        );
+        return <OrgStepComplete handleNext={()=>{}} />;
       default:
         return null;
     }
@@ -218,9 +136,7 @@ function CreateOrganizationPage() {
 
   return (
     <AnimatePresence initial={true} mode="wait">
-      <div className="w-full min-h-screen top-0 bg-primaryWhite z-[200] py-[5rem] scrollable-section flex justify-center items-center">
-        <RenderForm />
-      </div>
+      <RenderForm />
     </AnimatePresence>
   );
 }

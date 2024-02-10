@@ -1,47 +1,68 @@
+import React, { useRef, useEffect } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
-import React, { useRef } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { CreateOrganizationRequest } from "@/lib/types/organization.types";
-import Button from "@/components/Common/Button/Button";
-import StepThreeImg from "@/public/images/create-3.png";
 import Image from "next/image";
+import StepThreeImg from "@/public/images/create-3.png";
+import Button from "@/components/Common/Button/Button";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import { motion } from "framer-motion";
 
 interface OrgLogoFormProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSkip: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleNext: () => void;
   handleGoBack: () => void;
+  handleSkip: () => void;
 }
 
 const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
-  handleChange,
-  handleSkip,
+  handleNext,
   handleGoBack,
+  handleSkip,
 }) => {
+  const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateOrganizationRequest>();
+    setValue,
+    watch,
+  } = useForm<{ logo: string }>();
+
+  // Set default value from the store on initial render
+  useEffect(() => {
+    setValue("logo", data.logo);
+  }, [data.logo, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
-  const handleImage = async (e: any) => {
-    const imageFile = e.target.files[0];
-    handleChange;
-  };
 
-  const onSubmit: SubmitHandler<CreateOrganizationRequest> = (data) => {
-    // Handle file upload or perform any additional validation/processing
-    console.log(data);
-    handleSkip;
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const imageFile = e.target.files?.[0];
+
+  if (imageFile) {
+    const imageUrl = URL.createObjectURL(imageFile);
+    const reader = new FileReader();
+
+    // Update the logo URL in the store
+    setData({ logo: imageUrl });
+
+    // Display a preview of the logo
+    reader.readAsDataURL(imageFile);
+  }
+};
+
+
+
+  const onSubmit: SubmitHandler<{ logo: string }> = () => {
+    handleNext(); 
   };
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center p-12">
-        <div className="lg:col-span-2">
+      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
+        <div className="lg:col-span-2 hidden lg:block">
           <Image
             src={StepThreeImg}
             alt=""
@@ -51,29 +72,31 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
           />
         </div>
 
-        <div className="lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-[3rem] flex flex-col space-y-6 items-start ">
-          <h1 className="text-primary text-3xl font-bold">Add Logo</h1>
-          <p>
+        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
+          <h1 className="text-primary text-3xl font-bold font-sora">Add Logo</h1>
+          <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
           </p>
-          <form className="w-full">
+          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
-              {/* <input
-        className="w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-          type="file"
-          {...register("logo", { required: "This field is required" })}
-          onChange={handleChange}
-        /> */}
               <div className="w-full focus:outline-none ">
                 <input
                   ref={inputRef}
                   type="file"
-                  
                   onChange={handleImage}
                   className="hidden"
                 />
-                <div className="flex items-start">
+                <div className="flex items-center gap-4">
+                  {watch("logo") && (
+                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden">
+                      <motion.img
+                        src={watch("logo")}
+                        alt="Logo Preview"
+                        className="w-full object-contain"
+                      />
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={handleChooseFile}
@@ -121,7 +144,6 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 variant="secondary"
                 fullWidth={false}
                 size="medium"
-                onClick={handleSkip}
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"

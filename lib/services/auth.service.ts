@@ -12,7 +12,6 @@ import {
   VerifyTokenResponse,
 } from "../types/auth.types";
 // import useStore from "../store/user.store";
-// import { removeToken, storeToken } from "../config/authHelper";
 
 async function handleResponse<T>(response: AxiosResponse): Promise<T> {
   const contentType = response.headers["content-type"] || "";
@@ -61,6 +60,10 @@ export async function apiLoginUser(
       response
     );
 
+    // if (loginResponse.data.accessToken && loginResponse.data.tokenType === "BEARER") {
+    //   storeToken(loginResponse.data.accessToken);
+    // }
+
     return loginResponse.data.accessToken;
   } catch (error) {
     throw error;
@@ -97,7 +100,7 @@ export async function apiResetCode(
 
 export async function apiLogoutUser(): Promise<void> {
   try {
-    removeToken();
+    // removeToken();
     window.location.href = "/account/login";
   } catch (error) {
     console.error("Logout error:", error);
