@@ -30,19 +30,20 @@ export type UserResponse = {
   data: Record<string, any>;
 };
 
+export type SignupResponse = {
+    id: number,
+    name: string,
+    bio: string,
+    email: string,
+    enabled: boolean,
+    isEmailVerified: boolean,
+    createdAt: string,
+    updatedAt: string
+  
+};
 export type LoginResponse = {
-  status: boolean;
-  message: string;
-  data: {
-    userId: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    accessToken: string;
-    roles: string[];
-    tokenType: string;
-    emailVerified: boolean;
-  };
+    token: string,  
+    refreshToken: string,  
 };
 
 export type VerifyTokenResponse = {

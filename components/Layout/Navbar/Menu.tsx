@@ -37,12 +37,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({ link, subLinks, text, icon, 
     setIsSubMenuOpen(true);
   };
 
+  const handleShowMenu = ()=> {
+    setIsSubMenuOpen(prevState => !prevState)
+  }
+
   const handleMouseLeave = () => {
     setIsSubMenuOpen(false);
   };
 
   return (
-    <div className="relative " onClick={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className="relative " onClick={handleShowMenu}>
       <Link href={link} className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`}>
         <span className="link">{text} {icon}</span>
         {subLinks

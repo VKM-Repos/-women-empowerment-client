@@ -33,7 +33,7 @@ export async function apiCreateUser(
   requestData: RegisterUserRequest
 ): Promise<UserResponse> {
   try {
-    const response = await publicApi.post("/auth/create-user", requestData);
+    const response = await publicApi.post("/auth/register", requestData);
     const user: UserResponse = await handleResponse<UserResponse>(response);
 
     if (user && user.data) {
@@ -55,7 +55,7 @@ export async function apiLoginUser(
   };
 
   try {
-    const response = await publicApi.post("/auth/login", requestPayload);
+    const response = await publicApi.post("/auth/token", requestPayload);
     const loginResponse: LoginResponse = await handleResponse<LoginResponse>(
       response
     );
