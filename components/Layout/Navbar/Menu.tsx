@@ -48,7 +48,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ link, subLinks, text, icon, 
   return (
     <div className="relative " onClick={handleShowMenu}>
       <Link href={link} className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`}>
-        <span className="link">{text} {icon}</span>
+        <span className={`${icon ? '' : 'link'}`}>{text} {icon}</span>
         {subLinks
           && showChevron && <ChevronFilledIcon className={` transition-transform duration-150 ease-in-out ${isSubMenuOpen ? "rotate-90 text-btnWarning" : ""}`} />
         }
