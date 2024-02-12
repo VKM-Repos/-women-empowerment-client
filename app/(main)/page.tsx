@@ -18,6 +18,11 @@ import {
   searchTerms,
 } from "@/lib/utils/constants";
 import Button from "@/components/Common/Button/Button";
+import AnimatedTitle from "@/components/LandingPage/AnimatedTitle";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import Loading from "./loading";
+import { Organization } from "@/lib/types/organization.types";
+import { Event } from "@/lib/types/events.types";
 
 const LandingPage = () => {
  
@@ -30,46 +35,8 @@ const LandingPage = () => {
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
-  const words = ["Able", "Strong", "Women"];
-
-  const transition = { duration: 1, ease: "easeInOut" };
-
-  const itemVariants = {
-    hidden: {
-      y: 100,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        ...transition,
-        delay: 0.5, 
-      },
-    },
-    exit: {
-      y: 100,
-      opacity: 0,
-      transition,
-    },
-  };
-
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      // Animate out the current word
-      setCurrentWordIndex((prevIndex) => {
-        return (prevIndex + 1) % words.length;
-      });
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-
-
   const [activeIndex, setActiveIndex] = useState(0);
+ 
 
   const controls = useAnimation();
 
@@ -86,6 +53,26 @@ const LandingPage = () => {
   useEffect(() => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls])
+
+  // fetch lists of organizations
+  const { data: organizations, isLoading: isOrganizationLoading, isError: isOrganizationError } = useGET({
+    url: "/organizations",
+    queryKey: ["organizations"],
+    withAuth: false, 
+    enabled: true,
+  });
+
+
+
+  // fetch lists of events
+  const { data: events, isLoading: isEventsLoading, isError: isEventsError } = useGET({
+    url: "/events",
+    queryKey: ["events"],
+    withAuth: false, 
+    enabled: true,
+  });
+
+  // console.log(events?.content);
   
 
   return (
@@ -104,24 +91,7 @@ const LandingPage = () => {
         {/* Hero */}
         <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[2.5rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
-            <h1 className="md:text-[45px] text-[24px] text-center text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
-              Together we are
-              <AnimatePresence mode="wait" initial={false}>
-                <span className="inline-block overflow-hidden">
-                  <motion.span
-                    style={{ display: "inline-block" }}
-                    key={words[currentWordIndex]}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="text-secondary italic px-2"
-                  >
-                    {words[currentWordIndex]}
-                  </motion.span>
-                </span>
-              </AnimatePresence>
-            </h1>
+            <AnimatedTitle title='Together we are' />
             <p className="text-white-100 font-light text-sm md:text-base font-quickSand text-left">
               Discover and learn about women organizations with only one click.
             </p>
@@ -178,14 +148,17 @@ const LandingPage = () => {
             </h3>
             {/* Organization feeds */}
             <section className=" flex flex-col gap-4">
-              {db.communities.length === 0 ? (
-                <p className="no-result">No Organization found</p>
-              ) : (
-                <>
-                  {db.communities.map((item: any) => (
-                    <CommunityCard organization={item} key={item.id} />
-                  ))}
-                </>
+               {isOrganizationLoading && 'loading'}
+
+                {isOrganizationError && <p>Error fetching Organization</p>}
+                {!isOrganizationLoading && !isOrganizationError && organizations?.content?.length === 0 && <p>No Organization yet</p>}
+                {!isOrganizationLoading && !isOrganizationError && (
+                <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                  {Array.isArray(organizations?.content) &&
+                    organizations?.content.map((organization: Organization) => (
+                      <CommunityCard  key={organization.id} organization={organization} />
+                    ))}
+                </div>
               )}
               <div className="w-fit mx-auto my-8">
                       <Button
@@ -194,7 +167,7 @@ const LandingPage = () => {
                         fullWidth={false}
                         size="normal"
                       />
-                    </div>
+                  </div>
             </section>
           </div>
 
@@ -205,9 +178,23 @@ const LandingPage = () => {
               </h3>
 
               <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
-                {db.events.map((event) => (
+                {/* {db.events.map((event) => (
                   <EventCard key={event.id} event={event} />
-                ))}
+                ))} */}
+
+                {isEventsLoading && 'loading'}
+
+                {isEventsError && <p>Error fetching Events</p>}
+                {!isEventsLoading && !isEventsError && events?.content.length === 0 && <p>No Events found</p>}
+
+                {!isEventsLoading && !isEventsError && (
+                <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                  {Array.isArray(events?.content) &&
+                    events?.content.map((event: Event) => (
+                       <EventCard key={event.id} event={event} />
+                    ))}
+                </div>
+              )}
                 <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE MORE EVENTS"

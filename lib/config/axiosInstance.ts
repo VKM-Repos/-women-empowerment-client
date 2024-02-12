@@ -8,7 +8,7 @@ const backendApiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const authApi: AxiosInstance = axios.create({
   baseURL: backendApiURL,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 authApi.defaults.headers.common["Content-Type"] = "application/json";
@@ -28,7 +28,7 @@ authApi.interceptors.request.use(async (config) => {
 
 export const publicApi: AxiosInstance = axios.create({
   baseURL: backendApiURL,
-  withCredentials: false,
+  // withCredentials: false,
 });
 
 publicApi.defaults.headers.common["Content-Type"] = "application/json";

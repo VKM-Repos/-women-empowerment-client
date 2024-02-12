@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 
 type EventTabProps = {
-    name: string;
+    name: any;
     selectedEventType: boolean;
     setSelectedEventType: Dispatch<SetStateAction<string>>
 }

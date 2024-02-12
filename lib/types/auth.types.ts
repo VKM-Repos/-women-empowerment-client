@@ -51,9 +51,3 @@ export type VerifyTokenResponse = {
   message: string;
   data: Record<string, any>;
 }
-
-export type ErrorResponse = {
-  status: boolean;
-  message: string;
-  data: Record<string, any>;
-};
