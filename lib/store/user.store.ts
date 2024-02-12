@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UserPayload } from "../types/user.types";
+import { User } from "../types/user.types";
 
 type UserResponse = {
   status: boolean;
@@ -8,11 +8,11 @@ type UserResponse = {
 };
 
 type Store = {
-  authUser: UserPayload | null;
+  authUser: User | null;
   isLoading: boolean;
   userId: string | null;
   verifyUser: UserResponse | null;
-  setAuthUser: (user: UserPayload | null) => void;
+  setAuthUser: (user: User | null) => void;
   setUserId: (userId: string | null) => void;
   setIsLoading: (isLoading: boolean) => void;
   setVerifyUser: (user: UserResponse | null) => void;

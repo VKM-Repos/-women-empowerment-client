@@ -1,40 +1,30 @@
-"use client";
-import { Organization } from "@/lib/types/organization.types";
-import formatIdToTitle from "@/lib/utils/formatIdToTitle";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+
 import React, { useState } from "react";
 
 
-interface OrganizationProps extends Organization {
-  otherProps?: string;
-}
-export const CommunityCard: React.FC<{ organization: OrganizationProps }> = ({
-  organization,
+export const OrgCardLoader: React.FC<{}> = ({
 }) => {
-  const [fav, setFav] = useState(false);
-  const handleFavorite = () => {
-    setFav((prevState) => !prevState);
-  };
+
   return (
-    <Link href={`/organization/${organization.id}`} as={`/organization/${formatIdToTitle(organization.name)}`} scroll={false} className="border border-gray-500 shadow-sm bg-white self-stretch p-4 py-4 md:p-8 rounded-2xl max-md:max-w-full hover:bg-primary/10 transform transition-all ease-in-out duration-75">
+    <div className="border border-gray-500 shadow-sm bg-white self-stretch p-4 py-4 md:p-8 rounded-2xl max-md:max-w-full animate-pulse">
       <div className="grid grid-cols-12 gap-2 place-content-center items-start ">
         <div className="col-span-8 md:col-span-10 flex flex-col gap-2 items-start">
-            <h4 className="text-primary text-base md:text-lg font-sora font-bold max-md:max-w-full">
-              {organization.name}
-            </h4>
-            <p className=" text-xs md:text-sm font-quickSand leading-5 max-md:max-w-full">
-              {organization.description}
+            <span className="h-3 w-2/3 md:w-2/5 bg-gray-500 rounded">
+              
+            </span>
+            <p className="h-2 w-full bg-gray-500 rounded">
+            </p>
+            <p className="h-2 w-full  bg-gray-500 rounded">
+            </p>
+            <p className="h-2 w-full md:w-3/5 bg-gray-500 rounded">
             </p>
             <div className="justify-between border-gray-500  flex w-full gap-4 py-2 border-y items-center">
               <div className="items-center flex justify-start gap-4">
                 <span className="flex items-center justify-between gap-1">
                   <svg
-                    onClick={handleFavorite}
                     className="w-5 aspect-square cursor-pointer"
                     viewBox="0 0 25 24"
-                    fill={fav ? "red" : "none"}
+                    fill= "none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -44,8 +34,8 @@ export const CommunityCard: React.FC<{ organization: OrganizationProps }> = ({
                     />
                   </svg>
 
-                  <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-                    3.5K
+                  <p className="w-2 aspect-square">
+                    
                   </p>
                 </span>
               <button className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full">
@@ -69,22 +59,19 @@ export const CommunityCard: React.FC<{ organization: OrganizationProps }> = ({
                         </svg>
 
               
-                <p className="text-neutral-500 font-sora text-center text-xs md:text-sm self-center my-auto">
-                  visit website
+                <p className="w-full h-2 rounded">
+                  
                 </p>
               </button>
             </div>
          
         </div>
         <div className="flex flex-col col-span-4 md:col-span-2">
-          <motion.img
-            src={organization.logo}
-            alt=""
-            loading="lazy"
-            className="w-full aspect-square justify-center items-center overflow-hidden"
+          <div
+            className="w-full aspect-square justify-center items-center bg-gray-500 animate-pulse overflow-hidden"
           />
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

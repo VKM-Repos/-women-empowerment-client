@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { Event } from "@/lib/types/events.types";
 
-interface EventProps {
-  id: string;
-  image?: string;
-  title: string;
-  author: string;
-  createdAt: string;
-  status: string;
-}
 
-const EventCard: React.FC<{ event: EventProps }> = ({
+const EventCard: React.FC<{ event: Event }> = ({
   event,
 }) => {
 
@@ -28,9 +21,9 @@ const EventCard: React.FC<{ event: EventProps }> = ({
       />
 
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">
-        <h4 className="text-sm font-semibold truncate whitespace-nowrap w-full block">{event?.title}</h4>
-        <p className="text-sm text-gray-300 font-quickSand">{event.author}</p>
-        <p className="text-xs text-info">{event.createdAt} ({event.status})</p>
+        <h4 className="text-sm font-semibold truncate whitespace-nowrap w-full block">{event?.name}</h4>
+        <p className="text-sm text-gray-300 font-quickSand">{event.organization?.name}</p>
+        <p className="text-xs text-info">{event.createdAt} ({event.type})</p>
       </div>
 
     </article>

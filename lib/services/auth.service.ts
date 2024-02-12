@@ -6,11 +6,11 @@ import {
   ResetCodeRequest,
   LoginRequest,
   RegisterUserRequest,
-  ErrorResponse,
   LoginResponse,
   UserResponse,
   VerifyTokenResponse,
 } from "../types/auth.types";
+import { ErrorResponse } from "../types/response.types";
 // import useStore from "../store/user.store";
 
 async function handleResponse<T>(response: AxiosResponse): Promise<T> {

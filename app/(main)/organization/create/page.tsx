@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { AnimatePresence } from "framer-motion";
-import { CreateOrganizationRequest } from "@/lib/types/organization.types";
 import { redirect, useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import OrgNameForm from "../components/forms/OrgName.form";
@@ -16,17 +15,6 @@ import OrgStepComplete from "../components/forms/OrgStepComplete";
 import { OrganizationFormStore, useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 import toast from "react-hot-toast";
 
-interface CreateOrgResponse {
-  status: boolean;
-  message: string;
-  // Add other fields as needed
-}
-
-interface ErrorResponse {
-  status: boolean;
-  message: string;
-  // Add other fields as needed
-}
 
 function CreateOrganizationPage() {
   const router = useRouter();
@@ -67,9 +55,9 @@ function CreateOrganizationPage() {
 
     const {
     handleSubmit,
-  } = useForm<CreateOrganizationRequest>();
+  } = useForm<OrganizationFormStore>();
 
-    const onSubmitHandler: SubmitHandler<CreateOrganizationRequest> = () => {
+    const onSubmitHandler: SubmitHandler<OrganizationFormStore> = () => {
       createOrganization();
     };
 

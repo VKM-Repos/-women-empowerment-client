@@ -1,22 +1,19 @@
-export type Role = "USER" | "ORGANIZATION" | "SYSTEM_ADMIN";
-
-export interface UserPayload {
-  userId: string;
-  firstName: string;
-  lastName: string;
+export type LocalDate = string; // format: yyyy-MM-dd
+export type LocalTime = string; // format: HH:mm:ss.SSSSSSSSS
+export type Instant = string; // format: yyyy-MM-ddTHH:mm:ssZ
+export interface User {
+  id: number;
+  name: string;
+  bio: string;
   email: string;
-  accessToken: string;
-  roles: Role[];
-  tokenType: string;
-  emailVerified: boolean;
+  enabled: boolean;
+  isEmailVerified: boolean;
+  createdAt: Instant;
+  updatedAt: Instant;
 }
+
+
 export interface UserResponse {
   userId: string;
   email: string;
-}
-
-export interface UserErrorResponse {
-  status: boolean;
-  message: string;
-  data: Record<string, any>;
 }
