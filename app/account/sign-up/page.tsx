@@ -20,8 +20,9 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   })
+  const [pending, setPending] = useState(false)
   const { login, isAuthenticated, user } = useAppContext()
-  const { mutate, isPending, isError } = usePOST('/login')
+  const { mutate, isPending, isError } = usePOST('auth/registration')
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
   }
@@ -34,15 +35,15 @@ const Login: React.FC = () => {
       }
     })
   }
-  const handleLogin = (event: any) => {
+  const handleSignUp = async(event: any) => {
     event.preventDefault()
     mutate(formData, {
       onSuccess: (data) => {
-        login(data.user)
-        router.push('/')
+        // login(data.user)
+        router.push('/account/login')
       },
-      onError: () => {
-        console.log('On page Error');
+      onError: (err) => {
+        console.log('On page Error', err);
       }
     })
 
@@ -78,7 +79,7 @@ const Login: React.FC = () => {
                   Signup
                   </div>
                   <div className="flex w-full flex-col mt-4 px-10 max-md:max-w-full">
-                    <form onSubmit={handleLogin} className="flex flex-col">
+                    <form onSubmit={handleSignUp} className="flex flex-col">
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
                         <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Username" className="w-full focus:outline-none" autoComplete="off" required />
                       </div>
@@ -127,7 +128,7 @@ const Login: React.FC = () => {
                     </div>
                     <div  className="text-green-800 text-sm  self-center whitespace-nowrap mt-4">
                       <span className=" text-black">Already have an account? </span>
-                      <Link href="/account/sign-up" className="font-medium underline text-green-800">Login</Link>
+                      <Link href="/account/login" className="font-medium underline text-green-800">Login</Link>
                     </div>
                   </div>
                 </div>
