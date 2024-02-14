@@ -14,6 +14,7 @@ const Navbar = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
     undefined
   );
+  const [showSideBar, setShowSideBar] = useState(false)
   const { isAuthenticated } = useAppContext();
   const submenuLinks = {
     community: [
@@ -86,7 +87,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const handleSideMenu = () => {
-
+    setShowSideBar(prevState => !prevState)
   }
 
   return (
@@ -115,7 +116,46 @@ const Navbar = () => {
           </Link>
         </div>
         </div>
+        {
+          showSideBar && (
+            <div className="absolute bg-white-100 w-[70%] h-screen z-10 top-0 px-8 py-5 ">
+          <div className="flex justify-between">
+          <Link href="/" className="w-fit flex items-center space-x-2">
+            <Image
+              src={Logo.src}
+              alt=""
+              className="w-[3rem] md:w-[4rem] aspect-auto"
+              width={80}
+              height={80}
+            />
+          </Link>
+            <button onClick={handleSideMenu}>
+              <svg width="25" height="31" viewBox="0 0 25 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.29529 5.93799L19.8578 22.4179" stroke="black" stroke-width="2.125" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.88513 22.1553L20.4486 5.67627" stroke="black" stroke-width="2.125" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
 
+          <div className="flex flex-col gap-5 mt-[100px] text-lg">
+            <MenuItem link="/about" subLinks={null} text="about" />
+            <MenuItem link="/category" subLinks={null} text="category" />
+            <MenuItem link="/events" subLinks={null} text="events" />
+            <MenuItem
+              link="#"
+              subLinks={submenuLinks.community}
+              text="community"
+            />
+            <MenuItem link="/projects" subLinks={null} text="projects" />
+            <MenuItem link="/blog" subLinks={null} text="blog" />
+
+          </div>
+          <div className="absolute bottom-0 text-sm">
+            <p>© Copyright 2022. VHDO</p>
+          </div>
+        </div>
+          )
+        }
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
           <MenuContainer>
             <MenuItem link="/about" subLinks={null} text="about" />
