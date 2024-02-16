@@ -26,19 +26,25 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
     watch,
   } = useForm<{state: string, postalCode: string, street: string}>({
      defaultValues: {
-      state: data.state || "",
-      postalCode: data.postalCode || "",
-      street: data.street || "",
+      state: data.organizationDetails.state || "",
+      postalCode: data.organizationDetails.postalCode || "",
+      street: data.organizationDetails.street || "",
     },
   });
 
-  const onSubmit: SubmitHandler<{state: string, postalCode: string, street: string}> = (data) => {
-    // Perform any additional validation or processing if needed
-    setData({
-      state: data.state, postalCode: data.postalCode, street: data.street
-    });
-    handleNext();
-  };
+  const onSubmit: SubmitHandler<{ state: string; postalCode: string; street: string }> = (formData) => {
+  // Update the store with the entered address details
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      state: formData.state,
+      postalCode: formData.postalCode,
+      street: formData.street,
+    },
+  });
+  handleNext(); // Move to the next step
+};
+
 
   return (
     <TransitionParent>
@@ -70,6 +76,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                   {...register("state", {
                     required: "This field is required",
                   })}
+                  name="state"
                 >
                   <option value="">Select a state</option>
                   {statesList.map((state, index) => (
@@ -92,6 +99,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                   {...register("postalCode", {
                     required: "This field is required",
                   })}
+                  name="postalCode"
                 />
                 {errors.postalCode && (
                   <span className="text-error text-xs">
@@ -107,6 +115,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                   {...register("street", {
                     required: "This field is required",
                   })}
+                  name="street"
                 />
                 {errors.street && (
                   <span className="text-error text-xs">

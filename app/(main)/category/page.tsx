@@ -4,7 +4,6 @@ import { TransitionParent } from "@/lib/utils/transition";
 import { CategoryCard } from "./components/CategoryCard";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Category } from "@/lib/types/category.types";
-import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Loading from "../loading";
 
 const CategoryPage = () => {
@@ -16,7 +15,6 @@ const CategoryPage = () => {
     enabled: true,
   });
 
-  console.log(categories?.content);
   
 
 

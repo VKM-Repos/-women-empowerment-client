@@ -21,3 +21,11 @@ export type Organization = {
   createdAt: Instant;
   updatedAt: Instant;
 }
+
+export interface ApiResponse {
+  content: Organization[];
+  page: number;
+  size: number;
+  numberOfElements: number;
+  totalElements: number;
+}

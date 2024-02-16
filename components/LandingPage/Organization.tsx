@@ -1,5 +1,5 @@
 import React from 'react'
-import { CommunityCard } from './CommunityCard';
+import { OrganizationCard } from './OrganizationCard';
 interface OrganizationProps {
     organizations: any[]
 }
@@ -15,7 +15,7 @@ export const Organization: React.FC<OrganizationProps> = ({ organizations = [] }
                 <div className="items-center flex flex-col gap-5 mt-9 px-6 max-md:max-w-full max-md:px-5">
                     {
                         organizations?.map(org => (
-                            <CommunityCard organization={org} key={org.id} />
+                            <OrganizationCard organization={org} key={org.id} />
                         ))
                     }
                     <button

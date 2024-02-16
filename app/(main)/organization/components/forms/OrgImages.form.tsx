@@ -27,49 +27,34 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ images: string[] }>();
+  } = useForm<{ image: string | null }>(); // Change to FileList type
 
   // Set default value from the store on initial render
   useEffect(() => {
-    setValue("images", data.images || []);
-  }, [data.images, setValue]);
+    setValue("image", data.image); // Initialize with an empty FileList
+  }, [data.image, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
 
+ const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const imageFile = e.target.files?.[0];
 
-  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const imageFiles = e.target.files;
-
-  if (imageFiles) {
-    const imageUrlPromises = Array.from(imageFiles).map((imageFile) => {
-      return new Promise<string>((resolve) => {
-        const imageUrl = URL.createObjectURL(imageFile);
-        resolve(imageUrl);
-      });
-    });
-
-    const imageUrls = await Promise.all(imageUrlPromises);
-
-    // Update the images array in the store
-    setData({ images: [...(data.images || []), ...imageUrls] });
-
-    // Display a preview of all images
-    imageUrls.forEach((imageUrl) => {
-      console.log("Image URL:", imageUrl);
-    });
+  if (imageFile) {
+    // Update the logo in the store with the URL
+    const imageUrl = URL.createObjectURL(imageFile);
+    setData({ image: imageUrl });
   }
 };
 
 
-  const removeImage = (index: number) => {
-    const updatedImages = [...(data.images || [])];
-    updatedImages.splice(index, 1);
-    setData({ images: updatedImages });
+  const removeImage = () => {
+    setData({ image: "" });
+    // setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<{ images: string[] }> = () => {
+  const onSubmit: SubmitHandler<{ image: string | null }> = () => {
     handleNext();
   };
 
@@ -87,7 +72,9 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">Add Images</h1>
+          <h1 className="text-primary text-3xl font-bold font-sora">
+            Add Images
+          </h1>
           <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. This serves as an
             identification for your organization and it will be displayed on the
@@ -99,30 +86,28 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 <input
                   ref={inputRef}
                   type="file"
-                  onChange={handleImage}
+                  onChange={handleImagesChange}
+                  name="image"
                   className="hidden"
-                  multiple  // Allow multiple file selection
+                  accept="image/*"
                 />
                 <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
-                  {watch("images") &&
-                    watch("images").map((imageUrl, index) => (
-                     
-                        <span key={index} className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
-                           <motion.img
-                              src={imageUrl}
-                              alt={`image Preview ${index + 1}`}
-                              className="w-full object-contain"
-                            />
-                            <button
-                              type="button"
-                              className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
-                              onClick={() => removeImage(index)}
-                            >
-                              remove
-                            </button>
-                        </span>
-              
-                    ))}
+                  {watch("image") && (
+                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
+                      <motion.img
+                        src={watch("image") as string}
+                        alt={`Image Preview`}
+                        className="w-full object-contain"
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                        onClick={() => removeImage()}
+                      >
+                        remove
+                      </button>
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={handleChooseFile}
@@ -151,9 +136,9 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   </button>
                 </div>
               </div>
-              {errors.images && (
+              {errors.image && (
                 <span className="text-error text-xs">
-                  {errors.images.message}
+                  {errors.image.message}
                 </span>
               )}
             </div>

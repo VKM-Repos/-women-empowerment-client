@@ -1,3 +1,4 @@
+'use client'
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Define a type for your user data

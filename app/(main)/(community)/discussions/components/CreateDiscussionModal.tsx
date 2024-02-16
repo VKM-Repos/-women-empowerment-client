@@ -1,20 +1,84 @@
+"use client";
+
+import Loading from "@/app/(main)/loading";
 import Button from "@/components/Common/Button/Button";
+import LoadingDots from "@/components/Common/Loaders/LoadingDots";
 import Modal from "@/components/Common/Modal/Modal";
 import { useAppContext } from "@/lib/context/app-context";
 import { useModal } from "@/lib/context/modal-context";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { Category } from "@/lib/types/category.types";
+import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 export default function CreateDiscussionModal({}: Props) {
+  const [isPending, setIsPending] = useState(false);
   const { hideModal } = useModal();
   const router = useRouter();
+  const { isAuthenticated, token } = useAppContext();
 
-  // const { isAuthenticated } = useAppContext();
-  const  isAuthenticated  = false;
+  const { data: categories, isLoading } = useGET({
+    url: "/categories",
+    queryKey: ["categories"],
+    withAuth: false,
+    enabled: true,
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<{ title: string; categoryId: string; content: string }>({
+    defaultValues: {
+      title: "",
+      categoryId: "",
+      content: "",
+    },
+  });
+
+  async function handleCreatePost(event: any) {
+    setIsPending(true);
+    event.preventDefault();
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const endpoint = `${apiUrl}/discussions`;
+
+      let formData = new FormData();
+
+      formData.append("title", watch("title"));
+      formData.append("categoryId", watch("categoryId"));
+      formData.append("content", watch("content"));
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        setIsPending(false);
+        toast.success("post created successfully");
+        hideModal()
+      } else {
+        toast.error(`Error creating post: ${response.data}`);
+      }
+    } catch (error: any) {
+      setIsPending(false);
+      // Handle network or other errors
+      console.error("Error creating post:", error);
+      toast.error("Error creating post", error.message);
+    }
+  }
 
   return (
     <Modal onClose={hideModal} isOpen={true}>
@@ -61,7 +125,8 @@ export default function CreateDiscussionModal({}: Props) {
                   className="w-full flex items-center justify-center gap-5
                                 before:content-[''] before:w-1/4 before:h-0.5 before:bg-gray-500 before:rounded
                                 after:content-[''] after:w-1/4 after:h-0.5 after:bg-gray-500 after:rounded
-                                ">
+                                "
+                >
                   <p className="text-base font-sora">or</p>
                 </div>
 
@@ -103,7 +168,9 @@ export default function CreateDiscussionModal({}: Props) {
                       </defs>
                     </svg>
                   </span>
-                  <span className="text-sm font-sora">Continue with google</span>
+                  <span className="text-sm font-sora">
+                    Continue with google
+                  </span>
                 </button>
               </div>
               <span className="text-sm font-quuckSand">
@@ -141,43 +208,89 @@ export default function CreateDiscussionModal({}: Props) {
               </span>
             </nav>
             <div className="w-full h-full flex flex-col mt-[15%] items-center justify-center gap-4">
-              <form className="w-full font-quickSand">
+              <form
+                onSubmit={handleSubmit(handleCreatePost)}
+                className="w-full font-quickSand"
+              >
                 <fieldset className="w-full flex flex-col gap-5 text-sm">
                   <label htmlFor="title">
                     <input
+                      className="w-full border border-gray-400 rounded p-2 focus:outline-btnWarning placeholder:text-gray-200"
                       type="text"
                       placeholder="Title"
-                      className="w-full border border-gray-400 rounded p-2 focus:outline-btnWarning placeholder:text-gray-200"
+                      {...register("title", {
+                        required: "This field is required",
+                      })}
                     />
+                    {errors?.title?.message && (
+                      <p className="text-error text-sm mt-1">
+                        {errors?.title?.message}
+                      </p>
+                    )}
                   </label>
-                  <label htmlFor="category">
-                    <input
-                      type="text"
-                      placeholder="Choose category"
+                  <label htmlFor="categoryId">
+                    <select
                       className="w-full border border-gray-400 rounded p-2 focus:outline-btnWarning placeholder:text-gray-200"
-                    />
+                      value={watch("categoryId")}
+                      required
+                      {...register("categoryId", {
+                        required: "This field is required",
+                      })}
+                      name="categoryId"
+                    >
+                      <option value="">Select a category</option>
+                      {Array.isArray(categories?.content) &&
+                        categories.content.map((category: Category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                    </select>
+                    {errors.categoryId && (
+                      <span className="text-error text-xs">
+                        {errors.categoryId.message}
+                      </span>
+                    )}
                   </label>
-                  <label htmlFor="discussion">
+                  <label htmlFor="content">
                     <textarea
                       placeholder="Write your discussion"
                       className="w-full h-[8rem] border border-gray-400 rounded p-2 focus:outline-btnWarning placeholder:text-gray-200"
+                      {...register("content", {
+                        required: "This field is required",
+                      })}
+                      name="content"
                     />
+                    {errors.content && (
+                      <span className="text-error text-xs">
+                        {errors.content.message}
+                      </span>
+                    )}
                   </label>
                 </fieldset>
               </form>
-              <div className="w-full flex items-center justify-between">
-                <Button
-                  label="post"
-                  variant="primary"
-                  size="medium"
-                  fullWidth={false}
-                  state="active"
-                  onClick={() => {}}
-                />
-                <button className="text-btnWarning text-sm font-quickSand" onClick={hideModal}>
-                  cancel
-                </button>
-              </div>
+
+              {isPending ? (
+                <LoadingDots />
+              ) : (
+                <div className="w-full flex items-center justify-between">
+                  <Button
+                    label="post"
+                    variant="primary"
+                    size="medium"
+                    fullWidth={false}
+                    state="active"
+                    onClick={handleCreatePost}
+                  />
+
+                  <button
+                    className="text-btnWarning text-sm font-quickSand"
+                    onClick={hideModal}
+                  >
+                    cancel
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

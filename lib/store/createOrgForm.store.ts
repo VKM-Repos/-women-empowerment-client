@@ -9,48 +9,50 @@ import {
 export interface OrganizationFormStore {
   step: number;
   data: {
-    orgName: string;
-    category: string[];
-    logo: string;
-    webUrl: string;
-    facebookUrl: string;
-    state: string;
-    postalCode: string;
-    street: string;
-    email: string;
-    phone: string;
-    description: string;
-    images: string[];
+    organizationDetails: {
+      name: string;
+      categoryIds: number[];
+      website: string;
+      facebook: string;
+      state: string;
+      postalCode: string;
+      street: string;
+      email: string;
+      phoneNumber: string;
+      description: string;
+    };
+    logo: string ;
+    image: string ; 
   };
   setStep: (step: number) => void;
   setData: (data: Partial<OrganizationFormStore["data"]>) => void;
   resetStore: () => void;
 }
 
-// Define a custom type for the persist function
 type MyPersist = (
   config: StateCreator<OrganizationFormStore>,
   options: PersistOptions<OrganizationFormStore>
 ) => StateCreator<OrganizationFormStore>;
 
 export const useOrganizationFormStore = create<OrganizationFormStore>(
-  // Apply the custom type for persist
   (persist as MyPersist)(
     (set) => ({
       step: 1,
       data: {
-        orgName: "",
-        category: [],
-        logo: "",
-        webUrl: "",
-        facebookUrl: "",
-        state: "",
-        postalCode: "",
-        street: "",
-        email: "",
-        phone: "",
-        description: "",
-        images: [],
+        organizationDetails: {
+          name: "",
+          categoryIds: [],
+          website: "",
+          facebook: "",
+          state: "",
+          postalCode: "",
+          street: "",
+          email: "",
+          phoneNumber: "",
+          description: "",
+        },
+        logo: '',
+        image: '',
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
@@ -58,18 +60,20 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
         set({
           step: 9,
           data: {
-            orgName: "",
-            category: [],
-            logo: "",
-            webUrl: "",
-            facebookUrl: "",
-            state: "",
-            postalCode: "",
-            street: "",
-            email: "",
-            phone: "",
-            description: "",
-            images: [],
+            organizationDetails: {
+              name: "",
+              categoryIds: [],
+              website: "",
+              facebook: "",
+              state: "",
+              postalCode: "",
+              street: "",
+              email: "",
+              phoneNumber: "",
+              description: "",
+            },
+            logo: '',
+            image: '',
           },
         });
         localStorage.removeItem("organizationFormStore");
@@ -81,3 +85,4 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
     }
   )
 );
+

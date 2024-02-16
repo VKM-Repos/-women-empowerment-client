@@ -27,7 +27,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ logo: string }>();
+  } = useForm<{ logo: string | null }>();
 
   // Set default value from the store on initial render
   useEffect(() => {
@@ -39,24 +39,24 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const imageFile = e.target.files?.[0];
+    const imageFile = e.target.files?.[0];
 
-  if (imageFile) {
-    const imageUrl = URL.createObjectURL(imageFile);
-    const reader = new FileReader();
+    if (imageFile) {
+      // Update the logo in the store as a string
+      const imageUrl = URL.createObjectURL(imageFile);
+      setData({ logo: imageUrl });
+    }
+  };
 
-    // Update the logo URL in the store
-    setData({ logo: imageUrl });
+  const removeImage = () => {
+    const updatedImages = data.image;
+    //  write a fn to delete or pop out the image string
+    setData({ logo: "" });
+    // setData({ images: updatedImages });
+  };
 
-    // Display a preview of the logo
-    reader.readAsDataURL(imageFile);
-  }
-};
-
-
-
-  const onSubmit: SubmitHandler<{ logo: string }> = () => {
-    handleNext(); 
+  const onSubmit: SubmitHandler<{ logo: string | null }> = () => {
+    handleNext();
   };
 
   return (
@@ -73,7 +73,9 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">Add Logo</h1>
+          <h1 className="text-primary text-3xl font-bold font-sora">
+            Add Logo
+          </h1>
           <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
@@ -86,17 +88,27 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   type="file"
                   onChange={handleImage}
                   className="hidden"
+                  name="logo"
+                  accept="image/*"
                 />
                 <div className="flex items-center gap-4">
                   {watch("logo") && (
-                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden">
+                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
                       <motion.img
-                        src={watch("logo")}
-                        alt="Logo Preview"
+                        src={watch("logo") as string}
+                        alt={`logo Preview`}
                         className="w-full object-contain"
                       />
+                      <button
+                        type="button"
+                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                        onClick={() => removeImage()}
+                      >
+                        remove
+                      </button>
                     </span>
                   )}
+
                   <button
                     type="button"
                     onClick={handleChooseFile}
