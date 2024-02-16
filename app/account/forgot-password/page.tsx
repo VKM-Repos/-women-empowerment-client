@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import Logo from "@/public/logo.svg"
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
-import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
 
 const ForgotPassword: React.FC = () => {
@@ -19,7 +18,6 @@ const ForgotPassword: React.FC = () => {
   const [formData, setFormData] = useState({
     email: ''
   })
-  const { login, isAuthenticated, user } = useAppContext()
   const { mutate, isPending, isError } = usePOST('/login')
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
@@ -37,7 +35,6 @@ const ForgotPassword: React.FC = () => {
     event.preventDefault()
     mutate(formData, {
       onSuccess: (data) => {
-        login(data.user)
         router.push('/')
       },
       onError: () => {

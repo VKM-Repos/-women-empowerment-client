@@ -43,7 +43,8 @@ export type SignupResponse = {
 };
 export type LoginResponse = {
     token: string,  
-    refreshToken: string,  
+    refreshToken: string,
+    data: any
 };
 
 export type VerifyTokenResponse = {

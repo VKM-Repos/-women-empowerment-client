@@ -19,7 +19,7 @@ export const usePOST = (url: string, withAuth = true) => {
             // })
             // storeCallback && storeCallback(returnedData)
             // console.log('Data >>>>', returnedData)
-            toast.success('Successfully login')
+            toast.success('Success')
 
         },
         onError: (err: { response: { data: any } }) => {

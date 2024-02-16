@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { TransitionElement, TransitionParent, TransitionStart } from "@/lib/utils/transition";
+import React, { useState } from "react";
+import { TransitionParent } from "@/lib/utils/transition";
 import leftLoginImg from "@/public/images/left_login_img.svg"
 import righGb from "@/public/images/right_login_bg.svg"
 import righGbMobile from "@/public/images/right_login_bg_mobile.svg"
@@ -12,10 +12,6 @@ import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { LoginRequest } from "@/lib/types/auth.types";
-import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const router = useRouter()
@@ -24,7 +20,7 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   })
-  const { login, isAuthenticated, user } = useAppContext()
+  const { login } = useAppContext()
   const { mutate, isPending, isError } = usePOST('auth/token')
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
@@ -39,20 +35,7 @@ const Login: React.FC = () => {
     })
   }
   const handleLogin = async (event: any) => {
-
-
     event.preventDefault()
-    // try{
-    //   const {email, password} = formData
-    //   const response = await signIn('credentials', {email, password, redirect: false})
-
-    //   if(response?.ok){
-    //     console.log('Login suceess');
-        
-    //   }
-    // }catch(error) {
-
-    // }
     mutate(formData, {
       onSuccess: (data) => {
         login(data, data.token)
@@ -64,39 +47,7 @@ const Login: React.FC = () => {
         console.log('On page Error');
       }
     })
-
   }
-
-  // const {
-  //   register, 
-  //   formState: {errors}, 
-  //   handleSubmit,
-  // } = useForm<LoginRequest>()
-
-  // async function loginUser(data:LoginRequest) {
-  //   // add a loading state here
-  //   setIsPending(true)
-  //   try{
-  //     const {email, password} = formData
-  //     const response = await signIn('credentials', formData)
-
-  //     if(!response?.ok){
-  //       toast.error('login failed')
-  //       return;
-  //     }
-  //       toast.success('login successful')
-  //       router.push('/')
-
-  //   }catch(error: any) {
-  //     console.error(error.message)
-  //   } finally {
-  //     setIsPending(false)
-  //   }
-  // }
-
-  // const onSubmitHandler: SubmitHandler<LoginRequest> = async (data) => {
-  //   loginUser(data)
-  // }
   return (
     <TransitionParent>
       <main >
