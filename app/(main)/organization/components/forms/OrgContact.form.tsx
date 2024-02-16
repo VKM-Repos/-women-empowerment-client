@@ -23,20 +23,25 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ email: string; phone: string }>({
+  } = useForm<{ email: string; phoneNumber: string }>({
     defaultValues: {
-      email: data.email || "",
-      phone: data.phone || "",
+      email: data.organizationDetails.email || "",
+      phoneNumber: data.organizationDetails.phoneNumber || "",
     },
   });
 
-  const onSubmit: SubmitHandler<{ email: string; phone: string }> = (data) => {
-    setData({
-      email: data.email,
-      phone: data.phone,
-    });
-    handleNext();
-  };
+ const onSubmit: SubmitHandler<{ email: string; phoneNumber: string }> = (formData) => {
+  // Update the store with the entered email and phone
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+    },
+  });
+  handleNext();
+};
+
 
   return (
     <TransitionParent>
@@ -66,6 +71,7 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
                   type="email"
                   placeholder="Email"
                   {...register("email", { required: "This field is required" })}
+                  name="email"
                 />
                 {errors.email && (
                   <span className="text-error text-xs">
@@ -78,11 +84,12 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
                   className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                   type="text"
                   placeholder="phone number"
-                  {...register("phone", { required: "This field is required" })}
+                  {...register("phoneNumber", { required: "This field is required" })}
+                  name="phoneNumber"
                 />
-                {errors.phone && (
+                {errors.phoneNumber && (
                   <span className="text-error text-xs">
-                    {errors.phone.message}
+                    {errors.phoneNumber.message}
                   </span>
                 )}
               </div>

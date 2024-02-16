@@ -7,52 +7,58 @@ import { TransitionFromBottom, TransitionParent } from '@/lib/utils/transition';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import { useGET } from '@/lib/hooks/useGET.hook';
+import { Category } from '@/lib/types/category.types';
 
 interface OrgCategoryFormProps {
-  handleNext: (data: { category: string[] }) => void;
+  handleNext: (data: { categoryIds: number[] }) => void;
   handleGoBack: () => void;
 }
 
-const options = [
-  'Technology',
-  'Leadership & Development',
-  'Entrepreneurship',
-  'Human Rights',
-  'Grants',
-  'Activism',
-  'Economic Empowerment',
-  'Sexual Orientation',
-  'Art & Life Style',
-  'Business & Finance',
-];
 
 const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoBack }) => {
   const { data, setData } = useOrganizationFormStore();
+
+  const { data: categories, isLoading, isError } = useGET({
+    url: "/categories",
+    queryKey: ["categories"],
+    withAuth: false, 
+    enabled: true,
+  });
+
+  console.log(categories?.content);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ category: string[] }>({
+  } = useForm<{ categoryIds: number[] }>({
     defaultValues: {
-      category: data.category || [],
+      categoryIds: data.organizationDetails.categoryIds || [],
     },
   });
 
   const [displayedCategories, setDisplayedCategories] = useState(6);
 
-  const onSubmit: SubmitHandler<{ category: string[] }> = (formData) => {
-    if (!formData.category || formData.category.length < 2) {
-      toast.error('Select at least 2 categories.');
-      return;
-    }
+ const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
+  if (!formData.categoryIds || formData.categoryIds.length < 2) {
+    toast.error('Select at least 2 categories.');
+    return;
+  }
 
-    setData({ category: formData.category });
-    handleNext(formData);
-  };
+  // Update the store with the selected categories
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      categoryIds: formData.categoryIds,
+    },
+  });
+  handleNext(formData);
+};
+
 
   const handleSeeMoreLessClick = () => {
-    setDisplayedCategories((prev) => (prev === 6 ? options.length : 6));
+    setDisplayedCategories((prev) => (prev === 6 ? categories.content.length : 6));
   };
 
   return (
@@ -70,20 +76,23 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="flex flex-col pb-8">
               <ul className="w-full flex gap-3 flex-wrap">
-                {options.slice(0, displayedCategories).map((option, i) => (
-                  <li className="w-fit" key={option}>
+
+                {isLoading && 'loading'}
+            
+                {Array.isArray(categories?.content) && categories.content.slice(0, displayedCategories).map((option: Category) => (
+                  <li className="w-fit" key={option.id}>
                     <TransitionFromBottom>
-                      <label className="flex flex-nowrap cursor-pointer py-2 px-4 transition-colors bg-transparent text-base border border-btnWarning rounded-lg hover:border-btnWarning [&:has(input:checked)]:border-btnWarning [&:has(input:checked)]:bg-btnWarning [&:has(input:checked)]:text-primaryWhite">
+                      <label className="flex flex-nowrap cursor-pointer py-1 px-2 text-sm transition-colors bg-transparent text-base border border-btnWarning rounded-lg hover:border-btnWarning [&:has(input:checked)]:border-btnWarning [&:has(input:checked)]:bg-btnWarning [&:has(input:checked)]:text-primaryWhite">
                         <input
-                          {...register('category', {
+                          {...register('categoryIds', {
                             required: 'Select at least two categories',
                           })}
                           type="checkbox"
-                          name="category"
-                          value={option}
+                          name="categoryIds"
+                          value={option.id}
                           className="cursor-pointer hidden"
                         />
-                        <span className="flex whitespace-nowrap">{option}</span>
+                        <span className="flex whitespace-nowrap">{option.name}</span>
                       </label>
                     </TransitionFromBottom>
                   </li>
@@ -96,8 +105,8 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
               >
                 {displayedCategories <= 6 ? 'See More' : 'See Less'}
               </span>
-              {errors?.category?.message && (
-                <p className="text-error text-sm mt-1">{errors?.category?.message}</p>
+              {errors?.categoryIds?.message && (
+                <p className="text-error text-sm mt-1">{errors?.categoryIds?.message}</p>
               )}
             </div>
             <span className="flex gap-10">

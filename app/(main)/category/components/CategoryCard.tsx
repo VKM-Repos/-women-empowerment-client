@@ -5,11 +5,8 @@ import React from "react";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import { Category } from "@/lib/types/category.types";
 
-interface CategoryCardProps extends Category {
-  icon?: string;
-}
 
-export const CategoryCard: React.FC<{ category: CategoryCardProps }> = ({
+export const CategoryCard: React.FC<{ category: Category }> = ({
   category,
 }) => {
   const imageControls = useAnimation();
@@ -32,7 +29,7 @@ export const CategoryCard: React.FC<{ category: CategoryCardProps }> = ({
     >
       <motion.img
         loading="lazy"
-        srcSet={category.icon}
+        srcSet={`${process.env.NEXT_PUBLIC_API_URL}${category.imageUrl}`}
         className="h-2/3  mx-auto flex bg-center mt-8 md:aspect-square overflow-hidden drop-shadow-lg"
         animate={imageControls}
       />

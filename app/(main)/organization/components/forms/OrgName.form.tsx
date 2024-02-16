@@ -19,17 +19,21 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ OrgName: string }>({
+  } = useForm<{ name: string }>({
     defaultValues: {
-      OrgName: data.orgName, // Set default value from the store
+      name: data.organizationDetails.name, // Set default value from the store
     },
   });
 
-  const onSubmit: SubmitHandler<{ OrgName: string }> = async (formData) => {
-    // Update the store with the entered organization name
-    setData({ orgName: formData.OrgName });
-    handleNext(); // Move to the next step
-  };
+  const onSubmit: SubmitHandler<{ name: string }> = async (formData) => {
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      name: formData.name,
+    },
+  });
+  handleNext(); // Move to the next step
+};
 
   return (
     <TransitionParent>
@@ -55,16 +59,17 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
               <input
-                {...register("OrgName", {
+                {...register("name", {
                   required: "Organization Name is required",
                 })}
                 className="md:w-4/5 w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                 type="text"
                 placeholder="Organization Name"
+                name="name"
               />
-              {errors?.OrgName?.message && (
+              {errors?.name?.message && (
                 <p className="text-error text-sm mt-1">
-                  {errors?.OrgName?.message}
+                  {errors?.name?.message}
                 </p>
               )}
             </div>

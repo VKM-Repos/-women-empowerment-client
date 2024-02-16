@@ -25,17 +25,21 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
     watch,
   } = useForm<{ description: string }>({
     defaultValues: {
-      description: data.description || "",
+      description: data.organizationDetails.description || "",
     },
   });
 
-  const onSubmit: SubmitHandler<{ description: string }> = (data) => {
-    // Perform any additional validation or processing if needed
-    setData({
-      description: data.description,
-    });
-    handleNext();
-  };
+const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
+  // Update the store with the entered description
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      description: formData.description,
+    },
+  });
+  handleNext();
+};
+
 
   return (
     <TransitionParent>
@@ -66,6 +70,7 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
                 {...register("description", {
                   required: "This field is required",
                 })}
+                name="description"
               />
               {errors.description && (
                 <span className="text-error text-xs">

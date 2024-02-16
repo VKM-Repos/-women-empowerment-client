@@ -22,26 +22,34 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ webUrl: string; facebookUrl: string }>({
+  } = useForm<{ website: string; facebook: string }>({
     defaultValues: {
-      webUrl: data.webUrl || "",
-      facebookUrl: data.facebookUrl || "",
+      website: data.organizationDetails.website || "",
+      facebook: data.organizationDetails.facebook || "",
     },
   });
 
   const [selectedOption, setSelectedOption] = useState("");
 
-  const onSubmit: SubmitHandler<{ webUrl: string; facebookUrl: string }> = (formData) => {
-    // add more validation for facebook url and must include ...facebook.com/page
-    
-    // Update the store with the entered values
-    setData({
-      webUrl: formData.webUrl,
-      facebookUrl: formData.facebookUrl,
-    });
+  const onSubmit: SubmitHandler<{ website: string; facebook: string }> = (formData) => {
+  // Perform additional validation for the Facebook URL
+  if (formData.facebook && !formData.facebook.includes('facebook.com/page')) {
+    toast.error('Invalid Facebook URL. Must include facebook.com/page.');
+    return;
+  }
 
-    handleNext();
-  };
+  // Update the store with the entered values
+  setData({
+    organizationDetails: {
+      ...data.organizationDetails,
+      website: formData.website,
+      facebook: formData.facebook,
+    },
+  });
+
+  handleNext();
+};
+
 
   return (
     <div className="w-full">
@@ -84,13 +92,14 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                     type="url"
                     placeholder="Website URL"
-                    {...register('webUrl', {
+                    {...register('website', {
                             required: 'this field is empty',
                           })}
+                          name="website"
                   />
-                  {errors.webUrl && (
+                  {errors.website && (
                     <span className="text-error text-xs">
-                      {errors.webUrl.message}
+                      {errors.website.message}
                     </span>
                   )}
                 </div>
@@ -102,13 +111,14 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                     type="url"
                     placeholder="Facebook URL"
-                    {...register('facebookUrl', {
+                    {...register('facebook', {
                             required: 'this field is empty',
                           })}
+                          name="facebook"
                   />
-                  {errors.facebookUrl && (
+                  {errors.facebook && (
                     <span className="text-error text-xs">
-                      {errors.facebookUrl.message}
+                      {errors.facebook.message}
                     </span>
                   )}
                 </div>

@@ -39,6 +39,7 @@ const Login: React.FC = () => {
     mutate(formData, {
       onSuccess: (data) => {
         login(data, data.token)
+        // set the user to the data returned using the user store in zustand
         console.log(data);
         router.push('/')
       },

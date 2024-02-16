@@ -3,18 +3,11 @@ import Image from "next/image";
 import Icon from "@/components/Common/Icons/Icon";
 import Link from "next/link";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
+import { Discussion } from "@/lib/types/discussion.types";
+import useRelativeTime from "@/lib/utils/useRelativeTime";
 
-interface DiscussionProps {
-  id: string;
-  image?: string;
-  title: string;
-  author: string;
-  description: string;
-  createdAt: string;
-  comments: string;
-}
 
-const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
+const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
   discussion,
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -29,12 +22,15 @@ const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
       : text;
   };
 
+  const formattedDate = useRelativeTime(discussion?.createdAt);
+
+
   return (
     <div className="cursor-pointer" >
       <article className="w-full my-2 grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.5rem] p-2 items-center">
         <Image
           src={
-            discussion?.image || "../../../../public/images/group-of-girls.png"
+            discussion?.createdBy.imageUrl || "https://placehold.co/200x200/png"
           }
           alt={`discussion post`}
           width={100}
@@ -46,19 +42,19 @@ const DiscussionCardThumbnail: React.FC<{ discussion: DiscussionProps }> = ({
         <div className="col-span-7 flex flex-col items-start justify-start gap-1">
           <h4 className="text-sm font-normal font-sora w-full block whitespace-nowrap truncate">{discussion?.title}</h4>
           <p className="font-quickSand text-xs text-gray-300">
-            {truncatedText(discussion?.description, 150)}
+            {truncatedText(discussion?.content, 100)}
             &nbsp;
-            {discussion.description.length > 100 && (
+            {discussion.content.length > 100 && (
               // <span className="text-info text-xs">See more</span>
                <span className="text-xs font-medium text-gray-200">
-              - {discussion.author}
+              - {discussion.createdBy.name || 'Anonymous'}
             </span>
             )}
           </p>
           <span className="w-full flex items-center justify-between text-xs font-sora">
-            <span>{discussion.createdAt}</span>
+            <span>{formattedDate}</span>
             <span className="text-primary flex space-x-2">
-              <Icon name="" /> {discussion.comments} comments
+              <Icon name="comment-icon" className="w-4 aspect-square" /> <p>10 comments</p>
             </span>
           </span>
         </div>
