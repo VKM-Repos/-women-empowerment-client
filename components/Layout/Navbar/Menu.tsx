@@ -16,8 +16,8 @@ type MenuItemProps = {
   link: string;
   text: string;
   subLinks?: SubLink[] | null;
-  icon?: React.ReactNode | null,
-  showChevron?: boolean
+  icon?: React.ReactNode | null;
+  showChevron?: boolean;
 };
 
 type SubMenuProps = {
