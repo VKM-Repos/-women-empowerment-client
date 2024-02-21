@@ -5,8 +5,11 @@ import footerImg from "@/public/icons/footer-img.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Common/Button/Button";
+import { useRouter } from "next/navigation";
 
 const Footer: React.FC = () => {
+
+  const router = useRouter()
   return (
     <div className="w-full pt-[1rem]">
       <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 items-end">
@@ -40,7 +43,7 @@ const Footer: React.FC = () => {
               size="medium"
               state="active"
               variant="primary"
-              onClick={() => {}}
+              onClick={() => router.push('account/sign-up')}
             />
           </div>
         </div>

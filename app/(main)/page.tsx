@@ -259,7 +259,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <button className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
+          <button onClick={() => router.push('discussions')} className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
 

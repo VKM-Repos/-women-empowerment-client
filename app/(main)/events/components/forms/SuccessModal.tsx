@@ -21,6 +21,7 @@ function SuccessModal({ title, message }: Props) {
   const handlePublish = () => {
     resetStore();
     hideModal();
+    router.push(`/events`);
     // router.push(`/events/${eventId}`);
   };
   const handleSaveToDrafts = () => {
