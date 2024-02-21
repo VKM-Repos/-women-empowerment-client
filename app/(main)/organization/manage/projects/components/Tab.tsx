@@ -8,20 +8,22 @@ type EventTabProps = {
 }
 
 export default function Tab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
-    console.log(selectedEventType);
     
   return (
-    <button
+    <div>
+         <button
       onClick={() => setSelectedEventType(name)}
       className={`${
         selectedEventType
-          ? "text-white-100 bg-primary"
-          : "text-primary bg-white-100 "
-      } text-2xl tracking-wide whitespace-nowrap items-stretch border border-primary  bg-white grow justify-center px-8 py-4 rounded-tl-lg rounded-tr-lg border-solid max-md:px-5`}
+          ? "text-primary"
+          : "text-gray-500"
+      } text-2xl`}
     >
       <span className="relative z-10 font-light">{name}</span>
       
     </button>
+    {selectedEventType && <div className={`${name== 'All Projects' ? 'w-[7.5rem]' : 'w-[4rem]'} h-1 rounded bg-btnWarning`} />}
+    </div>
   )
 }
 

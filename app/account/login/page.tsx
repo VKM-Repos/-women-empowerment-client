@@ -58,7 +58,7 @@ const Login: React.FC = () => {
               <svg className="cursor-pointer"  width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.4997 25.7334L5.69967 16.9334C5.56634 16.8 5.47167 16.6556 5.41567 16.5C5.36056 16.3445 5.33301 16.1778 5.33301 16C5.33301 15.8223 5.36056 15.6556 5.41567 15.5C5.47167 15.3445 5.56634 15.2 5.69967 15.0667L14.4997 6.2667C14.7441 6.02225 15.0494 5.89425 15.4157 5.8827C15.7828 5.87203 16.0997 6.00003 16.3663 6.2667C16.633 6.51114 16.7721 6.81647 16.7837 7.1827C16.7943 7.54981 16.6663 7.8667 16.3997 8.13336L9.86634 14.6667H24.7663C25.1441 14.6667 25.461 14.7943 25.717 15.0494C25.9721 15.3054 26.0997 15.6223 26.0997 16C26.0997 16.3778 25.9721 16.6943 25.717 16.9494C25.461 17.2054 25.1441 17.3334 24.7663 17.3334H9.86634L16.3997 23.8667C16.6441 24.1111 16.7721 24.4223 16.7837 24.8C16.7943 25.1778 16.6663 25.4889 16.3997 25.7334C16.1552 26 15.8441 26.1334 15.4663 26.1334C15.0886 26.1334 14.7663 26 14.4997 25.7334Z" fill="#FF7400" />
               </svg>
-              Womenh Hub
+              Women Hub
             </button>
 
             <div className="flex lg:flex-row flex-col justify-center items-center w-full">
@@ -105,7 +105,7 @@ const Login: React.FC = () => {
                       <Link href={'/account/forgot-password'} className="text-rose-500 text-center text-xs font-medium whitespace-nowrap mr-4 mt-1.5 self-end max-md:mr-2.5">
                         Forgot Password?
                       </Link>
-                      <button className="text-white-100 text-base whitespace-nowrap items-stretch bg-primary self-center justify-center mt-4 px-12 py-2.5 rounded-lg max-md:px-5">
+                      <button className="text-white-100 text-base whitespace-nowrap items-stretch bg-[#FF7400]  self-center justify-center mt-4 px-12 py-2.5 rounded-lg max-md:px-5">
                         Login
                       </button>
                     </form>
