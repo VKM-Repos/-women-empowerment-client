@@ -21,8 +21,8 @@ import axios from "axios";
 import { useAppContext } from "@/lib/context/app-context";
 
 function CreateOrganizationPage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [orgId, setOrgId] = useState<number>();;
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
     const {token} = useAppContext()
@@ -31,9 +31,6 @@ function CreateOrganizationPage() {
 
   const RenderForm = () => {
     const handleNext = () => {
-      // console.table(data);
-      // console.log("prev data", data);
-
       setStep(step + 1);
     };
 
@@ -79,10 +76,13 @@ function CreateOrganizationPage() {
 
       if (response.status === 200) {
         setIsLoading(false)
+        // Save the organization ID in the state
+        setOrgId(response.data.id);
+
         // Handle success
         toast.success('Organization created successfully');
         // Redirect or navigate to the next step
-        handleNext()
+        handleNext();
       } else {
         setIsLoading(false)
         // Handle other response statuses or errors
@@ -142,6 +142,7 @@ function CreateOrganizationPage() {
         );
       case 8:
         return (
+          // TODO: prevent user from creating org by sending request twice when user clicks the button twice
           <OrgImagesForm
             handleNext={handleSubmit(onSubmitHandler)}
             handleSkip={handleSubmit(onSubmitHandler)}
@@ -149,7 +150,8 @@ function CreateOrganizationPage() {
           />
         );
       case 9:
-        return <OrgStepComplete handleNext={() => {}} />;
+        // pass the new org id created here
+        return <OrgStepComplete orgId={orgId} />;
       default:
         return null;
     }

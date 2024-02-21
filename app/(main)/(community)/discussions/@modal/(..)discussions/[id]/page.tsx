@@ -3,9 +3,7 @@
 import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import db from "@/data/db.json";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
