@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
 import Image from "next/image";
 import Rubik from "@/public/images/rubik.png";
-import DateInput from "./components/DateInput";
 import EventsTab from "./components/EventsTab";
-import EventCard from "./components/EventCard";
-
-import db from "@/data/db.json";
+import EventCard from "./components/EventCard"
 import EventCardLoader from "./components/EventCardLoader";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Event } from "@/lib/types/events.types";
+import Button from "@/components/Common/Button/Button";
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/lib/context/app-context";
+import FindEvent from "./components/FindEvent";
+import CreateEventModal from "./components/CreateEventModal";
+import { useModal } from "@/lib/context/modal-context";
 
 type EventTab = {
   tabName: ['ONLINE', 'PHYSICAL'];
@@ -18,33 +21,11 @@ type EventTab = {
 
 const EventsPage = () => {
   const [selectedEventType, setSelectedEventType] = useState<EventTab>();
-  const [date, setDate] = useState({
-    day: new Date().getDay(),
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
-  });
+  const { showModal } = useModal();
+      
+  const router = useRouter()
+  const {isAuthenticated, user} = useAppContext()
 
-  const increment = (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    setDate((prevDate: any) => ({
-      ...prevDate,
-      [field]: prevDate[field] + 1,
-    }));
-  };
-
-  const decrement = (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    setDate((prevDate: any) => ({
-      ...prevDate,
-      [field]: prevDate[field] - 1,
-    }));
-  };
 
   // fetch lists of events
   const {
@@ -64,6 +45,14 @@ const EventsPage = () => {
     tabName: event?.type || ['PHYSICAL', 'ONLINE'],
   }));
 
+  const handleCreateEvent = () => {
+    if(!isAuthenticated) {
+    showModal(<CreateEventModal />);
+    } else {
+      router.replace('events/create');
+    }
+  };
+
 
   return (
     <TransitionParent>
@@ -73,54 +62,17 @@ const EventsPage = () => {
             <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">
               The Best Women Illuminating Conferences
             </h1>
-            <form className="w-full">
-              <fieldset>
-                <legend className="text-primaryWhite py-2 font-quickSand">
-                  Find an Event:
-                </legend>
-                <div className="w-full grid grid-cols-3 gap-4 ">
-                  <DateInput
-                    label="Day"
-                    bgClassName="bg-[#FFF200]"
-                    textClassName="text-[#FFF200]"
-                    value={date.day}
-                    min={1}
-                    max={31}
-                    onIncrease={increment}
-                    onDecrease={decrement}
-                    onChange={(field, value) =>
-                      setDate({ ...date, [field]: value })
-                    }
-                  />
-                  <DateInput
-                    label="Month"
-                    bgClassName="bg-[#FF7400]"
-                    textClassName="text-[#FF7400]"
-                    value={date.month}
-                    min={1}
-                    max={12}
-                    onIncrease={increment}
-                    onDecrease={decrement}
-                    onChange={(field, value) =>
-                      setDate({ ...date, [field]: value })
-                    }
-                  />
-                  <DateInput
-                    label="Year"
-                    bgClassName="bg-[#E7D6FF]"
-                    textClassName=" text-[#E7D6FF]"
-                    value={date.year}
-                    min={2000}
-                    max={3000}
-                    onIncrease={increment}
-                    onDecrease={decrement}
-                    onChange={(field, value) =>
-                      setDate({ ...date, [field]: value })
-                    }
-                  />
-                </div>
-              </fieldset>
-            </form>
+            <span className="w-full flex justify-start">
+              <Button
+                label="Add a new event"
+                fullWidth={false}
+                size="medium"
+                variant="primary"
+                state="default"
+                onClick={handleCreateEvent}
+              />
+            </span>
+            <FindEvent />
           </div>
 
           <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
