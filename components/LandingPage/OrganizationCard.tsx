@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import LikeButton from "./LikeButton";
 
 interface OrganizationProps extends Organization {
   otherProps?: string;
@@ -33,10 +34,10 @@ export const OrganizationCard: React.FC<{
       <div className="grid grid-cols-12 gap-5 place-content-center items-start ">
         <div className="col-span-8 md:col-span-10 h-full flex flex-col gap-2 items-start justify-between">
           <Link
-            className="flex flex-col w-full"
+            className="flex flex-col w-full hover:underline"
             href={`/organization/${organization.id}`}
             as={`/organization/${formatIdToTitle(organization.name)}`}
-            scroll={false}
+            scroll={true}
           >
             <h4 className="text-primary text-base md:text-lg font-sora font-bold truncate whitespace-nowrap w-full block">
               {organization.name}
@@ -53,25 +54,9 @@ export const OrganizationCard: React.FC<{
 
           <div className="justify-between border-gray-500  flex w-full gap-4 py-2 border-y items-center">
             <div className="items-center flex justify-start gap-4">
-              <span className="flex items-center justify-between gap-1">
-                <svg
-                  onClick={handleFavorite}
-                  className="w-5 aspect-square cursor-pointer"
-                  viewBox="0 0 25 24"
-                  fill={fav ? "red" : "none"}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10.7504 21.1975L10.7496 21.1969C7.60326 18.3438 5.03218 16.0116 3.24167 13.8225C1.45691 11.6405 0.5 9.66166 0.5 7.52391C0.5 4.04866 3.22366 1.325 6.69891 1.325C8.66681 1.325 10.5634 2.24354 11.7992 3.69476L12.1798 4.14179L12.5605 3.69476C13.7963 2.24354 15.6929 1.325 17.6608 1.325C21.136 1.325 23.8597 4.04866 23.8597 7.52391C23.8597 9.66166 22.9028 11.6405 21.1179 13.8242C19.3314 16.0099 16.7679 18.3394 13.6312 21.1898L13.6107 21.2084L13.6096 21.2094L12.1811 22.5L10.7504 21.1975Z"
-                    stroke="black"
-                    strokeOpacity="0.4"
-                  />
-                </svg>
+              <LikeButton organizationId={organization.id} />
 
-                <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-                  3.5K
-                </p>
-              </span>
+              {/* share button */}
               <button className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full">
                 <svg
                   className="w-6 aspect-square"
@@ -128,18 +113,18 @@ export const OrganizationCard: React.FC<{
                 />
               </svg>
 
-              <p className="text-neutral-500 font-sora text-center text-xs md:text-sm self-center my-auto">
+              <Link href={organization.website} target="_blank" className="text-gray-300 font-sora text-center text-xs md:text-sm self-center hover:underline my-auto">
                 visit website
-              </p>
+              </Link>
             </button>
           </div>
         </div>
         <div className="flex flex-col col-span-4 md:col-span-2">
           <motion.img
-            src={organization.logo || "https://placehold.co/400x400/png"}
+            src={organization.logo || "https://placehold.co/400x400?text=Women\n Hub"}
             alt=""
             loading="lazy"
-            className="w-full aspect-square justify-center items-center overflow-hidden"
+            className="w-full aspect-square justify-center items-center overflow-hidden rounded-md"
           />
         </div>
       </div>

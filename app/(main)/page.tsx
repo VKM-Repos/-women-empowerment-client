@@ -8,7 +8,6 @@ import db from "@/data/db.json";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import EventCard from "./(community)/discussions/components/EventCard";
 import Image from "next/image";
-import Icon from "@/components/Common/Icons/Icon";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import NewsCard from "./(community)/discussions/components/NewsCard";
 import Link from "next/link";
@@ -28,6 +27,8 @@ import EventCardLoader from "./events/components/EventCardLoader";
 import SearchForm from "@/components/LandingPage/SearchForm";
 import SearchTerm from "@/components/LandingPage/SearchTerm";
 import { useRouter } from "next/navigation";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useAppContext } from "@/lib/context/app-context";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -38,6 +39,7 @@ const LandingPage = () => {
     console.log(`Searching for: '${selectedTerm}'`);
   };
   const router = useRouter()
+  const {user, isAuthenticated} = useAppContext()
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -136,7 +138,11 @@ const LandingPage = () => {
               ) : !isOrganizationLoading &&
                 !isOrganizationError &&
                 organizations?.content?.length === 0 ? (
-                <p className="no-result">No Organizations yet</p>
+                 <NoContent
+                    message="No organization yet."
+                    buttonText={isAuthenticated ? "Add organization" : 'Login to add'}
+                    buttonLink={isAuthenticated ? () => router.push('/organization/create') : ()=> router.push('/account/login')}
+                />
               ) : (
                 <>
                   {organizations?.content?.map((organization: Organization) => (
@@ -174,7 +180,11 @@ const LandingPage = () => {
                 ) : !isEventsLoading &&
                   !isEventsError &&
                   events?.content.length === 0 ? (
-                  <p>No Events yet</p>
+                <NoContent
+                            message="No events yet."
+                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
+                        />
                 ) : (
                   !isEventsLoading &&
                   !isEventsError && (

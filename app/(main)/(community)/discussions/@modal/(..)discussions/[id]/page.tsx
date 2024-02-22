@@ -119,7 +119,7 @@ export default function DiscussionDetailsModal({
                   <div className="w-full grid grid-cols-8 gap-2">
                     <Image
                       src={
-                        discussion?.createdBy.name || "https://placehold.co/400x400/png"
+                        discussion?.createdBy.name || "https://placehold.co/400x400?text=Women\nHub"
                       }
                       alt={`discussion post`}
                       width={100}

@@ -48,17 +48,17 @@ const EventsPage = () => {
   const handleCreateEvent = () => {
     if(!isAuthenticated) {
     showModal(<CreateEventModal />);
-    } else {
-      router.replace('events/create');
+    } else { 
+      router.push('/events/create');
     }
   };
 
 
   return (
-    <TransitionParent>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[2rem]">
-        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
-          <div className="w-full md:w-3/4 md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
+   <main className="w-full">
+     <TransitionParent>
+        <header className="bg-primary mx-auto w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 md:grid-cols-5 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+          <div className="w-full md:w-3/4 md:col-span-4 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
             <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">
               The Best Women Illuminating Conferences
             </h1>
@@ -84,9 +84,9 @@ const EventsPage = () => {
               className="lg:w-[25rem] w-[10rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
-        </div>
+        </header>
 
-        <div className="w-full md:w-[95%] mx-auto space-y-4">
+        <section className="w-full md:w-[95%] mx-auto space-y-4">
           <div className="w-fit flex  gap-10 relative px-4">
             <div className="absolute w-0.5 h-8 my-1 md:my-0 md:h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
             {eventsTab?.map((tab: any, id: number) => (
@@ -118,9 +118,9 @@ const EventsPage = () => {
               </div>
             )}
           </div>
-        </div>
-      </section>
+        </section>
     </TransitionParent>
+   </main>
   );
 };
 

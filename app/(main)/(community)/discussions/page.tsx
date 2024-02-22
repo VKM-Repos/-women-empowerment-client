@@ -18,9 +18,14 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import { Discussion } from "@/lib/types/discussion.types";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import { Event } from "@/lib/types/events.types";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/lib/context/app-context";
 
 const DiscussionsPage = () => {
+  const {isAuthenticated, user} = useAppContext()
   const { showModal } = useModal();
+  const router = useRouter()
 
     // fetch lists of discussions
   const {
@@ -113,7 +118,11 @@ const DiscussionsPage = () => {
               ) : !isDiscussionLoading &&
                 !isDiscussionError &&
                 discussions?.content?.length === 0 ? (
-                <p className="no-result">No discussions yet</p>
+                           <NoContent
+                            message="No Discussions yet."
+                            buttonText={isAuthenticated ? "Create discussion" : 'Login to create one'}
+                            buttonLink={isAuthenticated ? handleStartDiscussion : () => router.push('/account/login')}
+                        />
               ) : (
                 <>
                   {discussions?.content?.map((discussion: Discussion) => (
@@ -147,7 +156,11 @@ const DiscussionsPage = () => {
                 ) : !isEventsLoading &&
                   !isEventsError &&
                   events?.content.length === 0 ? (
-                  <p>No Events yet</p>
+                             <NoContent
+                            message="No events yet."
+                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
+                        />
                 ) : (
                   !isEventsLoading &&
                   !isEventsError && (
