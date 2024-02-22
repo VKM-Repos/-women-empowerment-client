@@ -187,10 +187,10 @@ const Login: React.FC = () => {
                   <div className="flex w-full flex-col mt-4 px-10 max-md:max-w-full">
                     <form onSubmit={handleSignUp} className="flex flex-col">
                     <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5 mb-5">
-                        <input type="text" name="name" value={formData?.name} onChange={handleInputChange} placeholder="Jon Doe" className="w-full focus:outline-none" autoComplete="off" required />
+                        <input type="text" name="name" value={formData?.name} onChange={handleInputChange} placeholder="Name" className="w-full focus:outline-none" autoComplete="off" required />
                       </div>
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
-                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="jondoe@example.com" className="w-full focus:outline-none" autoComplete="off" required />
+                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Email" className="w-full focus:outline-none" autoComplete="off" required />
                       </div>
 
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start max-md:max-w-full max-md:px-5 mt-5 flex gap-3">
@@ -218,7 +218,7 @@ const Login: React.FC = () => {
                       Continue
                       </button>
                     </form>
-                    <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
+                    {/* <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
                       <div className="bg-neutral-400 self-center w-[115px] shrink-0 h-px my-auto" />
                       <div className="text-neutral-400 text-center text-base font-medium">
                         or
@@ -234,7 +234,7 @@ const Login: React.FC = () => {
                       <button className="text-black text-center text-sm font-medium self-center grow whitespace-nowrap my-auto">
                         Continue with Google
                       </button>
-                    </div>
+                    </div> */}
                     <div  className="text-green-800 text-sm  self-center whitespace-nowrap mt-4">
                       <span className=" text-black">Already have an account? </span>
                       <Link href="/account/login" className="font-medium underline text-green-800">Login</Link>

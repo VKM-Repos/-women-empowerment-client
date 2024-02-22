@@ -1,11 +1,44 @@
-import React from 'react'
 
-import orgProfile from '@/public/images/org_profile.svg'
-import Image from 'next/image'
+'use client'
+import React, { useEffect, useState } from 'react'
 import orgProfile2 from '@/public/images/org_profile_2.svg'
-export default function ManageOrganization() {
+import Image from 'next/image'
+import { TransitionParent } from '@/lib/utils/transition'
+import { useGET } from '@/lib/hooks/useGET.hook'
+import { useAppContext } from '@/lib/context/app-context'
+import orgProfile from '@/public/images/org_profile.svg'
+
+export default function OrganizationDetails() {
+    const {user} = useAppContext()
+
+      const {data:organization, isPending} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS', 'DASHBOARD'], withAuth: true, enabled: true})
+
+    console.log(organization);
+    
+    const [formData, setFormData] = useState({
+        name: "",
+        website: "",
+        facebook: "",
+        email: "",
+        street: "",
+        phoneNumber: "",
+        description: ""
+    })
+
+    useEffect(()=>{
+        setFormData({
+            name: organization?.name,
+            website: organization?.website,
+            facebook: organization?.facebook,
+            email: organization?.email,
+            street: organization?.street,
+            phoneNumber: organization?.phoneNumber,
+            description: organization?.description
+        })
+    }, [organization])
     return (
-        <section >
+        <TransitionParent>
+                    <section >
             <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
                 <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
                     <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
@@ -38,7 +71,7 @@ export default function ManageOrganization() {
                                 </div>
                                 <div className="flex flex-col w-full max-md:w-full text-white-100">
                                     <div className="text-white-100 text-2xl font-sora font-bold my-auto max-md:max-w-full ">
-                                        Women Research Foundation
+                                       {organization?.name}
                                     </div>
                                 </div>
                             </div>
@@ -48,36 +81,33 @@ export default function ManageOrganization() {
                         <div className='flex flex-col gap-5  px-[100px] font-quickSand'>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Org. Name</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
+                                <input type='text' name='name' value={formData?.name} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Website</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
+                                <input type='text' name='website' value={formData?.website} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Facebook</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
+                                <input type='text' name='facebook' value={formData?.facebook} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Email</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
+                                <input type='text' name='email' value={formData?.email} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Location</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
+                                <input type='text' name='street' value={formData?.street} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Contact</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
+                                <input type='text' name='phoneNumber' value={formData?.phoneNumber} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
                             </div>
 
                             <div className='flex gap-5'>
                                 <div className="text-black flex-[0.3]">Bio</div>
-                                <textarea className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
-                                    Our community counts over 200.000 members across the world
-                                    with chapters in all 6 continents. With our Head Office in
-                                    Paris, we are a Global Movement with chapters in 6 continents,
-                                    counting over 200.000 members.
+                                <textarea name='description' value={formData?.description} className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
+                                   {formData?.description}
                                 </textarea>
                             </div>
                             <button className="text-white-100 text-center text-base font-medium font-sora whitespace-nowrap justify-center items-stretch rounded bg-green-800 self-center mt-6 px-8 py-3.5 max-md:px-5">
@@ -88,6 +118,6 @@ export default function ManageOrganization() {
                 </span>
             </div>
         </section>
-
+        </TransitionParent>
     )
 }

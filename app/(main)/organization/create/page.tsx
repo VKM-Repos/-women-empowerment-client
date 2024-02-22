@@ -50,7 +50,7 @@ function CreateOrganizationPage() {
     try {
       const { data } = useOrganizationFormStore.getState();
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/organizations`;
+      const endpoint = `${apiUrl}organizations`;
 
       let formData = new FormData();
       formData.append("organizationDetails", new Blob([JSON.stringify(data.organizationDetails)], { type: "application/json" }))

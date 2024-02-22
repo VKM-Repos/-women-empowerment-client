@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronFilledIcon } from "@/components/Common/Icons/chevronFilled.icon";
+import { useAppContext } from "@/lib/context/app-context";
 type SubLink = {
-  icon?: React.ReactNode | null,
-  text: string;
-  href: string;
+  icon?: React.ReactNode | null
+  text: string
+  href: string
+  type: string | null
 };
 
 type MenuItemProps = {
@@ -21,6 +23,8 @@ type MenuItemProps = {
 type SubMenuProps = {
   subLinks: SubLink[];
   isOpen: boolean;
+  howChevron?: boolean;
+
 };
 
 export const MenuContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -34,38 +38,54 @@ export const MenuItem: React.FC<MenuItemProps> = ({ link, subLinks, text, icon, 
   const handleShowMenu = () => {
     setIsSubMenuOpen((prevState) => !prevState);
   };
-
+  
   return (
-    <div className="relative" onClick={handleShowMenu}>
-      <Link href={link} className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`}>
-        <span className={`${icon ? '' : 'link'}`}>{text} {icon}</span>
-        {subLinks && showChevron && <ChevronFilledIcon className={`transition-transform duration-150 ease-in-out ${isSubMenuOpen ? "rotate-90 text-btnWarning" : ""}`} />}
-      </Link>
-      {subLinks && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: isSubMenuOpen ? 1 : 0 }}>
-            <SubMenu subLinks={subLinks} isOpen={isSubMenuOpen} />
-          </motion.div>
-      )}
-    </div>
+      <div>
+       
+          <div className="relative" onClick={handleShowMenu}>
+            <Link href={link} className={`flex items-center space-x-2 ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`}>
+              <span className={`${icon ? '' : 'link'}`}>{text} {icon}</span>
+              {subLinks && showChevron && <ChevronFilledIcon className={`transition-transform duration-150 ease-in-out ${isSubMenuOpen ? "rotate-90 text-btnWarning" : ""}`} />}
+            </Link>
+            {subLinks && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: isSubMenuOpen ? 1 : 0 }}>
+                  <SubMenu subLinks={subLinks}  isOpen={isSubMenuOpen} />
+                </motion.div>
+            )}
+        </div>
+      </div>
   );
 };
 
 const SubMenu: React.FC<SubMenuProps> = ({ subLinks, isOpen }) => {
   const pathname = usePathname();
-console.log(subLinks);
-
+  const {toggleOrganizationBlocker} = useAppContext()
+const hnadleBlocker = () => {
+  toggleOrganizationBlocker()
+  
+}
   return (
-    <div className={`absolute top-[calc(100%_+_1rem)]  transform -translate-x-1/2 ${isOpen ? '' : 'hidden'}`}>
+    <div>
+      <div className={`absolute top-[calc(100%_+_1rem)] ${subLinks.length == 2 ? 'left-[50%]' : ''} transform -translate-x-1/2 ${isOpen ? '' : 'hidden'}`}>
       <div className="bg-primaryWhite backdrop-blur-sm rounded-lg overflow-hidden border border-gray-400 shadow-xl p-4 flex flex-col space-y-4">
         {subLinks.map((item, index) => {
           const isLinkActive = pathname.startsWith(item.text);
+          console.log(item.type);
+          if(item?.type == 'button')
+            return( 
+            <div onClick={hnadleBlocker} className={`flex items-center cursor-pointer px-1 ${item.text == 'Manage Organization' ? 'w-[190px]' : ''}  ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`} key={item.text}>
+              <span   className={`${subLinks.length == 2 ? '' : 'flex-[0.2]'}`}>{item.icon}</span> <span className="text-sm flex-[1]">{item.text}</span>
+            </div>
+            )
+          else
           return (
-            <Link className={`flex items-center space-x-2 ${item.text == 'manage Organization' ? 'w-[165px]' : ''}  ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`} key={item.href} href={item.href}>
-             <span>{item.icon}</span> <span className="text-xs">{item.text}</span>
+            <Link className={`flex items-center px-1 ${item.text == 'Manage Organization' ? 'w-[190px]' : ''}  ${isLinkActive ? 'text-btnWarning ' : 'text-primaryBlack'}`} key={item.href} href={item.href}>
+             <span className={`${subLinks.length == 2 ? '' : 'flex-[0.2]'}`}>{item.icon}</span> <span className="text-sm flex-[1]">{item.text}</span>
             </Link>
           );
         })}
       </div>
+    </div>
     </div>
   );
 };
