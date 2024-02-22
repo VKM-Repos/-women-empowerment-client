@@ -153,7 +153,7 @@ const Login: React.FC = () => {
                   </div>
                   <p className="text-xs mt-5 mb-10">haven’t received the code? {counter > 0 
                   ? <span className="text-primary text-sm font-semibold">00:{counter}</span> 
-                  : <button disabled={isPending} onClick={handleResendOtp} >resend here</button>}</p>
+                  : <button className="text-primary underline font-bold" disabled={isPending} onClick={handleResendOtp} >resend here</button>}</p>
                   <button disabled={otp[5] ==""} onClick={handleVerifyOtp} className={`px-4 py-1 rounded-md text-sm font-light ${otp[5] =="" ? 'bg-gray-500' : 'bg-btnWarning'}  text-white-100`}>Verify</button>
                </div>
         </div>
