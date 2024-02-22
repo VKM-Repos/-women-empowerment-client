@@ -1,4 +1,3 @@
-"use client";
 'use client'
 
 import Modal from "@/components/Common/Modal/Modal";

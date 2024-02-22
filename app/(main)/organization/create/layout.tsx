@@ -1,12 +1,13 @@
 "use client";
 import Navbar from "@/components/Layout/Navbar";
 import { useRouter } from "next/navigation";
+import ProtectedPage from "../../protectedPage";
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
  const router  = useRouter()
   return (
-    <>
+    <ProtectedPage>
       <div className="w-full h-screen fixed inset-0 top-0 z-[2000] bg-primaryWhite scrollable-section flex justify-center items-center">
           <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
             <Navbar />
@@ -25,6 +26,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
       </div>
 
-    </>
+    </ProtectedPage>
   );
 }
