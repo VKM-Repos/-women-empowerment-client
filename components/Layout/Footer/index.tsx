@@ -77,7 +77,8 @@ const Footer: React.FC = () => {
             />
           </div>
           <p className="text-base font-quickSand md:text-xl text-gray-100 w-auto text-center my-4">
-            Share this page to create awareness
+            Follow our social media links for the 
+              latest update
           </p>
           <div className="flex  items-center justify-center w-auto my-4">
             <Link href="">
