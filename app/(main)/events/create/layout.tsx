@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 export default function Layout({ children }: { children: React.ReactNode }) {
  const router  = useRouter()
   return (
-    <>
-      <div className="w-full h-screen fixed inset-0 top-0 z-[2000] bg-primaryWhite scrollable-section flex justify-center items-center">
+ 
+      <div className="w-full h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section flex justify-center items-center">
           <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
             <Navbar />
             <header className="w-full flex flex-col relative top-0">
@@ -18,13 +18,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             </button>
             <h4 className="block lg:hidden font-bold text-gray-300 text-lg font-sora text-center">
-                Create Organization profile
+                Create An Event
             </h4>
             </header>
-            {children}
+             {children}
           </div>
       </div>
 
-    </>
+  
   );
 }

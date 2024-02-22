@@ -5,6 +5,7 @@ export const metadata = {
   description: "",
 };
 
+
 export default function DiscussionsLayout(props: {
   children: React.ReactNode;
   modal: React.ReactNode;

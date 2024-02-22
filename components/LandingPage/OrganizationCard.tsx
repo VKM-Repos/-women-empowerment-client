@@ -30,7 +30,7 @@ export const OrganizationCard: React.FC<{
   };
   return (
     <article className="border border-gray-500 shadow-sm bg-white self-stretch p-4 py-4 md:p-8 rounded-2xl max-md:max-w-full hover:bg-primary/10 transform transition-all ease-in-out duration-75">
-      <div className="grid grid-cols-12 gap-2 place-content-center items-start ">
+      <div className="grid grid-cols-12 gap-5 place-content-center items-start ">
         <div className="col-span-8 md:col-span-10 h-full flex flex-col gap-2 items-start justify-between">
           <Link
             className="flex flex-col w-full"
@@ -136,7 +136,7 @@ export const OrganizationCard: React.FC<{
         </div>
         <div className="flex flex-col col-span-4 md:col-span-2">
           <motion.img
-            src={organization.logo}
+            src={organization.logo || "https://placehold.co/400x400/png"}
             alt=""
             loading="lazy"
             className="w-full aspect-square justify-center items-center overflow-hidden"

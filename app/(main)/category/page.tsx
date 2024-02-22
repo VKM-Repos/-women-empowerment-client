@@ -20,7 +20,7 @@ const CategoryPage = () => {
 
   return (
      <TransitionParent>
-      <section className="w-screen flex flex-col items-center justify-center space-y-[2rem] min-h-screen">
+      <section className="w-screen flex flex-col items-center justify-start space-y-[2rem] min-h-screen">
           <h1 className="text-primary text-2xl md:text-4xl lg:text-5xl text-center mt-8 font-semibold font-sora">
             Get Familiar with Women organizations
           </h1>
