@@ -17,6 +17,9 @@ import { CategoryCard } from "../components/CategoryCard";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import { Event } from "@/lib/types/events.types";
 import SearchForm from "@/components/LandingPage/SearchForm";
+import { useRouter } from "next/navigation";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useAppContext } from "@/lib/context/app-context";
 
 export default function CategoryDetailsPage({
   params,
@@ -24,6 +27,8 @@ export default function CategoryDetailsPage({
   params: { id: string };
 }) {
   const formattedId = params.id;
+  const router = useRouter()
+  const {user, isAuthenticated} = useAppContext()
 
   // Use the useGET hook to fetch categories
   const { data: categories, isLoading: areCategoriesLoading } = useGET({
@@ -100,7 +105,11 @@ export default function CategoryDetailsPage({
               ) : !isOrganizationsLoading &&
                 !isOrganizationsError &&
                 organizations?.content?.length === 0 ? (
-                <p className="no-result">No Organizations yet</p>
+                  <NoContent
+                    message="No organization yet."
+                    buttonText={isAuthenticated ? "Add organization" : 'Login to add'}
+                    buttonLink={isAuthenticated ? () => router.push('/organization/create') : ()=> router.push('/account/login')}
+                />
               ) : (
                 <>
                   {organizations?.content?.map((organization: Organization) => (
@@ -115,6 +124,7 @@ export default function CategoryDetailsPage({
                       variant="outline"
                       fullWidth={false}
                       size="normal"
+                       onClick={() => router.push('/organization/all-organizations')}
                     />
                   </div>
                 </>
@@ -137,7 +147,11 @@ export default function CategoryDetailsPage({
                 ) : !isEventsLoading &&
                   !isEventsError &&
                   events?.content.length === 0 ? (
-                  <p>No Events yet</p>
+                       <NoContent
+                            message="No events yet."
+                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
+                        />
                 ) : (
                   !isEventsLoading &&
                   !isEventsError && (
