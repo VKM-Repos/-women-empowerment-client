@@ -1,4 +1,3 @@
-// likes.store.ts
 import { create, StateCreator } from "zustand";
 import {
   persist,
