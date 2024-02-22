@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import doddles from "@/public/images/img_circledoodle.png";
 import womenInPower from "@/public/images/img_womeninpower1.svg";
+import WomenHubProjects from "@/public/images/women-hub-projects.png";
 import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
 import db from "@/data/db.json";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
@@ -26,6 +27,7 @@ import { OrgCardLoader } from "./organization/components/OrgCardLoader";
 import EventCardLoader from "./events/components/EventCardLoader";
 import SearchForm from "@/components/LandingPage/SearchForm";
 import SearchTerm from "@/components/LandingPage/SearchTerm";
+import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -35,6 +37,7 @@ const LandingPage = () => {
     event.preventDefault();
     console.log(`Searching for: '${selectedTerm}'`);
   };
+  const router = useRouter()
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -82,7 +85,8 @@ const LandingPage = () => {
   // console.log(events?.content);
 
   return (
-    <TransitionParent>
+    <main className="w-full">
+      <TransitionParent>
       <section className=" w-screen flex flex-col items-center justify-start">
         <div className="z-10 absolute top-5 left-0 block">
           <Image
@@ -95,7 +99,7 @@ const LandingPage = () => {
         </div>
 
         {/* Hero */}
-        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+        <section className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[2.5rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
             <AnimatedTitle title="Together we are" />
             <p className="text-white-100 font-light text-sm md:text-base font-quickSand text-left">
@@ -113,7 +117,7 @@ const LandingPage = () => {
               className="lg:w-[40rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
-        </div>
+        </section>
 
         {/* Organizations, events and news  */}
         <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
@@ -147,6 +151,7 @@ const LandingPage = () => {
                       variant="outline"
                       fullWidth={false}
                       size="normal"
+                      onClick={() => router.push('organization/all-organizations')}
                     />
                   </div>
                 </>
@@ -216,7 +221,7 @@ const LandingPage = () => {
         </section>
 
         {/* Discussions */}
-        <div className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20 font-quickSand  relative">
+        <section className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20 font-quickSand  relative">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Community Discussions
@@ -254,7 +259,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <button className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
+          <button onClick={() => router.push('discussions')} className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
 
@@ -272,10 +277,10 @@ const LandingPage = () => {
               fill="#106840"
             />
           </svg>
-        </div>
+        </section>
 
         {/* Projects */}
-        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20 font-quickSand  relative z-2">
+        <section className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20 font-quickSand  relative z-2">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Women Hub Projects
@@ -294,14 +299,15 @@ const LandingPage = () => {
                 key={project.id}
                 animate={controls}
                 transition={{ ease: "easeInOut", duration: 0.5 }}
-                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 aspect-square w-full md:w-1/2 lg:w-1/3 xl:w-1/3 h-[25rem] lg:h-[30rem] shadow-lg pt-6 px-6 rounded-3xl "
+                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 lg:min-w-[360px] min-w-[300px] h-[420px] lg:h-[520px] shadow-lg pt-6 px-6 rounded-3xl "
               >
-                <div className="w-full bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
+                <div className=" bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
                   <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
                   <motion.img
                     loading="lazy"
-                    srcSet={project.image}
-                    className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
+                    // srcSet={project.image}
+                    src={WomenHubProjects.src}
+                    className=" object-contain object-center h-[20rem] overflow-hidden max-md:mr-0.5"
                   />
                   <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">
                     completed
@@ -398,7 +404,7 @@ const LandingPage = () => {
               fill="#106840"
             />
           </svg>
-        </div>
+        </section>
 
         {/* How this works */}
         <div className="justify-center items-center bg-[#F9F2FF] self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
@@ -417,8 +423,8 @@ const LandingPage = () => {
                 key={item.id}
                 className="w-full md:w-[37rem] h-[17rem] p-8 grid grid-cols-1 md:grid-cols-5 gap-4 place-content-center rounded-[1rem] overflow-hidden"
               >
-                <div className="w-full md:col-span-3 flex flex-col gap-6 items-center justify-center">
-                  <h3 className="text-lg md:text-2xl font-bold text-center font-sora">
+                <div className="w-full md:col-span-3 flex flex-col gap-2 items-start justify-start text-left">
+                  <h3 className="text-lg md:text-2xl font-bold text-left font-sora">
                     {item.topic}
                   </h3>
                   <h3 className="text-sm md:text-base text-left text-gray-200 font-quickSand">
@@ -449,6 +455,7 @@ const LandingPage = () => {
         </svg>
       </section>
     </TransitionParent>
+    </main>
   );
 };
 

@@ -8,16 +8,16 @@ import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 import { useRouter } from "next/navigation";
 
 interface OrgStepCompleteProps {
-  handleNext: () => void;
+  orgId?: number
 }
 
-const OrgStepComplete: React.FC<OrgStepCompleteProps> = ({ handleNext }) => {
+const OrgStepComplete: React.FC<OrgStepCompleteProps> = ({ orgId }) => {
   const router = useRouter();
   const { resetStore } = useOrganizationFormStore();
 
   const handleContinue = () => {
-    resetStore(); // Reset the store before redirecting
-    // router.push("1");
+    resetStore();
+    router.push(`/organization/${orgId}`);
   };
   return (
     <TransitionParent>
