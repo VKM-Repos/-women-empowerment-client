@@ -3,8 +3,13 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Define a type for your user data
 type UserData = {
+  name: string;
   email: string;
   id: number;
+  role: string;
+  organizationId: number;
+  token: string
+  refreshToken: string;
   // Add other relevant fields
 };
 
@@ -13,7 +18,9 @@ type AppContextType = {
   isAuthenticated: boolean;
   user: UserData | null;
   token: string | null;
+  navbarMenuOpen: boolean;
   setUser: (userData: UserData | null) => void;
+  toggleNavBarMenu:()=>void;
   login: (userData: UserData, token: string) => void;
   logout: () => void;
 };
@@ -23,7 +30,9 @@ const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   user: null,
   token: null,
+  navbarMenuOpen: false,
   setUser: () => {},
+  toggleNavBarMenu:()=>{},
   login: () => {},
   logout: () => {},
 });
@@ -45,6 +54,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const storedToken = localStorage.getItem('token');
     return storedToken || '';
   });
+  const [navbarMenuOpen, setNavbarMenuOpen] = useState<boolean>(false)
   const [user, setUser] = useState<UserData | null>(() => {
     // Get the user data from localStorage or set to null if not found
     const storedUser = localStorage.getItem('user');
@@ -56,7 +66,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return null; // or provide a default/fallback user object
     }
   });
-
+const toggleNavBarMenu = () =>{
+  setNavbarMenuOpen(prevState => !prevState)
+}
   const login = (userData: UserData, authToken: string) => {
     setIsAuthenticated(true);
     setUser(userData);
@@ -81,7 +93,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     isAuthenticated,
     user,
     token,
+    navbarMenuOpen,
     setUser,
+    toggleNavBarMenu,
     login,
     logout,
   };

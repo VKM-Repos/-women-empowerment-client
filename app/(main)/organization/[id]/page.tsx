@@ -54,7 +54,6 @@ export default function OrganizationDetails() {
             
         }
 ]
-console.log(selectedEventType);
 
     return (
         <TransitionParent>
@@ -66,8 +65,8 @@ console.log(selectedEventType);
                             <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
                                 <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-opacity-10 max-md:max-w-full max-md:mt-5">
                                     <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
-                                    <div className='z-10 flex justify-end pt-10 px-8'>
-                                        <svg onClick={handleSHowMenu} className=' cursor-pointer' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <div onClick={handleSHowMenu} className='z-10  flex justify-end pt-10 px-8'>
+                                        <svg  className=' cursor-pointer' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M13.334 16C13.334 16.7073 13.6149 17.3855 14.115 17.8856C14.6151 18.3857 15.2934 18.6667 16.0007 18.6667C16.7079 18.6667 17.3862 18.3857 17.8863 17.8856C18.3864 17.3855 18.6673 16.7073 18.6673 16C18.6673 15.2928 18.3864 14.6145 17.8863 14.1144C17.3862 13.6143 16.7079 13.3333 16.0007 13.3333C15.2934 13.3333 14.6151 13.6143 14.115 14.1144C13.6149 14.6145 13.334 15.2928 13.334 16ZM13.334 8.00001C13.334 8.70725 13.6149 9.38553 14.115 9.88563C14.6151 10.3857 15.2934 10.6667 16.0007 10.6667C16.7079 10.6667 17.3862 10.3857 17.8863 9.88563C18.3864 9.38553 18.6673 8.70725 18.6673 8.00001C18.6673 7.29277 18.3864 6.61449 17.8863 6.11439C17.3862 5.61429 16.7079 5.33334 16.0007 5.33334C15.2934 5.33334 14.6151 5.61429 14.115 6.11439C13.6149 6.61449 13.334 7.29277 13.334 8.00001ZM13.334 24C13.334 24.7073 13.6149 25.3855 14.115 25.8856C14.6151 26.3857 15.2934 26.6667 16.0007 26.6667C16.7079 26.6667 17.3862 26.3857 17.8863 25.8856C18.3864 25.3855 18.6673 24.7073 18.6673 24C18.6673 23.2928 18.3864 22.6145 17.8863 22.1144C17.3862 21.6143 16.7079 21.3333 16.0007 21.3333C15.2934 21.3333 14.6151 21.6143 14.115 22.1144C13.6149 22.6145 13.334 23.2928 13.334 24Z" fill="white" />
                                         </svg>
                                         <Menu menuItems={ownerMenu} showMenu={showMenu} />
@@ -83,12 +82,7 @@ console.log(selectedEventType);
                                                                 loading="lazy"
                                                                 alt='Profile_picture'
                                                                 src={womenInTechProfile}
-                                                                className="absolute h-full w-full object-cover object-center inset-0 hover:-z-10"
-                                                            />
-                                                            <img
-                                                                loading="lazy"
-                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                                                                className="w-10 h-10 object-contain object-center justify-center items-center overflow-hidden max-w-full my-8"
+                                                                className="absolute h-full w-full object-cover object-center inset-0 "
                                                             />
                                                         </div>
                                                     </div>

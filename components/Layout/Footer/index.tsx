@@ -5,8 +5,12 @@ import footerImg from "@/public/icons/footer-img.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Common/Button/Button";
+import { useAppContext } from "@/lib/context/app-context";
+import { useRouter } from "next/navigation";
 
 const Footer: React.FC = () => {
+  const {isAuthenticated} = useAppContext()
+  const router = useRouter()
   return (
     <div className="w-full pt-[1rem]">
       <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 items-end">
@@ -34,14 +38,14 @@ const Footer: React.FC = () => {
             <p className="text-sm font-quickSand md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
               Our Community Membership offers professional individuals and corporations an opportunity to connect and support each other.
             </p>
-            <Button
+            {!isAuthenticated && <Button
               label="Get started"
               fullWidth={false}
               size="medium"
               state="active"
               variant="primary"
-              onClick={() => {}}
-            />
+              onClick={() => {router.push('/account/sign-up')}}
+            />}
           </div>
         </div>
 
