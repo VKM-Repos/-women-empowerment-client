@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Common/Button/Button";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/lib/context/app-context";
 
 const Footer: React.FC = () => {
-
-  const router = useRouter()
+  const router = useRouter();
+  const { isAuthenticated } = useAppContext();
   return (
     <div className="w-full pt-[1rem]">
       <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 items-end">
@@ -35,16 +36,32 @@ const Footer: React.FC = () => {
               Be a part of our community
             </h3>
             <p className="text-sm font-quickSand md:text-lg w-full md:w-2/3 text-center md:text-left text-gray-100">
-              Our Community Membership offers professional individuals and corporations an opportunity to connect and support each other.
+              Our Community Membership offers professional individuals and
+              corporations an opportunity to connect and support each other.
             </p>
-            <Button
-              label="Get started"
-              fullWidth={false}
-              size="medium"
-              state="active"
-              variant="primary"
-              onClick={() => router.push('account/sign-up')}
-            />
+            {isAuthenticated ? (
+              <>
+                <Button
+                  label="Join Discussion"
+                  fullWidth={false}
+                  size="medium"
+                  state="active"
+                  variant="primary"
+                  onClick={() => router.push("discussions")}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  label="Get started"
+                  fullWidth={false}
+                  size="medium"
+                  state="active"
+                  variant="primary"
+                  onClick={() => router.push("account/sign-up")}
+                />
+              </>
+            )}
           </div>
         </div>
 
