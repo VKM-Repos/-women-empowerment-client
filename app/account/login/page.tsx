@@ -109,7 +109,7 @@ const Login: React.FC = () => {
                         Login
                       </button>
                     </form>
-                    <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
+                    {/* <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
                       <div className="bg-neutral-400 self-center w-[115px] shrink-0 h-px my-auto" />
                       <div className="text-neutral-400 text-center text-base font-medium">
                         or
@@ -125,7 +125,7 @@ const Login: React.FC = () => {
                       <button className="text-black text-center text-sm font-medium self-center grow whitespace-nowrap my-auto">
                         Continue with Google
                       </button>
-                    </div>
+                    </div> */}
                     <div  className="text-green-800 text-sm  self-center whitespace-nowrap mt-4">
                       <span className=" text-black">Don’t have an account? </span>
                       <Link href="/account/sign-up" className="font-medium underline text-green-800">Sign up</Link>

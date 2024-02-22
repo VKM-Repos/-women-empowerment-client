@@ -18,9 +18,9 @@ type AppContextType = {
   isAuthenticated: boolean;
   user: UserData | null;
   token: string | null;
-  navbarMenuOpen: boolean;
+  showOrgBlocker: boolean;
   setUser: (userData: UserData | null) => void;
-  toggleNavBarMenu:()=>void;
+  toggleOrganizationBlocker:()=>void;
   login: (userData: UserData, token: string) => void;
   logout: () => void;
 };
@@ -30,9 +30,9 @@ const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   user: null,
   token: null,
-  navbarMenuOpen: false,
+  showOrgBlocker: false,
   setUser: () => {},
-  toggleNavBarMenu:()=>{},
+  toggleOrganizationBlocker:()=>{},
   login: () => {},
   logout: () => {},
 });
@@ -54,7 +54,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const storedToken = localStorage.getItem('token');
     return storedToken || '';
   });
-  const [navbarMenuOpen, setNavbarMenuOpen] = useState<boolean>(false)
+  const [showOrgBlocker, setShowOrgBlocker] = useState<boolean>(false)
   const [user, setUser] = useState<UserData | null>(() => {
     // Get the user data from localStorage or set to null if not found
     const storedUser = localStorage.getItem('user');
@@ -66,8 +66,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return null; // or provide a default/fallback user object
     }
   });
-const toggleNavBarMenu = () =>{
-  setNavbarMenuOpen(prevState => !prevState)
+const toggleOrganizationBlocker = () =>{
+  setShowOrgBlocker(prevState => !prevState)
 }
   const login = (userData: UserData, authToken: string) => {
     setIsAuthenticated(true);
@@ -93,9 +93,9 @@ const toggleNavBarMenu = () =>{
     isAuthenticated,
     user,
     token,
-    navbarMenuOpen,
+    showOrgBlocker,
     setUser,
-    toggleNavBarMenu,
+    toggleOrganizationBlocker,
     login,
     logout,
   };

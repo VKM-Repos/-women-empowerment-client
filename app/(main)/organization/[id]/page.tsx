@@ -10,6 +10,9 @@ import {Menu} from '@/components/Common/ModalMenu/Menu'
 import Tab from '../components/Tab'
 import { TransitionParent } from '@/lib/utils/transition'
 import Link from 'next/link'
+import { useGET } from '@/lib/hooks/useGET.hook'
+import { useAppContext } from '@/lib/context/app-context'
+
 interface EventTab {
     name: string;
   }
@@ -22,13 +25,13 @@ const tabs: EventTab[] = [
     },
   ];
 export default function OrganizationDetails() {
+    const{user} = useAppContext()
     const [showMenu, setShowMenu] = useState(false)
     const handleSHowMenu = ()=>{
         setShowMenu(prevState => !prevState)
     }
-
       const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
-      
+      const {data:organization, isPending} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS'], withAuth: true, enabled: true})
     const ownerMenu = [
         {
             title: 'Manage Organization',
@@ -53,8 +56,9 @@ export default function OrganizationDetails() {
             </svg>
             
         }
-]
-
+    ]
+    console.log(organization);
+    
     return (
         <TransitionParent>
             <section className="bg-white flex flex-col items-stretch mb-[300px]">
@@ -88,14 +92,14 @@ export default function OrganizationDetails() {
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
-                                                    <div className="text-white lg:text-3xl font-sora font-bold tracking-wide my-auto max-md:max-w-full max-md:mt-10">
-                                                    Women in Tech
+                                                    <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[80px] max-md:max-w-full max-md:mt-10">
+                                                    {organization?.name}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </span>
-                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[90px] items-end max-md:max-w-full">
+                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
                                         <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
                                             <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
                                                 Follow us:
@@ -116,25 +120,15 @@ export default function OrganizationDetails() {
                                                 className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
                                             />
                                         </div>
-                                        <div className="self-stretch flex flex-col mt-7 px-12 items-start max-md:max-w-full max-md:px-5">
+                                        <div className="self-stretch flex flex-col mt-2 px-12 items-start max-md:max-w-full max-md:px-5">
                                             <div className="text-primary font-sora text-2xl tracking-wide whitespace-nowrap">
                                                 About
                                                 <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                                             </div>
                                             <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-5 max-md:max-w-full">
-                                                Women in Tech is the world’s leading organization for
-                                                Inclusion, Diversity & Equity in STEAM. Our community counts
-                                                over 200.000 members across the world with chapters in all 6
-                                                continents. With our Head Office in Paris, we are a Global
-                                                Movement with chapters in 6 continents, counting over
-                                                200.000 members.
-                                                <br />
-                                                <br />
-                                                Our community is represented by persons of all abilities –
-                                                regardless of gender, race, ethnicity, class, age or sexual
-                                                orientation.
+                                            {organization?.description}
                                             </div>
-                                            <div className="font-quickSand self-stretch flex w-[80%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+                                            <div className="font-quickSand self-stretch flex w-[100%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
                                                 <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                                                     <div className="items-center flex grow basis-[0%] flex-col">
                                                         <img
@@ -143,8 +137,7 @@ export default function OrganizationDetails() {
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
-                                                            Road 17, 1st avenue gwarinpa, <br />
-                                                            FCT, Abuja.
+                                                            {organization?.state} <br/> {organization?.street}
                                                         </div>
                                                     </div>
                                                     <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
@@ -159,7 +152,7 @@ export default function OrganizationDetails() {
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                            contact@womenintech.org
+                                                            {organization?.email}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,7 +165,7 @@ export default function OrganizationDetails() {
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                            +234 90 732 732
+                                                            {organization?.phoneNumber}
                                                         </div>
                                                     </div>
                                                 </div>
