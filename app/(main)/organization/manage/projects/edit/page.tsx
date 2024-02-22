@@ -16,14 +16,25 @@ export default function EditProject() {
                             className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full mr-12 max-md:mr-2.5 cursor-pointer z-10 "
                         />
                     </div>
-                    <span className="">
-                        
+                    <span className="w-full flex flex-col px-2  max-md:max-w-full">
+
+                        <div className="z-[1]  max-md:max-w-full  ">
+                            <div className="gap-10 flex items-center px-10">
+                              
+                                <div className="flex flex-col justify-center w-full max-md:w-full text-white-100">
+                                    <p className='text-sm font-light w-[550px] text-center'>
+                                        Add an image that clearly represents your project. it will appear on  your project page 
+                                        Your image should be at least 1024x576 pixels. It will be cropped to a 16:9 ratio.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </span>
                     <form action="">
-                        <div className='flex flex-col gap-5  px-[100px] font-quickSand'>
+                        <div className='flex flex-col gap-5  px-[100px] mt-[200px] font-quickSand'>
                             <div className='flex items-center gap-5'>
-                                <label className='font-sora flex-[0.3]' htmlFor="">Org Name</label>
-                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
+                                <label className='font-sora flex-[0.3]' htmlFor="">Time Range</label>
+                                <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-[100px]" placeholder='Women researchers foundation' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Website</label>

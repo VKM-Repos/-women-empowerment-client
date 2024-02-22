@@ -8,7 +8,6 @@ type EventTabProps = {
 }
 
 export default function Tab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
-    console.log(selectedEventType);
     
   return (
     <button

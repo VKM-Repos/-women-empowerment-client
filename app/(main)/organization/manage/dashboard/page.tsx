@@ -16,22 +16,22 @@ export default function ManageOrganization() {
                             className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full mr-12 max-md:mr-2.5 cursor-pointer z-10 "
                         />
                     </div>
-                    <span className="w-full flex flex-col px-2  items-end max-md:max-w-full">
+                    <span className="w-full flex flex-col px-2  max-md:max-w-full">
 
-                        <div className="z-[1]  max-md:max-w-full  ">
+                        <div className="z-[1] ">
                             <div className="gap-10 flex items-center px-10">
                                 <div className="flex flex-col w-[28%] max-md:w-full max-md:ml-0">
                                     <div className="bg-white flex flex-col  items-center aspect-square w-full rounded-[105px] ">
-                                        <div className="flex-col overflow-hidden relative flex aspect-square w-[212px] justify-center items-center rounded-[50%]">
+                                        <div className="group flex-col overflow-hidden relative flex aspect-square w-[212px] justify-center items-center rounded-[50%]">
                                             <img
                                                 loading="lazy"
                                                 srcSet={orgProfile.src}
-                                                className="absolute h-full w-full object-cover object-center inset-0 hover:-z-10"
+                                                className="absolute h-full w-full object-cover object-center inset-0 group-hover:-z-10"
                                             />
                                             <img
                                                 loading="lazy"
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                                                className="w-10 h-10 object-contain object-center justify-center items-center overflow-hidden max-w-full my-8"
+                                                className="w-10 h-10 cursor-pointer object-contain object-center justify-center items-center overflow-hidden max-w-full my-8 hidden group-hover:block"
                                             />
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@ export default function ManageOrganization() {
                     <form action="">
                         <div className='flex flex-col gap-5  px-[100px] font-quickSand'>
                             <div className='flex items-center gap-5'>
-                                <label className='font-sora flex-[0.3]' htmlFor="">Org Name</label>
+                                <label className='font-sora flex-[0.3]' htmlFor="">Org. Name</label>
                                 <input type='text' className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
                             </div>
                             <div className='flex items-center gap-5'>

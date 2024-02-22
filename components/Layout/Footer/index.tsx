@@ -5,6 +5,7 @@ import footerImg from "@/public/icons/footer-img.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Common/Button/Button";
+import { useAppContext } from "@/lib/context/app-context";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/lib/context/app-context";
 
