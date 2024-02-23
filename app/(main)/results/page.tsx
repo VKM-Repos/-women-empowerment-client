@@ -10,6 +10,7 @@ import Pagination from "@/components/Common/Pagination/Pagination";
 import { OrgCardLoader } from "../organization/components/OrgCardLoader";
 import { useSearchParams } from "next/navigation";
 import NoSearchResults from "@/components/EmptyStates/NoSearchResults";
+import Link from "next/link";
 
 const Results = () => {
   const searchParams = useSearchParams();
@@ -78,37 +79,63 @@ const Results = () => {
             </>
           )}
         </section>
-        <section className="w-full md:w-[65%] mx-auto flex flex-col md:p-12 p-4 gap-y-[2rem]">
-          {isOrganizationError && <p>Error fetching Organization</p>}
+        {!isSearchLoading &&
+        !isSearchError &&
+        searchResults?.content?.length === 0 ? (
+          <>
+            <section className="w-full md:w-[65%] mx-auto flex flex-col md:p-12 p-4 gap-y-[2rem]">
+                <div>
+                    <span className="flex gap-10 items-center justify-start text-base font-sora text-gray-300">
+                        <p>Search for : </p>
+                        <span className="flex gap-5">
+                            <Link href="/results?name=tech" className="hover:text-btnWarning underline">
+                                Tech
+                            </Link>
+                            <Link href="/results?name=gender%20equity" className="hover:text-btnWarning underline">
+                                gender equity
+                            </Link>
+                            <Link href="/results?name=sensitization" className="hover:text-btnWarning underline">
+                                Sensitization
+                            </Link>
+                            <Link href="/results?name=feminism" className="hover:text-btnWarning underline">
+                                Feminism
+                            </Link>
+                         </span>
+                    </span>
+                </div>
+              {isOrganizationError && <p>Error fetching Organization</p>}
 
-          {isOrganizationLoading ? (
-            [1, 2, 3, 4, 5, 6].map((item: any) => (
-              <OrgCardLoader key={item?.id} />
-            ))
-          ) : !isOrganizationLoading &&
-            !isOrganizationError &&
-            organizations?.content?.length === 0 ? (
-            <p className="no-result">No Organizations yet</p>
-          ) : (
-            <>
-              {organizations?.content?.map((organization: Organization) => (
-                <OrganizationCard
-                  organization={organization}
-                  key={organization.id}
-                />
-              ))}
-              <div className="flex gap-3 flex-wrap p-6 py-12">
-                <Pagination
-                  gotoPage={setPageIndex}
-                  canPreviousPage={pageIndex > 0}
-                  canNextPage={pageIndex < pageCount - 1}
-                  pageCount={pageCount}
-                  pageIndex={pageIndex}
-                />
-              </div>
-            </>
-          )}
-        </section>
+              {isOrganizationLoading ? (
+                [1, 2, 3, 4, 5, 6].map((item: any) => (
+                  <OrgCardLoader key={item?.id} />
+                ))
+              ) : !isOrganizationLoading &&
+                !isOrganizationError &&
+                organizations?.content?.length === 0 ? (
+                <p className="no-result">No Organizations yet</p>
+              ) : (
+                <>
+                <h2 className="font-bold text-lg md:text-3xl uppercase my-2 text-btnWarning">Top Organizations</h2>
+                  {organizations?.content?.map((organization: Organization) => (
+                    <OrganizationCard
+                      organization={organization}
+                      key={organization.id}
+                    />
+                  ))}
+                  <div className="flex gap-3 flex-wrap p-6 py-12">
+                    <Pagination
+                      gotoPage={setPageIndex}
+                      canPreviousPage={pageIndex > 0}
+                      canNextPage={pageIndex < pageCount - 1}
+                      pageCount={pageCount}
+                      pageIndex={pageIndex}
+                    />
+                  </div>
+                </>
+              )}
+            </section>
+          </>
+        ) : null}
       </TransitionParent>
     </main>
   );

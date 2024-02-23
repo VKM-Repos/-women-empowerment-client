@@ -2,6 +2,7 @@
 import { useCallback, useRef, useEffect, MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAppContext } from "@/lib/context/app-context";
 
 interface ModalProps
   extends React.DetailedHTMLProps<
@@ -18,6 +19,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const wrapper = useRef(null);
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
+  const {toggleOrganizationBlocker} = useAppContext()
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -62,6 +64,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
 
   const onDismiss = useCallback(() => {
     onClose()
+    // toggleOrganizationBlocker()
     // router.back();
   }, [router]);
 

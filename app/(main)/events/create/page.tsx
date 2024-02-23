@@ -40,19 +40,19 @@ function CreateEventPage() {
 
  const createEvent = async () => {
 
-    setIsLoading(true)
+      setIsLoading(true)
     try {
       const { data } = useEventFormStore.getState();
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       const endpoint = `${apiUrl}/events`;
 
       let formData = new FormData();
-      // if (data.image) {
-      //   formData.append('image', data.image);
-      // }    
-      formData.append("data", new Blob([JSON.stringify(data)], { type: "multipart/form-data" }))
+      formData.append("eventDetails", new Blob([JSON.stringify(data.eventDetails)], { type: "application/json" }))
       console.log(formData);
 
+      if (data.image) {
+        formData.append('image', data.image);
+      }    
 
       const response = await axios.post(endpoint, formData, {
         headers: {
@@ -92,8 +92,8 @@ function CreateEventPage() {
 
     const { handleSubmit } = useForm<EventFormStore>();
 
-    const onSubmitHandler: SubmitHandler<EventFormStore> = () => {
-      createEvent();
+    const onSubmitHandler: SubmitHandler<EventFormStore> = async () => {
+      await handleSubmit(createEvent)();
     };
 
     switch (step) {

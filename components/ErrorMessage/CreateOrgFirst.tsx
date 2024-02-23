@@ -20,7 +20,10 @@ function CreateOrgFirst({ title, message }: Props) {
         <span className="w-full capitalize text-lg font-normal font-sora flex items-center justify-between gap-5 px-4">
           {title}
           <button onClick={hideModal}>
-            X
+            <svg className="cursor-pointer" width="20" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8839 4.61612C20.372 5.10427 20.372 5.89573 19.8839 6.38388L5.88388 20.3839C5.39573 20.872 4.60427 20.872 4.11612 20.3839C3.62796 19.8957 3.62796 19.1043 4.11612 18.6161L18.1161 4.61612C18.6043 4.12796 19.3957 4.12796 19.8839 4.61612Z" fill="black"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.11612 4.61612C4.60427 4.12796 5.39573 4.12796 5.88388 4.61612L19.8839 18.6161C20.372 19.1043 20.372 19.8957 19.8839 20.3839C19.3957 20.872 18.6043 20.872 18.1161 20.3839L4.11612 6.38388C3.62796 5.89573 3.62796 5.10427 4.11612 4.61612Z" fill="black"/>
+            </svg>
           </button>
         </span>
       </nav>
