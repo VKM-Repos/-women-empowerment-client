@@ -5,9 +5,9 @@ import { authApi, publicApi } from "@/lib/config/axiosInstance";
 
 export const usePATCH = (url: string, withAuth = true, storeCallback = undefined) => {
     const { mutate, isPending, isError, isSuccess, data, error } = useMutation({
-        mutationFn: async (values) => {
+        mutationFn: async (values:any) => {
             const axiosInstance = withAuth ? authApi : publicApi
-            const response = await axiosInstance.patch(url, values)
+            const response = await axiosInstance.put(url, values)
             return response?.data
         },
         onSuccess: (returnedData) => {

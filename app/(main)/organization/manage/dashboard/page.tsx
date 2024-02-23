@@ -7,14 +7,13 @@ import { TransitionParent } from '@/lib/utils/transition'
 import { useGET } from '@/lib/hooks/useGET.hook'
 import { useAppContext } from '@/lib/context/app-context'
 import orgProfile from '@/public/images/org_profile.svg'
+import { usePATCH } from '@/lib/hooks/usePATCH.hook'
+import LoadingThinkingWomen from '@/components/Common/Loaders/LoadingThinkingWomen'
 
 export default function OrganizationDetails() {
     const {user} = useAppContext()
-
-      const {data:organization, isPending} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS', 'DASHBOARD'], withAuth: true, enabled: true})
-
-    console.log(organization);
-    
+    const {data:organization, isPending, refetch} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS', 'DASHBOARD'], withAuth: true, enabled: true})
+    const {mutate, isPending:updateOrgPending} = usePATCH(`organizations/${user?.organizationId}`)
     const [formData, setFormData] = useState({
         name: "",
         website: "",
@@ -36,10 +35,39 @@ export default function OrganizationDetails() {
             description: organization?.description
         })
     }, [organization])
+
+    const hanleOnChange = (event:any) => {
+        const {name, value} = event?.target
+
+        setFormData(previouseFormData => {
+            return {
+              ...previouseFormData,
+              [name]: value
+            }
+          })
+    }
+const handleUpdateOrg = (event:any) => {
+    event.preventDefault()
+    mutate(formData, {
+        onSuccess: ()=>{
+            console.log('Success');
+            refetch()
+            
+        },
+        onError: (error)=>{
+            console.log(error);
+            
+        }
+    })
+    
+}
+    
     return (
         <TransitionParent>
-                    <section >
-            <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
+            <section >
+               {updateOrgPending 
+                ? <LoadingThinkingWomen /> 
+                :  <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
                 <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
                     <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
                     <div className='z-10 flex justify-end pt-10'>
@@ -77,36 +105,36 @@ export default function OrganizationDetails() {
                             </div>
                         </div>
                     </span>
-                    <form action="">
-                        <div className='flex flex-col gap-5  px-[100px] font-quickSand'>
+                    <form onSubmit={handleUpdateOrg}>
+                        <div className='flex flex-col gap-5  px-[100px] font-quickSand mt-5'>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Org. Name</label>
-                                <input type='text' name='name' value={formData?.name} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
+                                <input type='text' name='name' onChange={hanleOnChange} value={formData?.name} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='Women researchers foundation' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Website</label>
-                                <input type='text' name='website' value={formData?.website} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
+                                <input type='text' name='website' onChange={hanleOnChange} value={formData?.website} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://womenresearchersfoundation.com' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Facebook</label>
-                                <input type='text' name='facebook' value={formData?.facebook} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
+                                <input type='text' name='facebook' onChange={hanleOnChange} value={formData?.facebook} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='htttps://www.facebook.com/wrf' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Email</label>
-                                <input type='text' name='email' value={formData?.email} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
+                                <input type='text' name='email' onChange={hanleOnChange} value={formData?.email} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='contact@womenresearchersfoundation.org' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Location</label>
-                                <input type='text' name='street' value={formData?.street} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
+                                <input type='text' name='street' onChange={hanleOnChange} value={formData?.street} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='5th avenue, malcom X street, gwarinpa.' />
                             </div>
                             <div className='flex items-center gap-5'>
                                 <label className='font-sora flex-[0.3]' htmlFor="">Contact</label>
-                                <input type='text' name='phoneNumber' value={formData?.phoneNumber} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
+                                <input type='text' name='phoneNumber' onChange={hanleOnChange} value={formData?.phoneNumber} className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full" placeholder='09045456578' />
                             </div>
 
                             <div className='flex gap-5'>
                                 <div className="text-black flex-[0.3]">Bio</div>
-                                <textarea name='description' value={formData?.description} className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
+                                <textarea name='description' onChange={hanleOnChange} value={formData?.description} className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none">
                                    {formData?.description}
                                 </textarea>
                             </div>
@@ -116,8 +144,8 @@ export default function OrganizationDetails() {
                         </div>
                     </form>
                 </span>
-            </div>
-        </section>
+                </div>}
+            </section>
         </TransitionParent>
     )
 }

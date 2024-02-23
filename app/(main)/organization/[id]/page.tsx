@@ -28,7 +28,7 @@ export default function OrganizationDetails() {
     const{user} = useAppContext()
     const [showMenu, setShowMenu] = useState(false)
     const handleSHowMenu = ()=>{
-        setShowMenu(prevState => !prevState)
+        setShowMenu(!showMenu)
     }
       const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
       const {data:organization, isPending} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS'], withAuth: true, enabled: true})
