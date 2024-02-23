@@ -18,18 +18,18 @@ const AboutEvent: React.FC<AboutEventProps> = ({ handleNext }) => {
     formState: { errors, isDirty, isValid },
   } = useForm<{ title: string, description: string }>({
     defaultValues: {
-      title: data.title, 
-      description: data.description, 
+      title: data.eventDetails.title, 
+      description: data.eventDetails.description, 
     },
   });
 
   const onSubmit: SubmitHandler<{ title: string, description: string }> = async (formData) => {
   setData({
-
-      ...data,
+    eventDetails: {
+      ...data.eventDetails,
       title: formData.title,
       description: formData.description,
-
+    },
   });
   handleNext(); 
 };

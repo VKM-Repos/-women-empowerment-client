@@ -153,7 +153,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 onClick={handleGoBack}
               />
               <Button
-                label="Continue"
+                label="Submit"
                 variant="primary"
                 fullWidth={false}
                 size="medium"
@@ -166,7 +166,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 onClick={handleSkip}
                 disabled={isLoading}
               >
-                Skip
+                Skip & submit
               </button>
             </span>
           </form>

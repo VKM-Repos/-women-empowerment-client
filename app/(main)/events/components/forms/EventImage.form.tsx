@@ -140,7 +140,7 @@ const EventImage: React.FC<EventImageProps> = ({
               onClick={handleGoBack}
             />
             <Button
-              label="Continue"
+              label="Submit"
               variant="primary"
               fullWidth={false}
               size="medium"

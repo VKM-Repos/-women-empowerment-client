@@ -11,6 +11,7 @@ import userAccount from "@/public/icons/account-user.svg";
 import { MenuContainer, MenuItem } from "./Menu";
 import { useAppContext } from "@/lib/context/app-context";
 import manage_org_blocker from '@/public/images/manage_org_blocker.svg'
+import CreateOrgFirstModal from "@/app/(main)/events/components/CreateOrgFirstModal";
 const Navbar = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
     undefined
@@ -96,7 +97,7 @@ const Navbar = () => {
       </svg>, text: "Manage Organization", href: "/organization/manage" },
       { type: 'link', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M19 19V8H5V19H19ZM16 1H18V3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 20.11 20.11 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 3.89 3.89 3 5 3H6V1H8V3H16V1ZM11 9.5H13V12.5H16V14.5H13V17.5H11V14.5H8V12.5H11V9.5Z" fill="#106840"/>
-      </svg>, text: "Add Event", href: "/add-event" },
+      </svg>, text: "Add Event", href: "/events/create" },
     ],
     userWithNoOrgMenu: [
       { type: 'link', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -268,32 +269,7 @@ const Navbar = () => {
           )}
         
         </div>
-        {
-          showOrgBlocker && (
-            <div className="absolute flex justify-center w-screen h-screen">
-        <div className="absolute bg-white-100 text-black-100 w-[700px] top-[50%] shadow-md rounded-xl ">
-          <div className="flex justify-between px-5 py-3">
-                <h3 className="text-lg font-medium font-sora">Register Your Organization</h3>
-                <span onClick={toggleOrganizationBlocker}>
-                  <svg className="cursor-pointer" width="20" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8839 4.61612C20.372 5.10427 20.372 5.89573 19.8839 6.38388L5.88388 20.3839C5.39573 20.872 4.60427 20.872 4.11612 20.3839C3.62796 19.8957 3.62796 19.1043 4.11612 18.6161L18.1161 4.61612C18.6043 4.12796 19.3957 4.12796 19.8839 4.61612Z" fill="black"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4.11612 4.61612C4.60427 4.12796 5.39573 4.12796 5.88388 4.61612L19.8839 18.6161C20.372 19.1043 20.372 19.8957 19.8839 20.3839C19.3957 20.872 18.6043 20.872 18.1161 20.3839L4.11612 6.38388C3.62796 5.89573 3.62796 5.10427 4.11612 4.61612Z" fill="black"/>
-                  </svg>
 
-                </span>
-          </div>
-          <div className="h-[1px] w-full bg-gray-500" />
-          <div className="flex flex-col gap-5 items-center px-[50px] py-5">
-            <Image src={manage_org_blocker} className="aspect-auto" alt="" />
-            <p className="text-sm text-center font-quickSand">
-              ...you don’t have an organization.<br/> You need to register your organization before you can add an event 
-            </p>
-            <button onClick={navigateToCreateOgr} className="bg-btnWarning text-white-100 px-5 py-2 rounded-md">Add organization</button>
-          </div>
-        </div>
-        </div>
-          )
-        }
       </nav>
     </header>
   );

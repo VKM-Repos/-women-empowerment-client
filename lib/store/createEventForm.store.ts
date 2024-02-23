@@ -9,13 +9,15 @@ import {
 export interface EventFormStore {
   step: number;
   data: {
-    title: string;
-    description: string;
-    type: string;
-    link: string;
-    location: string;
-    startDate: string;
-    endDate: string;
+    eventDetails: {
+      title: string;
+      description: string;
+      type: string;
+      link: string;
+      location: string;
+      startDate: string;
+      endDate: string;
+    };
     image: string;
   };
   setStep: (step: number) => void;
@@ -33,13 +35,15 @@ export const useEventFormStore = create<EventFormStore>(
     (set) => ({
       step: 1,
       data: {
-        title: "",
-        description: "",
-        type: "",
-        link: "",
-        location: "",
-        startDate: "",
-        endDate: "",
+        eventDetails: {
+          title: "",
+          description: "",
+          type: "",
+          link: "",
+          location: "",
+          startDate: "",
+          endDate: "",
+        },
         image: "",
       },
       setStep: (step) => set({ step }),
@@ -48,13 +52,15 @@ export const useEventFormStore = create<EventFormStore>(
         set({
           step: 9,
           data: {
-            title: "",
-            description: "",
-            type: "",
-            link: "",
-            location: "",
-            startDate: "",
-            endDate: "",
+            eventDetails: {
+              title: "",
+              description: "",
+              type: "",
+              link: "",
+              location: "",
+              startDate: "",
+              endDate: "",
+            },
             image: "",
           },
         });

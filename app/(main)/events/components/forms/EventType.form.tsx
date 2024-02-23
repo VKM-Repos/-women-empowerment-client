@@ -25,11 +25,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }>({
     defaultValues: {
-      type: data.type || "",
-      link: data.link || "",
-      location: data.location || "",
-      startDate: data.startDate || "",
-      endDate: data.endDate || "",
+      type: data.eventDetails.type || "",
+      link: data.eventDetails.link || "",
+      location: data.eventDetails.location || "",
+      startDate: data.eventDetails.startDate || "",
+      endDate: data.eventDetails.endDate || "",
     },
   });
 
@@ -41,12 +41,14 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }> = async (formData) => {
     setData({
-        ...data,
+      eventDetails: {
+        ...data.eventDetails,
         type: selectedOption,
         link: formData.link,
         location: formData.location,
         startDate: formData.startDate,
         endDate: formData.endDate,
+      },
     });
     handleNext();
   };
