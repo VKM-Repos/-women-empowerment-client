@@ -71,10 +71,12 @@ const Results = () => {
             <NoSearchResults message={`${query}`} />
           ) : (
             <>
-              {searchResults?.content?.map((result: any) => (
-                // ... (render search result components)
-                <></>
-              ))}
+              {searchResults?.content?.map((organization: Organization) => (
+                    <OrganizationCard
+                      organization={organization}
+                      key={organization.id}
+                    />
+                  ))}
               {/* ... (pagination for search results) */}
             </>
           )}
