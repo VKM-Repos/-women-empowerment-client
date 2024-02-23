@@ -352,7 +352,7 @@ console.log('>>>>', organization);
 
                   {selectedEventType.name === "Events" && (
                     <>
-                      <div className="text-primary text-2xl whitespace-nowrap">
+                      <div className="text-primary text-2xl whitespace-nowrap w-full">
                         All Events
                         <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                       </div>

@@ -19,6 +19,8 @@ const Navbar = () => {
   const [showSideBar, setShowSideBar] = useState(false)
   const { isAuthenticated, user, showOrgBlocker, toggleOrganizationBlocker } = useAppContext();
 
+  console.log(user);
+  
 
   const submenuLinks = {
     community: [
