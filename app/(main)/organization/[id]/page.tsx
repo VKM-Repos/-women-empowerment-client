@@ -91,7 +91,7 @@ console.log('>>>>', organization);
     },
     {
       title: "Visit Site",
-      link: "/",
+      link: `${organization?.website}`,
       icon: (
         <svg
           width="16"
@@ -130,7 +130,7 @@ console.log('>>>>', organization);
   const guestMenu = [
     {
       title: "Visit Site",
-      link: "/",
+      link: `https://${organization?.website}`,
       icon: (
         <svg
           width="16"
