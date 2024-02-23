@@ -13,6 +13,8 @@ import EventType from "../components/forms/EventType.form";
 import EventImage from "../components/forms/EventImage.form";
 import { useModal } from "@/lib/context/modal-context";
 import SuccessModal from "@/app/(main)/events/components/forms/SuccessModal";
+import Loading from "../../loading";
+import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateEventPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -37,54 +39,53 @@ function CreateEventPage() {
 
 
  const createEvent = async () => {
-//   setIsLoading(true)
-//     try {
-//       const { data } = useEventFormStore.getState();
-//       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-//       const endpoint = `${apiUrl}/events`;
 
-//       let formData = new FormData();
-//       formData.append("organizationDetails", new Blob([JSON.stringify(data.eventDetails)], { type: "application/json" }))
-//       console.log(formData);
+    setIsLoading(true)
+    try {
+      const { data } = useEventFormStore.getState();
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const endpoint = `${apiUrl}/events`;
 
-//       // Append additional fields or files as needed
-//       if (data.image) {
-//         formData.append('image', data.image);
-//       }
+      let formData = new FormData();
+      // if (data.image) {
+      //   formData.append('image', data.image);
+      // }    
+      formData.append("data", new Blob([JSON.stringify(data)], { type: "multipart/form-data" }))
+      console.log(formData);
 
-      
 
-//       const response = await axios.post(endpoint, formData, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           'Content-Type': 'multipart/form-data',
-//         },
-//       });
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-//       if (response.status === 200) {
-//         setIsLoading(false)
-//         // Handle success
-//         toast.success('Event created successfully');
-//         // showModal
-//         showModal(<SuccessModal title="All Done!" message="Your event has be created and ready to be published"  />);
-//       } else {
-//         setIsLoading(false)
-//         // Handle other response statuses or errors
-//         toast.error(`Error creating event: ${response.data}`);
-//       }
-//     } catch (error) {
-//       // Handle network or other errors
-//       console.error('Error creating event:', error);
-//       toast.error('Error creating event');
-//     }
+      if (response.status === 200) {
+        setIsLoading(false)
+        
+        // Handle success
+        toast.success('event created successfully');
+        showModal(
+          <SuccessModal
+            title="All Done!"
+            message="Your event has be created and is ready to be published"
+          />
+        );
 
-      try {
-          console.log('modal');
-
-          showModal(<SuccessModal title="All Done!" message="Your event has be created and is ready to be published" />);
-        } catch (error) {
-          console.error('Error displaying modal:', error);
-        }
+      } else {
+        setIsLoading(false)
+        // Handle other response statuses or errors
+        toast.error(` ${response.status}`);
+      }
+    } catch (error: any) {
+      // Handle network or other errors
+      console.error('Error creating event:', error);
+      toast.error(error.response.statusText);
+    }
+    finally {
+      setIsLoading(false)
+    }
   };
 
 
@@ -110,6 +111,7 @@ function CreateEventPage() {
           <EventImage
             handleNext={handleSubmit(onSubmitHandler)}
             handleGoBack={handleGoBack}
+            isLoading={isLoading}
           />
 
         );
@@ -118,8 +120,11 @@ function CreateEventPage() {
     }
   };
 
+  
+
   return (
     <AnimatePresence initial={true} mode="wait">
+      {isLoading && <LoadingThinkingWomen />}
       <RenderForm />
     </AnimatePresence>
   );

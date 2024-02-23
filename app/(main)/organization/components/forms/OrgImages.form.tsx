@@ -11,12 +11,14 @@ interface OrgImagesFormProps {
   handleNext: () => void;
   handleGoBack: () => void;
   handleSkip: () => void;
+  isLoading: boolean
 }
 
 const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   handleNext,
   handleGoBack,
   handleSkip,
+  isLoading
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -145,20 +147,24 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
             <span className="w-full flex gap-10 relative">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+                state={watch("image") ? "active" : "disabled"}
+                disabled={isLoading}
+
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"
                 onClick={handleSkip}
+                disabled={isLoading}
               >
                 Skip
               </button>

@@ -20,7 +20,7 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setValue,
     watch,
   } = useForm<{ description: string }>({
@@ -81,16 +81,17 @@ const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
             <span className="flex gap-10">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+              state={isValid ? "active" : "disabled"}
               />
             </span>
           </form>

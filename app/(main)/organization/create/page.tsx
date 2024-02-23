@@ -19,6 +19,7 @@ import {
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAppContext } from "@/lib/context/app-context";
+import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateOrganizationPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -93,14 +94,17 @@ function CreateOrganizationPage() {
       console.error('Error creating organization:', error);
       toast.error('Error creating organization');
     }
+    finally {
+      setIsLoading(false)
+    }
   };
 
 
 
     const { handleSubmit } = useForm<OrganizationFormStore>();
 
-    const onSubmitHandler: SubmitHandler<OrganizationFormStore> = () => {
-      createOrganization();
+    const onSubmitHandler: SubmitHandler<OrganizationFormStore> = async () => {
+      await handleSubmit(createOrganization)();
     };
 
     switch (step) {
@@ -147,6 +151,7 @@ function CreateOrganizationPage() {
             handleNext={handleSubmit(onSubmitHandler)}
             handleSkip={handleSubmit(onSubmitHandler)}
             handleGoBack={handleGoBack}
+            isLoading={isLoading}
           />
         );
       case 9:
@@ -159,6 +164,7 @@ function CreateOrganizationPage() {
 
   return (
     <AnimatePresence initial={true} mode="wait">
+      {isLoading && <LoadingThinkingWomen />}
       <RenderForm />
     </AnimatePresence>
   );

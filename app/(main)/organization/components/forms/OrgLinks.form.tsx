@@ -21,7 +21,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<{ website: string; facebook: string }>({
     defaultValues: {
       website: data.organizationDetails.website || "",
@@ -127,16 +127,17 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
             <span className="flex gap-10">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+                state={isValid ? "active" : "disabled"}
               />
             </span>
           </form>

@@ -26,7 +26,7 @@ const LoadingThinkingWomen: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 backdrop-blur-[2px] flex items-center justify-center z-[2500]">
+    <div className="fixed inset-0 backdrop-blur-[4px] bg-primaryBlack/20 flex items-center justify-center z-[2500]">
       <div className="relative flex justify-center items-center">
         <div className="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-btnWarning"></div>
         {randomImage && (

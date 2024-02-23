@@ -31,7 +31,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<{ categoryIds: number[] }>({
     defaultValues: {
       categoryIds: data.organizationDetails.categoryIds || [],
@@ -112,12 +112,12 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
             <span className="flex gap-10">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
-              <Button label="Continue" variant="secondary" fullWidth={false} size="medium" />
+              <Button label="Continue" variant="primary" fullWidth={false} size="medium" state={isValid ? "active" : "disabled"} />
             </span>
           </form>
         </div>
