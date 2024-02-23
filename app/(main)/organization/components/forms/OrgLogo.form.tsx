@@ -146,16 +146,17 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
             <span className="w-full flex gap-10 relative">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+                state={watch("logo") ? "active" : "disabled"}
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"

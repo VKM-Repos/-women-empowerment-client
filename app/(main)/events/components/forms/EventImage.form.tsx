@@ -9,11 +9,13 @@ import Icon from "@/components/Common/Icons/Icon";
 interface EventImageProps {
   handleNext: () => void;
   handleGoBack: () => void;
+  isLoading: boolean
 }
 
 const EventImage: React.FC<EventImageProps> = ({
   handleNext,
   handleGoBack,
+  isLoading
 }) => {
   const { data, setData } = useEventFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -143,6 +145,7 @@ const EventImage: React.FC<EventImageProps> = ({
               fullWidth={false}
               size="medium"
               state={watch("image") ? "active" : "disabled"}
+              disabled={isLoading}
             />
           </span>
         </form>

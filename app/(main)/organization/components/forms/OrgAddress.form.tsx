@@ -21,7 +21,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setValue,
     watch,
   } = useForm<{state: string, postalCode: string, street: string}>({
@@ -127,16 +127,17 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
             <span className="flex gap-10">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+                state={isValid ? "active" : "disabled"}
               />
             </span>
           </form>

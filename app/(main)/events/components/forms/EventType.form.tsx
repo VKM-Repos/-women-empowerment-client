@@ -25,11 +25,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }>({
     defaultValues: {
-      type: data.eventDetails.type || "",
-      link: data.eventDetails.link || "",
-      location: data.eventDetails.location || "",
-      startDate: data.eventDetails.startDate || "",
-      endDate: data.eventDetails.endDate || "",
+      type: data.type || "",
+      link: data.link || "",
+      location: data.location || "",
+      startDate: data.startDate || "",
+      endDate: data.endDate || "",
     },
   });
 
@@ -41,14 +41,12 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }> = async (formData) => {
     setData({
-      eventDetails: {
-        ...data.eventDetails,
+        ...data,
         type: selectedOption,
         link: formData.link,
         location: formData.location,
         startDate: formData.startDate,
         endDate: formData.endDate,
-      },
     });
     handleNext();
   };
@@ -80,11 +78,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               required
             >
               <option value="">Select</option>
-              <option value="online">Online</option>
-              <option value="physical">Physical</option>
+              <option value="ONLINE">Online</option>
+              <option value="PHYSICAL">Physical</option>
             </select>
 
-            {selectedOption === "online" && (
+            {selectedOption === "ONLINE" && (
               <div className="flex flex-col">
                 <input
                   className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
@@ -103,7 +101,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               </div>
             )}
 
-            {selectedOption === "physical" && (
+            {selectedOption === "PHYSICAL" && (
               <div className="flex flex-col">
                 <input
                   className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"

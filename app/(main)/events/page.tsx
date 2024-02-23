@@ -12,8 +12,10 @@ import Button from "@/components/Common/Button/Button";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/lib/context/app-context";
 import FindEvent from "./components/FindEvent";
-import CreateEventModal from "./components/CreateEventModal";
 import { useModal } from "@/lib/context/modal-context";
+import LoginFirstModal from "./components/LoginFirstModal";
+import CreateOrgFirstModal from "./components/CreateOrgFirstModal";
+
 
 type EventTab = {
   tabName: ['ONLINE', 'PHYSICAL'];
@@ -47,9 +49,12 @@ const EventsPage = () => {
 
   const handleCreateEvent = () => {
     if(!isAuthenticated) {
-    showModal(<CreateEventModal />);
-    } else { 
-      router.push('/events/create');
+    showModal(<LoginFirstModal />);
+    } else if (isAuthenticated && user?.role !== 'ADMIN'){
+    showModal(<CreateOrgFirstModal />);
+    } else  { 
+      // router.push('/events/create');
+      window.location.href="/events/create"
     }
   };
 
@@ -68,7 +73,7 @@ const EventsPage = () => {
                 fullWidth={false}
                 size="medium"
                 variant="primary"
-                state="default"
+                state="active"
                 onClick={handleCreateEvent}
               />
             </span>

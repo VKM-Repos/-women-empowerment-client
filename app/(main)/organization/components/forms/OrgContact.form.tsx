@@ -20,7 +20,7 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setValue,
     watch,
   } = useForm<{ email: string; phoneNumber: string }>({
@@ -97,16 +97,17 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
             <span className="flex gap-10">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
+                state={isValid ? "active" : "disabled"}
               />
             </span>
           </form>

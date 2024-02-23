@@ -38,7 +38,7 @@ function FindEvent({}: Props) {
         <legend className="text-primaryWhite py-2 font-quickSand">
           Find an Event:
         </legend>
-        <div className="w-full grid grid-cols-3 md:grid-cols-4 gap-5 ">
+        <div className="w-full grid grid-cols-3 md:grid-cols-4 gap-5 items-center">
           <DateInput
             label="Day"
             bgClassName="bg-[#FFF200]"
@@ -72,13 +72,23 @@ function FindEvent({}: Props) {
             onDecrease={decrement}
             onChange={(field, value) => setDate({ ...date, [field]: value })}
           />
-          <button className="flex flex-col gap-1 items-center justify-center bg-btnWarning h-[80%] rounded-md text-primaryWhite">
+          <button className="flex flex-row-reverse md:flex-col gap-1 items-center justify-center bg-btnWarning active:bg-gray-400 h-[50%] rounded-md text-primaryWhite">
             <span>
-                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.4194 6.47656L18.4141 6.4768V13.4386M6.41406 18.4766L18.1252 6.76568" stroke="white" stroke-width="1.5"/>
-                    </svg>
-                    </span>
-                <span>go</span>
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.4194 6.47656L18.4141 6.4768V13.4386M6.41406 18.4766L18.1252 6.76568"
+                  stroke="white"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </span>
+            <span>go</span>
           </button>
         </div>
       </fieldset>

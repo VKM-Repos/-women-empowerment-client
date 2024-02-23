@@ -18,7 +18,7 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<{ name: string }>({
     defaultValues: {
       name: data.organizationDetails.name, // Set default value from the store
@@ -75,9 +75,10 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
             </div>
             <Button
               label="Continue"
-              variant="secondary"
+              variant="primary"
               fullWidth={false}
               size="medium"
+              state={isValid ? "active" : "disabled"}
             />
           </form>
         </div>
