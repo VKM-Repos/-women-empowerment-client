@@ -37,7 +37,7 @@ export const OrganizationCard: React.FC<{
           <Link
             className="flex flex-col w-full hover:underline"
             href={`/organization/${organization.id}`}
-            as={`/organization/${formatIdToTitle(organization.name)}`}
+            // as={`/organization/${formatIdToTitle(organization.name)}`}
             scroll={true}
           >
             <h4 className="text-primary text-base md:text-lg font-sora font-bold truncate whitespace-nowrap w-full block">

@@ -29,7 +29,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ image: string | null }>(); // Change to FileList type
+  } = useForm<{ image: File | null }>(); // Change to FileList type
 
   // Set default value from the store on initial render
   useEffect(() => {
@@ -46,17 +46,17 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   if (imageFile) {
     // Update the logo in the store with the URL
     const imageUrl = URL.createObjectURL(imageFile);
-    setData({ image: imageUrl });
+    setData({ image: imageFile });
   }
 };
 
 
   const removeImage = () => {
-    setData({ image: "" });
+    setData({ image: null });
     // setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<{ image: string | null }> = () => {
+  const onSubmit: SubmitHandler<{ image: File | null }> = () => {
     handleNext();
   };
 
@@ -97,7 +97,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   {watch("image") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
                       <motion.img
-                        src={watch("image") as string}
+                        src={watch("image") as any}
                         alt={`Image Preview`}
                         className="w-full object-contain"
                       />
