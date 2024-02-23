@@ -109,7 +109,7 @@ const Navbar = () => {
       <path d="M15 14.25H19.5V15.75H15V14.25ZM16.5 17.25H19.5V18.75H16.5V17.25ZM24 7.5V6H22.4242C22.3275 5.53052 22.1411 5.08411 21.8752 4.68525L22.9928 3.56775L21.9323 2.50725L20.8148 3.62475C20.4159 3.35888 19.9695 3.17248 19.5 3.07575V1.5H18V3.07575C17.5305 3.17248 17.0841 3.35888 16.6852 3.62475L15.5677 2.50725L14.5073 3.56775L15.6248 4.68525C15.3589 5.08411 15.1725 5.53052 15.0757 6H13.5V7.5H15.0757C15.1725 7.96948 15.3589 8.41589 15.6248 8.81475L14.5073 9.93225L15.5677 10.9928L16.6852 9.87525C17.0841 10.1411 17.5305 10.3275 18 10.4242V12H19.5V10.4242C19.9695 10.3275 20.4159 10.1411 20.8148 9.87525L21.9323 10.9928L22.9928 9.93225L21.8752 8.81475C22.1411 8.41589 22.3275 7.96948 22.4242 7.5H24ZM18.75 9C18.305 9 17.87 8.86804 17.5 8.62081C17.13 8.37357 16.8416 8.02217 16.6713 7.61104C16.501 7.1999 16.4564 6.7475 16.5432 6.31105C16.63 5.87459 16.8443 5.47368 17.159 5.15901C17.4737 4.84434 17.8746 4.63005 18.311 4.54323C18.7475 4.45642 19.1999 4.50097 19.611 4.67127C20.0222 4.84157 20.3736 5.12996 20.6208 5.49997C20.868 5.86998 21 6.30499 21 6.75C20.9994 7.34655 20.7622 7.9185 20.3403 8.34033C19.9185 8.76216 19.3466 8.9994 18.75 9Z" fill="#106840"/>
       </svg>, 
       text: "Manage Organization", href: "#" },
-      { type: 'link', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      { type: 'button', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M19 19V8H5V19H19ZM16 1H18V3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 20.11 20.11 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 3.89 3.89 3 5 3H6V1H8V3H16V1ZM11 9.5H13V12.5H16V14.5H13V17.5H11V14.5H8V12.5H11V9.5Z" fill="#106840"/>
       </svg>
       , text: "Add Event", href: "/add-event" },
@@ -270,8 +270,8 @@ const Navbar = () => {
         </div>
         {
           showOrgBlocker && (
-            <div className="absolute flex justify-center w-screen">
-        <div className="absolute bg-white-100 text-black-100 w-[700px] shadow-md rounded-xl ">
+            <div className="absolute flex justify-center w-screen h-screen">
+        <div className="absolute bg-white-100 text-black-100 w-[700px] top-[50%] shadow-md rounded-xl ">
           <div className="flex justify-between px-5 py-3">
                 <h3 className="text-lg font-medium font-sora">Register Your Organization</h3>
                 <span onClick={toggleOrganizationBlocker}>
