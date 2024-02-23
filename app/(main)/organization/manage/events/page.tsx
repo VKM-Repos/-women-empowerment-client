@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Tab from './components/Tab'
 import Event from './components/Event';
 import orgLogo from '@/public/images/wtn.svg'
+import Link from 'next/link';
 interface EventTab {
   name: string;
 }
@@ -78,7 +79,7 @@ const eventDraftMenu = [
             </div>
           </div>
           <div>
-            <button className='px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100'>Add Event</button>
+            <Link href={'/events/create'} className='px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100'>Add Event</Link>
           </div>
         </div>
         <div className='flex flex-col gap-5'>
