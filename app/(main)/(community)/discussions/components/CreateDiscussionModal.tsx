@@ -31,6 +31,15 @@ export default function CreateDiscussionModal({}: Props) {
     enabled: true,
   });
 
+   const {
+    refetch
+  } = useGET({
+    url: "/discussions",
+    queryKey: ["discussions"],
+    withAuth: false,
+    enabled: false,
+  });
+
   const {
     register,
     handleSubmit,
@@ -68,6 +77,7 @@ export default function CreateDiscussionModal({}: Props) {
       if (response.status === 200) {
         setIsPending(false);
         toast.success("post created successfully");
+        refetch()
         hideModal()
       } else {
         toast.error(`Error creating post: ${response.data}`);

@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
 import { useGET } from '@/lib/hooks/useGET.hook';
 import { Category } from '@/lib/types/category.types';
+import LoadingDots from '@/components/Common/Loaders/LoadingDots';
 
 interface OrgCategoryFormProps {
   handleNext: (data: { categoryIds: number[] }) => void;
@@ -77,7 +78,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
             <div className="flex flex-col pb-8">
               <ul className="w-full flex gap-3 flex-wrap">
 
-                {isLoading && 'loading'}
+                {isLoading &&  <LoadingDots />}
             
                 {Array.isArray(categories?.content) && categories.content.slice(0, displayedCategories).map((option: Category) => (
                   <li className="w-fit" key={option.id}>

@@ -36,7 +36,8 @@ const LandingPage = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log(`Searching for: '${selectedTerm}'`);
+    console.log(`Searching for: '${selectedTerm}'`)
+    router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter()
   const {user, isAuthenticated} = useAppContext()
@@ -213,7 +214,7 @@ const LandingPage = () => {
               <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                 NEWS CENTER
               </h3>
-              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
+              {/* <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
                 ))}
@@ -225,7 +226,12 @@ const LandingPage = () => {
                     size="normal"
                   />
                 </div>
-              </section>
+              </section> */}
+              <NoContent
+                    message="No blogs yet."
+                    buttonText={'Visit blog'}
+                    buttonLink={() => router.push('/blog')}
+                />
             </aside>
           </div>
         </section>
