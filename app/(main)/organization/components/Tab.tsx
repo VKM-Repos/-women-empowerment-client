@@ -8,7 +8,6 @@ type EventTabProps = {
 }
 
 export default function Tab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
-    console.log(selectedEventType);
     
   return (
     <button
@@ -17,7 +16,7 @@ export default function Tab({name, selectedEventType, setSelectedEventType }: Ev
         selectedEventType
           ? "text-white-100 bg-primary"
           : "text-primary bg-white-100 "
-      } text-2xl tracking-wide whitespace-nowrap items-stretch border border-primary border-solid bg-white grow justify-center px-8 py-4 rounded-tl-lg rounded-tr-lg border-solid max-md:px-5`}
+      } text-2xl tracking-wide whitespace-nowrap items-stretch border border-primary  bg-white grow justify-center px-8 py-4 rounded-tl-lg rounded-tr-lg border-solid max-md:px-5`}
     >
       <span className="relative z-10 font-light">{name}</span>
       

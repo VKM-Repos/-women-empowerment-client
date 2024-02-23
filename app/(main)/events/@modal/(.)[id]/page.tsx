@@ -6,9 +6,10 @@ import Image from "next/image";
 import DefaultImage from "@/public/images/defaultEventsImage.png";
 import db from "@/data/db.json";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
-import EventDetailsLoader from "../../../components/EventDetailsLoader";
+import EventDetailsLoader from "../../components/EventDetailsLoader";
+
 
 export default function EventsDetailsModal({
   params,
@@ -18,6 +19,9 @@ export default function EventsDetailsModal({
   const [events, setEvents] = useState<any | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const onDismiss = useCallback(() => {
+    router.back()
+  }, [router])
 
   // Use the hook to format the ID
   const formattedId = formatIdToTitle(params.id);
@@ -50,8 +54,9 @@ export default function EventsDetailsModal({
   // // Use the original ID for dynamic routing
   // const originalId = events.id;
 
+
   return (
-    <Modal onClose={router.back} isOpen={true}>
+     <Modal onClose={onDismiss} isOpen={true}>
       {isLoading || !events ? (
         <EventDetailsLoader events={events} />
       ) : (

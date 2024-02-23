@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { authApi, publicApi } from "@/lib/config/axiosInstance";
-import { checkPropTypes } from "prop-types";
+
 
 export const useGET = ({ url, queryKey, withAuth = false, enabled }: { url: string, queryKey: any[], withAuth: boolean, enabled: boolean }) => {
   const fetch = async () => {
@@ -13,6 +13,7 @@ export const useGET = ({ url, queryKey, withAuth = false, enabled }: { url: stri
     data,
     isFetching,
     isLoading,
+    isPending,
     isError,
     isSuccess,
     refetch,
@@ -24,6 +25,7 @@ export const useGET = ({ url, queryKey, withAuth = false, enabled }: { url: stri
     data,
     isFetching,
     isLoading,
+    isPending,
     isError,
     isSuccess,
     refetch,

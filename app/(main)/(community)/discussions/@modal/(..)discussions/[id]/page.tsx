@@ -1,58 +1,85 @@
-'use client'
+"use client";
 
 import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import db from "@/data/db.json";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
 import DiscussionCardThumbnail from "../../../components/DiscussionCardThumbnail";
 import DiscussionDetailsLoader from "../../../components/DiscussionDetailsLoader";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { Discussion } from "@/lib/types/discussion.types";
+import useRelativeTime from "@/lib/utils/useRelativeTime";
+import Icon from "@/components/Common/Icons/Icon";
+import DiscussionCardLoader from "../../../components/DiscussionCardLoader";
 
-
-export default function DiscussionDetailsModal({ params }: { params: { id: string } }) {
-  const [discussions, setDiscussions] = useState<any | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+export default function DiscussionDetailsModal({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
 
   // Use the hook to format the ID
-  const formattedId = formatIdToTitle(params.id);
+  const formattedId = params.id;
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        // Simulating an asynchronous API call
-        const response = await new Promise<{ data: any[] }>((resolve) =>
-          setTimeout(() => resolve({ data: db.discussions }), 1000)
-        );
+  // fetch lists of discussions
+  const {
+    data: discussions,
+    isError: isDiscussionsError,
+    isLoading: isDiscussionsLoading,
+  } = useGET({
+    url: "/discussions",
+    queryKey: ["discussions"],
+    withAuth: false,
+    enabled: false,
+  });
 
-        // Find the event based on the formatted ID
-        const foundDiscussion = response.data.find(
-          (discussion) => formatIdToTitle(discussion.title).toLowerCase() === formattedId
-        );
+  // Find the category that matches the formatted ID
+  const matchedDiscussion = discussions?.content?.find(
+    (discussion: Discussion) =>
+      formatIdToTitle(discussion.title) === formattedId
+  );
 
-        // Set the event and loading state
-        setDiscussions(foundDiscussion);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching discussion:", error);
-        setIsLoading(false);
-      }
-    };
+  // Use the matched category's ID to fetch organizations based on category
+  const {
+    data: discussion,
+    isLoading: isDiscussionLoading,
+    isError: isDiscussionError,
+  } = useGET({
+    url: `/discussions/${matchedDiscussion?.id}`,
+    queryKey: ["discussion", matchedDiscussion?.id],
+    withAuth: false,
+    enabled: !!matchedDiscussion?.id,
+  });
 
-    fetchEvent();
-  }, [formattedId]);
+  // fetch lists of events
+  const {
+    data: events,
+    isLoading: isEventsLoading,
+    isError: isEventsError,
+  } = useGET({
+    url: "/events",
+    queryKey: ["events"],
+    withAuth: false,
+    enabled: true,
+  });
+
+  const formattedDate = useRelativeTime(discussion?.createdAt);
+
   return (
     <Modal onClose={router.back} isOpen={true}>
       <AnimatePresence initial={false} mode="wait">
-      {isLoading || !discussions ? (
-        <DiscussionDetailsLoader discussion={discussions} />
-      ) : (
+        {isDiscussionLoading || !discussion ? (
+          <DiscussionDetailsLoader />
+        ) : (
           <div className="lg:w-3/4 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
-            <button onClick={router.back} className="w-fit absolute top-0 right-1">
+            <button
+              onClick={router.back}
+              className="w-fit absolute top-0 right-1"
+            >
               <svg
                 width="27"
                 height="27"
@@ -71,29 +98,34 @@ export default function DiscussionDetailsModal({ params }: { params: { id: strin
             </button>
             <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
-              <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
-                  <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">{discussions.title}</h3>
-                  <p className="text-sm font-light font-quickSand text-gray-100">{discussions.description}</p>
+                <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
+                  <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">
+                    {discussion.title}
+                  </h3>
+                  <p className="text-sm font-quickSand text-gray-100">
+                    {discussion.content}
+                  </p>
                   <div className="flex items-center justify-start gap-4">
-                    <p className="text-sm font-sora text-gray-100">{discussions.createdAt}</p>
+                    <p className="text-sm font-sora text-gray-100">
+                      {formattedDate}
+                    </p>
                     <p className="text-sm font-light font-sora text-primary flex items-center justify-center gap-1">
-                      <svg className="w-4 aspect-square" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.48627 2.3877C7.55772 2.3877 6.63825 2.57059 5.78038 2.92593C4.92251 3.28127 4.14302 3.80211 3.48644 4.45869C2.1604 5.78473 1.41544 7.58323 1.41544 9.45853C1.40926 11.0913 1.97459 12.6747 3.01345 13.9344L1.59928 15.3485C1.50117 15.448 1.4347 15.5742 1.40828 15.7114C1.38185 15.8486 1.39664 15.9905 1.45079 16.1193C1.50952 16.2465 1.60473 16.3534 1.72432 16.4264C1.84392 16.4994 1.98252 16.5353 2.12252 16.5294H8.48627C10.3616 16.5294 12.1601 15.7844 13.4861 14.4584C14.8121 13.1323 15.5571 11.3338 15.5571 9.45853C15.5571 7.58323 14.8121 5.78473 13.4861 4.45869C12.1601 3.13266 10.3616 2.3877 8.48627 2.3877ZM8.48627 15.1152H3.82659L4.48418 14.4576C4.61587 14.3251 4.68979 14.1459 4.68979 13.9591C4.68979 13.7723 4.61587 13.5931 4.48418 13.4606C3.55831 12.5358 2.98175 11.3185 2.85272 10.0163C2.72369 8.714 3.05017 7.40728 3.77655 6.31874C4.50293 5.2302 5.58425 4.42718 6.8363 4.04649C8.08835 3.66581 9.43366 3.73102 10.643 4.231C11.8524 4.73099 12.851 5.63482 13.4687 6.7885C14.0864 7.94219 14.285 9.27436 14.0306 10.558C13.7762 11.8417 13.0847 12.9975 12.0737 13.8285C11.0627 14.6594 9.79492 15.1142 8.48627 15.1152Z" fill="#65B891"/>
-                        <path d="M8.48627 2.3877C7.55772 2.3877 6.63825 2.57059 5.78038 2.92593C4.92251 3.28127 4.14302 3.80211 3.48644 4.45869C2.1604 5.78473 1.41544 7.58323 1.41544 9.45853C1.40926 11.0913 1.97459 12.6747 3.01345 13.9344L1.59928 15.3485C1.50117 15.448 1.4347 15.5742 1.40828 15.7114C1.38185 15.8486 1.39664 15.9905 1.45079 16.1193C1.50952 16.2465 1.60473 16.3534 1.72432 16.4264C1.84392 16.4994 1.98252 16.5353 2.12252 16.5294H8.48627C10.3616 16.5294 12.1601 15.7844 13.4861 14.4584C14.8121 13.1323 15.5571 11.3338 15.5571 9.45853C15.5571 7.58323 14.8121 5.78473 13.4861 4.45869C12.1601 3.13266 10.3616 2.3877 8.48627 2.3877ZM8.48627 15.1152H3.82659L4.48418 14.4576C4.61587 14.3251 4.68979 14.1459 4.68979 13.9591C4.68979 13.7723 4.61587 13.5931 4.48418 13.4606C3.55831 12.5358 2.98175 11.3185 2.85272 10.0163C2.72369 8.714 3.05017 7.40728 3.77655 6.31874C4.50293 5.2302 5.58425 4.42718 6.8363 4.04649C8.08835 3.66581 9.43366 3.73102 10.643 4.231C11.8524 4.73099 12.851 5.63482 13.4687 6.7885C14.0864 7.94219 14.285 9.27436 14.0306 10.558C13.7762 11.8417 13.0847 12.9975 12.0737 13.8285C11.0627 14.6594 9.79492 15.1142 8.48627 15.1152Z" fill="black" fillOpacity="0.2"/>
-                      </svg>
+                      <Icon name="comment-icon" className="w-4 aspect-square" />
 
-                      <span>{discussions.comments} comments</span></p>
+                      <span>11 comments</span>
+                    </p>
+                    {/* <span>{discussions.comments} comments</span></p> */}
                   </div>
                   <div className="w-full grid grid-cols-8 gap-2">
                     <Image
                       src={
-                        discussions?.image || "../../../../public/images/group-of-girls.png"
+                        discussion?.createdBy.name || "https://placehold.co/400x400?text=Women\nHub"
                       }
                       alt={`discussion post`}
                       width={100}
                       height={100}
                       // layout="responsive"
-                      className="col-span-1 w-full aspect-square rounded-full object-contain"
+                      className="col-span-1 h-full aspect-square rounded-full object-contain"
                     />
                     <input
                       type="text"
@@ -102,55 +134,75 @@ export default function DiscussionDetailsModal({ params }: { params: { id: strin
                       placeholder="Add comment"
                       // value={searchTerm}
                       // onChange={handleSearchInputChange}
-                      className=" col-span-7 py-3 font-quickSand border border-gray-500 bg-primaryWhite rounded-l text-base text-gray-100 focus:outline-btnWarning p-2 "  
-                />
+                      className=" col-span-7 py-3 font-quickSand border border-gray-500 bg-primaryWhite rounded-l text-base text-gray-100 focus:outline-btnWarning p-2 "
+                    />
                   </div>
                   <div className="w-full flex justify-end">
-                    <Button label="Add" variant="primary" size="medium" state="active" fullWidth={false} onClick={() => {}} />
+                    <Button
+                      label="Add"
+                      variant="primary"
+                      size="medium"
+                      state="active"
+                      fullWidth={false}
+                      onClick={() => {}}
+                    />
                   </div>
 
                   <h5 className="font-sora">Comments</h5>
-                  {[1,2,3,4,5,6].map((item) => (
-                    <div key={item} className="w-full grid grid-cols-8 gap-2 p-2">
+                  {[1, 2, 3, 4, 5, 6].map((item) => (
+                    <div
+                      key={item}
+                      className="w-full grid grid-cols-8 gap-2 p-2"
+                    >
                       <Image
                         src={
-                          discussions?.image || "../../../../public/images/group-of-girls.png"
+                          discussion?.image ||
+                          "https://placehold.co/300x300/png"
                         }
                         alt={`discussion post`}
                         width={100}
                         height={100}
                         // layout="responsive"
-                        className="col-span-1 w-full aspect-square rounded-full object-contain"
+                        className="col-span-1 h-full aspect-square rounded-full object-contain"
                       />
                       <div className="col-span-7 flex flex-col gap-1">
-                          <p className="text-xs font-quickSand text-gray-100">{discussions.description}</p>
-                          <div className="w-full flex items-center justify-start gap-4">
-                            <p className="text-xs font-sora text-gray-100">{discussions.createdAt}</p>
-                            <p className="text-sm font-sora text-primary flex items-center justify-center gap-1">
-                              <svg className="w-4 aspect-square" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.48627 2.3877C7.55772 2.3877 6.63825 2.57059 5.78038 2.92593C4.92251 3.28127 4.14302 3.80211 3.48644 4.45869C2.1604 5.78473 1.41544 7.58323 1.41544 9.45853C1.40926 11.0913 1.97459 12.6747 3.01345 13.9344L1.59928 15.3485C1.50117 15.448 1.4347 15.5742 1.40828 15.7114C1.38185 15.8486 1.39664 15.9905 1.45079 16.1193C1.50952 16.2465 1.60473 16.3534 1.72432 16.4264C1.84392 16.4994 1.98252 16.5353 2.12252 16.5294H8.48627C10.3616 16.5294 12.1601 15.7844 13.4861 14.4584C14.8121 13.1323 15.5571 11.3338 15.5571 9.45853C15.5571 7.58323 14.8121 5.78473 13.4861 4.45869C12.1601 3.13266 10.3616 2.3877 8.48627 2.3877ZM8.48627 15.1152H3.82659L4.48418 14.4576C4.61587 14.3251 4.68979 14.1459 4.68979 13.9591C4.68979 13.7723 4.61587 13.5931 4.48418 13.4606C3.55831 12.5358 2.98175 11.3185 2.85272 10.0163C2.72369 8.714 3.05017 7.40728 3.77655 6.31874C4.50293 5.2302 5.58425 4.42718 6.8363 4.04649C8.08835 3.66581 9.43366 3.73102 10.643 4.231C11.8524 4.73099 12.851 5.63482 13.4687 6.7885C14.0864 7.94219 14.285 9.27436 14.0306 10.558C13.7762 11.8417 13.0847 12.9975 12.0737 13.8285C11.0627 14.6594 9.79492 15.1142 8.48627 15.1152Z" fill="#65B891"/>
-                                <path d="M8.48627 2.3877C7.55772 2.3877 6.63825 2.57059 5.78038 2.92593C4.92251 3.28127 4.14302 3.80211 3.48644 4.45869C2.1604 5.78473 1.41544 7.58323 1.41544 9.45853C1.40926 11.0913 1.97459 12.6747 3.01345 13.9344L1.59928 15.3485C1.50117 15.448 1.4347 15.5742 1.40828 15.7114C1.38185 15.8486 1.39664 15.9905 1.45079 16.1193C1.50952 16.2465 1.60473 16.3534 1.72432 16.4264C1.84392 16.4994 1.98252 16.5353 2.12252 16.5294H8.48627C10.3616 16.5294 12.1601 15.7844 13.4861 14.4584C14.8121 13.1323 15.5571 11.3338 15.5571 9.45853C15.5571 7.58323 14.8121 5.78473 13.4861 4.45869C12.1601 3.13266 10.3616 2.3877 8.48627 2.3877ZM8.48627 15.1152H3.82659L4.48418 14.4576C4.61587 14.3251 4.68979 14.1459 4.68979 13.9591C4.68979 13.7723 4.61587 13.5931 4.48418 13.4606C3.55831 12.5358 2.98175 11.3185 2.85272 10.0163C2.72369 8.714 3.05017 7.40728 3.77655 6.31874C4.50293 5.2302 5.58425 4.42718 6.8363 4.04649C8.08835 3.66581 9.43366 3.73102 10.643 4.231C11.8524 4.73099 12.851 5.63482 13.4687 6.7885C14.0864 7.94219 14.285 9.27436 14.0306 10.558C13.7762 11.8417 13.0847 12.9975 12.0737 13.8285C11.0627 14.6594 9.79492 15.1142 8.48627 15.1152Z" fill="black" fillOpacity="0.2"/>
-                              </svg>
+                        <p className="text-xs font-quickSand text-gray-100">
+                          {discussion.title}
+                        </p>
+                        <div className="w-full flex items-center justify-start gap-4">
+                          <p className="text-xs font-sora text-gray-100">
+                            {formattedDate}
+                          </p>
+                          <p className="text-sm font-sora text-primary flex items-center justify-center gap-1">
+                            <Icon
+                              name="comment-icon"
+                              className="w-4 aspect-square"
+                            />
 
-                              <span className="text-xs">{discussions.comments} comments</span></p>
-                          </div>
+                            <span className="text-xs">
+                              {discussions.comments} comments
+                            </span>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   ))}
-              </div>
+                </div>
 
-              <div className="col-span-1 flex flex-col items-start justify-start gap-5">
-                <div className=" flex items-center gap-4">
+                <div className="col-span-1 flex flex-col items-start justify-start gap-5">
+                  <div className=" flex items-center gap-4">
                     <Image
-                      src={discussions.image}
-                      alt={discussions.title}
+                      src={
+                        discussion.image || "https://placehold.co/600x600/png"
+                      }
+                      alt={discussion.title}
                       width={100}
                       height={100}
                       objectFit="cover"
                       className="w-[3rem] aspect-square rounded-full border border-gray-500"
                     />
                     <h5 className="text-gray-200 font-semibold font-sora text-base">
-                      Women in tech
+                      {discussion?.createdBy?.name || "Anonymous"}
                     </h5>
                   </div>
                   <h5 className="font-sora">Share this discussion</h5>
@@ -199,18 +251,33 @@ export default function DiscussionDetailsModal({ params }: { params: { id: strin
                   </div>
                   <h5 className="font-sora">Other discussions</h5>
                   <div>
-                    {db.discussions && isLoading
-                    ? <>Loading...</>
-                    : db.discussions?.map((item: any) => (
-                        <DiscussionCardThumbnail key={item?.id} discussion={item} />
-                      ))}
+                    {isDiscussionsError && <p>Error fetching list</p>}
+
+                    {isDiscussionsLoading ? (
+                      [1, 2, 3, 4, 5, 6].map((item: any) => (
+                        <DiscussionCardLoader key={item?.id} />
+                      ))
+                    ) : !isDiscussionsLoading &&
+                      !isDiscussionsError &&
+                      discussions?.content?.length === 0 ? (
+                      <p className="no-result">No discussions yet</p>
+                    ) : (
+                      <>
+                        {discussions?.content?.map((item: Discussion) => (
+                          <DiscussionCardThumbnail
+                            key={item?.id}
+                            discussion={item}
+                          />
+                        ))}
+                      </>
+                    )}
                   </div>
+                </div>
               </div>
-              </div>
-            </div>         
+            </div>
           </div>
         )}
-        </AnimatePresence>
+      </AnimatePresence>
     </Modal>
-  )
+  );
 }

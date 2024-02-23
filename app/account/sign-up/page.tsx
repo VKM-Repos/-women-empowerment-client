@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TransitionElement, TransitionParent, TransitionStart } from "@/lib/utils/transition";
 import leftLoginImg from "@/public/images/left_login_img.svg"
 import righGb from "@/public/images/right_login_bg.svg"
@@ -13,15 +13,24 @@ import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWom
 import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
 
+let currentOtpIndex = 0
 const Login: React.FC = () => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    name: ''
   })
+  const [otp, setOtp] = useState<string[]>(new Array(6).fill(""))
+  const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0)
+  const [showOtpForm, setShowOtpForm] = useState(false)
+  const [url, setUrl] = useState<string>("")
+  const [counter, setCounter] = useState(59)
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const { login, isAuthenticated, user } = useAppContext()
-  const { mutate, isPending, isError } = usePOST('/login')
+  const { mutate, isPending, isError } = usePOST(`auth/${url}`)
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState)
   }
@@ -34,35 +43,133 @@ const Login: React.FC = () => {
       }
     })
   }
-  const handleLogin = (event: any) => {
+  const handleSignUp = async(event: any) => {
+    setUrl("registration")
     event.preventDefault()
     mutate(formData, {
       onSuccess: (data) => {
-        login(data.user)
-        router.push('/')
+        // login(data.user)
+        setShowOtpForm(true)
+        resetCounter()
       },
-      onError: () => {
-        console.log('On page Error');
+      onError: (err) => {
+        console.log('On page Error', err);
       }
     })
 
   }
+  const handleOtpChange = ({target}: React.ChangeEvent<HTMLInputElement>):void => {
+    const {value} =  target
+    const newOtp: string[] = [...otp]
+    newOtp[currentOtpIndex] = value.substring(value.length -1)
+    !value ? setActiveOtpIndex(currentOtpIndex -1) : setActiveOtpIndex(currentOtpIndex +1) 
+    setOtp(newOtp)
+  }
+  const handleVerifyOtp = async() => {
+    setUrl("email_verification")
+    const userOtp = otp.join('')
+    
+    mutate({email: formData.email, code: userOtp}, {
+      onSuccess:(returnedeData) => {
+          router.push('/account/login')
+      }, onError:(error) =>{
+        console.log(error);
+        
+      }
+    })
+  }
+
+  const handleKeyDown = ({key}: React.KeyboardEvent<HTMLInputElement>, index:number) =>{
+    currentOtpIndex = index
+    if(key === 'Backspace') setActiveOtpIndex(currentOtpIndex -1)
+  }
+
+  const handleResendOtp = () => {
+    // console.log('clicked');
+    setUrl("email_verification_code_request")
+    mutate({email: formData.email}, {
+      onSuccess: () => {
+    setCounter(59)
+      },
+      onError: (error) => {
+        console.log(error);
+        
+      }
+    })
+  }
+  const resetCounter = ()=> {
+    setCounter(59)
+  }
+  const resetOtpForm = ()=> {
+    setOtp(new Array(6).fill(""))
+  }
+  useEffect(()=>{
+    inputRef.current?.focus()
+  }, [activeOtpIndex])
+  useEffect(()=> {
+    const timer:any = counter > 0 && setInterval(()=> setCounter(counter -1), 1000)
+    return () => clearInterval(timer)
+  }, [counter])
   return (
     <TransitionParent>
       <main >
+        {
+          showOtpForm && 
+            <div className="absolute top-[20%] left-0 right-0 ml-auto mr-auto  w-[500px] px-10  z-50  bg-[#F0EBD6] pt-[80px] pb-10 rounded-lg">
+               <div className="flex justify-end mb-5">
+                  <button onClick={()=>{setShowOtpForm(false), resetCounter(), resetOtpForm()}}>
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8487 4.40176C21.3368 4.88991 21.3368 5.68137 20.8487 6.16952L6.84872 20.1695C6.36057 20.6576 5.56911 20.6576 5.08096 20.1695C4.5928 19.6813 4.5928 18.8899 5.08096 18.4017L19.0809 4.40176C19.5691 3.9136 20.3605 3.9136 20.8487 4.40176Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.08096 4.40176C5.56911 3.9136 6.36057 3.9136 6.84872 4.40176L20.8487 18.4017C21.3368 18.8899 21.3368 19.6813 20.8487 20.1695C20.3605 20.6576 19.5691 20.6576 19.0809 20.1695L5.08096 6.16952C4.5928 5.68137 4.5928 4.88991 5.08096 4.40176Z" fill="black"/>
+                    </svg>
+                  </button>
+                </div>
+               <div className="flex flex-col justify-center items-center">
+                
+                  <p className="font-semibold"> Enter Your Verification Code</p>
+                  <p className="text-xs mt-1">We have sent a verification code to <span className="font-semibold">{formData.email}</span></p>
+                  <div className="flex gap-5 items-center mt-8">
+                    {
+                      otp?.map((_, index) => {
+                        return(
+                          <React.Fragment key={index} >
+                          <input 
+                          type="number"
+                          max={1}
+                          maxLength={1}
+                          ref={activeOtpIndex === index ? inputRef : null}
+                          onChange={(e)=>handleOtpChange(e)}
+                          onKeyDown={(e)=>handleKeyDown(e, index)}
+                          value={otp[index]}
+                          className="w-10 h-10 border rounded bg-transparent outline-none text-center border-[#65655E]"/>
+                          {
+                            index === otp.length - 4 ? (<p className="text-lg">-</p>) : null
+                          }
+                          </React.Fragment>
+                        )
 
+                      })
+                    }
+                  </div>
+                  <p className="text-xs mt-5 mb-10">haven’t received the code? {counter > 0 
+                  ? <span className="text-primary text-sm font-semibold">00:{counter}</span> 
+                  : <button className="text-primary underline font-bold" disabled={isPending} onClick={handleResendOtp} >resend here</button>}</p>
+                  <button disabled={otp[5] ==""} onClick={handleVerifyOtp} className={`px-4 py-1 rounded-md text-sm font-light ${otp[5] =="" ? 'bg-gray-500' : 'bg-btnWarning'}  text-white-100`}>Verify</button>
+               </div>
+        </div>
+          
+        }
           {isPending && <LoadingThinkingWomen />}
-          <div className={`h-screen w-screen lg:px-5  ${isPending ? 'bg-black-100 bg-opacity-40' : ''}`}>
+          <div className={`h-screen w-screen lg:px-5  ${(isPending || showOtpForm) ? 'bg-black-100 bg-opacity-40' : ''}`}>
              <button onClick={() => router.push('/')} className="flex gap-2 items-center text-btnWarning font-bold md:text-xl text-sm w-fit absolute lg:top-10 top-2 lg:left-10 left-2">
               <svg className="cursor-pointer"  width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.4997 25.7334L5.69967 16.9334C5.56634 16.8 5.47167 16.6556 5.41567 16.5C5.36056 16.3445 5.33301 16.1778 5.33301 16C5.33301 15.8223 5.36056 15.6556 5.41567 15.5C5.47167 15.3445 5.56634 15.2 5.69967 15.0667L14.4997 6.2667C14.7441 6.02225 15.0494 5.89425 15.4157 5.8827C15.7828 5.87203 16.0997 6.00003 16.3663 6.2667C16.633 6.51114 16.7721 6.81647 16.7837 7.1827C16.7943 7.54981 16.6663 7.8667 16.3997 8.13336L9.86634 14.6667H24.7663C25.1441 14.6667 25.461 14.7943 25.717 15.0494C25.9721 15.3054 26.0997 15.6223 26.0997 16C26.0997 16.3778 25.9721 16.6943 25.717 16.9494C25.461 17.2054 25.1441 17.3334 24.7663 17.3334H9.86634L16.3997 23.8667C16.6441 24.1111 16.7721 24.4223 16.7837 24.8C16.7943 25.1778 16.6663 25.4889 16.3997 25.7334C16.1552 26 15.8441 26.1334 15.4663 26.1334C15.0886 26.1334 14.7663 26 14.4997 25.7334Z" fill="#FF7400" />
               </svg>
-              Womenh Hub
+              Women Hub
             </button>
-
             <div className="flex lg:flex-row flex-col justify-center items-center w-full">
               <div className="lg:w-1/2 w-[80%]">
-                <img src={leftLoginImg.src} alt="Left Login Image" className="lg:fixed lg:top-[10%] mt-[30px] " />
+                <img src={leftLoginImg.src} alt="Left Login Image" className="lg:fixed z-10 lg:top-[10%] mt-[30px] " />
               </div>
               <div className="lg:w-1/2 w-full  flex flex-col items-center lg:px-5  gap-[16px] lg:overflow-auto">
                 <img src={righGb.src} className="fixed -z-10 h-full object-cover hidden lg:block" alt="" />
@@ -78,9 +185,12 @@ const Login: React.FC = () => {
                   Signup
                   </div>
                   <div className="flex w-full flex-col mt-4 px-10 max-md:max-w-full">
-                    <form onSubmit={handleLogin} className="flex flex-col">
+                    <form onSubmit={handleSignUp} className="flex flex-col">
+                    <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5 mb-5">
+                        <input type="text" name="name" value={formData?.name} onChange={handleInputChange} placeholder="Name" className="w-full focus:outline-none" autoComplete="off" required />
+                      </div>
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
-                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Username" className="w-full focus:outline-none" autoComplete="off" required />
+                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Email" className="w-full focus:outline-none" autoComplete="off" required />
                       </div>
 
                       <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start max-md:max-w-full max-md:px-5 mt-5 flex gap-3">
@@ -108,7 +218,7 @@ const Login: React.FC = () => {
                       Continue
                       </button>
                     </form>
-                    <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
+                    {/* <div className="items-stretch self-center flex gap-3.5 mt-5 max-md:justify-center">
                       <div className="bg-neutral-400 self-center w-[115px] shrink-0 h-px my-auto" />
                       <div className="text-neutral-400 text-center text-base font-medium">
                         or
@@ -124,10 +234,10 @@ const Login: React.FC = () => {
                       <button className="text-black text-center text-sm font-medium self-center grow whitespace-nowrap my-auto">
                         Continue with Google
                       </button>
-                    </div>
+                    </div> */}
                     <div  className="text-green-800 text-sm  self-center whitespace-nowrap mt-4">
                       <span className=" text-black">Already have an account? </span>
-                      <Link href="/account/sign-up" className="font-medium underline text-green-800">Login</Link>
+                      <Link href="/account/login" className="font-medium underline text-green-800">Login</Link>
                     </div>
                   </div>
                 </div>

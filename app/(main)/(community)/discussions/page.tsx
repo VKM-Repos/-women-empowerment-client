@@ -14,26 +14,43 @@ import db from "@/data/db.json";
 import DiscussionCardLoader from "./components/DiscussionCardLoader";
 import { useModal } from "@/lib/context/modal-context";
 import CreateDiscussionModal from "./components/CreateDiscussionModal";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { Discussion } from "@/lib/types/discussion.types";
+import EventCardLoader from "../../events/components/EventCardLoader";
+import { Event } from "@/lib/types/events.types";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/lib/context/app-context";
 
 const DiscussionsPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [discussions, setDiscussions] = useState<any>([]);
+  const {isAuthenticated, user} = useAppContext()
   const { showModal } = useModal();
+  const router = useRouter()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      // Simulating API call with a timeout
-      const response = await new Promise<{ data: any[] }>((resolve) =>
-        setTimeout(() => resolve({ data: db.discussions }), 2000)
-      );
+    // fetch lists of discussions
+  const {
+    data: discussions,
+    isLoading: isDiscussionLoading,
+    isError: isDiscussionError,
+  } = useGET({
+    url: "/discussions",
+    queryKey: ["discussions"],
+    withAuth: false,
+    enabled: false,
+  });
 
-      setDiscussions(response.data);
-      setIsLoading(false);
-    };
+   // fetch lists of events
+  const {
+    data: events,
+    isLoading: isEventsLoading,
+    isError: isEventsError,
+  } = useGET({
+    url: "/events",
+    queryKey: ["events"],
+    withAuth: false,
+    enabled: true,
+  });
 
-    fetchData();
-  }, []);
 
   const handleStartDiscussion = () => {
     showModal(<CreateDiscussionModal />);
@@ -42,17 +59,17 @@ const DiscussionsPage = () => {
   return (
     <TransitionParent>
       <section className=" w-screen flex flex-col items-center justify-start">
-        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[22rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-[50]">
-            <div className="pt-4 flex flex-col items-center justify-start gap-5 relative w-full z-[50] font-sora">
-              <p className="text-xl md:text-4xl text-primaryWhite text-left">
+            <span className="pt-4 flex flex-col items-center justify-start gap-5 relative w-full z-[50] font-sora">
+              <h1 className="text-xl md:text-3xl text-primaryWhite text-left">
                 “A girl should not expect special privileges because of her sex
                 but neither should she adjust to prejudice and discrimination.”
-              </p>
-              <p className=" w-full text-xl md:text-4xl text-primaryWhite text-right italic">
+              </h1>
+              <h1 className=" w-full text-xl md:text-3xl text-primaryWhite text-right italic">
                 - Betty Friedan
-              </p>
-            </div>
+              </h1>
+            </span>
             <span className="w-full flex justify-start">
               <Button
                 label="Start a new discussion"
@@ -70,7 +87,7 @@ const DiscussionsPage = () => {
               alt="group"
               width={1000}
               height={1000}
-              className="lg:w-[18rem] w-[8rem] mx-auto aspect-auto rounded-br-xl"
+              className="lg:w-[15rem] w-[7rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
           <Image
@@ -85,21 +102,33 @@ const DiscussionsPage = () => {
           />
         </div>
 
-        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-4 mt-16 pb-[7rem]">
-          <div className="lg:col-span-4 w-full flex flex-col py-4">
-            <h3 className="text-2xl font-semibold font-sora text-primary pb-4 uppercase">
+        <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
+          <div className="lg:col-span-4 w-full flex flex-col py-[5rem]">
+            <h3 className="uppercase text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               Latest Discussions
             </h3>
             {/* Discussion feeds */}
             <section className=" flex flex-col gap-4">
-              {discussions && isLoading
-                ? [1, 2, 3, 4].map((item: any) => (
-                    <DiscussionCardLoader key={item?.id} />
-                  ))
-                : discussions.map((item: any) => (
-                    <DiscussionCard key={item?.id} discussion={item} />
+              {isDiscussionError && <p>Error fetching list</p>}
+
+              {isDiscussionLoading ? (
+                [1, 2, 3, 4, 5, 6].map((item: any) => (
+                  <DiscussionCardLoader key={item?.id} />
+                ))
+              ) : !isDiscussionLoading &&
+                !isDiscussionError &&
+                discussions?.content?.length === 0 ? (
+                           <NoContent
+                            message="No Discussions yet."
+                            buttonText={isAuthenticated ? "Create discussion" : 'Login to create one'}
+                            buttonLink={isAuthenticated ? handleStartDiscussion : () => router.push('/account/login')}
+                        />
+              ) : (
+                <>
+                  {discussions?.content?.map((discussion: Discussion) => (
+                    <DiscussionCard key={discussion?.id} discussion={discussion} comment={'10'} />
                   ))}
-                  <div className="w-fit mx-auto my-8">
+                 <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE MORE DISCUSSIONS"
                         variant="outline"
@@ -107,58 +136,75 @@ const DiscussionsPage = () => {
                         size="normal"
                       />
                     </div>
+                </>
+)}
             </section>
           </div>
 
-          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none pb-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
-            <aside className="w-full py-4 rounded-[1.5rem]">
-              <h3 className="text-2xl font-semibold font-sora pb-4 text-primary uppercase">
-                Events
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+            <aside className="w-full rounded-[1.5rem] ">
+              <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+                EVENTS
               </h3>
-              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] border-t border-gray-500  py-1">
-                {db.events.length === 0 ? null : (
-                  <>
-                    {db.events.map((items: any) => (
-                      <EventCard key={items.id} event={items} />
-                    ))}
-                    <div className="py-4"></div>
-                    <div className="w-fit mx-auto my-8">
-                      <Button
-                        label="SEE MORE EVENTS"
-                        variant="outline"
-                        fullWidth={false}
-                        size="normal"
-                      />
-                    </div>
-                  </>
+
+              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
+                {isEventsError && <p>Error fetching Events</p>}
+                {isEventsLoading ? (
+                  [1, 2, 3, 4].map((event: any, id: number) => (
+                    <EventCardLoader key={id} event={event} />
+                  ))
+                ) : !isEventsLoading &&
+                  !isEventsError &&
+                  events?.content.length === 0 ? (
+                             <NoContent
+                            message="No events yet."
+                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
+                        />
+                ) : (
+                  !isEventsLoading &&
+                  !isEventsError && (
+                    <>
+                      <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                        {Array.isArray(events?.content) &&
+                          events?.content.map((event: Event) => (
+                            <EventCard key={event.id} event={event} />
+                          ))}
+                      </div>
+                      <div className="w-fit mx-auto my-8">
+                        <Button
+                          label="SEE MORE EVENTS"
+                          variant="outline"
+                          fullWidth={false}
+                          size="normal"
+                        />
+                      </div>
+                    </>
+                  )
                 )}
               </section>
             </aside>
-            <aside className="w-full  py-6 rounded-[1.5rem]">
-              <h3 className="text-2xl font-sora font-semibold text-primary pb-4 uppercase">
-                News Center
+
+            <aside className="w-full py-4 rounded-[1.5rem] ">
+              <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+                NEWS CENTER
               </h3>
-              <section className="flex flex-col gap-[0.1rem] border-t border-gray-500 py-1">
-                {db.news.length === 0 ? null : (
-                  <>
-                    {db.news.map((items: any) => (
-                      <NewsCard key={items.id} news={items} />
-                    ))}
-                    <div className="py-4"></div>
-                    <div className="w-fit mx-auto my-8">
-                      <Button
-                        label="MORE FROM NEWS CENTER"
-                        variant="outline"
-                        fullWidth={false}
-                        size="normal"
-                      />
-                    </div>
-                  </>
-                )}
+              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
+                {db.news.map((item) => (
+                  <NewsCard key={item.id} news={item} />
+                ))}
+                <div className="w-fit mx-auto my-8">
+                  <Button
+                    label="MORE FROM NEWS CENTER"
+                    variant="outline"
+                    fullWidth={false}
+                    size="normal"
+                  />
+                </div>
               </section>
             </aside>
           </div>
-        </div>
+        </section>
       </section>
     </TransitionParent>
   );

@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react";
 import doddles from "@/public/images/img_circledoodle.png";
 import womenInPower from "@/public/images/img_womeninpower1.svg";
+import WomenHubProjects from "@/public/images/women-hub-projects.png";
 import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
 import db from "@/data/db.json";
-import { CommunityCard } from "@/components/LandingPage/CommunityCard";
+import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import EventCard from "./(community)/discussions/components/EventCard";
 import Image from "next/image";
-import Icon from "@/components/Common/Icons/Icon";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import NewsCard from "./(community)/discussions/components/NewsCard";
 import Link from "next/link";
@@ -18,10 +18,19 @@ import {
   searchTerms,
 } from "@/lib/utils/constants";
 import Button from "@/components/Common/Button/Button";
+import AnimatedTitle from "@/components/LandingPage/AnimatedTitle";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { Organization } from "@/lib/types/organization.types";
+import { Event } from "@/lib/types/events.types";
+import { OrgCardLoader } from "./organization/components/OrgCardLoader";
+import EventCardLoader from "./events/components/EventCardLoader";
+import SearchForm from "@/components/LandingPage/SearchForm";
+import SearchTerm from "@/components/LandingPage/SearchTerm";
+import { useRouter } from "next/navigation";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useAppContext } from "@/lib/context/app-context";
 
 const LandingPage = () => {
- 
-
   const handleSearch = (
     selectedTerm: string,
     event: React.MouseEvent<HTMLButtonElement>
@@ -29,52 +38,16 @@ const LandingPage = () => {
     event.preventDefault();
     console.log(`Searching for: '${selectedTerm}'`);
   };
-
-  const words = ["Able", "Strong", "Women"];
-
-  const transition = { duration: 1, ease: "easeInOut" };
-
-  const itemVariants = {
-    hidden: {
-      y: 100,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        ...transition,
-        delay: 0.5, 
-      },
-    },
-    exit: {
-      y: 100,
-      opacity: 0,
-      transition,
-    },
-  };
-
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      // Animate out the current word
-      setCurrentWordIndex((prevIndex) => {
-        return (prevIndex + 1) % words.length;
-      });
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-
+  const router = useRouter()
+  const {user, isAuthenticated} = useAppContext()
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const controls = useAnimation();
 
   const handlePrevClick = () => {
-    const newIndex = (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
+    const newIndex =
+      (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
     setActiveIndex(newIndex);
   };
 
@@ -85,11 +58,37 @@ const LandingPage = () => {
 
   useEffect(() => {
     controls.start({ x: `-${activeIndex * 107}%` });
-  }, [activeIndex, controls])
-  
+  }, [activeIndex, controls]);
+
+  // fetch lists of organizations
+  const {
+    data: organizations,
+    isLoading: isOrganizationLoading,
+    isError: isOrganizationError,
+  } = useGET({
+    url: "/organizations",
+    queryKey: ["organizations"],
+    withAuth: false,
+    enabled: true,
+  });
+
+  // fetch lists of events
+  const {
+    data: events,
+    isLoading: isEventsLoading,
+    isError: isEventsError,
+  } = useGET({
+    url: "/events",
+    queryKey: ["events"],
+    withAuth: false,
+    enabled: true,
+  });
+
+  // console.log(events?.content);
 
   return (
-    <TransitionParent>
+    <main className="w-full">
+      <TransitionParent>
       <section className=" w-screen flex flex-col items-center justify-start">
         <div className="z-10 absolute top-5 left-0 block">
           <Image
@@ -102,64 +101,16 @@ const LandingPage = () => {
         </div>
 
         {/* Hero */}
-        <div className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
+        <section className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[2.5rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
-            <h1 className="md:text-[45px] text-[24px] text-center text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
-              Together we are
-              <AnimatePresence mode="wait" initial={false}>
-                <span className="inline-block overflow-hidden">
-                  <motion.span
-                    style={{ display: "inline-block" }}
-                    key={words[currentWordIndex]}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="text-secondary italic px-2"
-                  >
-                    {words[currentWordIndex]}
-                  </motion.span>
-                </span>
-              </AnimatePresence>
-            </h1>
+            <AnimatedTitle title="Together we are" />
             <p className="text-white-100 font-light text-sm md:text-base font-quickSand text-left">
               Discover and learn about women organizations with only one click.
             </p>
-            <div className="w-full mx-auto flex justify-center items-center font-quickSand">
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Search for organization"
-                // value={searchTerm}
-                // onChange={handleSearchInputChange}
-                className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2 "
-              />
-              <button
-                // onClick={(e) => handleSearch(searchTerm, e)}
-                className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md"
-              >
-                <Icon name="img_search" className="" />
-              </button>
-            </div>
-            <div className="hidden lg:flex w-full items-start justify-start space-x-4 font-quickSand">
-              <span className="text-primaryWhite text-sm md:text-base md:whitespace-nowrap">
-                Popular questions:{" "}
-              </span>
-              <span className="flex flex-wrap items-center justify-start gap-1 md:gap-5">
-                {searchTerms.map((term) => (
-                  <button
-                    className="w-fit p-1 px-2 bg-secondaryOffWhite/80  text-xs md:text-sm rounded hover:bg-btnWarning hover:text-primaryWhite transition-colors"
-                    key={term}
-                    onClick={(e) => handleSearch(term, e)}
-                  >
-                    {term}
-                  </button>
-                ))}
-              </span>
-            </div>
+            <SearchForm placeholder="Search for organization"/>
+            <SearchTerm searchTerms={searchTerms} handleSearch={handleSearch} />
           </div>
-          <div className="md:col-span-1 relative lg:absolute bottom-0 right-0 block z-10">
+          <div className="md:col-span-1 relative lg:absolute bottom-0 mt-2 right-0 block z-10">
             <Image
               src={womenInPower}
               alt="group of women"
@@ -168,54 +119,93 @@ const LandingPage = () => {
               className="lg:w-[40rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
-        </div>
+        </section>
 
         {/* Organizations, events and news  */}
-        <div className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-2 relative px-4">
-          <div className="lg:col-span-4 w-full flex flex-col py-4">
-            <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-2.5 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+        <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
+          <div className="lg:col-span-4 w-full flex flex-col py-[5rem]">
+            <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               TOP ORGANIZATIONS
             </h3>
             {/* Organization feeds */}
             <section className=" flex flex-col gap-4">
-              {db.communities.length === 0 ? (
-                <p className="no-result">No Organization found</p>
+              {isOrganizationError && <p>Error fetching Organization</p>}
+
+              {isOrganizationLoading ? (
+                [1, 2, 3, 4, 5, 6].map((item: any) => (
+                  <OrgCardLoader key={item?.id} />
+                ))
+              ) : !isOrganizationLoading &&
+                !isOrganizationError &&
+                organizations?.content?.length === 0 ? (
+                 <NoContent
+                    message="No organization yet."
+                    buttonText={isAuthenticated ? "Add organization" : 'Login to add'}
+                    buttonLink={isAuthenticated ? () => router.push('/organization/create') : ()=> router.push('/account/login')}
+                />
               ) : (
                 <>
-                  {db.communities.map((item: any) => (
-                    <CommunityCard organization={item} key={item.id} />
+                  {organizations?.content?.map((organization: Organization) => (
+                    <OrganizationCard
+                      organization={organization}
+                      key={organization.id}
+                    />
                   ))}
+                  <div className="w-fit mx-auto my-8">
+                    <Button
+                      label="SEE ALL ORGANIZATIONS"
+                      variant="outline"
+                      fullWidth={false}
+                      size="normal"
+                      onClick={() => router.push('organization/all-organizations')}
+                    />
+                  </div>
                 </>
               )}
-              <div className="w-fit mx-auto my-8">
-                      <Button
-                        label="SEE ALL ORGANIZATIONS"
-                        variant="outline"
-                        fullWidth={false}
-                        size="normal"
-                      />
-                    </div>
             </section>
           </div>
 
           <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
-            <aside className="w-full py-4 rounded-[1.5rem] ">
-              <h3 className="text-orange-500 font-sora text-2xl font-bold items-stretch self-stretch justify-center px-5 py-3 border-b-neutral-200 border-b border-solid lg:-mt-[86.5px]">
+            <aside className="w-full rounded-[1.5rem] ">
+              <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 EVENTS
               </h3>
 
               <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
-                {db.events.map((event) => (
-                  <EventCard key={event.id} event={event} />
-                ))}
-                <div className="w-fit mx-auto my-8">
-                      <Button
-                        label="SEE MORE EVENTS"
-                        variant="outline"
-                        fullWidth={false}
-                        size="normal"
-                      />
-                    </div>
+                {isEventsError && <p>Error fetching Events</p>}
+                {isEventsLoading ? (
+                  [1, 2, 3, 4].map((event: any, id: number) => (
+                    <EventCardLoader key={id} event={event} />
+                  ))
+                ) : !isEventsLoading &&
+                  !isEventsError &&
+                  events?.content.length === 0 ? (
+                <NoContent
+                            message="No events yet."
+                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
+                        />
+                ) : (
+                  !isEventsLoading &&
+                  !isEventsError && (
+                    <>
+                      <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                        {Array.isArray(events?.content) &&
+                          events?.content.map((event: Event) => (
+                            <EventCard key={event.id} event={event} />
+                          ))}
+                      </div>
+                      <div className="w-fit mx-auto my-8">
+                        <Button
+                          label="SEE MORE EVENTS"
+                          variant="outline"
+                          fullWidth={false}
+                          size="normal"
+                        />
+                      </div>
+                    </>
+                  )
+                )}
               </section>
             </aside>
 
@@ -228,20 +218,20 @@ const LandingPage = () => {
                   <NewsCard key={item.id} news={item} />
                 ))}
                 <div className="w-fit mx-auto my-8">
-                      <Button
-                        label="MORE FROM NEWS CENTER"
-                        variant="outline"
-                        fullWidth={false}
-                        size="normal"
-                      />
-                    </div>
+                  <Button
+                    label="MORE FROM NEWS CENTER"
+                    variant="outline"
+                    fullWidth={false}
+                    size="normal"
+                  />
+                </div>
               </section>
             </aside>
           </div>
-        </div>
+        </section>
 
         {/* Discussions */}
-        <div className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20  relative">
+        <section className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20 font-quickSand  relative">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Community Discussions
@@ -279,7 +269,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <button className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
+          <button onClick={() => router.push('discussions')} className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10">
             Join Discussion
           </button>
 
@@ -297,10 +287,10 @@ const LandingPage = () => {
               fill="#106840"
             />
           </svg>
-        </div>
+        </section>
 
         {/* Projects */}
-        <div className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20  relative z-2">
+        <section className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20 font-quickSand  relative z-2">
           <div className="w-[90%] mx-auto">
             <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
               Women Hub Projects
@@ -318,15 +308,16 @@ const LandingPage = () => {
               <motion.div
                 key={project.id}
                 animate={controls}
-                transition={{ ease: 'easeInOut', duration: 0.5 }}
-                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 aspect-square w-full md:w-1/2 lg:w-1/3 xl:w-1/3 h-[25rem] lg:h-[30rem] shadow-lg pt-6 px-6 rounded-3xl "
+                transition={{ ease: "easeInOut", duration: 0.5 }}
+                className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 lg:min-w-[360px] min-w-[300px] h-[420px] lg:h-[520px] shadow-lg pt-6 px-6 rounded-3xl "
               >
-                <div className="w-full bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
+                <div className=" bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
                   <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
                   <motion.img
                     loading="lazy"
-                    srcSet={project.image}
-                    className=" aspect-auto object-contain object-center h-[15rem] overflow-hidden max-md:mr-0.5"
+                    // srcSet={project.image}
+                    src={WomenHubProjects.src}
+                    className=" object-contain object-center h-[20rem] overflow-hidden max-md:mr-0.5"
                   />
                   <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">
                     completed
@@ -346,7 +337,10 @@ const LandingPage = () => {
 
           <div className="w-[90%] mx-auto flex items-center justify-between py-4">
             <span className="flex gap-5 items-center justify-center">
-              <button onClick={handlePrevClick} className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
+              <button
+                onClick={handlePrevClick}
+                className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+              >
                 <svg
                   width="32"
                   height="38"
@@ -370,7 +364,10 @@ const LandingPage = () => {
                   />
                 </svg>
               </button>
-              <button onClick={handleNextClick} className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center">
+              <button
+                onClick={handleNextClick}
+                className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+              >
                 <svg
                   width="32"
                   height="32"
@@ -417,7 +414,7 @@ const LandingPage = () => {
               fill="#106840"
             />
           </svg>
-        </div>
+        </section>
 
         {/* How this works */}
         <div className="justify-center items-center bg-[#F9F2FF] self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
@@ -436,8 +433,8 @@ const LandingPage = () => {
                 key={item.id}
                 className="w-full md:w-[37rem] h-[17rem] p-8 grid grid-cols-1 md:grid-cols-5 gap-4 place-content-center rounded-[1rem] overflow-hidden"
               >
-                <div className="w-full md:col-span-3 flex flex-col gap-6 items-center justify-center">
-                  <h3 className="text-lg md:text-2xl font-bold text-center font-sora">
+                <div className="w-full md:col-span-3 flex flex-col gap-2 items-start justify-start text-left">
+                  <h3 className="text-lg md:text-2xl font-bold text-left font-sora">
                     {item.topic}
                   </h3>
                   <h3 className="text-sm md:text-base text-left text-gray-200 font-quickSand">
@@ -468,6 +465,7 @@ const LandingPage = () => {
         </svg>
       </section>
     </TransitionParent>
+    </main>
   );
 };
 

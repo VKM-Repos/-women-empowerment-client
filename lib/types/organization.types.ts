@@ -1,19 +1,31 @@
-export type CreateOrganizationRequest = {
-  OrgName: string;
-  category: string[];
+import { Instant, User } from "./user.types";
+
+export type Organization = {
+  id: number;
+  name: string;
   logo: string;
-  webUrl?: string;
-  facebookUrl?: string;
-  address: AddressFormData;
-  email: string;
-  phone: string;
-  description: string;
-  images: string[];
-};
-
-
-export type AddressFormData = {
+  website: string;
+  facebook: string;
   city: string;
-  postalCode: string;
-  street: string;
-};
+  address: string;
+  email: string;
+  phoneNumber: string;
+  description: string;
+  createdBy: User;
+  images: {
+    id: number;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  createdAt: Instant;
+  updatedAt: Instant;
+}
+
+export interface ApiResponse {
+  content: Organization[];
+  page: number;
+  size: number;
+  numberOfElements: number;
+  totalElements: number;
+}

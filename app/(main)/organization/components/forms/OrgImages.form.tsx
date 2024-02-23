@@ -1,47 +1,69 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { CreateOrganizationRequest } from "@/lib/types/organization.types";
 import { TransitionParent } from "@/lib/utils/transition";
 import Button from "@/components/Common/Button/Button";
 import StepEightImg from "@/public/images/create-8.png";
 import Image from "next/image";
+import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import { motion } from "framer-motion";
 
 interface OrgImagesFormProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSkip: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleNext: () => void;
   handleGoBack: () => void;
+  handleSkip: () => void;
+  isLoading: boolean
 }
 
 const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
-  handleChange,
-  handleSkip,
+  handleNext,
   handleGoBack,
+  handleSkip,
+  isLoading
 }) => {
+  const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateOrganizationRequest>();
+    setValue,
+    watch,
+  } = useForm<{ image: string | null }>(); // Change to FileList type
 
-  
+  // Set default value from the store on initial render
+  useEffect(() => {
+    setValue("image", data.image); // Initialize with an empty FileList
+  }, [data.image, setValue]);
+
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
-  const handleImage = async (e: any) => {
-    const imageFile = e.target.files[0];
-    handleChange;
+
+ const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const imageFile = e.target.files?.[0];
+
+  if (imageFile) {
+    // Update the logo in the store with the URL
+    const imageUrl = URL.createObjectURL(imageFile);
+    setData({ image: imageUrl });
+  }
+};
+
+
+  const removeImage = () => {
+    setData({ image: "" });
+    // setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<CreateOrganizationRequest> = (data) => {
-    // Perform any additional validation or processing if needed
-    console.log(data);
+  const onSubmit: SubmitHandler<{ image: string | null }> = () => {
+    handleNext();
   };
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center p-12">
-        <div className="lg:col-span-2">
+      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
+        <div className="lg:col-span-2 hidden lg:block">
           <Image
             src={StepEightImg}
             alt=""
@@ -51,30 +73,43 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
           />
         </div>
 
-        <div className="lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-[3rem] flex flex-col space-y-6 items-start ">
-          <h1 className="text-primary text-3xl font-bold">Add Images</h1>
-          <p>
+        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
+          <h1 className="text-primary text-3xl font-bold font-sora">
+            Add Images
+          </h1>
+          <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. This serves as an
             identification for your organization and it will be displayed on the
             site
           </p>
-          <form className="w-full" >
+          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
-              {/* <input
-                className="w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                type="file"
-                {...register("images", { required: "This field is required" })}
-                onChange={handleChange}
-              /> */}
-               <div className="w-full focus:outline-none ">
+              <div className="w-full focus:outline-none ">
                 <input
                   ref={inputRef}
                   type="file"
-                  
-                  onChange={handleImage}
+                  onChange={handleImagesChange}
+                  name="image"
                   className="hidden"
+                  accept="image/*"
                 />
-                <div className="flex items-start">
+                <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
+                  {watch("image") && (
+                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
+                      <motion.img
+                        src={watch("image") as string}
+                        alt={`Image Preview`}
+                        className="w-full object-contain"
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                        onClick={() => removeImage()}
+                      >
+                        remove
+                      </button>
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={handleChooseFile}
@@ -103,30 +138,33 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   </button>
                 </div>
               </div>
-              {errors.images && (
+              {errors.image && (
                 <span className="text-error text-xs">
-                  {errors.images.message}
+                  {errors.image.message}
                 </span>
               )}
             </div>
-             <span className="w-full flex gap-10 relative">
+            <span className="w-full flex gap-10 relative">
               <Button
                 label="Go Back"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}
               />
               <Button
                 label="Continue"
-                variant="secondary"
+                variant="primary"
                 fullWidth={false}
                 size="medium"
-                onClick={handleSkip}
+                state={watch("image") ? "active" : "disabled"}
+                disabled={isLoading}
+
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"
                 onClick={handleSkip}
+                disabled={isLoading}
               >
                 Skip
               </button>

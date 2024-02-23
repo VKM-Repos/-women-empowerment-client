@@ -1,5 +1,4 @@
 
-
 export const metadata = {
   title: "events page",
   description: "",

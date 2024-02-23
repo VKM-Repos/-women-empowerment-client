@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import GroupFaces from "@/public/images/group-faces.png";
-import ShootingArrow from "@/public/images/shootingArrow.png";
+
+import WomanStanding from "@/public/images/about-img.png";
 import Vkm from "@/public/images/vkm.png";
 import vhdo from "@/public/images/vhdo.png";
 import Clip from "@/public/images/about-clip-path.png";
@@ -57,7 +58,7 @@ const AboutPage = () => {
           </div>
           <div className="p-0 lg:p-12">
             <Image
-              src={ShootingArrow}
+              src={WomanStanding}
               alt="arrow"
               className="w-full object-contain"
             />

@@ -1,14 +1,26 @@
-"use client";
+'use client'
 import React from "react";
 import { TransitionParent } from "@/lib/utils/transition";
-import db from "@/data/db.json";
 import { CategoryCard } from "./components/CategoryCard";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { Category } from "@/lib/types/category.types";
+import Loading from "../loading";
 
 const CategoryPage = () => {
+
+   const { data: categories, isLoading, isError } = useGET({
+    url: "/categories",
+    queryKey: ["categories"],
+    withAuth: false, 
+    enabled: true,
+  });
+
+  
+
+
   return (
-    <TransitionParent>
-      <section className="w-screen flex flex-col items-center justify-center space-y-[2rem] min-h-screen">
-       
+     <TransitionParent>
+      <section className="w-screen flex flex-col items-center justify-start space-y-[2rem] min-h-screen">
           <h1 className="text-primary text-2xl md:text-4xl lg:text-5xl text-center mt-8 font-semibold font-sora">
             Get Familiar with Women organizations
           </h1>
@@ -16,11 +28,18 @@ const CategoryPage = () => {
             Please select any of the category below to begin
           </p>
 
-          <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem] ">
-            {db.categories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
-            ))}
+          {isLoading && <Loading />}
+
+          {isError && <p>Error fetching categories</p>}
+
+          {!isLoading && !isError && (
+          <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+            {Array.isArray(categories?.content) &&
+              categories?.content.map((category: Category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
           </div>
+        )}
       </section>
     </TransitionParent>
   );

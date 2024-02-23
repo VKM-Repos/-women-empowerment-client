@@ -6,9 +6,13 @@ import orgProfile from '@/public/images/org_profile.svg'
 import orgProfile2 from '@/public/images/org_profile_2.svg'
 import womenInTechProfile from '@/public/images/wtn.svg'
 import Image from 'next/image'
-import { Menu } from '../components/Menu'
+import {Menu} from '@/components/Common/ModalMenu/Menu'
 import Tab from '../components/Tab'
 import { TransitionParent } from '@/lib/utils/transition'
+import Link from 'next/link'
+import { useGET } from '@/lib/hooks/useGET.hook'
+import { useAppContext } from '@/lib/context/app-context'
+
 interface EventTab {
     name: string;
   }
@@ -21,17 +25,17 @@ const tabs: EventTab[] = [
     },
   ];
 export default function OrganizationDetails() {
+    const{user} = useAppContext()
     const [showMenu, setShowMenu] = useState(false)
     const handleSHowMenu = ()=>{
         setShowMenu(prevState => !prevState)
     }
-
       const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
-      
+      const {data:organization, isPending} = useGET({url: `organizations/${user?.organizationId}`, queryKey:['GET_ORGANIZATION_DETAILS'], withAuth: true, enabled: true})
     const ownerMenu = [
         {
             title: 'Manage Organization',
-            link: '/organization/manage', 
+            link: '/organization/manage/dashboard', 
             icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3043 2.75 17.863 2.75C18.421 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.571 21.275 6.113C21.2917 6.65433 21.1083 7.11667 20.725 7.5L19.3 8.925ZM4 21C3.71667 21 3.47933 20.904 3.288 20.712C3.096 20.5207 3 20.2833 3 20V17.175C3 17.0417 3.025 16.9127 3.075 16.788C3.125 16.6627 3.2 16.55 3.3 16.45L13.6 6.15L17.85 10.4L7.55 20.7C7.45 20.8 7.33767 20.875 7.213 20.925C7.08767 20.975 6.95833 21 6.825 21H4ZM14.325 9.675L13.625 8.975L15.025 10.375L14.325 9.675Z" fill="#65655E"/>
             </svg>
@@ -52,9 +56,9 @@ export default function OrganizationDetails() {
             </svg>
             
         }
-]
-console.log(selectedEventType);
-
+    ]
+    console.log(organization);
+    
     return (
         <TransitionParent>
             <section className="bg-white flex flex-col items-stretch mb-[300px]">
@@ -65,8 +69,8 @@ console.log(selectedEventType);
                             <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
                                 <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-opacity-10 max-md:max-w-full max-md:mt-5">
                                     <Image src={orgProfile2} layout='responsive' alt='bg' width={1000} height={1000} className='absolute inset-0' />
-                                    <div className='z-10 flex justify-end pt-10 px-8'>
-                                        <svg onClick={handleSHowMenu} className=' cursor-pointer' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <div onClick={handleSHowMenu} className='z-10  flex justify-end pt-10 px-8'>
+                                        <svg  className=' cursor-pointer' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M13.334 16C13.334 16.7073 13.6149 17.3855 14.115 17.8856C14.6151 18.3857 15.2934 18.6667 16.0007 18.6667C16.7079 18.6667 17.3862 18.3857 17.8863 17.8856C18.3864 17.3855 18.6673 16.7073 18.6673 16C18.6673 15.2928 18.3864 14.6145 17.8863 14.1144C17.3862 13.6143 16.7079 13.3333 16.0007 13.3333C15.2934 13.3333 14.6151 13.6143 14.115 14.1144C13.6149 14.6145 13.334 15.2928 13.334 16ZM13.334 8.00001C13.334 8.70725 13.6149 9.38553 14.115 9.88563C14.6151 10.3857 15.2934 10.6667 16.0007 10.6667C16.7079 10.6667 17.3862 10.3857 17.8863 9.88563C18.3864 9.38553 18.6673 8.70725 18.6673 8.00001C18.6673 7.29277 18.3864 6.61449 17.8863 6.11439C17.3862 5.61429 16.7079 5.33334 16.0007 5.33334C15.2934 5.33334 14.6151 5.61429 14.115 6.11439C13.6149 6.61449 13.334 7.29277 13.334 8.00001ZM13.334 24C13.334 24.7073 13.6149 25.3855 14.115 25.8856C14.6151 26.3857 15.2934 26.6667 16.0007 26.6667C16.7079 26.6667 17.3862 26.3857 17.8863 25.8856C18.3864 25.3855 18.6673 24.7073 18.6673 24C18.6673 23.2928 18.3864 22.6145 17.8863 22.1144C17.3862 21.6143 16.7079 21.3333 16.0007 21.3333C15.2934 21.3333 14.6151 21.6143 14.115 22.1144C13.6149 22.6145 13.334 23.2928 13.334 24Z" fill="white" />
                                         </svg>
                                         <Menu menuItems={ownerMenu} showMenu={showMenu} />
@@ -82,25 +86,20 @@ console.log(selectedEventType);
                                                                 loading="lazy"
                                                                 alt='Profile_picture'
                                                                 src={womenInTechProfile}
-                                                                className="absolute h-full w-full object-cover object-center inset-0 hover:-z-10"
-                                                            />
-                                                            <img
-                                                                loading="lazy"
-                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                                                                className="w-10 h-10 object-contain object-center justify-center items-center overflow-hidden max-w-full my-8"
+                                                                className="absolute h-full w-full object-cover object-center inset-0 "
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
-                                                    <div className="text-white lg:text-3xl font-sora font-bold tracking-wide my-auto max-md:max-w-full max-md:mt-10">
-                                                    Women in Tech
+                                                    <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[80px] max-md:max-w-full max-md:mt-10">
+                                                    {organization?.name}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </span>
-                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[90px] items-end max-md:max-w-full">
+                                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
                                         <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
                                             <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
                                                 Follow us:
@@ -121,25 +120,15 @@ console.log(selectedEventType);
                                                 className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
                                             />
                                         </div>
-                                        <div className="self-stretch flex flex-col mt-7 px-12 items-start max-md:max-w-full max-md:px-5">
+                                        <div className="self-stretch flex flex-col mt-2 px-12 items-start max-md:max-w-full max-md:px-5">
                                             <div className="text-primary font-sora text-2xl tracking-wide whitespace-nowrap">
                                                 About
                                                 <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                                             </div>
                                             <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-5 max-md:max-w-full">
-                                                Women in Tech is the world’s leading organization for
-                                                Inclusion, Diversity & Equity in STEAM. Our community counts
-                                                over 200.000 members across the world with chapters in all 6
-                                                continents. With our Head Office in Paris, we are a Global
-                                                Movement with chapters in 6 continents, counting over
-                                                200.000 members.
-                                                <br />
-                                                <br />
-                                                Our community is represented by persons of all abilities –
-                                                regardless of gender, race, ethnicity, class, age or sexual
-                                                orientation.
+                                            {organization?.description}
                                             </div>
-                                            <div className="font-quickSand self-stretch flex w-[80%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+                                            <div className="font-quickSand self-stretch flex w-[100%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
                                                 <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                                                     <div className="items-center flex grow basis-[0%] flex-col">
                                                         <img
@@ -148,8 +137,7 @@ console.log(selectedEventType);
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
-                                                            Road 17, 1st avenue gwarinpa, <br />
-                                                            FCT, Abuja.
+                                                            {organization?.state} <br/> {organization?.street}
                                                         </div>
                                                     </div>
                                                     <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
@@ -164,7 +152,7 @@ console.log(selectedEventType);
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                            contact@womenintech.org
+                                                            {organization?.email}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,7 +165,7 @@ console.log(selectedEventType);
                                                             className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
                                                         />
                                                         <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                                            +234 90 732 732
+                                                            {organization?.phoneNumber}
                                                         </div>
                                                     </div>
                                                 </div>

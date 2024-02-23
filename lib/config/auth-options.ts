@@ -17,14 +17,14 @@ export const authOptions: AuthOptions = {
         const password = credentials?.password;
 
         try {
-          const response = await publicApi.post<LoginResponse>("/auth/login", {
+          const response = await publicApi.post<LoginResponse>("/auth/token", {
             email,
             password,
           });
-          const  {data}  = response.data;
+          const  data  = response.data;
           console.log(data);
 
-          return { user: data, id: data.userId };
+          return { user: data, id: data.token };
         } catch (e) {
           return null;
         }
@@ -42,7 +42,7 @@ export const authOptions: AuthOptions = {
       return { ...token, ...user };
     },
     session: async ({ token, session }) => {
-      session.user = token.user;
+      // session.user = token.user;
       return session;
     },
   }, 
