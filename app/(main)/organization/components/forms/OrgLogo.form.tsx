@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import StepThreeImg from "@/public/images/create-3.png";
@@ -20,6 +20,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedLogo, setSelectedLogo] = useState(null)
 
   const {
     register,
@@ -27,7 +28,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ logo: string | null }>();
+  } = useForm<{ logo: File | null }>();
 
   // Set default value from the store on initial render
   useEffect(() => {
@@ -39,23 +40,26 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files?.[0];
+    const imageFile: any = e.target.files?.[0];
+ 
 
     if (imageFile) {
       // Update the logo in the store as a string
       const imageUrl = URL.createObjectURL(imageFile);
-      setData({ logo: imageUrl });
+   
+      setData({ logo: imageFile });
+         setSelectedLogo(imageFile)
     }
   };
 
   const removeImage = () => {
     const updatedImages = data.image;
     //  write a fn to delete or pop out the image string
-    setData({ logo: "" });
+    setData({ logo: null });
     // setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<{ logo: string | null }> = () => {
+  const onSubmit: SubmitHandler<{ logo: File | null }> = () => {
     handleNext();
   };
 
@@ -94,8 +98,8 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 <div className="flex items-center gap-4">
                   {watch("logo") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
-                      <motion.img
-                        src={watch("logo") as string}
+                      <Image
+                        src={watch("logo") as any}
                         alt={`logo Preview`}
                         className="w-full object-contain"
                       />
