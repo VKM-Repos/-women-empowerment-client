@@ -12,9 +12,18 @@ import { ProjectCardLoader } from "./components/ProjectCardLoader";
 import FilterDropdown from "@/components/Common/Dropdown/FilterDropdown";
 import Dropdown from "@/components/Common/Dropdown/Dropdown";
 import { Category } from "@/lib/types/category.types";
+import { useModal } from "@/lib/context/modal-context";
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/lib/context/app-context";
+import LoginWarningModal from "@/components/LandingPage/LoginWarningModal";
+import CreateOrgFirstModal from "../events/components/CreateOrgFirstModal";
 
 const ProjectPage = () => {
   const [selectedOption, setSelectedOption] = useState('')
+   const { showModal } = useModal();
+      
+  const router = useRouter()
+  const {isAuthenticated, user} = useAppContext()
   // fetch lists of projects
   const {
     data: projects,
@@ -33,6 +42,17 @@ const ProjectPage = () => {
     withAuth: false, 
     enabled: true,
   });
+
+    const handleCreateProject = () => {
+    if(!isAuthenticated) {
+    showModal(<LoginWarningModal />);
+    } else if (isAuthenticated && user?.role !== 'ADMIN'){
+    showModal(<CreateOrgFirstModal />);
+    } else  { 
+      // router.push('/events/create');
+      window.location.href="/events/create"
+    }
+  };
   return (
     <main className="w-full">
       <TransitionParent>
@@ -69,7 +89,7 @@ const ProjectPage = () => {
               variant="primary"
               fullWidth={false}
               size="normal"
-              // onClick={}
+              onClick={handleCreateProject}
             />
           </div>
         </section>

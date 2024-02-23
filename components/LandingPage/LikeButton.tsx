@@ -2,6 +2,9 @@
 
 import React from "react";
 import { useLikesStore } from "@/lib/store/likes.store";
+import { useModal } from "@/lib/context/modal-context";
+import { useAppContext } from "@/lib/context/app-context";
+import LoginWarningModal from "./LoginWarningModal";
 
 interface LikeButtonProps {
   organizationId: number;
@@ -14,9 +17,14 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId }) => {
   );
   const incrementLikes = useLikesStore((state) => state.incrementLikes);
   const decrementLikes = useLikesStore((state) => state.decrementLikes);
-
+    const { showModal } = useModal();
+    const {isAuthenticated, user} = useAppContext()
   const handleLikeClick = async () => {
-    try {
+
+    if(!isAuthenticated) {
+    showModal(<LoginWarningModal />);
+    }  else  { 
+      try {
       if (isLiked) {
         // await unlikeOrganization(organizationId);
         decrementLikes(organizationId);
@@ -27,6 +35,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId }) => {
     } catch (error) {
       console.error("Error liking/unliking organization:", error);
     }
+    }
+    
   };
 
   return (

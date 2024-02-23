@@ -58,7 +58,7 @@ const Results = () => {
             </span>
           </div>
         </header>
-        <section className="w-full md:w-[65%] mx-auto flex flex-col p-4 gap-4">
+        <section className="w-full md:w-[65%] mx-auto flex flex-col p-4 gap-4 pb-[5rem]">
           {isSearchError && <p>Error fetching search results</p>}
 
           {isSearchLoading ? (

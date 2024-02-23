@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TransitionParent } from "@/lib/utils/transition";
 import Button from "@/components/Common/Button/Button";
@@ -22,6 +22,8 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [imageToView, setImageToView] = useState('');
+
 
   const {
     register,
@@ -46,6 +48,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   if (imageFile) {
     // Update the logo in the store with the URL
     const imageUrl = URL.createObjectURL(imageFile);
+    setImageToView(imageUrl);
     setData({ image: imageFile });
   }
 };
@@ -97,7 +100,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   {watch("image") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
                       <motion.img
-                        src={watch("image") as any}
+                        src={imageToView}
                         alt={`Image Preview`}
                         className="w-full object-contain"
                       />

@@ -20,7 +20,8 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selectedLogo, setSelectedLogo] = useState(null)
+  const [imageToView, setImageToView] = useState('');
+
 
   const {
     register,
@@ -46,9 +47,9 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     if (imageFile) {
       // Update the logo in the store as a string
       const imageUrl = URL.createObjectURL(imageFile);
+      setImageToView(imageUrl)
    
       setData({ logo: imageFile });
-         setSelectedLogo(imageFile)
     }
   };
 
@@ -99,7 +100,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   {watch("logo") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
                       <Image
-                        src={watch("logo") as any}
+                        src={imageToView}
                         alt={`logo Preview`}
                         className="w-full object-contain"
                       />

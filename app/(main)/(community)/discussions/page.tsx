@@ -186,10 +186,10 @@ const DiscussionsPage = () => {
             </aside>
 
             <aside className="w-full py-4 rounded-[1.5rem] ">
-              <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+              <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 NEWS CENTER
               </h3>
-              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
+              {/* <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
                 ))}
@@ -201,7 +201,12 @@ const DiscussionsPage = () => {
                     size="normal"
                   />
                 </div>
-              </section>
+              </section> */}
+               <NoContent
+                    message="No blogs yet."
+                    buttonText={'Visit blog'}
+                    buttonLink={() => router.push('/blog')}
+                />
             </aside>
           </div>
         </section>
