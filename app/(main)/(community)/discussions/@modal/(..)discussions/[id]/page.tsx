@@ -22,9 +22,6 @@ export default function DiscussionDetailsModal({
 }) {
   const router = useRouter();
 
-  // Use the hook to format the ID
-  const formattedId = params.id;
-
   // fetch lists of discussions
   const {
     data: discussions,
@@ -37,11 +34,7 @@ export default function DiscussionDetailsModal({
     enabled: false,
   });
 
-  // Find the category that matches the formatted ID
-  const matchedDiscussion = discussions?.content?.find(
-    (discussion: Discussion) =>
-      formatIdToTitle(discussion.title) === formattedId
-  );
+
 
   // Use the matched category's ID to fetch organizations based on category
   const {
@@ -49,10 +42,10 @@ export default function DiscussionDetailsModal({
     isLoading: isDiscussionLoading,
     isError: isDiscussionError,
   } = useGET({
-    url: `/discussions/${matchedDiscussion?.id}`,
-    queryKey: ["discussion", matchedDiscussion?.id],
+    url: `/discussions/${params?.id}`,
+    queryKey: ["discussion", params?.id],
     withAuth: false,
-    enabled: !!matchedDiscussion?.id,
+    enabled: !!params?.id,
   });
 
   // fetch lists of events
@@ -66,6 +59,25 @@ export default function DiscussionDetailsModal({
     withAuth: false,
     enabled: true,
   });
+
+ const urlToShare = `https://womenhub.org/organization/${params.id}`
+
+   const handleFacebookShare = () => {
+    const shareUrl = encodeURIComponent(urlToShare);
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+    window.open(facebookUrl, "_blank", "width=600,height=400");
+  };
+
+  const handleTwitterShare = () => {
+    const shareText = encodeURIComponent("Check out this awesome link!");
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${urlToShare}`;
+    window.open(twitterUrl, "_blank", "width=600,height=400");
+  };
+
+  const handleLinkedInShare = () => {
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${urlToShare}`;
+    window.open(linkedInUrl, "_blank", "width=600,height=400");
+  };
 
   const formattedDate = useRelativeTime(discussion?.createdAt);
 
@@ -119,9 +131,9 @@ export default function DiscussionDetailsModal({
                   <div className="w-full grid grid-cols-8 gap-2">
                     <Image
                       src={
-                        discussion?.createdBy.name || "https://placehold.co/400x400?text=Women\nHub"
+                        discussion?.createdBy.photoUrl || "https://placehold.co/400x400?text=Women\nHub"
                       }
-                      alt={`discussion post`}
+                      alt={`user`}
                       width={100}
                       height={100}
                       // layout="responsive"
@@ -207,7 +219,7 @@ export default function DiscussionDetailsModal({
                   </div>
                   <h5 className="font-sora">Share this discussion</h5>
                   <div className="flex  items-center justify-center w-auto gap-2 text-primaryWhite">
-                    <Link href="#">
+                    <button onClick={handleFacebookShare}>
                       <svg
                         className="w-8 aspect-square rounded-full bg-info"
                         viewBox="0 0 40 40"
@@ -219,9 +231,9 @@ export default function DiscussionDetailsModal({
                           fill="currentColor"
                         />
                       </svg>
-                    </Link>
+                    </button>
 
-                    <Link href="#">
+                    <button onClick={handleTwitterShare}>
                       <svg
                         className="w-8 aspect-square rounded-full bg-info"
                         viewBox="0 0 40 40"
@@ -233,9 +245,9 @@ export default function DiscussionDetailsModal({
                           fill="currentColor"
                         />
                       </svg>
-                    </Link>
+                    </button>
 
-                    <Link href="#">
+                    <button onClick={handleLinkedInShare}>
                       <svg
                         className="w-8 aspect-square rounded-full bg-info"
                         viewBox="0 0 40 40"
@@ -247,7 +259,7 @@ export default function DiscussionDetailsModal({
                           fill="currentColor"
                         />
                       </svg>
-                    </Link>
+                    </button>
                   </div>
                   <h5 className="font-sora">Other discussions</h5>
                   <div>

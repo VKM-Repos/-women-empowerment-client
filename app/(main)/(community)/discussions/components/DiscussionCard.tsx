@@ -30,11 +30,11 @@ const DiscussionCard: React.FC<{ discussion: Discussion, comment: Comment }> = (
   const formattedDate = useRelativeTime(discussion.createdAt);
 
   return (
-    <Link href={`/discussions/${discussion.id}`} as={`/discussions/${formatIdToTitle(discussion.title)}`} scroll={false} className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75 cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-start" >   
+    <Link href={`/discussions/${discussion.id}`} className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75 cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-start" >   
         <div className="col-span-2 md:col-span-1">
            <Image
           src={
-            discussion?.createdBy.imageUrl || DefaultDiscussionImg
+            discussion?.createdBy.photoUrl || DefaultDiscussionImg
           }
           alt={`discussion post`}
           width={100}
