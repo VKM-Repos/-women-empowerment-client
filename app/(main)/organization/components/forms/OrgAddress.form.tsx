@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Image from "next/image";
 import StepFiveImg from "@/public/images/create-5.png";
-import statesList from "@/lib/utils/nigerian-states";
+import statesList from "@/lib/utils/nigerian-states.json";
 import Button from "@/components/Common/Button/Button";
 import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 

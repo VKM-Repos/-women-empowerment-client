@@ -78,7 +78,7 @@ function CreateProjectPage() {
 
       try {
           console.log('modal');
-          showModal(<SuccessModal title="All Done!" message="Your project has been created!" />);
+          // showModal(<SuccessModal title="All Done!" message="Your project has been created!" />);
         } catch (error) {
           console.error('Error displaying modal:', error);
         }
