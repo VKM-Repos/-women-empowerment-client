@@ -1,7 +1,7 @@
 <svg width="228" height="228" viewBox="0 0 228 228" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g filter="url(#filter0_d_973_2616)">
 <circle cx="114" cy="110" r="106" fill="url(#pattern0)" shape-rendering="crispEdges"/>
-<circle cx="114" cy="110" r="106" fill="black" fill-opacity="0.45" shape-rendering="crispEdges"/>
+<circle cx="114" cy="110" r="106" fill="black" fillOpacity="0.45" shape-rendering="crispEdges"/>
 <circle cx="114" cy="110" r="102" stroke="#F7F7F7" stroke-width="8" shape-rendering="crispEdges"/>
 </g>
 <defs>

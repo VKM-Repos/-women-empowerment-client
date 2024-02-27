@@ -22,7 +22,7 @@ function SuccessModal({ title, message, eventId }: Props) {
   const { resetStore } = useEventFormStore();
   const { mutate, isPending } = usePOST(`events/${eventId}/publish`);
   const handlePublish = () => {
-    // resetStore();
+    resetStore();
     mutate(
       {},
       {

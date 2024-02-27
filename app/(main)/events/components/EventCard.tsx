@@ -6,6 +6,7 @@ import React from "react";
 import { ChevronRightIcon } from "@/components/Common/Icons";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import { Event } from "@/lib/types/events.types";
+import { formatDateTime } from "@/lib/utils/helperFunctions";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
@@ -28,7 +29,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           {event.name}
         </h5>
         <p className="text-gray-300 font-normal font-quickSand text-xs md:text-sm">
-          {event.date}
+          {formatDateTime(event?.startDate)}
         </p>
         <span className="text-xs md:text-sm font-sora text-btnWarning font-medium flex items-center">
           {event.type === "ONLINE" ? (

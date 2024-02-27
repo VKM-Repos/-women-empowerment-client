@@ -54,7 +54,6 @@ function CreateEventPage() {
         formData.append("endDate", data?.eventDetails?.endDate);
         if (data.image) {
           formData.append("image", data.image);
-          console.log(formData, "<<<<<<< m mm m");
         }
 
         const response: any = await axios.post(endpoint, formData, {
@@ -69,6 +68,7 @@ function CreateEventPage() {
           // console.log(response);
           const { id } = response?.data;
           // Handle success
+          resetStore();
           toast.success("event created successfully");
           showModal(
             <SuccessModal

@@ -2,14 +2,16 @@ import { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 
 type EventTabProps = {
-    name: any;
-    selectedEventType: boolean;
-    setSelectedEventType: Dispatch<SetStateAction<string>>
-}
+  name: any;
+  selectedEventType: boolean;
+  setSelectedEventType: Dispatch<SetStateAction<string>>;
+};
 
-export default function EventsTab({name, selectedEventType, setSelectedEventType }: EventTabProps) {
-  console.log(selectedEventType);
-  
+export default function EventsTab({
+  name,
+  selectedEventType,
+  setSelectedEventType,
+}: EventTabProps) {
   return (
     <button
       onClick={() => setSelectedEventType(name)}
@@ -28,6 +30,5 @@ export default function EventsTab({name, selectedEventType, setSelectedEventType
         ></motion.span>
       )}
     </button>
-  )
+  );
 }
-
