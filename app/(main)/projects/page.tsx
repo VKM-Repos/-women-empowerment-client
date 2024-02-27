@@ -17,13 +17,12 @@ import { useRouter } from "next/navigation";
 import { useAppContext } from "@/lib/context/app-context";
 import LoginWarningModal from "@/components/LandingPage/LoginWarningModal";
 import CreateOrgFirstModal from "../events/components/CreateOrgFirstModal";
-
 const ProjectPage = () => {
-  const [selectedOption, setSelectedOption] = useState('')
-   const { showModal } = useModal();
-      
-  const router = useRouter()
-  const {isAuthenticated, user} = useAppContext()
+  const [selectedOption, setSelectedOption] = useState("");
+  const { showModal } = useModal();
+
+  const router = useRouter();
+  const { isAuthenticated, user } = useAppContext();
   // fetch lists of projects
   const {
     data: projects,
@@ -36,21 +35,25 @@ const ProjectPage = () => {
     enabled: true,
   });
 
-   const { data: categories, isLoading, isError } = useGET({
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useGET({
     url: "/categories",
     queryKey: ["categories"],
-    withAuth: false, 
+    withAuth: false,
     enabled: true,
   });
 
-    const handleCreateProject = () => {
-    if(!isAuthenticated) {
-    showModal(<LoginWarningModal />);
-    } else if (isAuthenticated && user?.role !== 'ADMIN'){
-    showModal(<CreateOrgFirstModal />);
-    } else  { 
+  const handleCreateProject = () => {
+    if (!isAuthenticated) {
+      showModal(<LoginWarningModal />);
+    } else if (isAuthenticated && user?.role !== "ADMIN") {
+      showModal(<CreateOrgFirstModal />);
+    } else {
       // router.push('/events/create');
-      window.location.href="/events/create"
+      window.location.href = "/events/create";
     }
   };
   return (
@@ -95,7 +98,9 @@ const ProjectPage = () => {
         </section>
         <section className="w-full md:w-[95%] mx-auto flex justify-center gap-5 md:gap-10 flex-wrap md:gap-y-16 pb-[8rem]">
           <div className="w-full flex items-center justify-between">
-            <span className="text-base md:text-xl text-gray-300 font-semibold font-quickSand">Click below to <br /> Discover Initiatives Making a Difference</span>
+            <span className="text-base md:text-xl text-gray-300 font-semibold font-quickSand">
+              Click below to <br /> Discover Initiatives Making a Difference
+            </span>
             {/* add filter dropdown here */}
             {/* <FilterDropdown>
               <div className="w-full flex flex-col gap-2">
@@ -115,24 +120,21 @@ const ProjectPage = () => {
           </div>
           {isProjectError && <p>Error fetching Projects</p>}
 
-              {isProjectLoading ? (
-                [1, 2, 3, 4, 5,6,7,8].map((item: any) => (
-                  <ProjectCardLoader key={item?.id} />
-                ))
-              ) : !isProjectLoading &&
-                !isProjectError &&
-                projects?.content?.length === 0 ? (
-                <p className="no-result">No projects yet</p>
-              ) : (
-                <>
-                  {projects?.content?.map((project: Project) => (
-                    <ProjectCard
-                      project={project}
-                      key={project.id}
-                    />
-                  ))}
-                </>
-              )}
+          {isProjectLoading ? (
+            [1, 2, 3, 4, 5, 6, 7, 8].map((item: any) => (
+              <ProjectCardLoader key={item?.id} />
+            ))
+          ) : !isProjectLoading &&
+            !isProjectError &&
+            projects?.content?.length === 0 ? (
+            <p className="no-result">No projects yet</p>
+          ) : (
+            <>
+              {projects?.content?.map((project: Project) => (
+                <ProjectCard project={project} key={project.id} />
+              ))}
+            </>
+          )}
         </section>
       </TransitionParent>
     </main>
