@@ -8,6 +8,7 @@ import EventDetailsLoader from "../components/EventDetailsLoader";
 import DefaultImage from "@/public/images/defaultEventsImage.png";
 import { useRouter } from "next/navigation";
 import { useGET } from "@/lib/hooks/useGET.hook";
+import { formatDateTime } from "@/lib/utils/helperFunctions";
 
 export default function EventsDetailsPage({
   params,
@@ -18,7 +19,6 @@ export default function EventsDetailsPage({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const eventId = params?.id?.replace(/\(\.\)/g, "");
-  console.log(eventId);
 
   const { data: event, isPending } = useGET({
     url: `events/${eventId}`,
@@ -57,17 +57,17 @@ export default function EventsDetailsPage({
             </button>
             <div className="w-full mx-auto flex flex-col gap-10 items-center  my-auto px-4 ">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
-                <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5">
-                  <div className=" h-4/5 mx-auto flex items-center justify-center overflow-hidden">
+                <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5 ">
+                  <div className=" h-4/5 mx-auto flex flex-col gap-3 items-center justify-center overflow-hidden">
                     <motion.img
-                      src={DefaultImage.src}
+                      src={event?.image}
                       alt={event?.name}
                       className="md:h-[20rem] h-[15rem] w-full"
                     />
+                    <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
+                      {event.name}
+                    </h3>
                   </div>
-                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                    {event.name}
-                  </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                   <h3 className="font-semibold text-xl  font-sora">Details</h3>
@@ -108,10 +108,10 @@ export default function EventsDetailsPage({
 
                       <span className="flex flex-col gap-1 items-start font-sora">
                         <h5 className="text-gray-200 text-sm">
-                          August 30, 2022 at 10:00 AM - 12:00 PM
+                          {formatDateTime(event?.startDate)}
                         </h5>
                         <h5 className="text-gray-200 text-sm">
-                          September 3, 2022 at 11:00 AM - 1:00PM
+                          {formatDateTime(event?.endDate)}
                         </h5>
                         <button
                           onClick={() => {}}

@@ -1,14 +1,13 @@
 import { Organization } from "./organization.types";
 import { Instant, LocalDate, LocalTime, User } from "./user.types";
 
-
 type EventType = "PHYSICAL" | "ONLINE";
-
 
 export interface Event {
   id: number;
   name: string;
-  date: LocalDate;
+  startDate: LocalDate;
+  endDate: LocalDate;
   time: LocalTime;
   facebook: string;
   email: string;
