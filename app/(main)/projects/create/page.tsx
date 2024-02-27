@@ -74,18 +74,14 @@ function CreateProjectPage() {
       //     }
 
       try {
-        console.log("modal");
-        showModal(
-          <SuccessModal
-            eventId={null}
-            title="All Done!"
-            message="Your project has been created!"
-          />
-        );
-      } catch (error) {
-        console.error("Error displaying modal:", error);
-      }
-    };
+          console.log('modal');
+          // showModal(<SuccessModal title="All Done!" message="Your project has been created!" />);
+        } catch (error) {
+          console.error('Error displaying modal:', error);
+        }
+  };
+
+
 
     const { handleSubmit } = useForm<EventFormStore>();
 

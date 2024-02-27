@@ -8,7 +8,7 @@ export interface User {
   email: string;
   enabled: boolean;
   isEmailVerified: boolean;
-  imageUrl?: string;
+  photoUrl?: string;
   createdAt: Instant;
   updatedAt: Instant;
 }
