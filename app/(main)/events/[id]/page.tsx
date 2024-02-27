@@ -7,6 +7,7 @@ import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import EventDetailsLoader from "../components/EventDetailsLoader";
 import DefaultImage from "@/public/images/defaultEventsImage.png";
 import { useRouter } from "next/navigation";
+import { useGET } from "@/lib/hooks/useGET.hook";
 
 export default function EventsDetailsPage({
   params,
@@ -14,77 +15,58 @@ export default function EventsDetailsPage({
   params: { id: string };
 }) {
   const [events, setEvents] = useState<any | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const eventId = params?.id?.replace(/\(\.\)/g, "");
+  console.log(eventId);
 
-  // Use the hook to format the ID
-  const formattedId = formatIdToTitle(params.id);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        // Simulating an asynchronous API call
-        const response = await new Promise<{ data: any[] }>((resolve) =>
-          setTimeout(() => resolve({ data: db.events }), 1000)
-        );
-
-        // Find the event based on the formatted ID
-        const foundEvent = response.data.find(
-          (event) => formatIdToTitle(event.title).toLowerCase() === formattedId
-        );
-
-        // Set the event and loading state
-        setEvents(foundEvent);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching event:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchEvent();
-  }, [formattedId]);
+  const { data: event, isPending } = useGET({
+    url: `events/${eventId}`,
+    queryKey: ["GET_EVENT_DETAILS_EVENT_DETAILS_PAGE", eventId],
+    withAuth: false,
+    enabled: true,
+  });
+  console.log(event);
 
   return (
     <>
-      {isLoading || !events ? (
+      {isPending ? (
         <EventDetailsLoader events={events} />
       ) : (
         <AnimatePresence initial={false} mode="wait">
           <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
-             <button
-                onClick={router.back}
-                className="w-fit absolute top-0 right-1"
+            <button
+              onClick={router.back}
+              className="w-fit absolute top-0 right-1"
+            >
+              <svg
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  width="27"
-                  height="27"
-                  viewBox="0 0 27 27"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
-                    stroke="black"
-                    strokeWidth="1.58394"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
+                  stroke="black"
+                  strokeWidth="1.58394"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
             <div className="w-full mx-auto flex flex-col gap-10 items-center  my-auto px-4 ">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
                 <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5">
                   <div className=" h-4/5 mx-auto flex items-center justify-center overflow-hidden">
                     <motion.img
                       src={DefaultImage.src}
-                      alt={events.title}
-                    
+                      alt={event?.name}
                       className="md:h-[20rem] h-[15rem] w-full"
                     />
                   </div>
                   <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                    {events.title}
+                    {event.name}
                   </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
@@ -92,8 +74,8 @@ export default function EventsDetailsPage({
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <div className=" flex items-center gap-4">
                       <Image
-                        src={events.image}
-                        alt={events.title}
+                        src={event.image}
+                        alt={event.name}
                         width={100}
                         height={100}
                         objectFit="cover"
@@ -160,16 +142,14 @@ export default function EventsDetailsPage({
                           fill="#106840"
                         />
                       </svg>
-                      <p className="text-sm text-gray-200 font-sora">Online Event</p>
+                      <p className="text-sm text-gray-200 font-sora">
+                        Online Event
+                      </p>
                     </div>
                   </div>
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <p className="text-sm text-gray-200 font-quickSand">
-                      Are you passionate about blogging or looking to dive into
-                      the world of writing? Whether you&apos;re a seasoned
-                      writer or just starting your writing journey, our Writing
-                      Club is the perfect place for you. Join us to reflect on
-                      our blogging experience of this year and get inspiration!
+                      {event?.description}
                     </p>
                   </div>
                 </div>

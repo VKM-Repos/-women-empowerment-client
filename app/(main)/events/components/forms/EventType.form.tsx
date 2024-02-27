@@ -76,8 +76,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
             <select
               className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
               value={selectedOption}
+              {...register("type", {
+                required: "this field is empty",
+              })}
               onChange={(e) => setSelectedOption(e.target.value)}
-              required
+              
             >
               <option value="">Select</option>
               <option value="ONLINE">Online</option>
@@ -128,7 +131,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
             <span className="flex items-start justify-start gap-5">
                 <input
                   className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="date"
+                  type="datetime-local"
                   placeholder="Start Date"
                   {...register("startDate", {
                     required: "this field is empty",
@@ -137,7 +140,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                 />
                 <input
                   className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="date"
+                  type="datetime-local"
                   placeholder="End Date"
                   {...register("endDate", {
                     required: "this field is empty",

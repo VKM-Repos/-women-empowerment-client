@@ -18,7 +18,8 @@ export interface EventFormStore {
       startDate: string;
       endDate: string;
     };
-    image: string;
+    image: File| string;
+    imagePreview: string;
   };
   setStep: (step: number) => void;
   setData: (data: Partial<EventFormStore["data"]>) => void;
@@ -45,6 +46,7 @@ export const useEventFormStore = create<EventFormStore>(
           endDate: "",
         },
         image: "",
+        imagePreview:""
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
@@ -62,6 +64,7 @@ export const useEventFormStore = create<EventFormStore>(
               endDate: "",
             },
             image: "",
+            imagePreview:""
           },
         });
         localStorage.removeItem("EventFormStore");

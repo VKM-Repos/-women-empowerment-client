@@ -1,8 +1,5 @@
-
 import axios, { AxiosInstance, AxiosError } from "axios";
 import { getSession } from "next-auth/react";
-
-
 
 const backendApiURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,8 +13,8 @@ authApi.defaults.headers.common["Content-Type"] = "application/json";
 authApi.interceptors.request.use(async (config) => {
   const session = await getSession();
 
-  const userToken = session?.user?.token // change later
-  // const userToken = '';  
+  const userToken = localStorage.getItem("token"); // change later
+  // const userToken = '';
 
   if (userToken) {
     config.headers["Authorization"] = `Bearer ${userToken}`;
@@ -32,7 +29,6 @@ export const publicApi: AxiosInstance = axios.create({
 });
 
 publicApi.defaults.headers.common["Content-Type"] = "application/json";
-
 
 // Error handling
 export const handleApiError = (error: any) => {
@@ -55,5 +51,3 @@ publicApi.interceptors.response.use(
   (response) => response,
   (error) => handleApiError(error)
 );
-
-
