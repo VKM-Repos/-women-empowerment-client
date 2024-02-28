@@ -74,15 +74,15 @@ export default function EventsDetailsPage({
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <div className=" flex items-center gap-4">
                       <Image
-                        src={event.image}
-                        alt={event.name}
+                        src={event?.organization?.logo}
+                        alt={event?.organization?.name}
                         width={100}
                         height={100}
                         objectFit="cover"
                         className="w-[3rem] aspect-square rounded-full border border-gray-500"
                       />
                       <h5 className="text-gray-200 font-semibold text-base font-quickSand">
-                        Women in tech
+                        {event?.organization?.name}
                       </h5>
                     </div>
                     <div className=" flex items-center gap-4">

@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Event } from "@/lib/types/events.types";
+import { formatDateTime } from "@/lib/utils/helperFunctions";
+import Link from "next/link";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
-    <article className="w-full font-sora grid grid-cols-8 items-center my-1 cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-4 md:gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2">
+    <Link
+      href={`/events/${event.id}`}
+      className="w-full font-sora grid grid-cols-8 items-center my-1 cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-4 md:gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2"
+    >
       <Image
         src={event?.image || "../../../../public/images/group-of-girls.png"}
         alt={`event post`}
@@ -22,10 +27,10 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           {event.organization?.name}
         </p>
         <p className="text-xs text-info">
-          {event.createdAt} ({event.type})
+          {formatDateTime(event.startDate)} ({event.type})
         </p>
       </div>
-    </article>
+    </Link>
   );
 };
 
