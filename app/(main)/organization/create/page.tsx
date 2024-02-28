@@ -58,8 +58,6 @@ function CreateOrganizationPage() {
           })
         );
         console.log(formData);
-
-        // Append additional fields or files as needed
         if (data.logo) {
           formData.append("logo", data.logo);
         }
@@ -77,22 +75,16 @@ function CreateOrganizationPage() {
 
         if (response.status === 200) {
           setIsLoading(false);
-          // Save the organization ID in the state
           setOrgId(response.data.id);
-
-          // Handle success
           toast.success("Organization created successfully");
-          // Redirect or navigate to the next step
           handleNext();
         } else {
           setIsLoading(false);
-          // Handle other response statuses or errors
-          toast.error(`Error creating organization: ${response.data}`);
         }
-      } catch (error) {
+      } catch (error: any) {
         // Handle network or other errors
-        console.error("Error creating organization:", error);
-        toast.error("Error creating organization");
+        toast.error(`Error: ${error.response.data.detail}`);
+        
       } finally {
         setIsLoading(false);
       }

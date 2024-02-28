@@ -77,7 +77,6 @@ export default function CreateDiscussionModal({}: Props) {
       if (response.status === 200) {
         setIsPending(false);
         toast.success("post created successfully");
-        refetch()
         hideModal()
       } else {
         toast.error(`Error creating post: ${response.data}`);
@@ -87,6 +86,9 @@ export default function CreateDiscussionModal({}: Props) {
       // Handle network or other errors
       console.error("Error creating post:", error);
       toast.error("Error creating post", error.message);
+    }
+    finally {
+      refetch()
     }
   }
 
