@@ -36,7 +36,7 @@ const DiscussionsPage = () => {
     url: "/discussions",
     queryKey: ["discussions"],
     withAuth: false,
-    enabled: false,
+    enabled: true,
   });
 
    // fetch lists of events
@@ -128,14 +128,14 @@ const DiscussionsPage = () => {
                   {discussions?.content?.map((discussion: Discussion) => (
                     <DiscussionCard key={discussion?.id} discussion={discussion} comment={'10'} />
                   ))}
-                 <div className="w-fit mx-auto my-8">
+                 {/* <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE MORE DISCUSSIONS"
                         variant="outline"
                         fullWidth={false}
                         size="normal"
                       />
-                    </div>
+                    </div> */}
                 </>
 )}
             </section>
@@ -165,21 +165,21 @@ const DiscussionsPage = () => {
                   !isEventsLoading &&
                   !isEventsError && (
                     <>
-                      <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
-                        {Array.isArray(events?.content) &&
-                          events?.content.map((event: Event) => (
-                            <EventCard key={event.id} event={event} />
-                          ))}
-                      </div>
-                      <div className="w-fit mx-auto my-8">
-                        <Button
-                          label="SEE MORE EVENTS"
-                          variant="outline"
-                          fullWidth={false}
-                          size="normal"
-                        />
-                      </div>
-                    </>
+                        <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
+                          {Array.isArray(events?.content) &&
+                            events?.content.map((event: Event) => (
+                              <EventCard key={event.id} event={event} />
+                            ))}
+                        </div>
+                        <div className="w-fit mx-auto my-8">
+                          <Button
+                            label="SEE MORE EVENTS"
+                            variant="outline"
+                            fullWidth={false}
+                            size="normal"
+                          />
+                        </div>
+                      </>
                   )
                 )}
               </section>

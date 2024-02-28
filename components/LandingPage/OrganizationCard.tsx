@@ -55,9 +55,8 @@ export const OrganizationCard: React.FC<{
 
           <div className="justify-between border-gray-500  flex w-full gap-4 py-2 border-y items-center">
             <div className="items-center flex justify-start gap-4">
-              <LikeButton organizationId={organization.id} />
-              <ShareDropdown urlToShare={urlToShare} />
-              
+              <LikeButton organizationId={organization.id} likesCount={organization.likesCount} />
+              <ShareDropdown urlToShare={urlToShare} />              
             </div>
 
             <button className="flex flex-nowrap items-center gap-1.5 whitespace-nowrap">

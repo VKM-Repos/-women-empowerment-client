@@ -4,16 +4,21 @@ import Modal from "@/components/Common/Modal/Modal";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import Button from "@/components/Common/Button/Button";
-import Link from "next/link";
 import DiscussionCardThumbnail from "../../../components/DiscussionCardThumbnail";
 import DiscussionDetailsLoader from "../../../components/DiscussionDetailsLoader";
 import { useGET } from "@/lib/hooks/useGET.hook";
-import { Discussion } from "@/lib/types/discussion.types";
+import { Comment, Discussion } from "@/lib/types/discussion.types";
 import useRelativeTime from "@/lib/utils/useRelativeTime";
 import Icon from "@/components/Common/Icons/Icon";
 import DiscussionCardLoader from "../../../components/DiscussionCardLoader";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useAppContext } from "@/lib/context/app-context";
+import CommentCard from "../../../components/CommentCard";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function DiscussionDetailsModal({
   params,
@@ -21,6 +26,8 @@ export default function DiscussionDetailsModal({
   params: { id: string };
 }) {
   const router = useRouter();
+  const { isAuthenticated, token } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   // fetch lists of discussions
   const {
@@ -34,9 +41,6 @@ export default function DiscussionDetailsModal({
     enabled: false,
   });
 
-
-
-  // Use the matched category's ID to fetch organizations based on category
   const {
     data: discussion,
     isLoading: isDiscussionLoading,
@@ -48,28 +52,28 @@ export default function DiscussionDetailsModal({
     enabled: !!params?.id,
   });
 
-  // fetch lists of events
   const {
-    data: events,
-    isLoading: isEventsLoading,
-    isError: isEventsError,
+    data: comments,
+    isLoading: isCommentsLoading,
+    isError: isCommentsError,
+    refetch: refetchComments,
   } = useGET({
-    url: "/events",
-    queryKey: ["events"],
+    url: `/discussions/${params?.id}/comments`,
+    queryKey: ["comments", params?.id],
     withAuth: false,
-    enabled: true,
+    enabled: !!params?.id,
   });
 
- const urlToShare = `https://womenhub.org/organization/${params.id}`
+  const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
-   const handleFacebookShare = () => {
+  const handleFacebookShare = () => {
     const shareUrl = encodeURIComponent(urlToShare);
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
     window.open(facebookUrl, "_blank", "width=600,height=400");
   };
 
   const handleTwitterShare = () => {
-    const shareText = encodeURIComponent("Check out this awesome link!");
+    const shareText = encodeURIComponent(`Check out this awesome link - ${discussion.title}`);
     const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${urlToShare}`;
     window.open(twitterUrl, "_blank", "width=600,height=400");
   };
@@ -80,6 +84,49 @@ export default function DiscussionDetailsModal({
   };
 
   const formattedDate = useRelativeTime(discussion?.createdAt);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors, isDirty, isValid },
+  } = useForm<{ content: string }>({
+    defaultValues: {
+      content: "",
+    },
+  });
+
+  const addComment: SubmitHandler<{ content: string }> = async (data) => {
+    setIsLoading(true);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const endpoint = `${apiUrl}/discussions/${params?.id}/comments`;
+
+      const formData = new FormData();
+      formData.append("content", data.content);
+
+      const response: any = await axios.post(endpoint, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        toast.success("comment added!");
+        refetchComments();
+      } else {
+        toast.error(` ${response?.status}`);
+      }
+    } catch (error: any) {
+       toast.error(`Error: ${error.response.data.detail}`);
+    } finally {
+      setIsLoading(false);
+      reset();
+      refetchComments();
+    }
+  };
 
   return (
     <Modal onClose={router.back} isOpen={true}>
@@ -112,10 +159,10 @@ export default function DiscussionDetailsModal({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
                 <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
                   <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">
-                    {discussion.title}
+                    {discussion?.title}
                   </h3>
-                  <p className="text-sm font-quickSand text-gray-100">
-                    {discussion.content}
+                  <p className="text-sm font-quickSand text-gray-200 font-semibold">
+                    {discussion?.content}
                   </p>
                   <div className="flex items-center justify-start gap-4">
                     <p className="text-sm font-sora text-gray-100">
@@ -124,90 +171,89 @@ export default function DiscussionDetailsModal({
                     <p className="text-sm font-light font-sora text-primary flex items-center justify-center gap-1">
                       <Icon name="comment-icon" className="w-4 aspect-square" />
 
-                      <span>11 comments</span>
+                      <span>{comments?.length} {comments?.length <= 1 ? 'comment' : 'comments'}</span>
                     </p>
                     {/* <span>{discussions.comments} comments</span></p> */}
                   </div>
-                  <div className="w-full grid grid-cols-8 gap-2">
-                    <Image
-                      src={
-                        discussion?.createdBy.photoUrl || "https://placehold.co/400x400?text=Women\nHub"
-                      }
-                      alt={`user`}
-                      width={100}
-                      height={100}
-                      // layout="responsive"
-                      className="col-span-1 h-full aspect-square rounded-full object-contain"
-                    />
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      placeholder="Add comment"
-                      // value={searchTerm}
-                      // onChange={handleSearchInputChange}
-                      className=" col-span-7 py-3 font-quickSand border border-gray-500 bg-primaryWhite rounded-l text-base text-gray-100 focus:outline-btnWarning p-2 "
-                    />
-                  </div>
-                  <div className="w-full flex justify-end">
-                    <Button
-                      label="Add"
-                      variant="primary"
-                      size="medium"
-                      state="active"
-                      fullWidth={false}
-                      onClick={() => {}}
-                    />
-                  </div>
-
-                  <h5 className="font-sora">Comments</h5>
-                  {[1, 2, 3, 4, 5, 6].map((item) => (
-                    <div
-                      key={item}
-                      className="w-full grid grid-cols-8 gap-2 p-2"
-                    >
+                  <form
+                    onSubmit={handleSubmit(addComment)}
+                    className="w-full flex flex-col gap-2"
+                  >
+                    <fieldset className="w-full grid grid-cols-8 gap-2">
                       <Image
                         src={
-                          discussion?.image ||
-                          "https://placehold.co/300x300/png"
+                          discussion?.createdBy.photoUrl ? discussion?.createdBy.photoUrl :
+                          "https://placehold.co/400x400/png"
                         }
-                        alt={`discussion post`}
+                        alt={`profile image`}
                         width={100}
                         height={100}
                         // layout="responsive"
                         className="col-span-1 h-full aspect-square rounded-full object-contain"
                       />
-                      <div className="col-span-7 flex flex-col gap-1">
-                        <p className="text-xs font-quickSand text-gray-100">
-                          {discussion.title}
+                      <input
+                        type="text"
+                        id=""
+                        placeholder="Add comment"
+                        {...register("content", {
+                          required: "This field is required",
+                        })}
+                        className=" col-span-7 py-3 font-quickSand border border-gray-500 bg-primaryWhite rounded-l text-base text-gray-100 focus:outline-btnWarning p-2 "
+                      />
+                      {errors?.content?.message && (
+                        <p className="text-error text-sm mt-1">
+                          {errors?.content?.message}
                         </p>
-                        <div className="w-full flex items-center justify-start gap-4">
-                          <p className="text-xs font-sora text-gray-100">
-                            {formattedDate}
-                          </p>
-                          <p className="text-sm font-sora text-primary flex items-center justify-center gap-1">
-                            <Icon
-                              name="comment-icon"
-                              className="w-4 aspect-square"
-                            />
-
-                            <span className="text-xs">
-                              {discussions.comments} comments
-                            </span>
-                          </p>
-                        </div>
-                      </div>
+                      )}
+                    </fieldset>
+                    <div className="w-full flex justify-end">
+                      <Button
+                        label={isLoading ? "Adding..." : "Add"}
+                        variant="primary"
+                        size="medium"
+                        fullWidth={false}
+                        state={isValid ? "active" : "disabled"}
+                        disabled={isLoading}
+                      />
                     </div>
-                  ))}
+                  </form>
+
+                  <h5 className="font-sora">Comments</h5>
+                  {isCommentsError && <p>Error fetching comments</p>}
+
+                  {isCommentsLoading ? (
+                    <>loading...</>
+                  ) : !isCommentsLoading &&
+                    !isCommentsError &&
+                    comments?.length === 0 ? (
+                    <NoContent
+                      message="No Comments yet."
+                      buttonText={
+                        isAuthenticated ? "Add a comment" : "Login to add"
+                      }
+                      buttonLink={
+                        isAuthenticated
+                          ? () => addComment
+                          : () => router.push("/account/login")
+                      }
+                    />
+                  ) : (
+                    <div>
+                      {comments?.map((comment: Comment) => (
+                        <CommentCard key={comment?.id} comment={comment} />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
+                {/*2nd col */}
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                   <div className=" flex items-center gap-4">
                     <Image
                       src={
-                        discussion.image || "https://placehold.co/600x600/png"
+                        discussion?.createdBy.photoUrl ? discussion?.createdBy.photoUrl : "https://placehold.co/600x600/png"
                       }
-                      alt={discussion.title}
+                      alt={discussion?.title}
                       width={100}
                       height={100}
                       objectFit="cover"

@@ -9,6 +9,12 @@ export interface Discussion {
   content: string;
   createdAt: string;
 }
+export interface Comment {
+  id: number;
+  createdBy: User;
+  content: string;
+  createdAt: string;
+}
 
 export interface ApiResponse {
   content: Discussion[];

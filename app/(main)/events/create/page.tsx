@@ -42,7 +42,7 @@ function CreateEventPage() {
       try {
         const { data } = useEventFormStore.getState();
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const endpoint = `${apiUrl}events`;
+        const endpoint = `${apiUrl}/events`;
 
         let formData = new FormData();
         formData.append("title", data?.eventDetails?.title);

@@ -18,6 +18,7 @@ export type Organization = {
     createdAt: string;
     updatedAt: string;
   }[];
+  likesCount: number;
   createdAt: Instant;
   updatedAt: Instant;
 }
