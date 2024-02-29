@@ -34,8 +34,6 @@ export default function DiscussionDetailsModal({
     enabled: false,
   });
 
-
-
   // Use the matched category's ID to fetch organizations based on category
   const {
     data: discussion,
@@ -60,9 +58,9 @@ export default function DiscussionDetailsModal({
     enabled: true,
   });
 
- const urlToShare = `https://womenhub.org/organization/${params.id}`
+  const urlToShare = `https://womenhub.org/organization/${params.id}`;
 
-   const handleFacebookShare = () => {
+  const handleFacebookShare = () => {
     const shareUrl = encodeURIComponent(urlToShare);
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
     window.open(facebookUrl, "_blank", "width=600,height=400");
@@ -102,7 +100,7 @@ export default function DiscussionDetailsModal({
                 <path
                   d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
                   stroke="black"
-                  strokeWidth="1.58394"
+                  stroke-width="1.58394"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -131,7 +129,8 @@ export default function DiscussionDetailsModal({
                   <div className="w-full grid grid-cols-8 gap-2">
                     <Image
                       src={
-                        discussion?.createdBy.photoUrl || "https://placehold.co/400x400?text=Women\nHub"
+                        discussion?.createdBy.photoUrl ||
+                        "https://placehold.co/400x400?text=Women\nHub"
                       }
                       alt={`user`}
                       width={100}
