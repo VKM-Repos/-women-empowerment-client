@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Icon from "@/components/Common/Icons/Icon";
-import Link from "next/link";
-import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import { Discussion } from "@/lib/types/discussion.types";
 import useRelativeTime from "@/lib/utils/useRelativeTime";
 
@@ -27,12 +25,12 @@ const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
 
   return (
     <div className="cursor-pointer" >
-      <article className="w-full my-2 grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.5rem] p-2 items-center">
+      <article onClick={() => window.location.href = `/discussions/${discussion.id}`} className="w-full my-2 grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.5rem] p-2 items-center">
         <Image
           src={
             discussion?.createdBy.photoUrl || "https://placehold.co/200x200/png"
           }
-          alt={`discussion post`}
+          alt={`user profile`}
           width={100}
           height={100}
           // layout="responsive"
