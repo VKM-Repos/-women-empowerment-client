@@ -149,7 +149,7 @@ export default function DiscussionDetailsModal({
                 <path
                   d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
                   stroke="black"
-                  strokeWidth="1.58394"
+                  stroke-width="1.58394"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />

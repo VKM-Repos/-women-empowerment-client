@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -127,7 +127,7 @@ export default function DiscussionDetailsPage({ params }: { params: { id: string
 
   
   return (
-     <AnimatePresence initial={false} mode="wait">
+    <AnimatePresence initial={false} mode="wait">
       {isLoading || !discussions ? (
         <DiscussionDetailsLoader />
       ) : (
@@ -330,9 +330,10 @@ export default function DiscussionDetailsPage({ params }: { params: { id: string
               </div>
             </div>
           </div>
-        )}
-        </AnimatePresence>
-  )
+        </div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 // export async function generateStaticParams() {
