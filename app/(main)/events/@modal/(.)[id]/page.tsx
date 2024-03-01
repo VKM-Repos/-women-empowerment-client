@@ -56,32 +56,32 @@ export default function EventsDetailsModal({
 
 
   return (
-     <Modal onClose={onDismiss} isOpen={true}>
+    <Modal onClose={onDismiss} isOpen={true}>
       {isLoading || !events ? (
-        <EventDetailsLoader events={events} />
+        <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
           <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
-             <button
-                onClick={router.back}
-                className="w-fit absolute top-0 right-1"
+            <button
+              onClick={router.back}
+              className="w-fit absolute top-0 right-1"
+            >
+              <svg
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  width="27"
-                  height="27"
-                  viewBox="0 0 27 27"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
-                    stroke="black"
-                    strokeWidth="1.58394"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
+                  stroke="black"
+                  strokeWidth="1.58394"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
             <div className="w-full mx-auto flex flex-col gap-10 items-center h-[85vh] md:h-[70vh] my-auto px-4  overflow-y-scroll">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
                 <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5">
@@ -141,7 +141,7 @@ export default function EventsDetailsModal({
                           September 3, 2022 at 11:00 AM - 1:00PM
                         </h5>
                         <button
-                          onClick={() => {}}
+                          onClick={() => { }}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender

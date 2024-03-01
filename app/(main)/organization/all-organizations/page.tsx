@@ -28,7 +28,7 @@ interface PaginatedResponseOrganization {
 }
 
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 5;
 
 
 const AllOrganizationsPage = () => {
@@ -62,14 +62,14 @@ const AllOrganizationsPage = () => {
     queryFn: ({ pageParam }: any) => fetchOrganizationsPage(pageParam),
     initialPageParam: '0',  // Convert the initial page number to string
     getNextPageParam: (lastPage) => (lastPage.nextCursor ? lastPage.nextCursor.toString() : undefined),  // Convert the nextCursor to string
-    maxPages: undefined, // Set your desired maximum number of pages
+    maxPages: 50, // Set your desired maximum number of pages
   });
 
   console.log('result>>>>>>', result);
 
 
   const organizations = result.data?.pages.flatMap((page) => page.content) || [];
-  // const pageCount = result.data ? result.data.pages[result.data?.pages?.length - 1]?.totalPages : 0;
+  const pageCount = result.data ? result.data.pages[result.data?.pages?.length - 1]?.totalElements : 0;
 
   return (
     <main className="w-full">
@@ -113,7 +113,7 @@ const AllOrganizationsPage = () => {
                   fetchMore={() => fetchNextPage()}
                   canPreviousPage={pageIndex > 0}
                   canNextPage={hasNextPage}
-                  pageCount={result.data?.pages[0].totalElements || 0}
+                  pageCount={pageCount}
                   pageIndex={pageIndex}
                   isFetchingNextPage={isFetchingNextPage}
                 />
