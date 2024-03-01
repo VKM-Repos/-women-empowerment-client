@@ -6,53 +6,49 @@ import {
   StateStorage,
 } from "zustand/middleware";
 
-export interface OrganizationFormStore {
+export interface ProjectFormStore {
   step: number;
   data: {
-    organizationDetails: {
-      name: string;
+    projectDetails: {
       categoryIds: number[];
-      website: string;
-      facebook: string;
-      state: string;
-      postalCode: string;
-      street: string;
-      email: string;
-      phoneNumber: string;
+      title: string;
+      location: string;
+      link: string;
       description: string;
+      status: string;
+      startDate: string;
+      endDate: string;
     };
-    logo: string ;
-    image: string ; 
+    image: File| string;
+    imagePreview: string;
   };
   setStep: (step: number) => void;
-  setData: (data: Partial<OrganizationFormStore["data"]>) => void;
+  setData: (data: Partial<ProjectFormStore["data"]>) => void;
   resetStore: () => void;
 }
 
 type MyPersist = (
-  config: StateCreator<OrganizationFormStore>,
-  options: PersistOptions<OrganizationFormStore>
-) => StateCreator<OrganizationFormStore>;
+  config: StateCreator<ProjectFormStore>,
+  options: PersistOptions<ProjectFormStore>
+) => StateCreator<ProjectFormStore>;
 
-export const useOrganizationFormStore = create<OrganizationFormStore>(
+export const useProjectFormStore = create<ProjectFormStore>(
   (persist as MyPersist)(
     (set) => ({
       step: 1,
       data: {
-        organizationDetails: {
-          name: "",
+         projectDetails: {
           categoryIds: [],
-          website: "",
-          facebook: "",
-          state: "",
-          postalCode: "",
-          street: "",
-          email: "",
-          phoneNumber: "",
+          title: "",
+          location: "",
+          link: "",
           description: "",
+          status: "",
+          startDate: "",
+          endDate: "",
         },
-        logo: '',
-        image: '',
+        image: "",
+        imagePreview: "",
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
@@ -60,29 +56,26 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
         set({
           step: 9,
           data: {
-            organizationDetails: {
-              name: "",
-              categoryIds: [],
-              website: "",
-              facebook: "",
-              state: "",
-              postalCode: "",
-              street: "",
-              email: "",
-              phoneNumber: "",
-              description: "",
-            },
-            logo: '',
-            image: '',
+                projectDetails: {
+                categoryIds: [],
+                title: "",
+                location: "",
+                link: "",
+                description: "",
+                status: "",
+                startDate: "",
+                endDate: "",
+              },
+              image: "",
+              imagePreview: "",
           },
         });
-        localStorage.removeItem("organizationFormStore");
+        localStorage.removeItem("ProjectFormStore");
       },
     }),
     {
-      name: "organizationFormStore",
+      name: "ProjectFormStore",
       getStorage: () => localStorage as StateStorage,
     }
   )
 );
-

@@ -28,7 +28,7 @@ export default function CategoryDetailsPage({
 }) {
   const formattedId = params.id;
   const router = useRouter()
-  const {user, isAuthenticated} = useAppContext()
+  const { user, isAuthenticated } = useAppContext()
 
   // Use the useGET hook to fetch categories
   const { data: categories, isLoading: areCategoriesLoading } = useGET({
@@ -76,7 +76,7 @@ export default function CategoryDetailsPage({
             <h1 className="md:text-[45px] text-[29px] text-center text-primaryWhite font-sora font-semibold">
               {matchedCategory?.name}
             </h1>
-            <SearchForm placeholder={`Search for organizations under ${matchedCategory?.name}`}/>
+            <SearchForm placeholder={`Search for organizations under ${matchedCategory?.name}`} />
           </div>
           <div className="md:col-span-1 absolute bottom-0 md:right-0 right-1/4 block z-1">
             <motion.img
@@ -90,7 +90,7 @@ export default function CategoryDetailsPage({
 
         {/* Organizations, events and news  */}
         <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
-          <div className="lg:col-span-4 w-full flex flex-col py-[5rem]">
+          <div className="lg:col-span-4 w-full flex flex-col py-[2rem]">
             <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               Top organizations in {matchedCategory?.name}
             </h3>
@@ -105,10 +105,10 @@ export default function CategoryDetailsPage({
               ) : !isOrganizationsLoading &&
                 !isOrganizationsError &&
                 organizations?.content?.length === 0 ? (
-                  <NoContent
-                    message="No organization yet."
-                    buttonText={isAuthenticated ? "Add organization" : 'Login to add'}
-                    buttonLink={isAuthenticated ? () => router.push('/organization/create') : ()=> router.push('/account/login')}
+                <NoContent
+                  message="No organization yet."
+                  buttonText={isAuthenticated ? "Add organization" : 'Login to add'}
+                  buttonLink={isAuthenticated ? () => router.push('/organization/create') : () => router.push('/account/login')}
                 />
               ) : (
                 <>
@@ -124,7 +124,7 @@ export default function CategoryDetailsPage({
                       variant="outline"
                       fullWidth={false}
                       size="normal"
-                       onClick={() => router.push('/organization/all-organizations')}
+                      onClick={() => router.push('/organization/all-organizations')}
                     />
                   </div>
                 </>
@@ -147,16 +147,22 @@ export default function CategoryDetailsPage({
                 ) : !isEventsLoading &&
                   !isEventsError &&
                   events?.content.length === 0 ? (
-                       <NoContent
-                            message="No events yet."
-                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
-                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
-                        />
+                  <NoContent
+                    message="No events yet."
+                    buttonText={
+                      isAuthenticated ? "Add events" : "Login to add"
+                    }
+                    buttonLink={
+                      isAuthenticated
+                        ? () => router.push("/events/create")
+                        : () => router.push("/account/login")
+                    }
+                  />
                 ) : (
                   !isEventsLoading &&
                   !isEventsError && (
                     <>
-                      <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                      <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
                         {Array.isArray(events?.content) &&
                           events?.content.map((event: Event) => (
                             <EventCard key={event.id} event={event} />
@@ -168,6 +174,7 @@ export default function CategoryDetailsPage({
                           variant="outline"
                           fullWidth={false}
                           size="normal"
+                          onClick={() => router.push('/events')}
                         />
                       </div>
                     </>
@@ -177,9 +184,9 @@ export default function CategoryDetailsPage({
             </aside>
 
             <aside className="w-full py-4 rounded-[1.5rem] ">
-              <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
-                NEWS CENTER
-              </h3>
+              {/* <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+                  NEWS CENTER
+                </h3> */}
               {/* <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
@@ -193,11 +200,11 @@ export default function CategoryDetailsPage({
                   />
                 </div>
               </section> */}
-              <NoContent
-                    message="No blogs yet."
-                    buttonText={'Visit blog'}
-                    buttonLink={() => router.push('/blog')}
-                />
+              {/* <NoContent
+                  message="No blogs yet."
+                  buttonText={"Visit blog"}
+                  buttonLink={() => router.push("/blog")}
+                /> */}
             </aside>
           </div>
         </section>

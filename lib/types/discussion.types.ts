@@ -7,6 +7,7 @@ export interface Discussion {
   category: Category;
   title: string;
   content: string;
+  commentsCount: number;
   createdAt: string;
 }
 export interface Comment {

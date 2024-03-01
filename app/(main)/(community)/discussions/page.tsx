@@ -23,11 +23,11 @@ import { useRouter } from "next/navigation";
 import { useAppContext } from "@/lib/context/app-context";
 
 const DiscussionsPage = () => {
-  const {isAuthenticated, user} = useAppContext()
+  const { isAuthenticated, user } = useAppContext()
   const { showModal } = useModal();
   const router = useRouter()
 
-    // fetch lists of discussions
+  // fetch lists of discussions
   const {
     data: discussions,
     isLoading: isDiscussionLoading,
@@ -39,7 +39,7 @@ const DiscussionsPage = () => {
     enabled: true,
   });
 
-   // fetch lists of events
+  // fetch lists of events
   const {
     data: events,
     isLoading: isEventsLoading,
@@ -102,7 +102,7 @@ const DiscussionsPage = () => {
           />
         </div>
 
-        <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
+        <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4 pb-[5rem]">
           <div className="lg:col-span-4 w-full flex flex-col py-[5rem]">
             <h3 className="uppercase text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
               Latest Discussions
@@ -118,17 +118,17 @@ const DiscussionsPage = () => {
               ) : !isDiscussionLoading &&
                 !isDiscussionError &&
                 discussions?.content?.length === 0 ? (
-                           <NoContent
-                            message="No Discussions yet."
-                            buttonText={isAuthenticated ? "Create discussion" : 'Login to create one'}
-                            buttonLink={isAuthenticated ? handleStartDiscussion : () => router.push('/account/login')}
-                        />
+                <NoContent
+                  message="No Discussions yet."
+                  buttonText={isAuthenticated ? "Create discussion" : 'Login to create one'}
+                  buttonLink={isAuthenticated ? handleStartDiscussion : () => router.push('/account/login')}
+                />
               ) : (
                 <>
                   {discussions?.content?.map((discussion: Discussion) => (
-                    <DiscussionCard key={discussion?.id} discussion={discussion} comment={'10'} />
+                    <DiscussionCard key={discussion?.id} discussion={discussion} />
                   ))}
-                 {/* <div className="w-fit mx-auto my-8">
+                  {/* <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE MORE DISCUSSIONS"
                         variant="outline"
@@ -137,7 +137,7 @@ const DiscussionsPage = () => {
                       />
                     </div> */}
                 </>
-)}
+              )}
             </section>
           </div>
 
@@ -156,30 +156,30 @@ const DiscussionsPage = () => {
                 ) : !isEventsLoading &&
                   !isEventsError &&
                   events?.content.length === 0 ? (
-                             <NoContent
-                            message="No events yet."
-                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
-                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
-                        />
+                  <NoContent
+                    message="No events yet."
+                    buttonText={isAuthenticated ? "Add events" : 'Login to add'}
+                    buttonLink={isAuthenticated ? () => router.push('/events/create') : () => router.push('/account/login')}
+                  />
                 ) : (
                   !isEventsLoading &&
                   !isEventsError && (
                     <>
-                        <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
-                          {Array.isArray(events?.content) &&
-                            events?.content.map((event: Event) => (
-                              <EventCard key={event.id} event={event} />
-                            ))}
-                        </div>
-                        <div className="w-fit mx-auto my-8">
-                          <Button
-                            label="SEE MORE EVENTS"
-                            variant="outline"
-                            fullWidth={false}
-                            size="normal"
-                          />
-                        </div>
-                      </>
+                      <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
+                        {Array.isArray(events?.content) &&
+                          events?.content.map((event: Event) => (
+                            <EventCard key={event.id} event={event} />
+                          ))}
+                      </div>
+                      <div className="w-fit mx-auto my-8">
+                        <Button
+                          label="SEE MORE EVENTS"
+                          variant="outline"
+                          fullWidth={false}
+                          size="normal"
+                        />
+                      </div>
+                    </>
                   )
                 )}
               </section>
@@ -202,11 +202,11 @@ const DiscussionsPage = () => {
                   />
                 </div>
               </section> */}
-               <NoContent
-                    message="No blogs yet."
-                    buttonText={'Visit blog'}
-                    buttonLink={() => router.push('/blog')}
-                />
+              <NoContent
+                message="No blogs yet."
+                buttonText={'Visit blog'}
+                buttonLink={() => router.push('/blog')}
+              />
             </aside>
           </div>
         </section>

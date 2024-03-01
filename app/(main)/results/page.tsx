@@ -8,28 +8,69 @@ import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import { Organization } from "@/lib/types/organization.types";
 import Pagination from "@/components/Common/Pagination/Pagination";
 import { OrgCardLoader } from "../organization/components/OrgCardLoader";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import NoSearchResults from "@/components/EmptyStates/NoSearchResults";
 import Link from "next/link";
+import { useAppContext } from "@/lib/context/app-context";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import NoContent from "@/components/EmptyStates/NoContent";
+
+
+interface PaginatedResponseOrganization {
+  content: Organization[];
+  page: number;
+  size: number;
+  numberOfElements: number;
+  totalElements: number;
+  totalPages?: number; // Add this property if it exists
+  nextCursor?: string | null; // Add this property if it exists
+}
+
+
+const PAGE_SIZE = 10;
+
 
 const Results = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const [pageIndex, setPageIndex] = useState(1);
-  const pageCount = 10;
+  const router = useRouter();
+  const { user, isAuthenticated } = useAppContext();
 
-  // fetch lists of organizations
+  const [pageIndex, setPageIndex] = useState(0);
+
+  const searchOrganizationsPage = async (page: number): Promise<PaginatedResponseOrganization> => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations?page=${page}&size=${PAGE_SIZE}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch organizations');
+      }
+
+      const data: PaginatedResponseOrganization = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error searching organizations:', error);
+      throw error;
+    }
+  };
+
   const {
-    data: organizations,
-    isLoading: isOrganizationLoading,
-    isError: isOrganizationError,
-  } = useGET({
-    url: "/organizations",
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    ...result
+  } = useInfiniteQuery<PaginatedResponseOrganization, Error>({
     queryKey: ["organizations"],
-    withAuth: false,
-    enabled: true,
+    queryFn: ({ pageParam }: any) => searchOrganizationsPage(pageParam),
+    initialPageParam: '0',  // Convert the initial page number to string
+    getNextPageParam: (lastPage) => (lastPage.nextCursor ? lastPage.nextCursor.toString() : undefined),  // Convert the nextCursor to string
+    maxPages: 50, // Set your desired maximum number of pages
   });
+
+
+
+  const organizations = result.data?.pages.flatMap((page) => page.content) || [];
+  const pageCount = result.data ? result.data.pages[result.data?.pages?.length - 1]?.totalElements : 0;
 
   // useGET hook for fetching search results
   const {
@@ -72,65 +113,70 @@ const Results = () => {
           ) : (
             <>
               {searchResults?.content?.map((organization: Organization) => (
-                    <OrganizationCard
-                      organization={organization}
-                      key={organization.id}
-                    />
-                  ))}
+                <OrganizationCard
+                  organization={organization}
+                  key={organization.id}
+                />
+              ))}
               {/* ... (pagination for search results) */}
             </>
           )}
         </section>
         {!isSearchLoading &&
-        !isSearchError &&
-        searchResults?.content?.length === 0 ? (
+          !isSearchError &&
+          searchResults?.content?.length === 0 ? (
           <>
             <section className="w-full md:w-[65%] mx-auto flex flex-col md:p-12 p-4 gap-y-[2rem]">
-                <div>
-                    <span className="flex gap-10 items-center justify-start text-base font-sora text-gray-300">
-                        <p>Search for : </p>
-                        <span className="flex gap-5">
-                            <Link href="/results?name=tech" className="hover:text-btnWarning underline">
-                                Tech
-                            </Link>
-                            <Link href="/results?name=gender%20equity" className="hover:text-btnWarning underline">
-                                gender equity
-                            </Link>
-                            <Link href="/results?name=sensitization" className="hover:text-btnWarning underline">
-                                Sensitization
-                            </Link>
-                            <Link href="/results?name=feminism" className="hover:text-btnWarning underline">
-                                Feminism
-                            </Link>
-                         </span>
-                    </span>
-                </div>
-              {isOrganizationError && <p>Error fetching Organization</p>}
+              <div>
+                <span className="flex gap-10 items-center justify-start text-base font-sora text-gray-300">
+                  <p>Search for : </p>
+                  <span className="flex gap-5">
+                    <Link href="/results?name=tech" className="hover:text-btnWarning underline">
+                      Tech
+                    </Link>
+                    <Link href="/results?name=gender%20equity" className="hover:text-btnWarning underline">
+                      gender equity
+                    </Link>
+                    <Link href="/results?name=sensitization" className="hover:text-btnWarning underline">
+                      Sensitization
+                    </Link>
+                    <Link href="/results?name=feminism" className="hover:text-btnWarning underline">
+                      Feminism
+                    </Link>
+                  </span>
+                </span>
+              </div>
+              {result.isError && <p>Error fetching Organization</p>}
 
-              {isOrganizationLoading ? (
-                [1, 2, 3, 4, 5, 6].map((item: any) => (
-                  <OrgCardLoader key={item?.id} />
-                ))
-              ) : !isOrganizationLoading &&
-                !isOrganizationError &&
-                organizations?.content?.length === 0 ? (
-                <p className="no-result">No Organizations yet</p>
+              {result.isError && <p>Error fetching Organization</p>}
+
+              {result.isLoading ? (
+                [1, 2, 3, 4, 5, 6].map((item: any) => <OrgCardLoader key={item?.id} />)
+              ) : !result.isLoading && !result.isError && organizations.length === 0 ? (
+                <NoContent
+                  message="No organization yet."
+                  buttonText={
+                    isAuthenticated ? "Add organization" : "Login to add"
+                  }
+                  buttonLink={
+                    isAuthenticated
+                      ? () => router.push("/organization/create")
+                      : () => router.push("/account/login")
+                  }
+                />
               ) : (
                 <>
-                <h2 className="font-bold text-lg md:text-3xl uppercase my-2 text-btnWarning">Top Organizations</h2>
-                  {organizations?.content?.map((organization: Organization) => (
-                    <OrganizationCard
-                      organization={organization}
-                      key={organization.id}
-                    />
+                  {organizations.map((organization: Organization) => (
+                    <OrganizationCard organization={organization} key={organization.id} />
                   ))}
                   <div className="flex gap-3 flex-wrap p-6 py-12">
                     <Pagination
-                      gotoPage={setPageIndex}
+                      fetchMore={() => fetchNextPage()}
                       canPreviousPage={pageIndex > 0}
-                      canNextPage={pageIndex < pageCount - 1}
+                      canNextPage={hasNextPage}
                       pageCount={pageCount}
                       pageIndex={pageIndex}
+                      isFetchingNextPage={isFetchingNextPage}
                     />
                   </div>
                 </>

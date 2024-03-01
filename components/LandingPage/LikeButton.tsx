@@ -12,88 +12,94 @@ interface LikeButtonProps {
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) => {
-const {token, isAuthenticated } = useAppContext() 
+  const { token, isAuthenticated, user } = useAppContext()
 
-    const { showModal } = useModal();
+  const { showModal } = useModal();
 
-   const { data: organization, isPending, refetch } = useGET({
+  const { data: organization, isPending, refetch } = useGET({
     url: `organizations/${organizationId}`,
     queryKey: ["GET_ORGANIZATION_DETAILS"],
     withAuth: true,
     enabled: true,
   });
-  const isLiked = false
+  const { data: isLiked, refetch: refetchIsLiked } = useGET({
+    url: `organizations/${organizationId}/like-check`,
+    queryKey: ["LIKES_COUNT"],
+    withAuth: true,
+    enabled: true,
+  });
 
   const handleLikeClick = async () => {
-    if(!isAuthenticated) {
-    showModal(<LoginWarningModal />);
-    }  else  { 
+    if (!isAuthenticated) {
+      showModal(<LoginWarningModal />);
+    } else {
       try {
-      if (isLiked) {
-        await unlikeOrganization(organizationId);
+        if (user && isLiked.message) {
+          await unlikeOrganization(organizationId);
+          refetchIsLiked()
 
-      } else {
-        await likeOrganization(organizationId);
+        } else {
+          await likeOrganization(organizationId);
+          refetchIsLiked()
 
+        }
+
+      } catch (error) {
+        console.error("Error liking/unliking organization:", error);
       }
-        
-    } catch (error) {
-      console.error("Error liking/unliking organization:", error);
     }
-    }
-    
+
   };
 
 
 
- const likeOrganization = async (id: number) => {
+  const likeOrganization = async (id: number) => {
 
-  if (!isAuthenticated) {
-    throw new Error("User is not authenticated");
-  }
-
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+    if (!isAuthenticated) {
+      throw new Error("User is not authenticated");
     }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to like organization");
-  }
-  refetch()
-  return response.json();
-};
-
- const unlikeOrganization = async (id: number) => {
-  if (!isAuthenticated) {
-    throw new Error("User is not authenticated");
-  }
 
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to like organization");
     }
-  );
+    refetch()
+    return response.json();
+  };
 
-  if (!response.ok) {
-    throw new Error("Failed to unlike organization");
-  }
-  refetch()
-  return response.json();
-};
+  const unlikeOrganization = async (id: number) => {
+    if (!isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to unlike organization");
+    }
+    refetch()
+    return response.json();
+  };
 
   return (
     <button onClick={handleLikeClick}>
@@ -101,7 +107,7 @@ const {token, isAuthenticated } = useAppContext()
         <svg
           className="w-5 aspect-square cursor-pointer"
           viewBox="0 0 25 24"
-          fill={isLiked ? "red" : "none"}
+          fill={isLiked?.message ? "red" : "none"}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -112,7 +118,7 @@ const {token, isAuthenticated } = useAppContext()
         </svg>
 
         <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-          {likesCount <= 0 ? '0' : organization?.likesCount}
+          {organization?.likesCount <= 0 ? '0' : organization?.likesCount}
         </p>
       </span>
     </button>

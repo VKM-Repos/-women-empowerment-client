@@ -1,10 +1,9 @@
 import React from "react";
 
 type Props = {
-  events: any;
 };
 
-export default function EventDetailsLoader({ events }: Props) {
+export default function EventDetailsLoader({ }: Props) {
   return (
     <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
       <button className="w-fit absolute top-0 right-1">

@@ -56,7 +56,7 @@ export default function EventsDetailsModal({
   return (
     <Modal onClose={onDismiss} isOpen={true}>
       {isLoading || !events ? (
-        <EventDetailsLoader events={events} />
+        <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
           <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
@@ -139,7 +139,7 @@ export default function EventsDetailsModal({
                           September 3, 2022 at 11:00 AM - 1:00PM
                         </h5>
                         <button
-                          onClick={() => {}}
+                          onClick={() => { }}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender
