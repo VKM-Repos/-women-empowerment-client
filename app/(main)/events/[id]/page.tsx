@@ -34,10 +34,10 @@ export default function EventsDetailsPage({
         <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
+          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative mb-[200px]">
             <button
               onClick={router.back}
-              className="w-fit absolute top-0 right-1"
+              className="w-fit absolute top-0 right-1 m-4"
             >
               <svg
                 width="27"
@@ -49,7 +49,7 @@ export default function EventsDetailsPage({
                 <path
                   d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
                   stroke="black"
-                  strokeWidth="1.58394"
+                  stroke-width="1.58394"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -64,10 +64,10 @@ export default function EventsDetailsPage({
                       alt={event?.name}
                       className="md:h-[20rem] h-[15rem] w-full"
                     />
-                    <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                      {event.name}
-                    </h3>
                   </div>
+                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
+                    {event.name}
+                  </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                   <h3 className="font-semibold text-xl  font-sora">Details</h3>
@@ -97,12 +97,12 @@ export default function EventsDetailsPage({
                         <path
                           d="M11.7377 21.3094C16.8406 21.3094 20.9774 17.1727 20.9774 12.0698C20.9774 6.96682 16.8406 2.83008 11.7377 2.83008C6.63479 2.83008 2.49805 6.96682 2.49805 12.0698C2.49805 17.1727 6.63479 21.3094 11.7377 21.3094Z"
                           stroke="#106840"
-                          strokeWidth="1.18796"
+                          stroke-width="1.18796"
                         />
                         <path
                           d="M11.7383 7.44971V12.0695L14.0482 14.3795"
                           stroke="#106840"
-                          strokeWidth="1.18796"
+                          stroke-width="1.18796"
                         />
                       </svg>
 
@@ -133,7 +133,7 @@ export default function EventsDetailsPage({
                         <path
                           d="M2.49805 13.6769V6.28516H10.8138C12.8549 6.28516 14.5096 7.93985 14.5096 9.98102V17.3728H6.19392C4.15274 17.3728 2.49805 15.718 2.49805 13.6769Z"
                           stroke="#106840"
-                          strokeWidth="1.18796"
+                          stroke-width="1.18796"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
@@ -169,21 +169,21 @@ export default function EventsDetailsPage({
                     <path
                       d="M6.45508 4.74748L9.62297 1.57959L12.7909 4.74748"
                       stroke="#106840"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M12.7918 7.91553H14.3757C14.5858 7.91553 14.7872 7.99897 14.9357 8.14749C15.0842 8.29601 15.1677 8.49746 15.1677 8.7075V15.8352C15.1677 16.0453 15.0842 16.2467 14.9357 16.3953C14.7872 16.5438 14.5858 16.6272 14.3757 16.6272H4.87205C4.66201 16.6272 4.46056 16.5438 4.31204 16.3953C4.16352 16.2467 4.08008 16.0453 4.08008 15.8352V8.7075C4.08008 8.49746 4.16352 8.29601 4.31204 8.14749C4.46056 7.99897 4.66201 7.91553 4.87205 7.91553H6.45599"
                       stroke="#106840"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M9.62305 1.57959V11.8752"
                       stroke="#106840"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
@@ -202,21 +202,21 @@ export default function EventsDetailsPage({
                     <path
                       d="M17.2916 9.50031V15.8361C17.2916 16.0461 17.2082 16.2476 17.0597 16.3961C16.9111 16.5446 16.7097 16.6281 16.4997 16.6281H3.8281C3.61806 16.6281 3.41662 16.5446 3.2681 16.3961C3.11957 16.2476 3.03613 16.0461 3.03613 15.8361V3.16453C3.03613 2.95449 3.11957 2.75305 3.2681 2.60452C3.41662 2.456 3.61806 2.37256 3.8281 2.37256H10.1639"
                       stroke="white"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M13.332 2.37256H16.8484C16.966 2.37256 17.0788 2.41928 17.162 2.50246C17.2452 2.58563 17.2919 2.69844 17.2919 2.81606V6.33242"
                       stroke="white"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M17.1651 2.49902L10.1641 9.50005"
                       stroke="white"
-                      strokeWidth="0.791972"
+                      stroke-width="0.791972"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
