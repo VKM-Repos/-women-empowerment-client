@@ -217,12 +217,14 @@ const LandingPage = () => {
                             ))}
                         </div>
                         <div className="w-fit mx-auto my-8">
-                          <Button
-                            label="SEE MORE EVENTS"
-                            variant="outline"
-                            fullWidth={false}
-                            size="normal"
-                          />
+                          <Link href={"/events"}>
+                            <Button
+                              label="SEE MORE EVENTS"
+                              variant="outline"
+                              fullWidth={false}
+                              size="normal"
+                            />
+                          </Link>
                         </div>
                       </>
                     )
