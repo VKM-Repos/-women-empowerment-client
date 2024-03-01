@@ -34,7 +34,7 @@ export default function EventsDetailsPage({
         <EventDetailsLoader events={events} />
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
+          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative mb-[200px]">
             <button
               onClick={router.back}
               className="w-fit absolute top-0 right-1 m-4"
@@ -64,10 +64,10 @@ export default function EventsDetailsPage({
                       alt={event?.name}
                       className="md:h-[20rem] h-[15rem] w-full"
                     />
-                    <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                      {event.name}
-                    </h3>
                   </div>
+                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
+                    {event.name}
+                  </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                   <h3 className="font-semibold text-xl  font-sora">Details</h3>
