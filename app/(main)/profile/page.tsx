@@ -159,7 +159,7 @@ export default function ProfilePage() {
                 events?.content.length === 0 && <p>No Events yet</p>}
 
               {!isEventsLoading && !isEventsError && (
-                <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap  pb-[8rem]">
                   {Array.isArray(events?.content) &&
                     events?.content.map((event: Event) => (
                       <EventCard key={event.id} event={event} />
