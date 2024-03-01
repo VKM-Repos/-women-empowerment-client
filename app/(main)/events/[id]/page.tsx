@@ -31,7 +31,7 @@ export default function EventsDetailsPage({
   return (
     <>
       {isPending ? (
-        <EventDetailsLoader events={events} />
+        <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
           <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative">
@@ -114,7 +114,7 @@ export default function EventsDetailsPage({
                           {formatDateTime(event?.endDate)}
                         </h5>
                         <button
-                          onClick={() => {}}
+                          onClick={() => { }}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender

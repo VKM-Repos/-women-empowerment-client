@@ -52,8 +52,7 @@ const ProjectPage = () => {
     } else if (isAuthenticated && user?.role !== "ADMIN") {
       showModal(<CreateOrgFirstModal />);
     } else {
-      // router.push('/events/create');
-      window.location.href = "/events/create";
+      window.location.href = "/projects/create";
     }
   };
   return (

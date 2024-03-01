@@ -4,12 +4,10 @@ import doddles from "@/public/images/img_circledoodle.png";
 import womenInPower from "@/public/images/img_womeninpower1.svg";
 import WomenHubProjects from "@/public/images/women-hub-projects.png";
 import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
-import db from "@/data/db.json";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import EventCard from "./(community)/discussions/components/EventCard";
 import Image from "next/image";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import NewsCard from "./(community)/discussions/components/NewsCard";
 import Link from "next/link";
 import {
   communityDiscussionTopics,
@@ -121,7 +119,7 @@ const LandingPage = () => {
                 alt="group of women"
                 width={100}
                 height={100}
-                className="lg:w-[40rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
+                className="lg:w-[30rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
               />
             </div>
           </section>
@@ -222,6 +220,7 @@ const LandingPage = () => {
                             variant="outline"
                             fullWidth={false}
                             size="normal"
+                            onClick={() => router.push("/events")}
                           />
                         </div>
                       </>
@@ -231,9 +230,9 @@ const LandingPage = () => {
               </aside>
 
               <aside className="w-full py-4 rounded-[1.5rem] ">
-                <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
+                {/* <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                   NEWS CENTER
-                </h3>
+                </h3> */}
                 {/* <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
                 {db.news.map((item) => (
                   <NewsCard key={item.id} news={item} />
@@ -247,11 +246,11 @@ const LandingPage = () => {
                   />
                 </div>
               </section> */}
-                <NoContent
+                {/* <NoContent
                   message="No blogs yet."
                   buttonText={"Visit blog"}
                   buttonLink={() => router.push("/blog")}
-                />
+                /> */}
               </aside>
             </div>
           </section>

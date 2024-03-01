@@ -103,10 +103,9 @@ export const howItWorks = [
 ];
 
 
-export  const searchTerms = [
-    "Technology",
-    "Gender Equity",
-    "Sensitization",
-    "Feminism",
-    "How to add an organization",
-  ];
+export const searchTerms = [
+  "Technology",
+  "Gender Equity",
+  "Sensitization",
+  "Feminism",
+];
