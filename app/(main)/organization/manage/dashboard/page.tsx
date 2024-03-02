@@ -135,12 +135,9 @@ export default function OrganizationDetails() {
     setContentType("multipart/form-data");
     let formData = new FormData();
     formData.append("logo", selectedFile);
-    console.log(selectedFile);
 
     mutate(formData, {
-      onSuccess: () => {
-        console.log("logo updated");
-      },
+      onSuccess: () => {},
       onError: (error) => {
         console.log(error);
       },
