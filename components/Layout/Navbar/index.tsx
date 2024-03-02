@@ -64,7 +64,7 @@ const Navbar = () => {
           </svg>
         ),
         text: "Profile",
-        href: "/profile",
+        href: `/profile/${user?.userId}`,
       },
       {
         type: "link",
