@@ -26,6 +26,7 @@ export default function Events() {
     withAuth: true,
     enabled: true,
   });
+  console.log(events, "<<<<<<");
 
   useEffect(() => {
     setFetchCount(fetchCount + 1);

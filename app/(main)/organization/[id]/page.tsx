@@ -19,6 +19,8 @@ import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWom
 
 import threeDot from "@/public/icons/three_dots.svg";
 import { formatDateTime } from "@/lib/utils/helperFunctions";
+import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
+import { LocationIcon } from "@/components/Common/Icons/Location.icon";
 
 interface EventTab {
   name: string;
@@ -237,7 +239,7 @@ export default function OrganizationDetails({
                         </div>
                       </span>
                       <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
-                        <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
+                        {/* <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
                           <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
                             Follow us:
                           </div>
@@ -256,7 +258,7 @@ export default function OrganizationDetails({
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b8ba7a75a4769ac3c7bd1c9fa32e3c4284005ef2934d6ae315caff2253fa819?apiKey=12cdcbacd64a44978db653c66e993585&"
                             className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
                           />
-                        </div>
+                        </div> */}
                         <div className="self-stretch flex flex-col mt-2 px-12 items-start max-md:max-w-full max-md:px-5">
                           <div className="text-primary font-sora text-2xl tracking-wide whitespace-nowrap">
                             About
@@ -331,16 +333,18 @@ export default function OrganizationDetails({
                           Latest images
                           <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                         </div>
-                        <div className="items-stretch self-stretch overflow-x-auto flex justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:justify-center max-md:mt-10">
+                        <div className="grid grid-cols-4 gap-5 mt-10">
                           {organization?.images?.length > 0 ? (
-                            organization?.images?.map((image: any) => (
-                              <img
-                                key={image}
-                                loading="lazy"
-                                srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                className="aspect-[1.2] object-contain object-center w-full items-center overflow-hidden grow basis-[0%]"
-                              />
-                            ))
+                            organization?.images?.map(
+                              (image: any, index: number) => (
+                                <img
+                                  key={image?.id}
+                                  loading="lazy"
+                                  srcSet={image?.url}
+                                  className=" aspect-square object-cover rounded-xl"
+                                />
+                              )
+                            )
                           ) : (
                             <div>
                               <h3>No Images added yet</h3>
@@ -375,11 +379,20 @@ export default function OrganizationDetails({
                                   </span>
                                 </div>
                                 <div className="items-center flex gap-5 mt-2.5">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                                    className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
-                                  />
+                                  <span className="text-xs md:text-sm font-sora text-btnWarning font-medium flex items-center">
+                                    {event.type === "ONLINE" ? (
+                                      <>
+                                        <CameraIcon className="w-6 aspect-square" />{" "}
+                                        &nbsp; {event.type} &nbsp;
+                                      </>
+                                    ) : event.type === "PHYSICAL" ? (
+                                      <>
+                                        {" "}
+                                        <LocationIcon className="w-6 aspect-square" />{" "}
+                                        &nbsp; {event.location}
+                                      </>
+                                    ) : null}{" "}
+                                  </span>
                                   <div className="text-orange-500 text-sm my-auto font-quickSand">
                                     {event?.type} By {organization?.name}
                                   </div>

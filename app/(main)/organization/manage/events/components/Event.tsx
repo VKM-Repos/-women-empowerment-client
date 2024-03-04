@@ -14,6 +14,7 @@ type EventCardProps = {
     };
     startDate: string;
     location: string;
+    type: string;
   };
   eventStatus: string;
 };
@@ -176,7 +177,12 @@ export default function Event({ event, eventStatus }: EventCardProps) {
             {event?.organization?.name}
           </p>
           <p className="text-xs text-info font-medium">
-            {formatDateTime(event?.startDate)} <span>({event?.location})</span>{" "}
+            {formatDateTime(event?.startDate)}{" "}
+            {event?.type == "ONLINE" ? (
+              <span>(ONLINE)</span>
+            ) : (
+              <span>({event?.location})</span>
+            )}
           </p>
         </div>
       </div>
