@@ -44,15 +44,15 @@ const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
             &nbsp;
             {discussion.content.length > 100 && (
               // <span className="text-info text-xs">See more</span>
-               <span className="text-xs font-medium text-gray-200">
-              - {discussion.createdBy.name || 'Anonymous'}
-            </span>
+              <span className="text-xs font-medium text-gray-200">
+                - {discussion.createdBy.name || 'Anonymous'}
+              </span>
             )}
           </p>
           <span className="w-full flex items-center justify-between text-xs font-sora">
             <span>{formattedDate}</span>
             <span className="text-primary flex space-x-2">
-              <Icon name="comment-icon" className="w-4 aspect-square" /> <p>10 comments</p>
+              <Icon name="comment-icon" className="w-4 aspect-square" /> <p>{discussion.commentsCount} comments</p>
             </span>
           </span>
         </div>

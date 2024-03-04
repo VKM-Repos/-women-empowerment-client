@@ -74,7 +74,7 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({ handleNext, handleGoB
                             onChange={(e) => setSelectedOption(e.target.value)}
 
                         >
-                            <option value="">Select</option>
+                            <option value="">Select status</option>
                             <option value="UPCOMING">Upcoming</option>
                             <option value="ONGOING">Ongoing</option>
                             <option value="COMPLETED">Completed</option>

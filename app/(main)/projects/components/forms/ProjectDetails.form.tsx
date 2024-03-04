@@ -89,7 +89,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
                         <input
                             className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                             type="url"
-                            placeholder="URL link"
+                            placeholder="Project link"
                             {...register("link", {
                                 required: "this field is empty",
                             })}

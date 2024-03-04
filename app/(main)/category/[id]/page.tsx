@@ -92,11 +92,11 @@ export default function CategoryDetailsPage({
         <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
           <div className="lg:col-span-4 w-full flex flex-col py-[2rem]">
             <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
-              Top organizations in {matchedCategory?.name}
+              Organizations in {matchedCategory?.name}
             </h3>
             {/* Organization feeds */}
             <section className=" flex flex-col gap-4">
-              {isOrganizationsError && <p>Error fetching Organization</p>}
+              {isOrganizationsError && <p>Error fetching Organizations</p>}
 
               {isOrganizationsLoading ? (
                 [1, 2, 3, 4, 5, 6].map((item: any) => (
@@ -118,7 +118,7 @@ export default function CategoryDetailsPage({
                       key={organization.id}
                     />
                   ))}
-                  <div className="w-fit mx-auto my-8">
+                  <div className="w-fit mx-auto my-4">
                     <Button
                       label="SEE ALL ORGANIZATIONS"
                       variant="outline"
@@ -132,7 +132,7 @@ export default function CategoryDetailsPage({
             </section>
           </div>
 
-          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[2rem] relative lg:sticky top-0 lg:h-[110vh] h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 EVENTS

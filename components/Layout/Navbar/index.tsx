@@ -332,7 +332,7 @@ const Navbar = () => {
               <MenuItem link="/events" subLinks={null} text="events" />
               <MenuItem link="#" subLinks={null} text="community" />
               <MenuItem link="/projects" subLinks={null} text="projects" />
-              <MenuItem link="/blog" subLinks={null} text="blog" />
+              {/* <MenuItem link="/blog" subLinks={null} text="blog" /> */}
             </div>
             <div className="absolute bottom-0 text-sm">
               <p>© Copyright 2022. VHDO</p>
@@ -360,7 +360,7 @@ const Navbar = () => {
               <Link
                 href="/account/login"
                 className="flex items-center gap-2 px-4 py-2 text-light"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <Image
                   width={0.5}

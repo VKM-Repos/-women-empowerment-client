@@ -22,17 +22,17 @@ const CommentCard: React.FC<{
         className="col-span-1 h-full aspect-square rounded-full object-contain"
       />
       <div className="col-span-7 flex flex-col items-start justify-center gap-1">
-        <p className="text-sm font-sora text-gray-200">
+        <p className="text-sm font-sora text-gray-100">
           {comment.content}
         </p>
         <div className="w-full flex items-center justify-start gap-4 font-semibold">
-          <p className="text-xs font-quickSand text-gray-300">
+          <p className="text-xs font-quickSand text-gray-400">
             {formattedDate}
           </p>
-          <button className="text-sm font-sora text-primary flex items-center justify-center gap-1">
+          {/* <button className="text-sm font-sora text-primary flex items-center justify-center gap-1">
             <Icon name="comment-icon" className="w-4 aspect-square" />
             <span className="text-xs">reply</span>
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

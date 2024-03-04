@@ -34,7 +34,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
       showModal(<LoginWarningModal />);
     } else {
       try {
-        if (user && isLiked.message) {
+        if (isLiked.message) {
           await unlikeOrganization(organizationId);
           refetchIsLiked()
 

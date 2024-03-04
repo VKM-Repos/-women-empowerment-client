@@ -39,8 +39,8 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
     const [displayedCategories, setDisplayedCategories] = useState(6);
 
     const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
-        if (!formData.categoryIds || formData.categoryIds.length < 1) {
-            toast.error('Select a category');
+        if (!formData.categoryIds || formData.categoryIds.length < 2) {
+            toast.error('Select at least 2 categories');
             return;
         }
 

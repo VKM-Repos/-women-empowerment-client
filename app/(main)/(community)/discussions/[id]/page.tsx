@@ -131,10 +131,10 @@ export default function DiscussionDetailsPage({
 
   return (
     <AnimatePresence initial={false} mode="wait">
-      {isLoading || !discussions ? (
+      {isDiscussionLoading || !discussions ? (
         <DiscussionDetailsLoader />
       ) : (
-        <div className="lg:w-3/4 w-full mx-auto py-4 pt-8 rounded-[1rem] relative font-sora">
+        <div className="lg:w-3/4 w-full mx-auto my-[2rem]  pb-[7rem] pt-8 rounded-[1rem] relative font-sora">
           <button
             onClick={router.back}
             className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
@@ -157,14 +157,14 @@ export default function DiscussionDetailsPage({
           <div className="w-full mx-auto mt-6 flex flex-col gap-10 items-center my-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
               <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
-                <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">
+                <h3 className=" text-lg md:text-2xl font-sora font-bold text-primaryBlack">
                   {discussion?.title}
                 </h3>
-                <p className="text-sm font-quickSand text-gray-200 font-semibold">
+                <p className="text-base font-quickSand text-gray-100 font-semibold">
                   {discussion?.content}
                 </p>
                 <div className="flex items-center justify-start gap-4">
-                  <p className="text-sm font-sora text-gray-100">
+                  <p className="text-sm font-quickSand text-gray-400 font-semibold">
                     {formattedDate}
                   </p>
                   <p className="text-sm font-light font-sora text-primary flex items-center justify-center gap-1">
@@ -221,7 +221,7 @@ export default function DiscussionDetailsPage({
                   </div>
                 </form>
 
-                <h5 className="font-sora">Comments</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Comments</h5>
                 {isCommentsError && <p>Error fetching comments</p>}
 
                 {isCommentsLoading ? (
@@ -268,7 +268,7 @@ export default function DiscussionDetailsPage({
                     {discussion?.createdBy?.name || "Anonymous"}
                   </h5>
                 </div>
-                <h5 className="font-sora">Share this discussion</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Share this discussion</h5>
                 <div className="flex  items-center justify-center w-auto gap-2 text-primaryWhite">
                   <button onClick={handleFacebookShare}>
                     <svg
@@ -312,7 +312,7 @@ export default function DiscussionDetailsPage({
                     </svg>
                   </button>
                 </div>
-                <h5 className="font-sora">Other discussions</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Other discussions</h5>
                 <div>
                   {isDiscussionsError && <p>Error fetching list</p>}
 
