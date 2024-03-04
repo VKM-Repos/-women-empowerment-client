@@ -7,6 +7,7 @@ import NewsCard from "../(community)/discussions/components/NewsCard";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Event } from "@/lib/types/events.types";
 import EventCardLoader from "../events/components/EventCardLoader";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -159,7 +160,7 @@ export default function ProfilePage() {
                 events?.content.length === 0 && <p>No Events yet</p>}
 
               {!isEventsLoading && !isEventsError && (
-                <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
+                <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap ">
                   {Array.isArray(events?.content) &&
                     events?.content.map((event: Event) => (
                       <EventCard key={event.id} event={event} />
@@ -167,9 +168,12 @@ export default function ProfilePage() {
                 </div>
               )}
 
-              <div className="text-orange-500 text-base whitespace-nowrap justify-center items-center border border-[color:var(--Secondary-Colour,#FF7400)] self-center w-[347px] max-w-full mt-10 px-16 py-2.5 rounded-lg border-solid max-md:px-5">
+              <Link
+                href={"/events"}
+                className="text-orange-500 text-base whitespace-nowrap justify-center items-center mt-5 border border-[color:var(--Secondary-Colour,#FF7400)] self-center w-[347px] max-w-full px-16 py-2.5 rounded-lg border-solid max-md:px-5"
+              >
                 SEE MORE EVENTS
-              </div>
+              </Link>
               <div className="text-green-800 text-lg font-bold self-stretch mt-24 max-md:mt-10">
                 NEWS CENTER
               </div>

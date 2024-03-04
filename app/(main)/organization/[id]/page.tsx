@@ -1,9 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import organizationHeader from "@/public/images/organization_header.svg";
-import orgProfile from "@/public/images/org_profile.svg";
 import orgProfile2 from "@/public/images/org_profile_2.svg";
-import womenInTechProfile from "@/public/images/wtn.svg";
 import Image from "next/image";
 import { Menu } from "@/components/Common/ModalMenu/Menu";
 import Tab from "../components/Tab";
@@ -13,13 +10,15 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import { useAppContext } from "@/lib/context/app-context";
 import { useRouter } from "next/navigation";
 import { Organization } from "@/lib/types/organization.types";
-import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import NoContent from "@/components/EmptyStates/NoContent";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import Button from "@/components/Common/Button/Button";
 import EventCard from "../../(community)/discussions/components/EventCard";
 import { Event } from "@/lib/types/events.types";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
+
+import threeDot from "@/public/icons/three_dots.svg";
+import { formatDateTime } from "@/lib/utils/helperFunctions";
 
 interface EventTab {
   name: string;
@@ -39,7 +38,7 @@ export default function OrganizationDetails({
 }) {
   const { user, isAuthenticated } = useAppContext();
 
-  const router = useRouter()
+  const router = useRouter();
   // const router = useRouter()
   const formattedId = params.id;
 
@@ -48,9 +47,6 @@ export default function OrganizationDetails({
     setShowMenu((prevState) => !prevState);
   };
   const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
-
- 
-
 
   const { data: organization, isPending } = useGET({
     url: `organizations/${params?.id}`,
@@ -68,7 +64,17 @@ export default function OrganizationDetails({
     withAuth: false,
     enabled: true,
   });
-console.log('>>>>', organization);
+
+  const {
+    data: organizationEvent,
+    isPending: isOrganizationEventPending,
+    isError: isOrganizationError,
+  } = useGET({
+    url: `/organizations/${organization?.id}/events`,
+    queryKey: ["events"],
+    withAuth: false,
+    enabled: true,
+  });
 
   const ownerMenu = [
     {
@@ -167,359 +173,280 @@ console.log('>>>>', organization);
   ];
   return (
     <TransitionParent>
-     { (isPending || isEventsPending) 
-     ? <LoadingThinkingWomen />
-     :  <section className="bg-white flex flex-col items-stretch mb-[300px]">
-        <div className="w-full mt-9 px-14 max-md:max-w-full max-md:px-5">
-          <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-            <div className="flex flex-col items-stretch w-[66%] max-md:w-full max-md:ml-0">
-              <div className="items-start flex grow flex-col  max-md:max-w-full max-md:mt-8">
-                <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
-                  <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-opacity-10 max-md:max-w-full max-md:mt-5">
-                    <Image
-                      src={orgProfile2}
-                      layout="responsive"
-                      alt="bg"
-                      width={1000}
-                      height={1000}
-                      className="absolute inset-0"
-                    />
-                    <div
-                      onClick={handleSHowMenu}
-                      className="z-10  flex justify-end pt-10 px-8"
-                    >
-                      <svg
-                        className=" cursor-pointer"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.334 16C13.334 16.7073 13.6149 17.3855 14.115 17.8856C14.6151 18.3857 15.2934 18.6667 16.0007 18.6667C16.7079 18.6667 17.3862 18.3857 17.8863 17.8856C18.3864 17.3855 18.6673 16.7073 18.6673 16C18.6673 15.2928 18.3864 14.6145 17.8863 14.1144C17.3862 13.6143 16.7079 13.3333 16.0007 13.3333C15.2934 13.3333 14.6151 13.6143 14.115 14.1144C13.6149 14.6145 13.334 15.2928 13.334 16ZM13.334 8.00001C13.334 8.70725 13.6149 9.38553 14.115 9.88563C14.6151 10.3857 15.2934 10.6667 16.0007 10.6667C16.7079 10.6667 17.3862 10.3857 17.8863 9.88563C18.3864 9.38553 18.6673 8.70725 18.6673 8.00001C18.6673 7.29277 18.3864 6.61449 17.8863 6.11439C17.3862 5.61429 16.7079 5.33334 16.0007 5.33334C15.2934 5.33334 14.6151 5.61429 14.115 6.11439C13.6149 6.61449 13.334 7.29277 13.334 8.00001ZM13.334 24C13.334 24.7073 13.6149 25.3855 14.115 25.8856C14.6151 26.3857 15.2934 26.6667 16.0007 26.6667C16.7079 26.6667 17.3862 26.3857 17.8863 25.8856C18.3864 25.3855 18.6673 24.7073 18.6673 24C18.6673 23.2928 18.3864 22.6145 17.8863 22.1144C17.3862 21.6143 16.7079 21.3333 16.0007 21.3333C15.2934 21.3333 14.6151 21.6143 14.115 22.1144C13.6149 22.6145 13.334 23.2928 13.334 24Z"
-                          fill="white"
+      {isPending || isEventsPending ? (
+        <LoadingThinkingWomen />
+      ) : (
+        <section className="bg-white flex flex-col items-stretch mb-[300px]">
+          <div className="w-full mt-9 px-14 max-md:max-w-full max-md:px-5">
+            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+              <div className="flex flex-col items-stretch w-[66%] max-md:w-full max-md:ml-0">
+                <div className="items-start flex grow flex-col  max-md:max-w-full max-md:mt-8">
+                  <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
+                    <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-stone-800 border-solid border-opacity-10 max-md:max-w-full max-md:mt-5">
+                      <img
+                        src={
+                          organization?.coverImage ||
+                          "https://placehold.co/400x400?text=Women\n Hub"
+                        }
+                        loading="lazy"
+                        alt="bg"
+                        className="absolute rounded-tl-2xl rounded-tr-2xl aspect-auto object-cover brightness-50 h-[250px] max-h-[250px] min-h-[250px] w-full bg-blend-darken"
+                      />
+                      <div className="z-10  flex justify-end pt-10 px-8">
+                        <span
+                          className="cursor-pointer"
+                          onClick={handleSHowMenu}
+                        >
+                          <Image src={threeDot} alt="three dot menu" />
+                        </span>
+                        <Menu
+                          menuItems={
+                            user?.organizationId == organization?.id
+                              ? ownerMenu
+                              : guestMenu
+                          }
+                          showMenu={showMenu}
                         />
-                      </svg>
-                      <Menu menuItems={user?.organizationId == organization?.id  ? ownerMenu : guestMenu} showMenu={showMenu} />
-                    </div>
-                    <span className="w-full h-[20rem] self-stretch flex flex-col pt-9 px-2  items-end max-md:max-w-full">
-                      <div className="self-stretch z-[1]  max-md:max-w-full max-md:mt-10 max-md:mb-2.5">
-                        <div className="gap-5 flex mt-[20px] max-md:flex-col max-md:items-stretch max-md:gap-0">
-                          <div className="flex flex-col items-stretch w-[28%] max-md:w-full max-md:ml-0">
-                            <div className="bg-white flex flex-col justify-center items-center aspect-square w-full rounded-full max-md:mt-7">
-                              <div className="flex-col shadow-sm overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-full max-md:px-5">
-                                <img
-                                  loading="lazy"
-                                  alt="Profile_picture"
-                                  src={organization?.logo || "https://placehold.co/400x400?text=Women\n Hub"}
-                                  width={100}
-                                  height={100}
-                                  className="absolute h-full w-full object-cover object-center inset-0 "
-                                />
+                      </div>
+                      <span className="w-full h-[20rem] self-stretch flex flex-col pt-9 px-2  items-end max-md:max-w-full">
+                        <div className="self-stretch z-[1]  max-md:max-w-full max-md:mt-10 max-md:mb-2.5">
+                          <div className="gap-5 flex mt-[20px] max-md:flex-col max-md:items-stretch max-md:gap-0">
+                            <div className="flex flex-col items-stretch w-[28%] max-md:w-full max-md:ml-0">
+                              <div className="bg-white flex flex-col justify-center items-center aspect-square w-full rounded-full max-md:mt-7">
+                                <div className="flex-col shadow-sm overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-full max-md:px-5">
+                                  <img
+                                    loading="lazy"
+                                    alt="Profile_picture"
+                                    src={
+                                      organization?.logo ||
+                                      "https://placehold.co/400x400?text=Women\n Hub"
+                                    }
+                                    width={100}
+                                    height={100}
+                                    className="absolute h-full w-full object-cover object-center inset-0 "
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
+                              <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[80px] max-md:max-w-full max-md:mt-10">
+                                {organization?.name}
                               </div>
                             </div>
                           </div>
-                          <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
-                            <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[80px] max-md:max-w-full max-md:mt-10">
-                              {organization?.name}
+                        </div>
+                      </span>
+                      <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
+                        <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
+                          <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
+                            Follow us:
+                          </div>
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/abce849794dda183fd45fa5521042c17bc79420d3659f4eb5e28dc5eda375573?apiKey=12cdcbacd64a44978db653c66e993585&"
+                            className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
+                          />
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/c96d60d7fa6857b2f5a19eed2c499199a72e0c354b908409249d5aedff7bc773?apiKey=12cdcbacd64a44978db653c66e993585&"
+                            className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
+                          />
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b8ba7a75a4769ac3c7bd1c9fa32e3c4284005ef2934d6ae315caff2253fa819?apiKey=12cdcbacd64a44978db653c66e993585&"
+                            className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
+                          />
+                        </div>
+                        <div className="self-stretch flex flex-col mt-2 px-12 items-start max-md:max-w-full max-md:px-5">
+                          <div className="text-primary font-sora text-2xl tracking-wide whitespace-nowrap">
+                            About
+                            <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
+                          </div>
+                          <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-5 max-md:max-w-full">
+                            {organization?.description}
+                          </div>
+                          <div className="font-quickSand self-stretch flex w-[100%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+                            <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
+                              <div className="items-center flex grow basis-[0%] flex-col">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe855fcb572283e4eadd53dce8006539c57e6a12eafb2e323cc4a06312ab4e10?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                  className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                />
+                                <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
+                                  {organization?.state} <br />{" "}
+                                  {organization?.street}
+                                </div>
+                              </div>
+                              <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
+                              {/*  */}
+                            </div>
+
+                            <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
+                              <div className="items-center self-stretch flex flex-col">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c5797671bbfcf56da0e2d3a278b42ea250363c208432483a2e75edf7f0edb96?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                  className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                />
+                                <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
+                                  {organization?.email}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
+                              <div className="bg-neutral-200 w-px shrink-0 h-[31px] my-auto" />
+                              <div className="items-center self-stretch flex flex-col">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c626735b6b0c9477b5b357937dd2772719655ba3defd6ec7dbae27affe114e1?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                  className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                />
+                                <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
+                                  {organization?.phoneNumber}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </span>
-                    <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
-                      <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
-                        <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
-                          Follow us:
-                        </div>
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/abce849794dda183fd45fa5521042c17bc79420d3659f4eb5e28dc5eda375573?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/c96d60d7fa6857b2f5a19eed2c499199a72e0c354b908409249d5aedff7bc773?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b8ba7a75a4769ac3c7bd1c9fa32e3c4284005ef2934d6ae315caff2253fa819?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-square object-contain object-center w-6 fill-sky-600 overflow-hidden self-stretch shrink-0 max-w-full"
-                        />
-                      </div>
-                      <div className="self-stretch flex flex-col mt-2 px-12 items-start max-md:max-w-full max-md:px-5">
-                        <div className="text-primary font-sora text-2xl tracking-wide whitespace-nowrap">
-                          About
+                  </div>
+
+                  <div className="items-stretch flex gap-2.5 mt-10 self-start font-sora">
+                    {tabs.map((tab) => (
+                      <Tab
+                        key={tab.name}
+                        name={tab.name}
+                        selectedEventType={selectedEventType === tab}
+                        setSelectedEventType={() => setSelectedEventType(tab)}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="font-sora self-stretch border border-gray-400 rounded-tl-0 rounded-tr-lg rounded-bl-lg rounded-br-lg  bg-white flex flex-col p-8 border-solid items-start max-md:max-w-full max-md:px-5">
+                    {selectedEventType.name === "Images" && (
+                      <>
+                        <div className="text-primary text-2xl whitespace-nowrap">
+                          Latest images
                           <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                         </div>
-                        <div className="text-black font-quickSand text-opacity-80 text-base tracking-normal self-stretch mt-5 max-md:max-w-full">
-                          {organization?.description}
+                        <div className="items-stretch self-stretch overflow-x-auto flex justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:justify-center max-md:mt-10">
+                          {organization?.images?.length > 0 ? (
+                            organization?.images?.map((image: any) => (
+                              <img
+                                key={image}
+                                loading="lazy"
+                                srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&"
+                                className="aspect-[1.2] object-contain object-center w-full items-center overflow-hidden grow basis-[0%]"
+                              />
+                            ))
+                          ) : (
+                            <div>
+                              <h3>No Images added yet</h3>
+                            </div>
+                          )}
                         </div>
-                        <div className="font-quickSand self-stretch flex w-[100%] items-stretch justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
-                          <div className="flex  justify-between gap-5  max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                            <div className="items-center flex grow basis-[0%] flex-col">
+                      </>
+                    )}
+
+                    {selectedEventType.name === "Events" && (
+                      <>
+                        <div className="text-primary text-2xl whitespace-nowrap w-full">
+                          All Events
+                          <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
+                        </div>
+                        {organizationEvent?.content?.map((event: any) => (
+                          <Link key={event?.id} href={`/events/${event?.id}`}>
+                            <div className="justify-center items-stretch flex gap-5 mt-2.5 px-4 py-2 rounded-xl hover:bg-primary/10 drop-shadow-sm">
                               <img
                                 loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe855fcb572283e4eadd53dce8006539c57e6a12eafb2e323cc4a06312ab4e10?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
+                                src={event?.image}
+                                className="aspect-auto w-[80px] h-[80px] object-cover rounded-full"
                               />
-                              <div className="text-black text-opacity-60 text-center text-sm tracking-normal self-stretch mt-4">
-                                {organization?.state} <br />{" "}
-                                {organization?.street}
+                              <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                                <div className="text-black text-opacity-40 text-base">
+                                  <span className="font-bold text-black font-sora">
+                                    {event?.name}
+                                  </span>
+                                  <br />
+                                  <span className=" text-sm text-black font-quickSand">
+                                    {formatDateTime(event?.startDate)}
+                                  </span>
+                                </div>
+                                <div className="items-center flex gap-5 mt-2.5">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
+                                    className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
+                                  />
+                                  <div className="text-orange-500 text-sm my-auto font-quickSand">
+                                    {event?.type} By {organization?.name}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            <div className="bg-neutral-200 self-center w-px shrink-0 h-[31px] my-auto" />
-                            {/*  */}
-                          </div>
-
-                          <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
-                            <div className="items-center self-stretch flex flex-col">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c5797671bbfcf56da0e2d3a278b42ea250363c208432483a2e75edf7f0edb96?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
-                              />
-                              <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                {organization?.email}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between gap-5 pr-6 self-start max-md:pr-5">
-                            <div className="bg-neutral-200 w-px shrink-0 h-[31px] my-auto" />
-                            <div className="items-center self-stretch flex flex-col">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c626735b6b0c9477b5b357937dd2772719655ba3defd6ec7dbae27affe114e1?apiKey=12cdcbacd64a44978db653c66e993585&"
-                                className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full"
-                              />
-                              <div className="text-black text-opacity-60 text-sm tracking-normal self-stretch whitespace-nowrap mt-4">
-                                {organization?.phoneNumber}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-
-                <div className="items-stretch flex gap-2.5 mt-10 self-start font-sora">
-                  {/* <button className="text-white-100 text-2xl tracking-wide whitespace-nowrap items-stretch bg-[#65B891] grow justify-center px-8 py-4 rounded-tl-lg rounded-tr-lg max-md:px-5">
-                                    Images
-                                </button>
-                                <button className="text-green-400 text-2xl tracking-wide whitespace-nowrap items-stretch border border-[color:var(--sc2,#65B891)] bg-white grow justify-center px-8 py-4 rounded-tl-lg rounded-tr-lg border-solid max-md:px-5">
-                                    Events
-                                </button> */}
-
-                  {tabs.map((tab) => (
-                    <Tab
-                      key={tab.name}
-                      name={tab.name}
-                      selectedEventType={selectedEventType === tab}
-                      setSelectedEventType={() => setSelectedEventType(tab)}
-                    />
-                  ))}
-                </div>
-
-                <div className="font-sora self-stretch border border-gray-400 rounded-tl-0 rounded-tr-lg rounded-bl-lg rounded-br-lg  bg-white flex flex-col p-8 border-solid items-start max-md:max-w-full max-md:px-5">
-                  {selectedEventType.name === "Images" && (
-                    <>
-                      <div className="text-primary text-2xl whitespace-nowrap">
-                        Latest images
-                        <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
-                      </div>
-                      <div className="items-stretch self-stretch overflow-x-auto flex justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:justify-center max-md:mt-10">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1e3d6abe2b776471e75924a638c6db41732563874cb3a0ae5267e3110922a0f0?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-[1.2] object-contain object-center w-full items-center overflow-hidden grow basis-[0%]"
-                        />
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dd1650329bae83b903deedd6cfc5c684220ecaac3bad32afefcd28e612d3cca8?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-[1.2] object-contain object-center w-full items-center overflow-hidden grow basis-[0%]"
-                        />
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/299f38c4a2c7458ee4ceffe0a283eb7d4da4fd71346b34275ecf3f050f1197a4?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-[1.2] object-contain object-center w-full items-center overflow-hidden z-[1] grow basis-[0%]"
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {selectedEventType.name === "Events" && (
-                    <>
-                      <div className="text-primary text-2xl whitespace-nowrap w-full">
-                        All Events
-                        <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
-                      </div>
-                      <div className="items-stretch flex gap-5 mt-12 pl-4 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/6ce70dccaa6121eea546f28a5514d384ba8cf6cb3d8fb9c7df7bb22acd7c1ef1?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                          className="aspect-[1.01] object-contain object-center w-[79px] overflow-hidden shrink-0 max-w-full rounded-[50%]"
-                        />
-                        <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-                          <div className="text-black text-opacity-40 text-base">
-                            <span className="font-bold text-black font-sora">
-                              Startup Investors Forum 2022
-                            </span>
-                            <br />
-                            <span className=" text-sm text-black font-quickSand">
-                              Wed, Dec 14 - Fri, Dec 16
-                            </span>
-                          </div>
-                          <div className="items-center flex gap-5 mt-2.5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                              className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
-                            />
-                            <div className="text-orange-500 text-sm my-auto font-quickSand">
-                              online By drpc{" "}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="justify-center items-stretch flex gap-5 mt-2.5 pl-4 pr-16 max-md:pr-5">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                          className="aspect-[1.01] object-contain object-center w-[79px] overflow-hidden shrink-0 max-w-full rounded-[50%]"
-                        />
-                        <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-                          <div className="text-black text-opacity-40 text-base">
-                            <span className="font-bold text-black font-sora">
-                              Women agenda in Politics
-                            </span>
-                            <br />
-                            <span className=" text-sm text-black font-quickSand">
-                              Tue, Jan 17 - Thurs, Dec 19
-                            </span>
-                          </div>
-                          <div className="items-center flex gap-5 mt-2.5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                              className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
-                            />
-                            <div className="text-orange-500 text-sm my-auto font-quickSand">
-                              online By drpc{" "}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="justify-center items-stretch flex gap-5 mt-2.5 pl-4">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/c3d6033dffb84c88e6e9fd1efed459c1ce6b35ea8e3e50253e7613bbe0a73f4d?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                          className="aspect-[1.01] object-contain object-center w-[79px] overflow-hidden shrink-0 max-w-full rounded-[50%]"
-                        />
-                        <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-                          <div className="text-black text-opacity-40 text-base">
-                            <span className="font-bold text-black font-sora">
-                              Gender Equality in ICT Sector 2023
-                            </span>
-                            <br />
-                            <span className=" text-sm text-black font-quickSand">
-                              Tue, Jan 17 - Thurs, Dec 19
-                            </span>
-                          </div>
-                          <div className="items-center flex gap-5 mt-2.5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                              className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
-                            />
-                            <div className="text-orange-500 text-sm my-auto font-quickSand">
-                              online By drpc{" "}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="justify-center items-stretch flex gap-5 mt-2.5 pl-4 pr-16 max-md:pr-5">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/33b3e4354d9c65708441223b64d8677a8f3fab5a913a913c50128a7705ca14d6?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                          className="aspect-[1.01] object-contain object-center w-[79px] overflow-hidden shrink-0 max-w-full rounded-[50%]"
-                        />
-                        <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-                          <div className="text-black text-opacity-40 text-base">
-                            <span className="font-bold text-black font-sora">
-                              Women agenda in Politics
-                            </span>
-                            <br />
-                            <span className=" text-sm text-black font-quickSand">
-                              Tue, Jan 17 - Thurs, Dec 19
-                            </span>
-                          </div>
-                          <div className="items-center flex gap-5 mt-2.5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3a9afc1fc98cf64805dafe4f8527c80e981a6e4c7067e35396a0ed25ea4541?apiKey=6f715470170a4d3ead43ea6ac10b358c&"
-                              className="aspect-square object-contain object-center w-7 overflow-hidden shrink-0 max-w-full"
-                            />
-                            <div className="text-orange-500 text-sm my-auto font-quickSand">
-                              online By drpc{" "}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                          </Link>
+                        ))}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col items-stretch w-[34%] ml-5 max-md:w-full max-md:ml-0">
-            <aside className="w-full rounded-[1.5rem] ">
-              <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
-                EVENTS
-              </h3>
+              <div className="flex flex-col items-stretch w-[34%] ml-5 max-md:w-full max-md:ml-0">
+                <aside className="w-full rounded-[1.5rem] ">
+                  <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+                    EVENTS
+                  </h3>
 
-              <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
-                {isEventsError && <p>Error fetching Events</p>}
-                {isEventsPending ? (
-                  [1, 2, 3, 4].map((event: any, id: number) => (
-                    <EventCardLoader key={id} event={event} />
-                  ))
-                ) : !isEventsPending &&
-                  !isEventsError &&
-                  events?.content.length === 0 ? (
-                <NoContent
-                            message="No events yet."
-                            buttonText={isAuthenticated ? "Add events" : 'Login to add'}
-                            buttonLink={isAuthenticated ? () => router.push('/events/create') : ()=> router.push('/account/login')}
-                        />
-                ) : (
-                  !isEventsPending &&
-                  !isEventsError && (
-                    <>
-                      <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
-                        {Array.isArray(events?.content) &&
-                          events?.content.map((event: Event) => (
-                            <EventCard key={event.id} event={event} />
-                          ))}
-                      </div>
-                      <div className="w-fit mx-auto my-8">
-                        <Button
-                          label="SEE MORE EVENTS"
-                          variant="outline"
-                          fullWidth={false}
-                          size="normal"
-                        />
-                      </div>
-                    </>
-                  )
-                )}
-              </section>
-            </aside>
+                  <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
+                    {isEventsError && <p>Error fetching Events</p>}
+                    {isEventsPending ? (
+                      [1, 2, 3, 4].map((event: any, id: number) => (
+                        <EventCardLoader key={id} event={event} />
+                      ))
+                    ) : !isEventsPending &&
+                      !isEventsError &&
+                      events?.content.length === 0 ? (
+                      <NoContent
+                        message="No events yet."
+                        buttonText={
+                          isAuthenticated ? "Add events" : "Login to add"
+                        }
+                        buttonLink={
+                          isAuthenticated
+                            ? () => router.push("/events/create")
+                            : () => router.push("/account/login")
+                        }
+                      />
+                    ) : (
+                      !isEventsPending &&
+                      !isEventsError && (
+                        <>
+                          <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap  pb-[8rem]">
+                            {Array.isArray(events?.content) &&
+                              events?.content.map((event: Event) => (
+                                <EventCard key={event.id} event={event} />
+                              ))}
+                          </div>
+                          <div className="w-fit mx-auto my-8">
+                            <Button
+                              label="SEE MORE EVENTS"
+                              variant="outline"
+                              fullWidth={false}
+                              size="normal"
+                            />
+                          </div>
+                        </>
+                      )
+                    )}
+                  </section>
+                </aside>
+              </div>
             </div>
           </div>
-        </div>
-      </section>}
+        </section>
+      )}
     </TransitionParent>
   );
 }
