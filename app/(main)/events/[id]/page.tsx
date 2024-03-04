@@ -66,7 +66,7 @@ export default function EventsDetailsPage({
                     />
                   </div>
                   <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                    {event.name}
+                    {event?.name}
                   </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
@@ -85,7 +85,7 @@ export default function EventsDetailsPage({
                         {event?.organization?.name}
                       </h5>
                     </div>
-                    <div className=" flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                       {/* <Icon name="" size={20} /> */}
                       <svg
                         width="23"
@@ -114,7 +114,7 @@ export default function EventsDetailsPage({
                           {formatDateTime(event?.endDate)}
                         </h5>
                         <button
-                          onClick={() => { }}
+                          onClick={() => {}}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender

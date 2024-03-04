@@ -23,7 +23,11 @@ export default function EditEvent({ params }: { params: { id: string } }) {
     endDate: "",
   });
   // console.log(eventId);
-  const { data: event, isPending } = useGET({
+  const {
+    data: event,
+    isPending,
+    refetch,
+  } = useGET({
     url: `/events/${eventId}`,
     queryKey: ["GET_EVENT_DETAILS_EDIT_PAGER", eventId],
     withAuth: true,
@@ -36,7 +40,6 @@ export default function EditEvent({ params }: { params: { id: string } }) {
     undefined,
     contentType
   );
-  console.log(event, "<<<<<<");
 
   useEffect(() => {
     setFormData({
@@ -60,9 +63,12 @@ export default function EditEvent({ params }: { params: { id: string } }) {
   };
 
   const updateEvent = (event: any) => {
+    setContentType("application/json");
     event.preventDefault();
     mutate(formData, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        refetch();
+      },
       onError: (error) => {
         console.log(error);
       },

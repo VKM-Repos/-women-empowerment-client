@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import db from "@/data/db.json";
 import EventCard from "../../(community)/discussions/components/EventCard";
@@ -11,24 +11,35 @@ import Link from "next/link";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import { TransitionParent } from "@/lib/utils/transition";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
+import { usePOST } from "@/lib/hooks/usePOST.hook";
+import { useAppContext } from "@/lib/context/app-context";
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
+  const { user } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     bio: "",
   });
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | string>("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [contentType, setContentType] = useState<any>("");
 
-  const handleShowPassword = () => {
-    setShowPassword((prevState) => !prevState);
-  };
+  const { mutate: updateImage, isPending: updatingUserImage } = usePATCH(
+    `user/photo`,
+    true,
+    undefined,
+    contentType
+  );
+
   const userId = params?.id;
   const {
-    data: user,
+    data: userDetails,
     isLoading: isUserLoading,
     isError: isUserError,
+    refetch,
   } = useGET({
     url: `/user`,
     queryKey: ["USER_DETAILS_PROFILE", userId],
@@ -47,20 +58,18 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
     enabled: true,
   });
 
-  const { mutate, isPending: updatingUser } = usePATCH(
+  const { mutate, isPending: updatingUser } = usePOST(
     `user/update-profile`,
-    true,
-    undefined,
-    contentType
+    true
   );
 
   useEffect(() => {
     setFormData({
-      name: user?.name,
-      email: user?.email,
-      bio: user?.bio,
+      name: userDetails?.name,
+      email: userDetails?.email,
+      bio: userDetails?.bio,
     });
-  }, [user]);
+  }, [userDetails]);
 
   const handleOnChange = (event: any) => {
     const { name, value } = event?.target;
@@ -74,17 +83,52 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
 
   const handleUpdateProfile = (event: any) => {
     event?.preventDefault();
-
+    // setContentType("application/json");
     mutate(formData, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        refetch();
+      },
       onError: (error) => {
         console.log(error);
       },
     });
   };
+
+  const handleChooseFile = () => {
+    inputRef.current?.click();
+  };
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files?.[0];
+
+    if (imageFile) {
+      // Update the logo in the store with the URL
+      const imageUrl = URL.createObjectURL(imageFile);
+      setImagePreview(imageUrl);
+      setSelectedFile(imageFile);
+    }
+  };
+  const handleUpdateImage = (event: any) => {
+    event.preventDefault();
+    setContentType("multipart/form-data");
+    let formData = new FormData();
+    formData.append("photo", selectedFile);
+    console.log(selectedFile);
+
+    updateImage(formData, {
+      onSuccess: () => {
+        setSelectedFile("");
+        setImagePreview(null);
+        refetch();
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
+
   return (
     <TransitionParent>
-      {updatingUser || isEventsLoading || isUserLoading ? (
+      {updatingUser || isEventsLoading || isUserLoading || updatingUserImage ? (
         <LoadingThinkingWomen />
       ) : (
         <section className="bg-white flex flex-col items-center mb-[250px]">
@@ -94,17 +138,61 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 <div className="bg-white flex flex-col w-full pt-11 pb-5 px-20 rounded-2xl border border-stone-800 border-solid border-black border-opacity-10 max-md:max-w-full max-md:mt-10 max-md:px-5">
                   <div className="items-stretch flex justify-between gap-5 self-start">
                     <div className="bg-white flex grow basis-[0%] flex-col justify-center items-center rounded-[105px]">
-                      <div className="flex-col overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-[50%] max-md:px-5">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5408c81413e677bc13d5c7e2808b50ce1b02bb0281aaca66802b4f5a070879cd?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="absolute h-full w-full object-cover object-center inset-0"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?apiKey=12cdcbacd64a44978db653c66e993585&"
-                          className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full my-8"
-                        />
+                      <div className="flex-col group overflow-hidden relative flex aspect-square justify-center items-center px-16 py-12 rounded-[50%] max-md:px-5">
+                        <form action="" onSubmit={handleUpdateImage}>
+                          <input
+                            ref={inputRef}
+                            type="file"
+                            onChange={handleImageChange}
+                            name="image"
+                            className="hidden"
+                            accept="image/*"
+                          />
+                          <img
+                            loading="lazy"
+                            src={
+                              imagePreview ||
+                              userDetails?.photoUrl ||
+                              "https://placehold.co/400x400?text=Women\n Hub"
+                            }
+                            className="absolute h-full w-full object-cover object-center inset-0 group-hover:-z-10"
+                          />
+                          <div className="flex flex-col items-center gap-2 justify-center ">
+                            <svg
+                              onClick={handleChooseFile}
+                              className="group-hover:z-10 cursor-pointer"
+                              width="40"
+                              height="38"
+                              viewBox="0 0 50 48"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_5601_32761)">
+                                <rect
+                                  x="1"
+                                  width="48"
+                                  height="48"
+                                  rx="8"
+                                  fill="#1F1F1F"
+                                />
+                                <path
+                                  d="M15.6667 33.3327H17.5333L29.0333 21.8327L27.1667 19.966L15.6667 31.466V33.3327ZM34.7333 19.8993L29.0667 14.2993L30.9333 12.4327C31.4444 11.9216 32.0724 11.666 32.8173 11.666C33.5613 11.666 34.1889 11.9216 34.7 12.4327L36.5667 14.2993C37.0778 14.8105 37.3444 15.4273 37.3667 16.15C37.3889 16.8718 37.1444 17.4882 36.6333 17.9993L34.7333 19.8993ZM14.3333 35.9993C13.9556 35.9993 13.6391 35.8713 13.384 35.6153C13.128 35.3602 13 35.0438 13 34.666V30.8993C13 30.7216 13.0333 30.5496 13.1 30.3833C13.1667 30.2162 13.2667 30.066 13.4 29.9327L27.1333 16.1993L32.8 21.866L19.0667 35.5993C18.9333 35.7327 18.7836 35.8327 18.6173 35.8993C18.4502 35.966 18.2778 35.9993 18.1 35.9993H14.3333ZM28.1 20.8993L27.1667 19.966L29.0333 21.8327L28.1 20.8993Z"
+                                  fill="white"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_5601_32761">
+                                  <rect width="50" height="48" fill="white" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            {selectedFile && (
+                              <button className="bg-gray-100 text-white-100 text-xs font-light px-2 py-1 rounded-md">
+                                Update
+                              </button>
+                            )}
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <div className="items-stretch font-sora justify-start flex grow basis-[0%] flex-col my-auto">

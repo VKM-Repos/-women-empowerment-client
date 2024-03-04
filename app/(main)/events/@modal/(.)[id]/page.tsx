@@ -86,12 +86,12 @@ export default function EventsDetailsModal({
                   <div className=" h-4/5 mx-auto flex items-center justify-center overflow-hidden">
                     <motion.img
                       src={DefaultImage.src}
-                      alt={events.title}
+                      alt={events?.title}
                       className="md:h-[20rem] h-[15rem] w-full"
                     />
                   </div>
                   <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                    {events.title}
+                    {events?.title}
                   </h3>
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
@@ -99,8 +99,8 @@ export default function EventsDetailsModal({
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <div className=" flex items-center gap-4">
                       <Image
-                        src={events.image}
-                        alt={events.title}
+                        src={events?.image}
+                        alt={events?.title}
                         width={100}
                         height={100}
                         objectFit="cover"
@@ -139,7 +139,7 @@ export default function EventsDetailsModal({
                           September 3, 2022 at 11:00 AM - 1:00PM
                         </h5>
                         <button
-                          onClick={() => { }}
+                          onClick={() => {}}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender

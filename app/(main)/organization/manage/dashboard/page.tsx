@@ -175,12 +175,22 @@ export default function OrganizationDetails() {
                       className="hidden"
                       accept="image/*"
                     />
-                    <img
+                    <svg
+                      className="cursor-pointer"
                       onClick={handleChooseCoverImage}
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                      className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full  max-md:mr-2.5 cursor-pointer z-10 "
-                    />
+                      width="48"
+                      height="48"
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="48" height="48" rx="8" fill="#1F1F1F" />
+                      <path
+                        d="M14.6667 33.3327H16.5333L28.0333 21.8327L26.1667 19.966L14.6667 31.466V33.3327ZM33.7333 19.8993L28.0667 14.2993L29.9333 12.4327C30.4444 11.9216 31.0724 11.666 31.8173 11.666C32.5613 11.666 33.1889 11.9216 33.7 12.4327L35.5667 14.2993C36.0778 14.8105 36.3444 15.4273 36.3667 16.15C36.3889 16.8718 36.1444 17.4882 35.6333 17.9993L33.7333 19.8993ZM13.3333 35.9993C12.9556 35.9993 12.6391 35.8713 12.384 35.6153C12.128 35.3602 12 35.0438 12 34.666V30.8993C12 30.7216 12.0333 30.5496 12.1 30.3833C12.1667 30.2162 12.2667 30.066 12.4 29.9327L26.1333 16.1993L31.8 21.866L18.0667 35.5993C17.9333 35.7327 17.7836 35.8327 17.6173 35.8993C17.4502 35.966 17.2778 35.9993 17.1 35.9993H13.3333ZM27.1 20.8993L26.1667 19.966L28.0333 21.8327L27.1 20.8993Z"
+                        fill="white"
+                      />
+                    </svg>
+
                     {selectedCoverImage && (
                       <button className="bg-gray-200 px-2 py-1 rounded-md text-white-100 text-xs">
                         update
