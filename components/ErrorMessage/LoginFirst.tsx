@@ -48,7 +48,7 @@ function LoginFirst({ title, message }: Props) {
             hideModal();
           }}
         />
-        <div className="w-full my-6 flex flex-col items-center justify-center gap-4">
+        {/* <div className="w-full my-6 flex flex-col items-center justify-center gap-4">
           <div
             className="w-full flex items-center justify-center gap-5
                                 before:content-[''] before:w-1/4 before:h-0.5 before:bg-gray-500 before:rounded
@@ -98,7 +98,7 @@ function LoginFirst({ title, message }: Props) {
             </span>
             <span className="text-sm font-sora">Continue with google</span>
           </button>
-        </div>
+        </div> */}
         <span className="text-sm font-quuckSand">
           Don&apos;t have an account?{" "}
           <Link

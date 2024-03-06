@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useModal } from "@/lib/context/modal-context";
 import { useAppContext } from "@/lib/context/app-context";
 import LoginWarningModal from "./LoginWarningModal";
@@ -8,57 +8,65 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 
 interface LikeButtonProps {
   organizationId: number;
-  likesCount: number
+  likesCount: number;
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) => {
-  const { token, isAuthenticated, user } = useAppContext()
-
+  const { token, isAuthenticated } = useAppContext();
   const { showModal } = useModal();
 
-  const { data: organization, isPending, refetch } = useGET({
-    url: `organizations/${organizationId}`,
-    queryKey: ["GET_ORGANIZATION_DETAILS"],
-    withAuth: true,
-    enabled: true,
-  });
-  const { data: isLiked, refetch: refetchIsLiked } = useGET({
-    url: `organizations/${organizationId}/like-check`,
-    queryKey: ["LIKES_COUNT"],
-    withAuth: true,
-    enabled: true,
-  });
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}/like-check`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setIsLiked(data.message || false);
+        }
+      } catch (error) {
+        console.error("Error fetching like status:", error);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchLikeStatus();
+    }
+  }, [organizationId, token, isAuthenticated]);
 
   const handleLikeClick = async () => {
     if (!isAuthenticated) {
       showModal(<LoginWarningModal />);
-    } else {
-      try {
-        if (user && isLiked.message) {
-          await unlikeOrganization(organizationId);
-          refetchIsLiked()
-
-        } else {
-          await likeOrganization(organizationId);
-          refetchIsLiked()
-
-        }
-
-      } catch (error) {
-        console.error("Error liking/unliking organization:", error);
-      }
+      return;
     }
 
+    try {
+      if (isLiked) {
+        await unlikeOrganization(organizationId);
+      } else {
+        await likeOrganization(organizationId);
+      }
+
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error("Error liking/unliking organization:", error);
+    }
   };
 
-
-
   const likeOrganization = async (id: number) => {
-
     if (!isAuthenticated) {
       throw new Error("User is not authenticated");
     }
-
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
@@ -73,7 +81,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     if (!response.ok) {
       throw new Error("Failed to like organization");
     }
-    refetch()
+
     return response.json();
   };
 
@@ -81,7 +89,6 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     if (!isAuthenticated) {
       throw new Error("User is not authenticated");
     }
-
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
@@ -97,7 +104,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     if (!response.ok) {
       throw new Error("Failed to unlike organization");
     }
-    refetch()
+
     return response.json();
   };
 
@@ -107,7 +114,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
         <svg
           className="w-5 aspect-square cursor-pointer"
           viewBox="0 0 25 24"
-          fill={isLiked?.message ? "red" : "none"}
+          fill={isLiked ? "red" : "none"}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -118,12 +125,11 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
         </svg>
 
         <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-          {organization?.likesCount <= 0 ? '0' : organization?.likesCount}
+          {likesCount <= 0 ? '0' : likesCount}
         </p>
       </span>
     </button>
   );
 };
-
 
 export default LikeButton;

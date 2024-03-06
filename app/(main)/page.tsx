@@ -59,11 +59,17 @@ const LandingPage = () => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
 
+
+  useEffect(() => {
+    refetchOrganization()
+  }, []);
+
   // fetch lists of organizations
   const {
     data: organizations,
     isLoading: isOrganizationLoading,
     isError: isOrganizationError,
+    refetch: refetchOrganization
   } = useGET({
     url: "/organizations",
     queryKey: ["organizations"],

@@ -15,7 +15,7 @@ export default function DiscussionsLayout(props: {
       <div className="w-screen">
         {props.children}
       </div>
-      {props.modal}
+      {/* {props.modal} */}
     </div>
   );
 }

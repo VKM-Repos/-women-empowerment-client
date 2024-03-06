@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import db from "@/data/db.json";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import EventCard from "../../(community)/discussions/components/EventCard";
 import NewsCard from "../../(community)/discussions/components/NewsCard";
 import formatIdToTitle from "@/lib/utils/formatIdToTitle";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Icon from "@/components/Common/Icons/Icon";
 import Button from "@/components/Common/Button/Button";
 import { useGET } from "@/lib/hooks/useGET.hook";
@@ -65,6 +65,25 @@ export default function CategoryDetailsPage({
     enabled: true,
   });
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const controls = useAnimation();
+
+  const handlePrevClick = () => {
+    const newIndex =
+      (activeIndex - 1 + categories.length) % categories.length;
+    setActiveIndex(newIndex);
+  };
+
+  const handleNextClick = () => {
+    const newIndex = (activeIndex + 1) % categories.length;
+    setActiveIndex(newIndex);
+  };
+
+  useEffect(() => {
+    controls.start({ x: `-${activeIndex * 107}%` });
+  }, [activeIndex, controls]);
+
   return (
     <AnimatePresence initial={false} mode="wait">
       <section className="w-screen flex flex-col items-center justify-start space-y-[2rem] min-h-screen">
@@ -92,11 +111,11 @@ export default function CategoryDetailsPage({
         <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
           <div className="lg:col-span-4 w-full flex flex-col py-[2rem]">
             <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
-              Top organizations in {matchedCategory?.name}
+              Organizations in {matchedCategory?.name}
             </h3>
             {/* Organization feeds */}
             <section className=" flex flex-col gap-4">
-              {isOrganizationsError && <p>Error fetching Organization</p>}
+              {isOrganizationsError && <p>Error fetching Organizations</p>}
 
               {isOrganizationsLoading ? (
                 [1, 2, 3, 4, 5, 6].map((item: any) => (
@@ -118,7 +137,7 @@ export default function CategoryDetailsPage({
                       key={organization.id}
                     />
                   ))}
-                  <div className="w-fit mx-auto my-8">
+                  <div className="w-fit mx-auto my-4">
                     <Button
                       label="SEE ALL ORGANIZATIONS"
                       variant="outline"
@@ -132,7 +151,7 @@ export default function CategoryDetailsPage({
             </section>
           </div>
 
-          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[2rem] relative lg:sticky top-0 lg:h-[110vh] h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 EVENTS
@@ -210,22 +229,80 @@ export default function CategoryDetailsPage({
         </section>
 
         <div className="py-[2rem] w-full  mx-auto flex flex-col gap-2 pb-[7rem] relative">
-          <span className="w-[90%] mx-auto flex flex-col space-y-2">
-            <h3 className="text-lg md:text-3xl font-bold text-primary text-sora">
-              Other Categories{" "}
-            </h3>
-            <div className="w-[6rem] h-1 rounded bg-btnWarning" />
-          </span>
+          <div className="w-[95%] mx-auto flex items-center justify-between">
+            <span className="w-[90%] mx-auto flex flex-col space-y-2">
+              <h3 className="text-lg md:text-3xl font-bold text-primary text-sora">
+                Other Categories{" "}
+              </h3>
+              <div className="w-[6rem] h-1 rounded bg-btnWarning" />
+            </span>
+            <span className="flex gap-5 items-center justify-center">
+              <button
+                onClick={handlePrevClick}
+                className="w-[3rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+              >
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 32 38"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.34128 19H26.4402"
+                    stroke="white"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076"
+                    stroke="white"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={handleNextClick}
+                className="w-[3rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+              >
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.6587 16.1099H5.55981"
+                    stroke="white"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636"
+                    stroke="white"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </span>
+          </div>
 
-          <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-auto px-4 md:px-16 w-auto">
+          <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-hidden px-4 md:px-16 w-auto">
             {Array.isArray(categories?.content) &&
               categories?.content.map((category: Category) => (
-                <div
+                <motion.div
                   key={category.id}
+                  animate={controls}
+                  transition={{ ease: "easeInOut", duration: 0.5 }}
                   className="md:w-[20rem] w-[10rem] aspect-square"
                 >
                   <CategoryCard category={category} />
-                </div>
+                </motion.div>
               ))}
           </div>
         </div>
