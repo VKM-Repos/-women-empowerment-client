@@ -21,8 +21,10 @@ export interface OrganizationFormStore {
       phoneNumber: string;
       description: string;
     };
-    logo: string ;
-    image: string ; 
+    logo: File | null;
+    image: File | null;
+    imagePreview: string;
+    logoPreview: string;
   };
   setStep: (step: number) => void;
   setData: (data: Partial<OrganizationFormStore["data"]>) => void;
@@ -51,8 +53,10 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
           phoneNumber: "",
           description: "",
         },
-        logo: '',
-        image: '',
+        logo: null,
+        image: null,
+        imagePreview: "",
+        logoPreview: "",
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
@@ -72,8 +76,10 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
               phoneNumber: "",
               description: "",
             },
-            logo: '',
-            image: '',
+            logo: null,
+            image: null,
+            imagePreview: "",
+            logoPreview: "",
           },
         });
         localStorage.removeItem("organizationFormStore");
@@ -85,4 +91,3 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
     }
   )
 );
-

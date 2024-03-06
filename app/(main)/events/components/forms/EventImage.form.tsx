@@ -9,13 +9,13 @@ import Icon from "@/components/Common/Icons/Icon";
 interface EventImageProps {
   handleNext: () => void;
   handleGoBack: () => void;
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 const EventImage: React.FC<EventImageProps> = ({
   handleNext,
   handleGoBack,
-  isLoading
+  isLoading,
 }) => {
   const { data, setData } = useEventFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,12 +26,12 @@ const EventImage: React.FC<EventImageProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ image: string | null }>();
+  } = useForm<{ image: string | null; imagePreview: string | null }>();
 
   // Set default value from the store on initial render
   useEffect(() => {
-    setValue("image", data.image); // Initialize with an empty FileList
-  }, [data.image, setValue]);
+    setValue("imagePreview", data.imagePreview); // Initialize with an empty FileList
+  }, [data.imagePreview, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
@@ -43,15 +43,18 @@ const EventImage: React.FC<EventImageProps> = ({
     if (imageFile) {
       // Update the logo in the store with the URL
       const imageUrl = URL.createObjectURL(imageFile);
-      setData({ image: imageUrl });
+      setData({ imagePreview: imageUrl });
+      setData({ image: imageFile });
     }
   };
 
   const removeImage = () => {
-    setData({ image: "" });
+    setData({ imagePreview: "" });
   };
 
   const onSubmit: SubmitHandler<{ image: string | null }> = () => {
+    console.log(data);
+
     handleNext();
   };
 
@@ -83,10 +86,10 @@ const EventImage: React.FC<EventImageProps> = ({
                 accept="image/*"
               />
               <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
-                {watch("image") && (
+                {watch("imagePreview") && (
                   <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative bg-primaryWhite">
                     <motion.img
-                      src={watch("image") as string}
+                      src={data?.imagePreview}
                       alt={`Image Preview`}
                       className="w-full object-contain"
                     />
@@ -95,7 +98,7 @@ const EventImage: React.FC<EventImageProps> = ({
                       className="absolute inset-0 flex items-center justify-center hover:opacity-100 opacity-0 text-xs bg-primaryBlack/70 text-primaryWhite rounded-full transition-opacity duration-150 delay-150"
                       onClick={() => removeImage()}
                     >
-                      <Icon name='delete-round' size={42} />
+                      <Icon name="delete-round" size={42} />
                     </button>
                   </span>
                 )}
@@ -140,11 +143,11 @@ const EventImage: React.FC<EventImageProps> = ({
               onClick={handleGoBack}
             />
             <Button
-              label="Continue"
+              label="Submit"
               variant="primary"
               fullWidth={false}
               size="medium"
-              state={watch("image") ? "active" : "disabled"}
+              state={watch("imagePreview") ? "active" : "disabled"}
               disabled={isLoading}
             />
           </span>

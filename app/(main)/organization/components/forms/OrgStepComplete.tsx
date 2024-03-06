@@ -37,7 +37,7 @@ const OrgStepComplete: React.FC<OrgStepCompleteProps> = ({ orgId }) => {
             Your organization has been successfully registered.
           </h1>
           <Button
-            label="Continue"
+            label="Visit page"
             variant="secondary"
             fullWidth={false}
             size="medium"

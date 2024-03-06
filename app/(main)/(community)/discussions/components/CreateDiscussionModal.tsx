@@ -31,6 +31,15 @@ export default function CreateDiscussionModal({}: Props) {
     enabled: true,
   });
 
+   const {
+    refetch
+  } = useGET({
+    url: "/discussions",
+    queryKey: ["discussions"],
+    withAuth: false,
+    enabled: false,
+  });
+
   const {
     register,
     handleSubmit,
@@ -77,6 +86,9 @@ export default function CreateDiscussionModal({}: Props) {
       // Handle network or other errors
       console.error("Error creating post:", error);
       toast.error("Error creating post", error.message);
+    }
+    finally {
+      refetch()
     }
   }
 

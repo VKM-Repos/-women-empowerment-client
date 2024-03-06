@@ -22,13 +22,11 @@ import { useAppContext } from "@/lib/context/app-context";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateOrganizationPage() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [orgId, setOrgId] = useState<number>();;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
-    const {token} = useAppContext()
-
-    
+  const { token } = useAppContext();
 
   const RenderForm = () => {
     const handleNext = () => {
@@ -45,61 +43,52 @@ function CreateOrganizationPage() {
       setStep(step + 1);
     };
 
+    const createOrganization = async () => {
+      setIsLoading(true);
+      try {
+        const { data } = useOrganizationFormStore.getState();
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const endpoint = `${apiUrl}/organizations`;
 
- const createOrganization = async () => {
-  setIsLoading(true)
-    try {
-      const { data } = useOrganizationFormStore.getState();
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}organizations`;
+        let formData = new FormData();
+        formData.append(
+          "organizationDetails",
+          new Blob([JSON.stringify(data.organizationDetails)], {
+            type: "application/json",
+          })
+        );
+        console.log(formData);
+        if (data.logo) {
+          formData.append("logo", data.logo);
+        }
 
-      let formData = new FormData();
-      formData.append("organizationDetails", new Blob([JSON.stringify(data.organizationDetails)], { type: "application/json" }))
-      console.log(formData);
+        if (data.image) {
+          formData.append("image", data.image);
+        }
 
-      // Append additional fields or files as needed
-      if (data.logo) {
-        formData.append('logo', data.logo);
+        const response = await axios.post(endpoint, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        if (response.status === 200) {
+          setIsLoading(false);
+          setOrgId(response.data.id);
+          toast.success("Organization created successfully");
+          handleNext();
+        } else {
+          setIsLoading(false);
+        }
+      } catch (error: any) {
+        // Handle network or other errors
+        toast.error(`Error: ${error.response.data.detail}`);
+        
+      } finally {
+        setIsLoading(false);
       }
-
-      if (data.image) {
-        formData.append('image', data.image);
-      }
-
-      
-
-      const response = await axios.post(endpoint, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      if (response.status === 200) {
-        setIsLoading(false)
-        // Save the organization ID in the state
-        setOrgId(response.data.id);
-
-        // Handle success
-        toast.success('Organization created successfully');
-        // Redirect or navigate to the next step
-        handleNext();
-      } else {
-        setIsLoading(false)
-        // Handle other response statuses or errors
-        toast.error(`Error creating organization: ${response.data}`);
-      }
-    } catch (error) {
-      // Handle network or other errors
-      console.error('Error creating organization:', error);
-      toast.error('Error creating organization');
-    }
-    finally {
-      setIsLoading(false)
-    }
-  };
-
-
+    };
 
     const { handleSubmit } = useForm<OrganizationFormStore>();
 

@@ -25,11 +25,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }>({
     defaultValues: {
-      type: data.type || "",
-      link: data.link || "",
-      location: data.location || "",
-      startDate: data.startDate || "",
-      endDate: data.endDate || "",
+      type: data.eventDetails.type || "",
+      link: data.eventDetails.link || "",
+      location: data.eventDetails.location || "",
+      startDate: data.eventDetails.startDate || "",
+      endDate: data.eventDetails.endDate || "",
     },
   });
 
@@ -41,12 +41,14 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     endDate: string;
   }> = async (formData) => {
     setData({
-        ...data,
+      eventDetails: {
+        ...data.eventDetails,
         type: selectedOption,
         link: formData.link,
         location: formData.location,
         startDate: formData.startDate,
         endDate: formData.endDate,
+      },
     });
     handleNext();
   };
@@ -74,8 +76,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
             <select
               className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
               value={selectedOption}
+              {...register("type", {
+                required: "this field is empty",
+              })}
               onChange={(e) => setSelectedOption(e.target.value)}
-              required
+              
             >
               <option value="">Select</option>
               <option value="ONLINE">Online</option>
@@ -126,7 +131,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
             <span className="flex items-start justify-start gap-5">
                 <input
                   className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="date"
+                  type="datetime-local"
                   placeholder="Start Date"
                   {...register("startDate", {
                     required: "this field is empty",
@@ -135,7 +140,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                 />
                 <input
                   className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="date"
+                  type="datetime-local"
                   placeholder="End Date"
                   {...register("endDate", {
                     required: "this field is empty",

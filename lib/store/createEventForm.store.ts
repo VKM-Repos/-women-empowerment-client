@@ -9,14 +9,17 @@ import {
 export interface EventFormStore {
   step: number;
   data: {
-    title: string;
-    description: string;
-    type: string;
-    link: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    image: string;
+    eventDetails: {
+      title: string;
+      description: string;
+      type: string;
+      link: string;
+      location: string;
+      startDate: string;
+      endDate: string;
+    };
+    image: File | string;
+    imagePreview: string;
   };
   setStep: (step: number) => void;
   setData: (data: Partial<EventFormStore["data"]>) => void;
@@ -33,29 +36,35 @@ export const useEventFormStore = create<EventFormStore>(
     (set) => ({
       step: 1,
       data: {
-        title: "",
-        description: "",
-        type: "",
-        link: "",
-        location: "",
-        startDate: "",
-        endDate: "",
+        eventDetails: {
+          title: "",
+          description: "",
+          type: "",
+          link: "",
+          location: "",
+          startDate: "",
+          endDate: "",
+        },
         image: "",
+        imagePreview: "",
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
       resetStore: () => {
         set({
-          step: 9,
+          step: 1,
           data: {
-            title: "",
-            description: "",
-            type: "",
-            link: "",
-            location: "",
-            startDate: "",
-            endDate: "",
+            eventDetails: {
+              title: "",
+              description: "",
+              type: "",
+              link: "",
+              location: "",
+              startDate: "",
+              endDate: "",
+            },
             image: "",
+            imagePreview: "",
           },
         });
         localStorage.removeItem("EventFormStore");

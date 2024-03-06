@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TransitionParent } from "@/lib/utils/transition";
 import Button from "@/components/Common/Button/Button";
@@ -6,6 +6,7 @@ import StepEightImg from "@/public/images/create-8.png";
 import Image from "next/image";
 import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 import { motion } from "framer-motion";
+import Icon from "@/components/Common/Icons/Icon";
 
 interface OrgImagesFormProps {
   handleNext: () => void;
@@ -29,12 +30,12 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ image: string | null }>(); // Change to FileList type
+  } = useForm<{ image: File | null; imagePreview: string }>(); // Change to FileList type
 
   // Set default value from the store on initial render
   useEffect(() => {
-    setValue("image", data.image); // Initialize with an empty FileList
-  }, [data.image, setValue]);
+    setValue("imagePreview", data.imagePreview); // Initialize with an empty FileList
+  }, [data.imagePreview, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
@@ -46,17 +47,18 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   if (imageFile) {
     // Update the logo in the store with the URL
     const imageUrl = URL.createObjectURL(imageFile);
-    setData({ image: imageUrl });
+    setData({ imagePreview: imageUrl });
+    setData({ image: imageFile });
   }
 };
 
 
   const removeImage = () => {
-    setData({ image: "" });
+    setData({ imagePreview: '' });
     // setData({ images: updatedImages });
   };
 
-  const onSubmit: SubmitHandler<{ image: string | null }> = () => {
+  const onSubmit: SubmitHandler<{ image: File | null }> = () => {
     handleNext();
   };
 
@@ -94,19 +96,21 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   accept="image/*"
                 />
                 <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
-                  {watch("image") && (
+                  {watch("imagePreview") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
-                      <motion.img
-                        src={watch("image") as string}
+                      <Image
+                        src={data?.imagePreview}
                         alt={`Image Preview`}
+                        width={400}
+                        height={400}
                         className="w-full object-contain"
                       />
                       <button
                         type="button"
-                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full flex items-center justify-center"
                         onClick={() => removeImage()}
                       >
-                        remove
+                        <Icon name="delete-round" size={42} />
                       </button>
                     </span>
                   )}
@@ -153,11 +157,11 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 onClick={handleGoBack}
               />
               <Button
-                label="Continue"
+                label="Submit"
                 variant="primary"
                 fullWidth={false}
                 size="medium"
-                state={watch("image") ? "active" : "disabled"}
+                state={watch("imagePreview") ? "active" : "disabled"}
                 disabled={isLoading}
 
               />
@@ -166,7 +170,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 onClick={handleSkip}
                 disabled={isLoading}
               >
-                Skip
+                Skip & submit
               </button>
             </span>
           </form>

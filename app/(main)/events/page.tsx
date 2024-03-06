@@ -4,7 +4,7 @@ import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
 import Image from "next/image";
 import Rubik from "@/public/images/rubik.png";
 import EventsTab from "./components/EventsTab";
-import EventCard from "./components/EventCard"
+import EventCard from "./components/EventCard";
 import EventCardLoader from "./components/EventCardLoader";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Event } from "@/lib/types/events.types";
@@ -15,53 +15,76 @@ import FindEvent from "./components/FindEvent";
 import { useModal } from "@/lib/context/modal-context";
 import LoginFirstModal from "./components/LoginFirstModal";
 import CreateOrgFirstModal from "./components/CreateOrgFirstModal";
-
-
 type EventTab = {
-  tabName: ['ONLINE', 'PHYSICAL'];
+  tabName: string;
 };
-
 const EventsPage = () => {
   const [selectedEventType, setSelectedEventType] = useState<EventTab>();
   const { showModal } = useModal();
-      
-  const router = useRouter()
-  const {isAuthenticated, user} = useAppContext()
-
-
+  const router = useRouter();
+  const { isAuthenticated, user } = useAppContext();
+  const [eventDate, setEventDate] = useState("");
+  const [filterEvent, setFilterEvent] = useState(false);
   // fetch lists of events
   const {
     data: events,
-    isLoading: isEventsLoading,
+    isPending: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: "/events",
-    queryKey: ["events"],
+    url: `/events?type=${
+      !selectedEventType?.tabName ? "PHYSICAL" : selectedEventType?.tabName
+    }`,
+    queryKey: ["EVENTS", selectedEventType?.tabName, eventDate, filterEvent],
     withAuth: false,
     enabled: true,
   });
 
-  // console.log(events?.content);
+  const {
+    data: filteredEvent,
+    isPending: filteredEventsLoading,
+    isError: filteredEventsError,
+  } = useGET({
+    url: `/events?date=${eventDate}`,
+    queryKey: [
+      "FILTER_EVENTS",
+      selectedEventType?.tabName,
+      eventDate,
+      filterEvent,
+    ],
+    withAuth: false,
+    enabled: !filterEvent,
+  });
 
-  const eventsTab = events?.content.map((event: any) => ({
-    tabName: event?.type || ['PHYSICAL', 'ONLINE'],
-  }));
+  console.log(events);
 
+  const eventsTab = [
+    {
+      tabName: "PHYSICAL",
+    },
+    {
+      tabName: "ONLINE",
+    },
+  ];
   const handleCreateEvent = () => {
-    if(!isAuthenticated) {
-    showModal(<LoginFirstModal />);
-    } else if (isAuthenticated && user?.role !== 'ADMIN'){
-    showModal(<CreateOrgFirstModal />);
-    } else  { 
+    if (!isAuthenticated) {
+      showModal(<LoginFirstModal />);
+    } else if (isAuthenticated && user?.role !== "ADMIN") {
+      showModal(<CreateOrgFirstModal />);
+    } else {
       // router.push('/events/create');
-      window.location.href="/events/create"
+      window.location.href = "/events/create";
     }
   };
-
-
+  const getEventDate = (date: any) => {
+    const eventDate = `${date?.year}-${
+      date?.month > 9 ? date?.month : `0${date?.month}`
+    }-${date?.day > 9 ? date?.day : `0${date?.day}`}`;
+    setEventDate(eventDate);
+    setFilterEvent(true);
+  };
   return (
-   <main className="w-full">
-     <TransitionParent>
+    <main className="w-full">
+      <TransitionParent>
         <header className="bg-primary mx-auto w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 md:grid-cols-5 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:w-3/4 md:col-span-4 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
             <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">
@@ -77,9 +100,8 @@ const EventsPage = () => {
                 onClick={handleCreateEvent}
               />
             </span>
-            <FindEvent />
+            <FindEvent getEventDate={getEventDate} />
           </div>
-
           <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
             <Image
               src={Rubik}
@@ -90,15 +112,16 @@ const EventsPage = () => {
             />
           </div>
         </header>
-
-        <section className="w-full md:w-[95%] mx-auto space-y-4">
+        <section className="w-full md:w-[95%] mx-auto space-y-4 mt-[100px]">
           <div className="w-fit flex  gap-10 relative px-4">
-            <div className="absolute w-0.5 h-8 my-1 md:my-0 md:h-12 -top-2 left-[45%] bg-gray-500 rounded-full z-[1000]" />
+            {eventsTab?.length > 0 && (
+              <div className="absolute w-0.5 h-8 my-1 md:my-0 md:h-12 -top-2 left-[55%] bg-black-100 rounded-full z-[1000]" />
+            )}
             {eventsTab?.map((tab: any, id: number) => (
               <EventsTab
                 key={id}
                 name={tab.tabName}
-                selectedEventType={selectedEventType === tab}
+                selectedEventType={selectedEventType?.tabName === tab?.tabName}
                 setSelectedEventType={() => setSelectedEventType(tab)}
               />
             ))}
@@ -108,24 +131,21 @@ const EventsPage = () => {
               [1, 2, 3, 4].map((event: any, id: number) => (
                 <EventCardLoader key={id} event={event} />
               ))}
-
             {isEventsError && <p>Error fetching Events</p>}
             {!isEventsLoading &&
               !isEventsError &&
               events?.content.length === 0 && <p>No Events yet</p>}
-
             {!isEventsLoading && !isEventsError && (
-              <div className="w-full md:w-[95%] mx-auto flex justify-center gap-5 flex-wrap md:gap-y-16 pb-[8rem]">
-                {Array.isArray(events?.content) &&
-                  events?.content.map((event: Event) => (
-                    <EventCard key={event.id} event={event} />
-                  ))}
+              <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap pb-[8rem]">
+                {events?.content.map((event: Event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </div>
             )}
           </div>
         </section>
-    </TransitionParent>
-   </main>
+      </TransitionParent>
+    </main>
   );
 };
 

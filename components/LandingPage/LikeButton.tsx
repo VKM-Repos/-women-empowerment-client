@@ -1,32 +1,104 @@
 "use client";
 
 import React from "react";
-import { useLikesStore } from "@/lib/store/likes.store";
+import { useModal } from "@/lib/context/modal-context";
+import { useAppContext } from "@/lib/context/app-context";
+import LoginWarningModal from "./LoginWarningModal";
+import { useGET } from "@/lib/hooks/useGET.hook";
 
 interface LikeButtonProps {
   organizationId: number;
+  likesCount: number
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ organizationId }) => {
-  const likes = useLikesStore((state) => state.likesCount[organizationId] || 0);
-  const isLiked = useLikesStore(
-    (state) => state.likes[organizationId] || false
-  );
-  const incrementLikes = useLikesStore((state) => state.incrementLikes);
-  const decrementLikes = useLikesStore((state) => state.decrementLikes);
+const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) => {
+  const { token, isAuthenticated, user } = useAppContext()
+
+  const { showModal } = useModal();
+
+  const { data: organization, isPending, refetch } = useGET({
+    url: `organizations/${organizationId}`,
+    queryKey: ["GET_ORGANIZATION_DETAILS"],
+    withAuth: true,
+    enabled: true,
+  });
+  const { data: isLiked, refetch: refetchIsLiked } = useGET({
+    url: `organizations/${organizationId}/like-check`,
+    queryKey: ["LIKES_COUNT"],
+    withAuth: true,
+    enabled: true,
+  });
 
   const handleLikeClick = async () => {
-    try {
-      if (isLiked) {
-        // await unlikeOrganization(organizationId);
-        decrementLikes(organizationId);
-      } else {
-        // await likeOrganization(organizationId);
-        incrementLikes(organizationId);
+    if (!isAuthenticated) {
+      showModal(<LoginWarningModal />);
+    } else {
+      try {
+        if (user && isLiked.message) {
+          await unlikeOrganization(organizationId);
+          refetchIsLiked()
+
+        } else {
+          await likeOrganization(organizationId);
+          refetchIsLiked()
+
+        }
+
+      } catch (error) {
+        console.error("Error liking/unliking organization:", error);
       }
-    } catch (error) {
-      console.error("Error liking/unliking organization:", error);
     }
+
+  };
+
+
+
+  const likeOrganization = async (id: number) => {
+
+    if (!isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to like organization");
+    }
+    refetch()
+    return response.json();
+  };
+
+  const unlikeOrganization = async (id: number) => {
+    if (!isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to unlike organization");
+    }
+    refetch()
+    return response.json();
   };
 
   return (
@@ -35,7 +107,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId }) => {
         <svg
           className="w-5 aspect-square cursor-pointer"
           viewBox="0 0 25 24"
-          fill={isLiked ? "red" : "none"}
+          fill={isLiked?.message ? "red" : "none"}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -46,41 +118,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId }) => {
         </svg>
 
         <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-          {likes}
+          {organization?.likesCount <= 0 ? '0' : organization?.likesCount}
         </p>
       </span>
     </button>
   );
 };
 
+
 export default LikeButton;
-
-export const likeOrganization = async (id: number) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
-    {
-      method: "POST",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to like organization");
-  }
-
-  return response.json();
-};
-
-export const unlikeOrganization = async (id: number) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
-    {
-      method: "POST",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to unlike organization");
-  }
-
-  return response.json();
-};

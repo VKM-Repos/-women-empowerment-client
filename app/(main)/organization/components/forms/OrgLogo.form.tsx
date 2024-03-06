@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import StepThreeImg from "@/public/images/create-3.png";
@@ -6,6 +6,7 @@ import Button from "@/components/Common/Button/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 import { motion } from "framer-motion";
+import Icon from "@/components/Common/Icons/Icon";
 
 interface OrgLogoFormProps {
   handleNext: () => void;
@@ -21,41 +22,41 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     watch,
-  } = useForm<{ logo: string | null }>();
+  } = useForm<{ logo: File | null; logoPreview: string | null }>();
 
   // Set default value from the store on initial render
   useEffect(() => {
-    setValue("logo", data.logo);
-  }, [data.logo, setValue]);
+    setValue("logoPreview", data.logoPreview);
+  }, [data.logoPreview, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files?.[0];
+    const imageFile: any = e.target.files?.[0];
+ 
 
     if (imageFile) {
       // Update the logo in the store as a string
       const imageUrl = URL.createObjectURL(imageFile);
-      setData({ logo: imageUrl });
+      setData({ logoPreview: imageUrl });
+      setData({ logo: imageFile });
     }
   };
 
   const removeImage = () => {
-    const updatedImages = data.image;
-    //  write a fn to delete or pop out the image string
-    setData({ logo: "" });
-    // setData({ images: updatedImages });
+    setData({ logoPreview: '' });
   };
 
-  const onSubmit: SubmitHandler<{ logo: string | null }> = () => {
+  const onSubmit: SubmitHandler<{ logo: File | null }> = () => {
     handleNext();
   };
 
@@ -92,19 +93,22 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   accept="image/*"
                 />
                 <div className="flex items-center gap-4">
-                  {watch("logo") && (
+                  {watch("logoPreview") && (
                     <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
-                      <motion.img
-                        src={watch("logo") as string}
+                      <Image
+                        src={data?.logoPreview}
                         alt={`logo Preview`}
+                        width={400}
+                        height={400}
+                        
                         className="w-full object-contain"
                       />
                       <button
                         type="button"
-                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full"
+                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full flex items-center justify-center"
                         onClick={() => removeImage()}
                       >
-                        remove
+                        <Icon name="delete-round" size={42} />
                       </button>
                     </span>
                   )}
@@ -156,7 +160,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 variant="primary"
                 fullWidth={false}
                 size="medium"
-                state={watch("logo") ? "active" : "disabled"}
+                state={watch("logoPreview") ? "active" : "disabled"}
               />
               <button
                 className="text-primary absolute inset-y-0 right-0"

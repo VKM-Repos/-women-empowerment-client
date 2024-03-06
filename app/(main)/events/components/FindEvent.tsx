@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import DateInput from "./DateInput";
 
-type Props = {};
+type Props = {
+  getEventDate: any;
+};
 
-function FindEvent({}: Props) {
+function FindEvent({ getEventDate }: Props) {
   const [date, setDate] = useState({
     day: new Date().getDay(),
     month: new Date().getMonth() + 1,
@@ -32,8 +34,12 @@ function FindEvent({}: Props) {
     }));
   };
 
+  const filterEvent = (event: any) => {
+    event?.preventDefault();
+    getEventDate(date);
+  };
   return (
-    <form className="w-full">
+    <form className="w-full" onSubmit={filterEvent}>
       <fieldset>
         <legend className="text-primaryWhite py-2 font-quickSand">
           Find an Event:

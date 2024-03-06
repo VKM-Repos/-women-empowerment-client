@@ -16,7 +16,7 @@ export default function Tab({name, selectedEventType, setSelectedEventType }: Ev
       className={`${
         selectedEventType
           ? "text-primary"
-          : "text-gray-500"
+          : "text-gray-300"
       } text-2xl`}
     >
       <span className="relative z-10 font-light">{name}</span>

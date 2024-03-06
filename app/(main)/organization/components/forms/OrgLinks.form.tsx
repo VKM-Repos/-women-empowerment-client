@@ -33,8 +33,9 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
 
   const onSubmit: SubmitHandler<{ website: string; facebook: string }> = (formData) => {
   // Perform additional validation for the Facebook URL
-  if (formData.facebook && !formData.facebook.includes('facebook.com/page')) {
-    toast.error('Invalid Facebook URL. Must include facebook.com/page.');
+
+  if (formData.facebook && !formData.facebook.includes('facebook.com/')) {
+    toast.error('Invalid Facebook URL. Must include facebook.com/.');
     return;
   }
 

@@ -2,9 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { authApi, publicApi } from "@/lib/config/axiosInstance";
 
-export const useDelete = (url: string, withAuth = true, storeCallback = undefined) => {
+export const useDELETE = (
+  url: string,
+  withAuth = true,
+  storeCallback = undefined
+) => {
   const { mutate, isPending, isError, isSuccess, data, error } = useMutation({
-    mutationFn: async (values) => {
+    mutationFn: async (values: any) => {
       const axiosInstance = withAuth ? authApi : publicApi;
       const response = await axiosInstance.delete(url, { data: values });
       return response;
@@ -16,7 +20,6 @@ export const useDelete = (url: string, withAuth = true, storeCallback = undefine
     onError: (err) => {
       // toast.error(err?.data?.message);
       console.log(err);
-
     },
   });
 
