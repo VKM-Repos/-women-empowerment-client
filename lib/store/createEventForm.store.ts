@@ -18,7 +18,7 @@ export interface EventFormStore {
       startDate: string;
       endDate: string;
     };
-    image: File| string;
+    image: File | string;
     imagePreview: string;
   };
   setStep: (step: number) => void;
@@ -46,13 +46,13 @@ export const useEventFormStore = create<EventFormStore>(
           endDate: "",
         },
         image: "",
-        imagePreview:""
+        imagePreview: "",
       },
       setStep: (step) => set({ step }),
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
       resetStore: () => {
         set({
-          step: 9,
+          step: 1,
           data: {
             eventDetails: {
               title: "",
@@ -64,7 +64,7 @@ export const useEventFormStore = create<EventFormStore>(
               endDate: "",
             },
             image: "",
-            imagePreview:""
+            imagePreview: "",
           },
         });
         localStorage.removeItem("EventFormStore");

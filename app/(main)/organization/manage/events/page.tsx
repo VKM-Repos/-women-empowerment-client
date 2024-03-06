@@ -18,7 +18,11 @@ export default function Events() {
   const [fetchCount, setFetchCount] = useState(0);
   const { user } = useAppContext();
 
-  const { data: events, isPending } = useGET({
+  const {
+    data: events,
+    isPending,
+    refetch,
+  } = useGET({
     url: `organizations/${user?.organizationId}/events${
       selectedEventType?.name == "Drafts" ? "/drafts" : ""
     }`,
@@ -26,10 +30,9 @@ export default function Events() {
     withAuth: true,
     enabled: true,
   });
-  console.log(events, "<<<<<<");
-
   useEffect(() => {
     setFetchCount(fetchCount + 1);
+    refetch();
   }, [selectedEventType.name]);
 
   return (

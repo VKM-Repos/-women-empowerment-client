@@ -29,7 +29,7 @@ function SuccessModal({ title, message, eventId }: Props) {
         onSuccess: () => {
           hideModal();
           // router.push(`/events`);
-          router.push(`/events/${eventId}`);
+          router.push(`/organization/manage/events`);
         },
         onError: () => {},
       }
@@ -38,7 +38,7 @@ function SuccessModal({ title, message, eventId }: Props) {
   const handleSaveToDrafts = () => {
     resetStore();
     hideModal();
-    router.push(`/events/${eventId}`);
+    router.push(`/organization/manage/events`);
   };
 
   return (

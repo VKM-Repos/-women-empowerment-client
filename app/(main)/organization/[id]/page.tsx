@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import orgProfile2 from "@/public/images/org_profile_2.svg";
 import Image from "next/image";
 import { Menu } from "@/components/Common/ModalMenu/Menu";
 import Tab from "../components/Tab";
@@ -9,7 +8,6 @@ import Link from "next/link";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { useAppContext } from "@/lib/context/app-context";
 import { useRouter } from "next/navigation";
-import { Organization } from "@/lib/types/organization.types";
 import NoContent from "@/components/EmptyStates/NoContent";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import Button from "@/components/Common/Button/Button";
@@ -52,7 +50,7 @@ export default function OrganizationDetails({
 
   const { data: organization, isPending } = useGET({
     url: `organizations/${params?.id}`,
-    queryKey: ["GET_ORGANIZATION_DETAILS"],
+    queryKey: ["GET_ORGANIZATION_DETAILS", params?.id],
     withAuth: true,
     enabled: true,
   });
@@ -62,7 +60,7 @@ export default function OrganizationDetails({
     isError: isEventsError,
   } = useGET({
     url: "/events",
-    queryKey: ["events"],
+    queryKey: ["events", organization?.id],
     withAuth: false,
     enabled: true,
   });
@@ -73,7 +71,7 @@ export default function OrganizationDetails({
     isError: isOrganizationError,
   } = useGET({
     url: `/organizations/${organization?.id}/events`,
-    queryKey: ["events"],
+    queryKey: ["EVENTS_BYORGANIZATION", organization?.id],
     withAuth: false,
     enabled: true,
   });
@@ -210,35 +208,30 @@ export default function OrganizationDetails({
                           showMenu={showMenu}
                         />
                       </div>
-                      <span className="w-full h-[20rem] self-stretch flex flex-col pt-9 px-2  items-end max-md:max-w-full">
-                        <div className="self-stretch z-[1]  max-md:max-w-full max-md:mt-10 max-md:mb-2.5">
-                          <div className="gap-5 flex mt-[20px] max-md:flex-col max-md:items-stretch max-md:gap-0">
-                            <div className="flex flex-col items-stretch w-[28%] max-md:w-full max-md:ml-0">
-                              <div className="bg-white flex flex-col justify-center items-center aspect-square w-full rounded-full max-md:mt-7">
-                                <div className="flex-col shadow-sm overflow-hidden relative flex aspect-square w-[212px] justify-center items-center px-16 py-12 rounded-full max-md:px-5">
-                                  <img
-                                    loading="lazy"
-                                    alt="Profile_picture"
-                                    src={
-                                      organization?.logo ||
-                                      "https://placehold.co/400x400?text=Women\n Hub"
-                                    }
-                                    width={100}
-                                    height={100}
-                                    className="absolute h-full w-full object-cover object-center inset-0 "
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
-                              <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[80px] max-md:max-w-full max-md:mt-10">
-                                {organization?.name}
-                              </div>
-                            </div>
+                      <div className="z-[1] flex items-center px-5">
+                        <div className=" relative aspect-square w-[212px] rounded-full">
+                          <img
+                            loading="lazy"
+                            alt="Profile_picture"
+                            src={
+                              isPending
+                                ? "https://placehold.co/400x400?text=Women\n Hub"
+                                : organization?.logo
+                                ? organization?.logo
+                                : "https://placehold.co/400x400?text=Women\n Hub"
+                            }
+                            width={100}
+                            height={100}
+                            className="absolute h-full w-full object-cover object-center inset-0 rounded-full mt-10 "
+                          />
+                        </div>
+                        <div className="flex flex-col items-stretch w-[72%] ml-5 max-md:w-full max-md:ml-0 text-white-100">
+                          <div className="text-white lg:text-3xl font-sora font-bold tracking-wide mt-[60px] max-md:max-w-full max-md:mt-10">
+                            {organization?.name}
                           </div>
                         </div>
-                      </span>
-                      <div className=" bg-white self-stretch flex flex-col py-10 -mt-[100px] items-end max-md:max-w-full">
+                      </div>
+                      <div className=" bg-white self-stretch flex flex-col py-10  items-end max-md:max-w-full">
                         {/* <div className="items-start flex justify-between gap-5 mr-16 max-md:justify-center max-md:mr-2.5">
                           <div className="text-black font-quickSand text-opacity-60 text-center text-base tracking-normal self-center my-auto">
                             Follow us:
@@ -333,9 +326,10 @@ export default function OrganizationDetails({
                           Latest images
                           <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                         </div>
-                        <div className="grid grid-cols-4 gap-5 mt-10">
-                          {organization?.images?.length > 0 ? (
-                            organization?.images?.map(
+
+                        {organization?.images?.length > 0 ? (
+                          <div className="grid grid-cols-4 gap-5 mt-10">
+                            {organization?.images?.map(
                               (image: any, index: number) => (
                                 <img
                                   key={image?.id}
@@ -344,13 +338,23 @@ export default function OrganizationDetails({
                                   className=" aspect-square object-cover rounded-xl"
                                 />
                               )
-                            )
-                          ) : (
-                            <div>
-                              <h3>No Images added yet</h3>
-                            </div>
-                          )}
-                        </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="mt-5 flex flex-col gap-5 items-center justify-center w-full">
+                            <p className="text-2xl text-gray-600">
+                              No Images found
+                            </p>
+                            {user?.organizationId == organization?.id && (
+                              <Link
+                                href={"/organization/manage/images"}
+                                className="text-white-100 bg-btnWarning px-4 py-2 rounded-md"
+                              >
+                                Add Images
+                              </Link>
+                            )}
+                          </div>
+                        )}
                       </>
                     )}
 
@@ -360,47 +364,69 @@ export default function OrganizationDetails({
                           All Events
                           <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                         </div>
-                        {organizationEvent?.content?.map((event: any) => (
-                          <Link key={event?.id} href={`/events/${event?.id}`}>
-                            <div className="justify-center items-stretch flex gap-5 mt-2.5 px-4 py-2 rounded-xl hover:bg-primary/10 drop-shadow-sm">
-                              <img
-                                loading="lazy"
-                                src={event?.image}
-                                className="aspect-auto w-[80px] h-[80px] object-cover rounded-full"
-                              />
-                              <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-                                <div className="text-black text-opacity-40 text-base">
-                                  <span className="font-bold text-black font-sora">
-                                    {event?.name}
-                                  </span>
-                                  <br />
-                                  <span className=" text-sm text-black font-quickSand">
-                                    {formatDateTime(event?.startDate)}
-                                  </span>
-                                </div>
-                                <div className="items-center flex gap-5 mt-2.5">
-                                  <span className="text-xs md:text-sm font-sora text-btnWarning font-medium flex items-center">
-                                    {event.type === "ONLINE" ? (
-                                      <>
-                                        <CameraIcon className="w-6 aspect-square" />{" "}
-                                        &nbsp; {event.type} &nbsp;
-                                      </>
-                                    ) : event.type === "PHYSICAL" ? (
-                                      <>
-                                        {" "}
-                                        <LocationIcon className="w-6 aspect-square" />{" "}
-                                        &nbsp; {event.location}
-                                      </>
-                                    ) : null}{" "}
-                                  </span>
-                                  <div className="text-orange-500 text-sm my-auto font-quickSand">
-                                    {event?.type} By {organization?.name}
+                        <div className="h-[350px] overflow-y-scroll no-scrollbar w-full">
+                          {console.log(organizationEvent?.content)}
+                          {organizationEvent?.content.length < 1 ? (
+                            <div className="mt-5 flex flex-col gap-5 items-center justify-center w-full">
+                              <p className="text-2xl text-gray-600">
+                                No Events found
+                              </p>
+                              {user?.organizationId == organization?.id && (
+                                <Link
+                                  href={"/events/create"}
+                                  className="text-white-100 bg-btnWarning px-4 py-2 rounded-md"
+                                >
+                                  Add Event
+                                </Link>
+                              )}
+                            </div>
+                          ) : (
+                            organizationEvent?.content?.map((event: any) => (
+                              <Link
+                                key={event?.id}
+                                href={`/events/${event?.id}`}
+                              >
+                                <div className="justify-center items-stretch flex gap-5 mt-2.5 px-4 py-2 rounded-xl hover:bg-primary/10 drop-shadow-sm">
+                                  <img
+                                    loading="lazy"
+                                    src={event?.image}
+                                    className="aspect-auto w-[80px] h-[80px] object-cover rounded-full"
+                                  />
+                                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                                    <div className="text-black text-opacity-40 text-base">
+                                      <span className="font-bold text-black font-sora">
+                                        {event?.name}
+                                      </span>
+                                      <br />
+                                      <span className=" text-sm text-black font-quickSand">
+                                        {formatDateTime(event?.startDate)}
+                                      </span>
+                                    </div>
+                                    <div className="items-center flex gap-5 mt-2.5">
+                                      <span className="text-xs md:text-sm font-sora text-btnWarning font-medium flex items-center">
+                                        {event.type === "ONLINE" ? (
+                                          <>
+                                            <CameraIcon className="w-6 aspect-square" />{" "}
+                                            &nbsp; {event.type} &nbsp;
+                                          </>
+                                        ) : event.type === "PHYSICAL" ? (
+                                          <>
+                                            {" "}
+                                            <LocationIcon className="w-6 aspect-square" />{" "}
+                                            &nbsp; {event.location}
+                                          </>
+                                        ) : null}{" "}
+                                      </span>
+                                      <div className="text-orange-500 text-sm my-auto font-quickSand">
+                                        By {organization?.name}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
+                              </Link>
+                            ))
+                          )}
+                        </div>
                       </>
                     )}
                   </div>
@@ -436,19 +462,19 @@ export default function OrganizationDetails({
                       !isEventsPending &&
                       !isEventsError && (
                         <>
-                          <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap  pb-[8rem]">
+                          <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap ">
                             {Array.isArray(events?.content) &&
                               events?.content.map((event: Event) => (
                                 <EventCard key={event.id} event={event} />
                               ))}
                           </div>
                           <div className="w-fit mx-auto my-8">
-                            <Button
-                              label="SEE MORE EVENTS"
-                              variant="outline"
-                              fullWidth={false}
-                              size="normal"
-                            />
+                            <Link
+                              href={"/events"}
+                              className="text-btnWarning border border-btnWarning px-4 py-2 rounded-md"
+                            >
+                              SEE MORE EVENTS
+                            </Link>
                           </div>
                         </>
                       )

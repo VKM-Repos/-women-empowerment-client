@@ -23,18 +23,22 @@ export default function OrganizationDetails() {
     null
   );
   const [contentType, setContentType] = useState<any>("");
+  const [imageToUpdate, setImageToUpdate] = useState<any>("");
+
   const {
     data: organization,
     isPending,
     refetch,
   } = useGET({
     url: `organizations/${user?.organizationId}`,
-    queryKey: ["GET_ORGANIZATION_DETAILS", "DASHBOARD"],
+    queryKey: ["GET_ORGANIZATION_DETAILS", "DASHBOARD", user?.organizationId],
     withAuth: true,
     enabled: true,
   });
   const { mutate, isPending: updateOrgPending } = usePATCH(
-    `organizations/${user?.organizationId}/${selectedFile ? "logo" : ""}`,
+    `organizations/${user?.organizationId}/${
+      imageToUpdate ? imageToUpdate : ""
+    }`,
     true,
     undefined,
     contentType
@@ -116,6 +120,7 @@ export default function OrganizationDetails() {
 
   const handleUpdateLogo = (event: any) => {
     event.preventDefault();
+    setImageToUpdate("logo");
     setContentType("multipart/form-data");
     let formData = new FormData();
     formData.append("logo", selectedFile);
@@ -124,6 +129,9 @@ export default function OrganizationDetails() {
     mutate(formData, {
       onSuccess: () => {
         console.log("logo updated");
+        refetch();
+        setSelectedFile("");
+        setImagePreview(null);
       },
       onError: (error) => {
         console.log(error);
@@ -132,17 +140,24 @@ export default function OrganizationDetails() {
   };
   const handleUpdateCoverImage = (event: any) => {
     event.preventDefault();
+    setImageToUpdate("cover-image");
     setContentType("multipart/form-data");
     let formData = new FormData();
-    formData.append("logo", selectedFile);
+    formData.append("coverImage", selectedCoverImage);
 
     mutate(formData, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        setCoverImagePreview("");
+        setSelectedCoverImage("");
+        refetch();
+      },
       onError: (error) => {
         console.log(error);
       },
     });
   };
+  console.log(organization);
+
   return (
     <TransitionParent>
       <section>
@@ -154,13 +169,14 @@ export default function OrganizationDetails() {
               <img
                 src={
                   coverImagePreview ||
+                  organization?.coverImage ||
                   "https://placehold.co/400x400?text=Women\n Hub"
                 }
                 loading="lazy"
-                alt="bg"
+                alt="cover image"
                 className="absolute rounded-tl-2xl rounded-tr-2xl aspect-auto object-cover brightness-50 h-[250px] max-h-[250px] min-h-[250px] w-full bg-blend-darken"
               />
-              <form action="">
+              <form action="" onSubmit={handleUpdateCoverImage}>
                 <div className="z-10 flex justify-end items-center pt-10">
                   <div
                     className={`z-10 flex flex-col gap-3 justify-center items-center ${

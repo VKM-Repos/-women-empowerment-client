@@ -23,19 +23,40 @@ const EventsPage = () => {
   const { showModal } = useModal();
   const router = useRouter();
   const { isAuthenticated, user } = useAppContext();
+  const [eventDate, setEventDate] = useState("");
+  const [filterEvent, setFilterEvent] = useState(false);
   // fetch lists of events
   const {
     data: events,
-    isLoading: isEventsLoading,
+    isPending: isEventsLoading,
     isError: isEventsError,
   } = useGET({
     url: `/events?type=${
       !selectedEventType?.tabName ? "PHYSICAL" : selectedEventType?.tabName
     }`,
-    queryKey: ["EVENTS", selectedEventType?.tabName],
+    queryKey: ["EVENTS", selectedEventType?.tabName, eventDate, filterEvent],
     withAuth: false,
     enabled: true,
   });
+
+  const {
+    data: filteredEvent,
+    isPending: filteredEventsLoading,
+    isError: filteredEventsError,
+  } = useGET({
+    url: `/events?date=${eventDate}`,
+    queryKey: [
+      "FILTER_EVENTS",
+      selectedEventType?.tabName,
+      eventDate,
+      filterEvent,
+    ],
+    withAuth: false,
+    enabled: !filterEvent,
+  });
+
+  console.log(events);
+
   const eventsTab = [
     {
       tabName: "PHYSICAL",
@@ -53,6 +74,13 @@ const EventsPage = () => {
       // router.push('/events/create');
       window.location.href = "/events/create";
     }
+  };
+  const getEventDate = (date: any) => {
+    const eventDate = `${date?.year}-${
+      date?.month > 9 ? date?.month : `0${date?.month}`
+    }-${date?.day > 9 ? date?.day : `0${date?.day}`}`;
+    setEventDate(eventDate);
+    setFilterEvent(true);
   };
   return (
     <main className="w-full">
@@ -72,7 +100,7 @@ const EventsPage = () => {
                 onClick={handleCreateEvent}
               />
             </span>
-            <FindEvent />
+            <FindEvent getEventDate={getEventDate} />
           </div>
           <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
             <Image
@@ -109,10 +137,9 @@ const EventsPage = () => {
               events?.content.length === 0 && <p>No Events yet</p>}
             {!isEventsLoading && !isEventsError && (
               <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap pb-[8rem]">
-                {Array.isArray(events?.content) &&
-                  events?.content.map((event: Event) => (
-                    <EventCard key={event.id} event={event} />
-                  ))}
+                {events?.content.map((event: Event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </div>
             )}
           </div>

@@ -121,7 +121,7 @@ export default function Event({ event, eventStatus }: EventCardProps) {
     },
     {
       title: "Delete",
-      link: "/",
+      link: `/events/delete/${event?.id}`,
       icon: (
         <svg
           width="16"

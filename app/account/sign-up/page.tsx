@@ -130,7 +130,7 @@ const Login: React.FC = () => {
     <TransitionParent>
       <main>
         {showOtpForm && (
-          <div className="absolute top-[20%] left-0 right-0 ml-auto mr-auto  w-[500px] px-10  z-50  bg-[#F0EBD6] pt-[80px] pb-10 rounded-lg">
+          <div className="absolute top-[20%] left-0 right-0 ml-auto mr-auto  lg:w-[500px] w-[380px] px-10  z-50  bg-[#F0EBD6] lg:pt-[80px] pt-[40px] pb-10 rounded-lg">
             <div className="flex justify-end mb-5">
               <button
                 onClick={() => {
@@ -161,7 +161,7 @@ const Login: React.FC = () => {
             </div>
             <div className="flex flex-col justify-center items-center">
               <p className="font-semibold"> Enter Your Verification Code</p>
-              <p className="text-xs mt-1">
+              <p className="text-xs mt-1 lg:w-[400px] w-[220px] text-center">
                 We have sent a verification code to{" "}
                 <span className="font-semibold">{formData.email}</span>
               </p>
@@ -216,13 +216,17 @@ const Login: React.FC = () => {
         )}
         {isPending && <LoadingThinkingWomen />}
         <div
-          className={`h-screen w-screen lg:px-5  ${
+          className={` ${
+            showOtpForm ? "inactive" : ""
+          } h-screen w-screen lg:px-5  ${
             isPending || showOtpForm ? "bg-black-100 bg-opacity-40" : ""
           }`}
         >
           <button
             onClick={() => router.push("/")}
-            className="flex gap-2 items-center text-btnWarning font-bold md:text-xl text-sm w-fit absolute lg:top-10 top-2 lg:left-10 left-2"
+            className={`${
+              showOtpForm ? "brightness-50" : ""
+            } flex gap-2 items-center text-btnWarning font-bold md:text-xl text-sm w-fit absolute lg:top-10 top-2 lg:left-10 left-2`}
           >
             <svg
               className="cursor-pointer"
@@ -244,7 +248,9 @@ const Login: React.FC = () => {
               <img
                 src={leftLoginImg.src}
                 alt="Left Login Image"
-                className="lg:fixed z-10 lg:top-[10%] mt-[30px] "
+                className={`${
+                  showOtpForm ? "brightness-50" : ""
+                } lg:fixed z-10 lg:top-[10%] mt-[30px]`}
               />
             </div>
             <div className="lg:w-1/2 w-full  flex flex-col items-center lg:px-5  gap-[16px] lg:overflow-auto">
@@ -258,7 +264,11 @@ const Login: React.FC = () => {
                 alt="Right backround mobile"
                 className="lg:hidden absolute object-cover h-full w-full top[20%]"
               />
-              <div className="items-stretch w-[450px] flex flex-col lg:pt-10 pb-8 rounded-2xl h-full pt-[70px] z-10">
+              <div
+                className={`${
+                  showOtpForm ? "brightness-50" : ""
+                } items-stretch w-[450px] flex flex-col lg:pt-10 pb-8 rounded-2xl h-full pt-[70px] z-10`}
+              >
                 <img
                   loading="lazy"
                   srcSet={`${Logo.src}`}
