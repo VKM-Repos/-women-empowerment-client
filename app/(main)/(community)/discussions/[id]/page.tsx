@@ -100,6 +100,10 @@ export default function DiscussionDetailsPage({
 
   const addComment: SubmitHandler<{ content: string }> = async (data) => {
     setIsLoading(true);
+    if (!isAuthenticated) {
+      toast.error("You must be logged in to comment.");
+      throw new Error("User is not authenticated");
+    }
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       const endpoint = `${apiUrl}/discussions/${params?.id}/comments`;

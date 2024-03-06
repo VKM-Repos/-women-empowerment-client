@@ -8,7 +8,7 @@ import React from "react";
 
 type Props = {};
 
-export default function CreateOrgFirstModal({}: Props) {
+export default function CreateOrgFirstModal({ }: Props) {
   const { hideModal } = useModal();
 
   return (
@@ -16,7 +16,7 @@ export default function CreateOrgFirstModal({}: Props) {
       <AnimatePresence initial={false} mode="wait">
         <CreateOrgFirst
           title="Register Your Organization"
-          message="...you don’t have an organization. You need to register your organization before you can add an event"
+          message="...you don’t have an organization. You need to register your organization before you can perform such task"
         />
       </AnimatePresence>
     </Modal>
