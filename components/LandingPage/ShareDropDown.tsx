@@ -14,11 +14,13 @@ import toast from "react-hot-toast";
 interface ShareDropdownProps {
   // children: ReactNode;
   urlToShare: string;
+  text: string | null;
 }
 
 const ShareDropdown: React.FC<ShareDropdownProps> = ({
   // children,
   urlToShare,
+  text,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -67,7 +69,11 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
 
   return (
     <div className="relative z-[20000] inline-block" ref={dropdownRef}>
-      <button className="p-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="p-2 cursor-pointer flex items-center"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {text}
         <ShareButton />
       </button>
 
