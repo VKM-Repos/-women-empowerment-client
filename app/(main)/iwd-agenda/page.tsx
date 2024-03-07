@@ -4,12 +4,8 @@ import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import WomenHubLogo from "@/public/images/wh-logo.png";
 import Fmwa from "@/public/images/fmwa.png";
-import Brochure1 from "@/public/images/Women hub brochure front page 1.png";
-import Brochure2 from "@/public/images/Women hub brochure front page 2.png";
-import Brochure3 from "@/public/images/Women hub brochure front page 3.png";
-import Brochure4 from "@/public/images/Women hub brochure front page 4.png";
-import Brochure5 from "@/public/images/Women hub brochure front page 5.png";
-import Brochure6 from "@/public/images/Women hub brochure front page 6.png";
+import Brochure1 from "@/public/images/brochure-1.png";
+import Brochure2 from "@/public/images/brochure-2.png";
 
 
 
@@ -37,26 +33,13 @@ const IwdAgendaPage = () => {
 
         <h2 className="w-[80%] italic font-bold font-sora text-base lg:text-2xl mt-[4rem]">8th March, 2024 IWD Agenda</h2>
 
-        <div className="w-[90%] my-[4rem] mx-auto grid grid-cols-2  gap-0 items-center justify-items-stretch">
+        <div className="w-[90%] my-[4rem] mx-auto grid grid-cols-1  gap-0 items-center justify-items-stretch">
           <span className="col-span-1">
-            <Image src={Brochure1} alt="fmwa-logo" layout="responsive" />
+            <Image src={Brochure1} alt="brochure" layout="responsive" />
           </span>
           <span className="col-span-1">
-            <Image src={Brochure2} alt="fmwa-logo" layout="responsive" />
+            <Image src={Brochure2} alt="brochure" layout="responsive" />
           </span>
-          <span className="col-span-1">
-            <Image src={Brochure3} alt="fmwa-logo" layout="responsive" />
-          </span>
-          <span className="col-span-1">
-            <Image src={Brochure4} alt="fmwa-logo" layout="responsive" />
-          </span>
-          <span className="col-span-1">
-            <Image src={Brochure5} alt="fmwa-logo" layout="responsive" />
-          </span>
-          <span className="col-span-1">
-            <Image src={Brochure6} alt="fmwa-logo" layout="responsive" />
-          </span>
-
         </div>
 
       </TransitionParent>

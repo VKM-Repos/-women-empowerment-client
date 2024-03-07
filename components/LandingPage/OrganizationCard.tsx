@@ -57,7 +57,7 @@ export const OrganizationCard: React.FC<{
                 organizationId={organization.id}
                 likesCount={organization.likesCount}
               />
-              <ShareDropdown text={"Share"} urlToShare={urlToShare} />
+              <ShareDropdown text={""} urlToShare={urlToShare} />
             </div>
 
             <button className="flex flex-nowrap items-center gap-1.5 whitespace-nowrap">

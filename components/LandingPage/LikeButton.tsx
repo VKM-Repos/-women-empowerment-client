@@ -17,6 +17,20 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
 
   const [isLiked, setIsLiked] = useState(false);
 
+  const { data: organization, refetch: refetchOrganization, isPending } = useGET({
+    url: `organizations/${organizationId}`,
+    queryKey: ["GET_ORGANIZATION_DETAILS", organizationId],
+    withAuth: true,
+    enabled: true,
+  });
+
+  console.log(organization);
+
+
+  useEffect(() => {
+    refetchOrganization()
+  }, []);
+
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {

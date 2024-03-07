@@ -60,9 +60,7 @@ const LandingPage = () => {
   }, [activeIndex, controls]);
 
 
-  useEffect(() => {
-    refetchOrganization()
-  }, []);
+
 
   // fetch lists of organizations
   const {
@@ -76,6 +74,10 @@ const LandingPage = () => {
     withAuth: false,
     enabled: true,
   });
+
+  useEffect(() => {
+    refetchOrganization()
+  }, []);
 
   // fetch lists of events
   const {

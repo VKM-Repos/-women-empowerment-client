@@ -63,6 +63,9 @@ export default function DiscussionDetailsPage({
     enabled: !!params?.id,
   });
 
+  console.log(comments);
+
+
   const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
   const handleFacebookShare = () => {
@@ -186,18 +189,21 @@ export default function DiscussionDetailsPage({
                   className="w-full flex flex-col gap-2"
                 >
                   <fieldset className="w-full grid grid-cols-8 gap-2">
-                    <Image
-                      src={
-                        discussion?.createdBy.photoUrl
-                          ? discussion?.createdBy.photoUrl
-                          : "https://placehold.co/400x400/png"
-                      }
-                      alt={`profile image`}
-                      width={100}
-                      height={100}
-                      // layout="responsive"
-                      className="col-span-1 h-full aspect-square rounded-full object-contain"
-                    />
+                    <span className="col-span-1 w-[4rem] aspect-square rounded-full overflow-hidden">
+                      <Image
+                        src={
+                          discussion?.createdBy.photoUrl
+                            ? discussion?.createdBy.photoUrl
+                            : "https://placehold.co/400x400/png"
+                        }
+                        alt={`profile image`}
+                        width={100}
+                        height={100}
+                        objectFit="cover"
+                        layout="responsive"
+                        className=""
+                      />
+                    </span>
                     <input
                       type="text"
                       id=""
@@ -256,18 +262,21 @@ export default function DiscussionDetailsPage({
               {/*2nd col */}
               <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                 <div className=" flex items-center gap-4">
-                  <Image
-                    src={
-                      discussion?.createdBy.photoUrl
-                        ? discussion?.createdBy.photoUrl
-                        : "https://placehold.co/600x600/png"
-                    }
-                    alt={discussion?.title}
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                    className="w-[3rem] aspect-square rounded-full border border-gray-500"
-                  />
+                  <span className="w-[3rem] aspect-square rounded-full overflow-hidden">
+                    <Image
+                      src={
+                        discussion?.createdBy.photoUrl
+                          ? discussion?.createdBy.photoUrl
+                          : "https://placehold.co/400x400/png"
+                      }
+                      alt={`profile image`}
+                      width={100}
+                      height={100}
+                      objectFit="cover"
+                      layout="responsive"
+                      className=""
+                    />
+                  </span>
                   <h5 className="text-gray-200 font-semibold font-sora text-base">
                     {discussion?.createdBy?.name || "Anonymous"}
                   </h5>
