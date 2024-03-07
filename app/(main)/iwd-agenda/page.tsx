@@ -4,15 +4,12 @@ import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import WomenHubLogo from "@/public/images/wh-logo.png";
 import Fmwa from "@/public/images/fmwa.png";
-import Brochure1 from "@/public/images/brochure-1.png";
-import Brochure2 from "@/public/images/brochure-2.png";
+import AgendaBrochure1 from "@/public/images/agenda-brochure-a.webp";
+import AgendaBrochure2 from "@/public/images/agenda-brochure-b.webp";
 
 
 
 const IwdAgendaPage = () => {
-
-
-
 
   return (
     <section className="w-screen flex flex-col items-center justify-start space-y-[2rem] min-h-screen">
@@ -35,10 +32,10 @@ const IwdAgendaPage = () => {
 
         <div className="w-[90%] my-[4rem] mx-auto grid grid-cols-1  gap-0 items-center justify-items-stretch">
           <span className="col-span-1">
-            <Image src={Brochure1} alt="brochure" layout="responsive" />
+            <Image src={AgendaBrochure1} alt="brochure" layout="responsive" />
           </span>
           <span className="col-span-1">
-            <Image src={Brochure2} alt="brochure" layout="responsive" />
+            <Image src={AgendaBrochure2} alt="brochure" layout="responsive" />
           </span>
         </div>
 
