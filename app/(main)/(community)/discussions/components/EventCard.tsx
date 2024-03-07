@@ -10,14 +10,20 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
       href={`/events/${event.id}`}
       className="w-full font-sora grid grid-cols-8 items-center my-1 cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-4 md:gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2"
     >
-      <Image
-        src={event?.image || "../../../../public/images/group-of-girls.png"}
-        alt={`event post`}
-        width={100}
-        height={100}
-        // layout="responsive"
-        className="col-span-2  w-full md:w-2/3 place-self-center justify-self-center aspect-square rounded-full object-contain"
-      />
+      <span className="col-span-2  w-full md:w-2/3  aspect-square rounded-full overflow-hidden relative">
+        <Image
+          src={
+            event?.image
+              ? event?.image
+              : "../../../../public/images/group-of-girls.png"
+          }
+          alt={`event image`}
+          objectFit="cover"
+          layout="fill"
+          className=""
+        />
+      </span>
+
 
       <div className="col-span-6 flex flex-col items-start justify-start gap-1">
         <h4 className="text-sm font-semibold truncate whitespace-nowrap w-full block">
@@ -26,8 +32,8 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
         <p className="text-sm text-gray-300 font-quickSand">
           {event.organization?.name}
         </p>
-        <p className="text-xs text-info">
-          {formatDateTime(event.startDate)} ({event.type})
+        <p className="text-xs text-primary">
+          {formatDateTime(event.startDate)} <span className="capitalize">({event.type.toLocaleLowerCase()})</span>
         </p>
       </div>
     </Link>
