@@ -70,13 +70,16 @@ export default function CategoryDetailsPage({
   const controls = useAnimation();
 
   const handlePrevClick = () => {
-    const newIndex =
-      (activeIndex - 1 + categories.length) % categories.length;
+    if (!categories || !categories.content) return;
+
+    const newIndex = (activeIndex - 1 + categories.content.length) % categories.content.length;
     setActiveIndex(newIndex);
   };
 
   const handleNextClick = () => {
-    const newIndex = (activeIndex + 1) % categories.length;
+    if (!categories || !categories.content) return;
+
+    const newIndex = (activeIndex + 1) % categories.content.length;
     setActiveIndex(newIndex);
   };
 
