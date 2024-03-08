@@ -154,7 +154,7 @@ export default function CategoryDetailsPage({
             </section>
           </div>
 
-          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[2rem] relative lg:sticky top-0 lg:h-[110vh] h-full overflow-y-scroll scrollable-section ">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[2rem] relative h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 EVENTS
@@ -186,7 +186,7 @@ export default function CategoryDetailsPage({
                     <>
                       <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
                         {Array.isArray(events?.content) &&
-                          events?.content.map((event: Event) => (
+                          events?.content?.slice(0, 5).map((event: Event) => (
                             <EventCard key={event.id} event={event} />
                           ))}
                       </div>
