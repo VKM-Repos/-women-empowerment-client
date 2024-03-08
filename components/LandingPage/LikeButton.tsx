@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useModal } from "@/lib/context/modal-context";
 import { useAppContext } from "@/lib/context/app-context";
 import LoginWarningModal from "./LoginWarningModal";
@@ -16,47 +16,63 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
   const { showModal } = useModal();
 
   const [isLiked, setIsLiked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [newLikesCount, setNewLikesCount] = useState(likesCount);
 
-  const { data: organization, refetch: refetchOrganization, isPending } = useGET({
-    url: `organizations/${organizationId}`,
-    queryKey: ["GET_ORGANIZATION_DETAILS", organizationId],
-    withAuth: true,
-    enabled: true,
-  });
-
-  console.log(organization);
-
-
-  useEffect(() => {
-    refetchOrganization()
-  }, []);
-
-  useEffect(() => {
-    const fetchLikeStatus = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}/like-check`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setIsLiked(data.message || false);
+  const fetchLikeStatus = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}/like-check`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching like status:", error);
-      }
-    };
+      );
 
+      if (response.ok) {
+        const data = await response.json();
+        setIsLiked((prevIsLiked) => data.message || prevIsLiked);
+      }
+    } catch (error) {
+      console.error("Error fetching like status:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [organizationId, token]);
+
+  const fetchLikeCount = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        // setIsLiked((prevIsLiked) => data.message || prevIsLiked);
+        setNewLikesCount(data?.likesCount)
+        console.log(newLikesCount)
+      }
+    } catch (error) {
+      console.error("Error fetching like status:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [organizationId, token, newLikesCount]);
+
+  useEffect(() => {
     if (isAuthenticated) {
+      setLoading(true);
       fetchLikeStatus();
     }
-  }, [organizationId, token, isAuthenticated]);
+  }, [isAuthenticated, fetchLikeStatus]);
 
   const handleLikeClick = async () => {
     if (!isAuthenticated) {
@@ -64,18 +80,28 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
       return;
     }
 
+    setLoading(true);
+
     try {
+      // Optimistically update UI
+      setIsLiked((prevIsLiked) => !prevIsLiked);
+      setNewLikesCount((prevLikesCount) => (isLiked ? prevLikesCount - 1 : prevLikesCount + 1));
+
       if (isLiked) {
         await unlikeOrganization(organizationId);
       } else {
         await likeOrganization(organizationId);
       }
-
-      setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error liking/unliking organization:", error);
+      // Revert the optimistic update on error
+      setIsLiked((prevIsLiked) => !prevIsLiked);
+      setNewLikesCount((prevLikesCount) => (isLiked ? prevLikesCount + 1 : prevLikesCount - 1));
+    } finally {
+      setLoading(false);
     }
   };
+
 
   const likeOrganization = async (id: number) => {
     if (!isAuthenticated) {
@@ -139,7 +165,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
         </svg>
 
         <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-          {likesCount <= 0 ? '0' : likesCount}
+          {newLikesCount <= 0 ? '0' : newLikesCount}
         </p>
       </span>
     </button>

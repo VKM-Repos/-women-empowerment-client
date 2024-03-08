@@ -141,7 +141,7 @@ const DiscussionsPage = () => {
             </section>
           </div>
 
-          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+          <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative h-full overflow-y-scroll scrollable-section ">
             <aside className="w-full rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 EVENTS
@@ -167,7 +167,7 @@ const DiscussionsPage = () => {
                     <>
                       <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
                         {Array.isArray(events?.content) &&
-                          events?.content.map((event: Event) => (
+                          events?.content?.slice(0, 5).map((event: Event) => (
                             <EventCard key={event.id} event={event} />
                           ))}
                       </div>
@@ -185,29 +185,17 @@ const DiscussionsPage = () => {
               </section>
             </aside>
 
-            <aside className="w-full py-4 rounded-[1.5rem] ">
+            {/* <aside className="w-full py-4 rounded-[1.5rem] ">
               <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                 NEWS CENTER
               </h3>
-              {/* <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem] py-1">
-                {db.news.map((item) => (
-                  <NewsCard key={item.id} news={item} />
-                ))}
-                <div className="w-fit mx-auto my-8">
-                  <Button
-                    label="MORE FROM NEWS CENTER"
-                    variant="outline"
-                    fullWidth={false}
-                    size="normal"
-                  />
-                </div>
-              </section> */}
+              
               <NoContent
                 message="No blogs yet."
                 buttonText={'Visit blog'}
                 buttonLink={() => router.push('/blog')}
               />
-            </aside>
+            </aside> */}
           </div>
         </section>
       </section>
