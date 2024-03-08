@@ -281,7 +281,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   >
                     SEE MORE EVENTS
                   </Link>
-                  <div className="text-green-800 text-lg font-bold self-stretch mt-24 max-md:mt-10">
+                  {/* <div className="text-green-800 text-lg font-bold self-stretch mt-24 max-md:mt-10">
                     NEWS CENTER
                   </div>
                   <div className="bg-neutral-200 self-stretch shrink-0 h-px mt-4" />
@@ -290,7 +290,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   ))}
                   <div className="text-orange-500 text-base whitespace-nowrap justify-center items-center border border-[color:var(--Secondary-Colour,#FF7400)] self-center w-[347px] max-w-full mt-5 px-16 py-2.5 rounded-lg border-solid max-md:px-5">
                     MORE FROM NEWS CENTER
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

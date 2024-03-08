@@ -79,6 +79,7 @@ export default function OrganizationDetails({
   const ownerMenu = [
     {
       title: "Manage Organization",
+      blank: false,
       link: "/organization/manage/dashboard",
       icon: (
         <svg
@@ -97,6 +98,7 @@ export default function OrganizationDetails({
     },
     {
       title: "Visit Site",
+      blank: true,
       link: `${organization?.website}`,
       icon: (
         <svg
@@ -115,7 +117,8 @@ export default function OrganizationDetails({
     },
     {
       title: "Share",
-      link: "///",
+      blank: false,
+      link: "/",
       icon: (
         <svg
           width="16"
@@ -136,7 +139,8 @@ export default function OrganizationDetails({
   const guestMenu = [
     {
       title: "Visit Site",
-      link: `https://${organization?.website}`,
+      blank: true,
+      link: `${organization?.website}`,
       icon: (
         <svg
           width="16"
@@ -154,7 +158,9 @@ export default function OrganizationDetails({
     },
     {
       title: "Share",
-      link: "///",
+      blank: false,
+      organizationId: organization?.id,
+      link: "/",
       icon: (
         <svg
           width="16"
@@ -364,7 +370,7 @@ export default function OrganizationDetails({
                           All Events
                           <div className="w-[4rem] h-1 rounded bg-btnWarning mt-1" />
                         </div>
-                        <div className="h-[350px] overflow-y-scroll no-scrollbar w-full">
+                        <div className="h-[350px] overflow-y-scroll no-scrollbar w-full no-scrollbar">
                           {console.log(organizationEvent?.content)}
                           {organizationEvent?.content.length < 1 ? (
                             <div className="mt-5 flex flex-col gap-5 items-center justify-center w-full">

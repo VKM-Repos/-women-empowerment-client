@@ -11,6 +11,8 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import { formatDateTime } from "@/lib/utils/helperFunctions";
 import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
 import { LocationIcon } from "@/components/Common/Icons/Location.icon";
+import ShareDropdown from "@/components/LandingPage/ShareDropDown";
+import Link from "next/link";
 
 export default function EventsDetailsPage({
   params,
@@ -28,8 +30,8 @@ export default function EventsDetailsPage({
     withAuth: false,
     enabled: true,
   });
-  console.log(event);
 
+  const urlToShare = `https://womenhub.org/events/${eventId}`;
   return (
     <>
       {isPending ? (
@@ -115,12 +117,12 @@ export default function EventsDetailsPage({
                         <h5 className="text-gray-200 text-sm">
                           {formatDateTime(event?.endDate)}
                         </h5>
-                        <button
+                        {/* <button
                           onClick={() => {}}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender
-                        </button>
+                        </button> */}
                       </span>
                     </div>
                     <div className=" flex items-center gap-4">
@@ -176,69 +178,48 @@ export default function EventsDetailsPage({
               <div className="font-quickSand flex gap-10">
                 <button className="border border-primary text-primary text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
                   {/* <Icon name="" size={24} /> */}
-                  <span>Share</span>
-                  <svg
-                    width="20"
-                    height="19"
-                    viewBox="0 0 20 19"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.45508 4.74748L9.62297 1.57959L12.7909 4.74748"
-                      stroke="#106840"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12.7918 7.91553H14.3757C14.5858 7.91553 14.7872 7.99897 14.9357 8.14749C15.0842 8.29601 15.1677 8.49746 15.1677 8.7075V15.8352C15.1677 16.0453 15.0842 16.2467 14.9357 16.3953C14.7872 16.5438 14.5858 16.6272 14.3757 16.6272H4.87205C4.66201 16.6272 4.46056 16.5438 4.31204 16.3953C4.16352 16.2467 4.08008 16.0453 4.08008 15.8352V8.7075C4.08008 8.49746 4.16352 8.29601 4.31204 8.14749C4.46056 7.99897 4.66201 7.91553 4.87205 7.91553H6.45599"
-                      stroke="#106840"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M9.62305 1.57959V11.8752"
-                      stroke="#106840"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <span className="flex items-center">
+                    <ShareDropdown text={"Share"} urlToShare={urlToShare} />
+                  </span>
                 </button>
                 <button className="border border-primary bg-primary text-primaryWhite text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
                   {/* <Icon name="" size={24} /> */}
-                  <span>Visit Website</span>
-                  <svg
-                    width="20"
-                    height="19"
-                    viewBox="0 0 20 19"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <Link
+                    className="flex items-center"
+                    href={event?.organization?.website}
+                    target="_blank"
                   >
-                    <path
-                      d="M17.2916 9.50031V15.8361C17.2916 16.0461 17.2082 16.2476 17.0597 16.3961C16.9111 16.5446 16.7097 16.6281 16.4997 16.6281H3.8281C3.61806 16.6281 3.41662 16.5446 3.2681 16.3961C3.11957 16.2476 3.03613 16.0461 3.03613 15.8361V3.16453C3.03613 2.95449 3.11957 2.75305 3.2681 2.60452C3.41662 2.456 3.61806 2.37256 3.8281 2.37256H10.1639"
-                      stroke="white"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M13.332 2.37256H16.8484C16.966 2.37256 17.0788 2.41928 17.162 2.50246C17.2452 2.58563 17.2919 2.69844 17.2919 2.81606V6.33242"
-                      stroke="white"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M17.1651 2.49902L10.1641 9.50005"
-                      stroke="white"
-                      stroke-width="0.791972"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    <span>Visit Website</span>
+                    <svg
+                      width="20"
+                      height="19"
+                      viewBox="0 0 20 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.2916 9.50031V15.8361C17.2916 16.0461 17.2082 16.2476 17.0597 16.3961C16.9111 16.5446 16.7097 16.6281 16.4997 16.6281H3.8281C3.61806 16.6281 3.41662 16.5446 3.2681 16.3961C3.11957 16.2476 3.03613 16.0461 3.03613 15.8361V3.16453C3.03613 2.95449 3.11957 2.75305 3.2681 2.60452C3.41662 2.456 3.61806 2.37256 3.8281 2.37256H10.1639"
+                        stroke="white"
+                        stroke-width="0.791972"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M13.332 2.37256H16.8484C16.966 2.37256 17.0788 2.41928 17.162 2.50246C17.2452 2.58563 17.2919 2.69844 17.2919 2.81606V6.33242"
+                        stroke="white"
+                        stroke-width="0.791972"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M17.1651 2.49902L10.1641 9.50005"
+                        stroke="white"
+                        stroke-width="0.791972"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Link>
                 </button>
               </div>
             </div>

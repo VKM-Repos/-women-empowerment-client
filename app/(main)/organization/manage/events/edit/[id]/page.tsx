@@ -8,6 +8,7 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import { TransitionParent } from "@/lib/utils/transition";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
+import { usePOST } from "@/lib/hooks/usePOST.hook";
 export default function EditEvent({ params }: { params: { id: string } }) {
   const eventId = params?.id;
   const [contentType, setContentType] = useState<any>("");
@@ -40,7 +41,9 @@ export default function EditEvent({ params }: { params: { id: string } }) {
     undefined,
     contentType
   );
-
+  const { mutate: publishEvent, isPending: publishingEvent } = usePOST(
+    `events/${eventId}/publish`
+  );
   useEffect(() => {
     setFormData({
       name: event?.name,
@@ -74,10 +77,22 @@ export default function EditEvent({ params }: { params: { id: string } }) {
       },
     });
   };
+  const handlePublishEvent = (event: any) => {
+    publishEvent(
+      {},
+      {
+        onSuccess: () => {},
+        onError: () => {},
+      }
+    );
+
+    console.log("Clicked publish event");
+  };
+  console.log(event);
 
   return (
     <TransitionParent>
-      {isPending || updatingEvent ? (
+      {isPending || updatingEvent || publishingEvent ? (
         <LoadingThinkingWomen />
       ) : (
         <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
@@ -197,7 +212,7 @@ export default function EditEvent({ params }: { params: { id: string } }) {
 
                 <div className="flex gap-5">
                   <label className="font-sora flex-[0.5]" htmlFor="">
-                    Event Descrition
+                    Event Description
                   </label>
                   <textarea
                     name="description"
@@ -206,9 +221,27 @@ export default function EditEvent({ params }: { params: { id: string } }) {
                     className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none"
                   ></textarea>
                 </div>
-                <button className="text-white-100 text-center text-base font-medium font-sora whitespace-nowrap justify-center items-stretch rounded bg-green-800 self-center mt-6 px-8 py-3.5 max-md:px-5">
-                  Update
-                </button>
+
+                {event?.status == "DRAFTS" ? (
+                  <div className="flex justify-center gap-5">
+                    <button
+                      type="button"
+                      onClick={handlePublishEvent}
+                      className="bg-btnWarning text-white-100 px-3 py-1 rounded-md"
+                    >
+                      Publish
+                    </button>
+                    <button className="border border-btnWarning px-3 py-1 rounded-md">
+                      View
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-center">
+                    <button className="bg-btnWarning text-white-100 px-3 py-1 rounded-md">
+                      Update
+                    </button>
+                  </div>
+                )}
               </div>
             </form>
           </span>
