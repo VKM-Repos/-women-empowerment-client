@@ -23,7 +23,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
   const { data: categories, isLoading, isError } = useGET({
     url: "/categories",
     queryKey: ["categories"],
-    withAuth: false, 
+    withAuth: false,
     enabled: true,
   });
 
@@ -41,21 +41,21 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
 
   const [displayedCategories, setDisplayedCategories] = useState(6);
 
- const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
-  if (!formData.categoryIds || formData.categoryIds.length < 2) {
-    toast.error('Select at least 2 categories.');
-    return;
-  }
+  const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
+    if (!formData.categoryIds || formData.categoryIds.length < 2) {
+      toast.error('Select at least 2 categories.');
+      return;
+    }
 
-  // Update the store with the selected categories
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      categoryIds: formData.categoryIds,
-    },
-  });
-  handleNext(formData);
-};
+    // Update the store with the selected categories
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        categoryIds: formData.categoryIds,
+      },
+    });
+    handleNext(formData);
+  };
 
 
   const handleSeeMoreLessClick = () => {
@@ -70,16 +70,16 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">Choose a category</h1>
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">Choose a category</h1>
           <p className="text-base font-quickSand font-semibold">
             Select at least 2 categories that best describe what your organization stands for
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <div className="flex flex-col pb-8">
-              <ul className="w-full flex gap-3 flex-wrap">
+            <div className="flex flex-col pb-8 py-4">
+              <ul className="w-full flex gap-2 flex-wrap">
 
-                {isLoading &&  <LoadingDots />}
-            
+                {isLoading && <LoadingDots />}
+
                 {Array.isArray(categories?.content) && categories.content.slice(0, displayedCategories).map((option: Category) => (
                   <li className="w-fit" key={option.id}>
                     <TransitionFromBottom>
@@ -101,7 +101,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
               </ul>
               {/* Display "see more/less" text with onClick event */}
               <span
-                className="w-full text-right text-sm font-bold text-gray-200 cursor-pointer hover:underline"
+                className="w-full mt-2 text-right text-sm font-bold text-gray-300 cursor-pointer hover:underline"
                 onClick={handleSeeMoreLessClick}
               >
                 {displayedCategories <= 6 ? 'See More' : 'See Less'}
@@ -110,7 +110,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
                 <p className="text-error text-sm mt-1">{errors?.categoryIds?.message}</p>
               )}
             </div>
-            <span className="flex gap-10">
+            <span className="flex gap-4">
               <Button
                 label="Go Back"
                 variant="primary"

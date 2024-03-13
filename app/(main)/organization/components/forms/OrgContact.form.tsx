@@ -30,17 +30,17 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
     },
   });
 
- const onSubmit: SubmitHandler<{ email: string; phoneNumber: string }> = (formData) => {
-  // Update the store with the entered email and phone
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      email: formData.email,
-      phoneNumber: formData.phoneNumber,
-    },
-  });
-  handleNext();
-};
+  const onSubmit: SubmitHandler<{ email: string; phoneNumber: string }> = (formData) => {
+    // Update the store with the entered email and phone
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+      },
+    });
+    handleNext();
+  };
 
 
   return (
@@ -57,7 +57,7 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             How can we reach you?
           </h1>
           <p className="text-base font-quickSand font-semibold">
@@ -94,7 +94,7 @@ const OrgContactForm: React.FC<OrgContactFormProps> = ({
                 )}
               </div>
             </div>
-            <span className="flex gap-10">
+            <span className="flex gap-4">
               <Button
                 label="Go Back"
                 variant="primary"

@@ -13,7 +13,7 @@ interface OrgNameFormProps {
 }
 
 const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
-  const { data, setData } = useOrganizationFormStore(); 
+  const { data, setData } = useOrganizationFormStore();
 
   const {
     register,
@@ -26,14 +26,14 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
   });
 
   const onSubmit: SubmitHandler<{ name: string }> = async (formData) => {
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      name: formData.name,
-    },
-  });
-  handleNext(); // Move to the next step
-};
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        name: formData.name,
+      },
+    });
+    handleNext(); // Move to the next step
+  };
 
   return (
     <TransitionParent>
@@ -49,7 +49,7 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             Hey there 👋
           </h1>
           <p className="text-base font-quickSand font-semibold">

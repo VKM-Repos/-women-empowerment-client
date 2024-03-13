@@ -74,10 +74,10 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             Add Logo
           </h1>
-          <p className="text-primary  text-2xl md:text-3xl font-quickSand font-semibold">
+          <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
           </p>

@@ -24,8 +24,8 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
     formState: { errors, isValid },
     setValue,
     watch,
-  } = useForm<{state: string, postalCode: string, street: string}>({
-     defaultValues: {
+  } = useForm<{ state: string, postalCode: string, street: string }>({
+    defaultValues: {
       state: data.organizationDetails.state || "",
       postalCode: data.organizationDetails.postalCode || "",
       street: data.organizationDetails.street || "",
@@ -33,17 +33,17 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
   });
 
   const onSubmit: SubmitHandler<{ state: string; postalCode: string; street: string }> = (formData) => {
-  // Update the store with the entered address details
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      state: formData.state,
-      postalCode: formData.postalCode,
-      street: formData.street,
-    },
-  });
-  handleNext(); // Move to the next step
-};
+    // Update the store with the entered address details
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        state: formData.state,
+        postalCode: formData.postalCode,
+        street: formData.street,
+      },
+    });
+    handleNext(); // Move to the next step
+  };
 
 
   return (
@@ -60,13 +60,13 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             Where is your organization located?
           </h1>
           <p className="text-base font-quickSand font-semibold">
             These details help people locate you and get in touch
           </p>
-          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          <form className="w-full py-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-5 pb-8">
               <div className="flex flex-col">
                 <select
@@ -84,7 +84,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                       {state}
                     </option>
                   ))}
-                   </select>
+                </select>
                 {errors.state && (
                   <span className="text-error text-xs">
                     {errors.state.message}
@@ -124,7 +124,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                 )}
               </div>
             </div>
-            <span className="flex gap-10">
+            <span className="flex gap-4">
               <Button
                 label="Go Back"
                 variant="primary"
