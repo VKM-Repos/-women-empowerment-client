@@ -42,7 +42,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile: any = e.target.files?.[0];
- 
+
 
     if (imageFile) {
       // Update the logo in the store as a string
@@ -77,7 +77,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
           <h1 className="text-primary text-3xl font-bold font-sora">
             Add Logo
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="text-primary  text-2xl md:text-3xl font-quickSand font-semibold">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
           </p>
@@ -100,7 +100,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                         alt={`logo Preview`}
                         width={400}
                         height={400}
-                        
+
                         className="w-full object-contain"
                       />
                       <button
@@ -147,7 +147,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 </span>
               )}
             </div>
-            <span className="w-full flex gap-10 relative">
+            <span className="w-full flex flex-wrap gap-4 relative">
               <Button
                 label="Go Back"
                 variant="primary"
@@ -163,7 +163,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 state={watch("logoPreview") ? "active" : "disabled"}
               />
               <button
-                className="text-primary absolute inset-y-0 right-0"
+                className="text-primary md:flex-1 text-sm underline"
                 onClick={handleSkip}
               >
                 Skip

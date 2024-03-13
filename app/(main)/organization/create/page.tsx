@@ -46,6 +46,7 @@ function CreateOrganizationPage() {
     const createOrganization = async () => {
       setIsLoading(true);
       try {
+        // check
         const { data } = useOrganizationFormStore.getState();
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const endpoint = `${apiUrl}/organizations`;
@@ -84,7 +85,7 @@ function CreateOrganizationPage() {
       } catch (error: any) {
         // Handle network or other errors
         toast.error(`Error: ${error.response.data.detail}`);
-        
+
       } finally {
         setIsLoading(false);
       }

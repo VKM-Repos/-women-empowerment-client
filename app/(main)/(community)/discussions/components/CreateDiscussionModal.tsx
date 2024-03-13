@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 type Props = {};
 
-export default function CreateDiscussionModal({}: Props) {
+export default function CreateDiscussionModal({ }: Props) {
   const [isPending, setIsPending] = useState(false);
   const { hideModal } = useModal();
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function CreateDiscussionModal({}: Props) {
     enabled: true,
   });
 
-   const {
+  const {
     refetch
   } = useGET({
     url: "/discussions",
@@ -96,9 +96,9 @@ export default function CreateDiscussionModal({}: Props) {
     <Modal onClose={hideModal} isOpen={true}>
       <AnimatePresence initial={false} mode="wait">
         {!isAuthenticated ? (
-          <LoginFirst 
-          title="Join the community"
-          message="You have to Login to start your discussion"/>
+          <LoginFirst
+            title="Join the community"
+            message="You have to Login to start your discussion" />
         ) : (
           <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
             <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">
