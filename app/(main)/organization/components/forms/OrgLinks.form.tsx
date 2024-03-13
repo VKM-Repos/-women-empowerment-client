@@ -32,29 +32,28 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
   const [selectedOption, setSelectedOption] = useState("");
 
   const onSubmit: SubmitHandler<{ website: string; facebook: string }> = (formData) => {
-  // Perform additional validation for the Facebook URL
+    // Perform additional validation for the Facebook URL
 
-  if (formData.facebook && !formData.facebook.includes('facebook.com/')) {
-    toast.error('Invalid Facebook URL. Must include facebook.com/.');
-    return;
-  }
+    if (formData.facebook && !formData.facebook.includes('facebook.com/')) {
+      toast.error('Invalid Facebook URL. Must include facebook.com/.');
+      return;
+    }
 
-  // Update the store with the entered values
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      website: formData.website,
-      facebook: formData.facebook,
-    },
-  });
+    // Update the store with the entered values
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        website: formData.website,
+        facebook: formData.facebook,
+      },
+    });
 
-  handleNext();
-};
+    handleNext();
+  };
 
 
   return (
-    <div className="w-full">
-      <TransitionParent>
+    <TransitionParent className="w-screen">
       <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
         <div className="lg:col-span-2 hidden lg:block">
           <Image
@@ -67,7 +66,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             Add a Link
           </h1>
           <p className="text-base font-quickSand font-semibold">
@@ -94,9 +93,9 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     type="url"
                     placeholder="Website URL"
                     {...register('website', {
-                            required: 'this field is empty',
-                          })}
-                          name="website"
+                      required: 'this field is empty',
+                    })}
+                    name="website"
                   />
                   {errors.website && (
                     <span className="text-error text-xs">
@@ -113,9 +112,9 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     type="url"
                     placeholder="Facebook URL"
                     {...register('facebook', {
-                            required: 'this field is empty',
-                          })}
-                          name="facebook"
+                      required: 'this field is empty',
+                    })}
+                    name="facebook"
                   />
                   {errors.facebook && (
                     <span className="text-error text-xs">
@@ -125,7 +124,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                 </div>
               )}
             </div>
-            <span className="flex gap-10">
+            <span className="flex gap-4">
               <Button
                 label="Go Back"
                 variant="primary"
@@ -145,7 +144,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
         </div>
       </div>
     </TransitionParent>
-    </div>
+
   );
 };
 

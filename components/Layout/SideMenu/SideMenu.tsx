@@ -34,7 +34,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, children }) => {
 
   const variants = {
     hidden: {
-      x: "50%",
+      x: "-50%",
       opacity: 0,
     },
     visible: {
@@ -45,7 +45,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, children }) => {
       },
     },
     exit: {
-      x: "50%",
+      x: "-50%",
       opacity: 0,
       transition,
     },
@@ -54,7 +54,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, children }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-start  z-[1000] overflow-hidden">
+        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-start  z-[4000] overflow-hidden">
           {/* Fixed background */}
           <motion.div
             key="side-menu-bg"
@@ -72,33 +72,35 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, children }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="bg-primaryWhite absolute right-0  py-4 pb-8 w-2/5 h-screen z-[600] overflow-y-auto"
+            className="bg-primaryWhite absolute left-0  py-4 pb-8 w-4/5 h-screen z-[600] overflow-y-auto"
           >
             {children}
 
             {/* Close button */}
             <button
               onClick={onClose}
-              className=" absolute top-2 right-0 px-6 cursor-pointer"
+              className=" absolute top-5 right-0 px-6 cursor-pointer"
             >
               <svg
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
+                width="25"
+                height="31"
+                viewBox="0 0 25 31"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 10L30 30"
-                  stroke="#08382C"
-                  stroke-width="3.5"
-                  strokeLinecap="round"
+                  d="M4.29529 5.93799L19.8578 22.4179"
+                  stroke="black"
+                  stroke-width="2.125"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
                 <path
-                  d="M30 10L10 30"
-                  stroke="#08382C"
-                  stroke-width="3.5"
-                  strokeLinecap="round"
+                  d="M4.88513 22.1553L20.4486 5.67627"
+                  stroke="black"
+                  stroke-width="2.125"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
               </svg>
             </button>

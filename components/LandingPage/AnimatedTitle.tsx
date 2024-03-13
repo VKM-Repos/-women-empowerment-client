@@ -45,7 +45,7 @@ function AnimatedTitle({ title }: TitleProps) {
   }, []);
 
   return (
-    <h1 className="md:text-[45px] text-[22px] text-left text-primaryWhite font-sora font-semibold flex flex-nowrap items-start justify-center gap-1">
+    <h1 className="md:text-[48px] text-[20px] text-left text-primaryWhite font-sora font-semibold flex whitespace-nowrap items-start justify-center gap-0">
       {title}
       <AnimatePresence mode="wait" initial={false}>
         <span className="inline-block overflow-hidden">
@@ -56,7 +56,7 @@ function AnimatedTitle({ title }: TitleProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="text-secondary italic px-2"
+            className="text-secondary italic px-1"
           >
             {words[currentWordIndex]}
           </motion.span>
