@@ -34,7 +34,7 @@ export default function DiscussionDetailsPage({
     isError: isDiscussionsError,
     isLoading: isDiscussionsLoading,
   } = useGET({
-    url: "/discussions",
+    url: "discussions",
     queryKey: ["discussions"],
     withAuth: false,
     enabled: false,
@@ -45,7 +45,7 @@ export default function DiscussionDetailsPage({
     isLoading: isDiscussionLoading,
     isError: isDiscussionError,
   } = useGET({
-    url: `/discussions/${params?.id}`,
+    url: `discussions/${params?.id}`,
     queryKey: ["discussion", params?.id],
     withAuth: false,
     enabled: !!params?.id,
@@ -57,14 +57,13 @@ export default function DiscussionDetailsPage({
     isError: isCommentsError,
     refetch: refetchComments,
   } = useGET({
-    url: `/discussions/${params?.id}/comments`,
+    url: `discussions/${params?.id}/comments`,
     queryKey: ["comments", params?.id],
     withAuth: false,
     enabled: !!params?.id,
   });
 
   console.log(comments);
-
 
   const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
@@ -109,7 +108,7 @@ export default function DiscussionDetailsPage({
     }
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/discussions/${params?.id}/comments`;
+      const endpoint = `${apiUrl}discussions/${params?.id}/comments`;
 
       const formData = new FormData();
       formData.append("content", data.content);
@@ -231,7 +230,9 @@ export default function DiscussionDetailsPage({
                   </div>
                 </form>
 
-                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Comments</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Comments
+                </h5>
                 {isCommentsError && <p>Error fetching comments</p>}
 
                 {isCommentsLoading ? (
@@ -281,7 +282,9 @@ export default function DiscussionDetailsPage({
                     {discussion?.createdBy?.name || "Anonymous"}
                   </h5>
                 </div>
-                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Share this discussion</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Share this discussion
+                </h5>
                 <div className="flex  items-center justify-center w-auto gap-2 text-primaryWhite">
                   <button onClick={handleFacebookShare}>
                     <svg
@@ -325,7 +328,9 @@ export default function DiscussionDetailsPage({
                     </svg>
                   </button>
                 </div>
-                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">Other discussions</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Other discussions
+                </h5>
                 <div>
                   {isDiscussionsError && <p>Error fetching list</p>}
 
