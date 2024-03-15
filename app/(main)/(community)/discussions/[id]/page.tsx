@@ -34,7 +34,7 @@ export default function DiscussionDetailsPage({
     isError: isDiscussionsError,
     isLoading: isDiscussionsLoading,
   } = useGET({
-    url: "/discussions",
+    url: "discussions",
     queryKey: ["discussions"],
     withAuth: false,
     enabled: false,
@@ -45,7 +45,7 @@ export default function DiscussionDetailsPage({
     isLoading: isDiscussionLoading,
     isError: isDiscussionError,
   } = useGET({
-    url: `/discussions/${params?.id}`,
+    url: `discussions/${params?.id}`,
     queryKey: ["discussion", params?.id],
     withAuth: false,
     enabled: !!params?.id,
@@ -57,7 +57,7 @@ export default function DiscussionDetailsPage({
     isError: isCommentsError,
     refetch: refetchComments,
   } = useGET({
-    url: `/discussions/${params?.id}/comments`,
+    url: `discussions/${params?.id}/comments`,
     queryKey: ["comments", params?.id],
     withAuth: false,
     enabled: !!params?.id,
@@ -109,7 +109,7 @@ export default function DiscussionDetailsPage({
     }
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/discussions/${params?.id}/comments`;
+      const endpoint = `${apiUrl}discussions/${params?.id}/comments`;
 
       const formData = new FormData();
       formData.append("content", data.content);
@@ -189,7 +189,7 @@ export default function DiscussionDetailsPage({
                   className="w-full flex flex-col gap-2"
                 >
                   <fieldset className="w-full grid grid-cols-8 gap-2">
-                    <span className="col-span-1 w-[4rem] aspect-square rounded-full overflow-hidden">
+                    <span className="col-span-1 w-[3.5rem] aspect-square rounded-full overflow-hidden">
                       <Image
                         src={
                           discussion?.createdBy.photoUrl

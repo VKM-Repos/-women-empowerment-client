@@ -22,7 +22,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
   const fetchLikeStatus = useCallback(async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}/like-check`,
+        `${process.env.NEXT_PUBLIC_API_URL}organizations/${organizationId}/like-check`,
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
   const fetchLikeCount = useCallback(async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/organizations/${organizationId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}organizations/${organizationId}`,
         {
           method: "GET",
           headers: {
@@ -109,7 +109,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/like`,
+      `${process.env.NEXT_PUBLIC_API_URL}organizations/${id}/like`,
       {
         method: "POST",
         headers: {
@@ -131,7 +131,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/organizations/${id}/unlike`,
+      `${process.env.NEXT_PUBLIC_API_URL}organizations/${id}/unlike`,
       {
         method: "POST",
         headers: {

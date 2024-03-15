@@ -49,7 +49,7 @@ function CreateOrganizationPage() {
         // check
         const { data } = useOrganizationFormStore.getState();
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const endpoint = `${apiUrl}/organizations`;
+        const endpoint = `${apiUrl}organizations`;
 
         let formData = new FormData();
         formData.append(

@@ -59,7 +59,7 @@ export default function CreateDiscussionModal({ }: Props) {
     event.preventDefault();
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/discussions`;
+      const endpoint = `${apiUrl}discussions`;
 
       let formData = new FormData();
 
