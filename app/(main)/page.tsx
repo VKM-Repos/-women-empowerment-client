@@ -69,7 +69,7 @@ const LandingPage = () => {
     isError: isOrganizationError,
     refetch: refetchOrganization
   } = useGET({
-    url: "/organizations",
+    url: "organizations",
     queryKey: ["organizations"],
     withAuth: false,
     enabled: true,
@@ -85,7 +85,7 @@ const LandingPage = () => {
     isLoading: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: "/events",
+    url: "events",
     queryKey: ["events"],
     withAuth: false,
     enabled: true,

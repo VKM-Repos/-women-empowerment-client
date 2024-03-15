@@ -41,7 +41,7 @@ const Results = () => {
 
   const searchOrganizationsPage = async (page: number): Promise<PaginatedResponseOrganization> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations?page=${page}&size=${PAGE_SIZE}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}organizations?page=${page}&size=${PAGE_SIZE}`);
       if (!response.ok) {
         throw new Error('Failed to fetch organizations');
       }
@@ -78,7 +78,7 @@ const Results = () => {
     isLoading: isSearchLoading,
     isError: isSearchError,
   } = useGET({
-    url: `/organizations/search?name=${query}`,
+    url: `organizations/search?name=${query}`,
     queryKey: ["searchResults", query],
     withAuth: false,
     enabled: !!query,

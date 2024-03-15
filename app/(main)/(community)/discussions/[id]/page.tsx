@@ -188,7 +188,7 @@ export default function DiscussionDetailsPage({
                   className="w-full flex flex-col gap-2"
                 >
                   <fieldset className="w-full grid grid-cols-8 gap-2">
-                    <span className="col-span-1 w-[4rem] aspect-square rounded-full overflow-hidden">
+                    <span className="col-span-1 w-[3.5rem] aspect-square rounded-full overflow-hidden">
                       <Image
                         src={
                           discussion?.createdBy.photoUrl

@@ -32,7 +32,7 @@ export default function CategoryDetailsPage({
 
   // Use the useGET hook to fetch categories
   const { data: categories, isLoading: areCategoriesLoading } = useGET({
-    url: "/categories",
+    url: "categories",
     queryKey: ["categories"],
     withAuth: false,
     enabled: true,
@@ -47,7 +47,7 @@ export default function CategoryDetailsPage({
 
   // Use the matched category's ID to fetch organizations based on category
   const { data: organizations, isLoading: isOrganizationsLoading, isError: isOrganizationsError } = useGET({
-    url: `/categories/${matchedCategory?.id}/organizations`,
+    url: `categories/${matchedCategory?.id}/organizations`,
     queryKey: ["organizations", matchedCategory?.id],
     withAuth: false,
     enabled: !!matchedCategory?.id,
@@ -59,7 +59,7 @@ export default function CategoryDetailsPage({
     isLoading: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: "/events",
+    url: "events",
     queryKey: ["events"],
     withAuth: false,
     enabled: true,

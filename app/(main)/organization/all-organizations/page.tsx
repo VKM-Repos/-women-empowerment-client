@@ -39,7 +39,7 @@ const AllOrganizationsPage = () => {
 
   const fetchOrganizationsPage = async (page: number): Promise<PaginatedResponseOrganization> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations?page=${page}&size=${PAGE_SIZE}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}organizations?page=${page}&size=${PAGE_SIZE}`);
       if (!response.ok) {
         throw new Error('Failed to fetch organizations');
       }
