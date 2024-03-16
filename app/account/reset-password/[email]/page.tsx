@@ -10,21 +10,31 @@ import righGb from "@/public/images/right_login_bg.svg";
 import righGbMobile from "@/public/images/right_login_bg_mobile.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import Logo from "@/public/logo.svg";
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Image from "next/image";
 
-const ResetPassword: React.FC = () => {
+const ResetPassword = ({ params }: { params: { email: string } }) => {
+  const { email } = params;
+  const decodedEmail = decodeURIComponent(email);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    email: decodedEmail,
+    code: "",
     password: "",
   });
-  const { mutate, isPending, isError } = usePOST("/login");
+  const { mutate, isPending, isError } = usePOST("auth/password_reset");
   const handleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
+  };
+  const isNumeric = (event: any) => {
+    const { value } = event.target;
+    if (/^\d*$/.test(value)) {
+      handleInputChange(event);
+    }
+    return false;
   };
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
@@ -39,13 +49,16 @@ const ResetPassword: React.FC = () => {
     event.preventDefault();
     mutate(formData, {
       onSuccess: (data) => {
-        router.push("/");
+        router.push("/account/login");
       },
       onError: () => {
         console.log("On page Error");
       },
     });
   };
+
+  console.log(formData, "<<<<<<");
+
   return (
     <TransitionParent>
       <main>
@@ -112,9 +125,18 @@ const ResetPassword: React.FC = () => {
                     onSubmit={handleResetPassword}
                     className="flex flex-col"
                   >
-                    {/* <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
-                        <input type="email" name="email" value={formData?.email} onChange={handleInputChange} placeholder="Username" className="w-full focus:outline-none" autoComplete="off" required />
-                      </div> */}
+                    <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start  max-md:px-5">
+                      <input
+                        type="text"
+                        name="code"
+                        maxLength={6}
+                        value={formData?.code}
+                        onChange={isNumeric}
+                        placeholder="OTP Code"
+                        className="w-full focus:outline-none tracking-wider"
+                        required
+                      />
+                    </div>
 
                     <div className="text-stone-500 text-sm whitespace-nowrap border border-stone-800 bg-white-100 self-stretch justify-center px-5 py-4 rounded-lg border-solid border-black border-opacity-10 items-start max-md:max-w-full max-md:px-5 mt-5 flex gap-3">
                       <div className="text-stone-500 text-sm grow whitespace-nowrap">

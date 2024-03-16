@@ -287,7 +287,6 @@ const Login: React.FC = () => {
                         onChange={handleInputChange}
                         placeholder="Name"
                         className="w-full focus:outline-none"
-                        autoComplete="off"
                         required
                       />
                     </div>
@@ -299,7 +298,6 @@ const Login: React.FC = () => {
                         onChange={handleInputChange}
                         placeholder="Email"
                         className="w-full focus:outline-none"
-                        autoComplete="off"
                         required
                       />
                     </div>
@@ -355,12 +353,7 @@ const Login: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    <Link
-                      href={"/account/forgot-password"}
-                      className="text-rose-500 text-center text-xs font-medium whitespace-nowrap mr-4 mt-1.5 self-end max-md:mr-2.5"
-                    >
-                      Forgot Password?
-                    </Link>
+
                     <button className="text-white-100 text-base whitespace-nowrap items-stretch bg-[#FF7400] self-center justify-center mt-4 px-12 py-2.5 rounded-lg max-md:px-5">
                       Continue
                     </button>
