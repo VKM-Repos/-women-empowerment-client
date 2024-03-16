@@ -64,13 +64,20 @@ export default function Events() {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            {events?.content?.map((event: any) => (
-              <Event
-                key={event?.name}
-                event={event}
-                eventStatus={selectedEventType.name}
-              />
-            ))}
+            {events?.content?.length < 1 ? (
+              <div className="flex justify-center">
+                {" "}
+                <h2 className="text-xl font-semibold">No Event created yet</h2>
+              </div>
+            ) : (
+              events?.content?.map((event: any) => (
+                <Event
+                  key={event?.name}
+                  event={event}
+                  eventStatus={selectedEventType.name}
+                />
+              ))
+            )}
           </div>
         </div>
       )}
