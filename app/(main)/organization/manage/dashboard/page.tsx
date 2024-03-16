@@ -8,6 +8,7 @@ import { useAppContext } from "@/lib/context/app-context";
 import orgProfile from "@/public/images/org_profile.svg";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
+import Link from "next/link";
 
 export default function OrganizationDetails() {
   const { user } = useAppContext();
@@ -48,6 +49,8 @@ export default function OrganizationDetails() {
     name: "",
     website: "",
     facebook: "",
+    twitter: "",
+    linkedin: "",
     email: "",
     street: "",
     phoneNumber: "",
@@ -59,6 +62,8 @@ export default function OrganizationDetails() {
       name: organization?.name,
       website: organization?.website,
       facebook: organization?.facebook,
+      twitter: organization?.twitter,
+      linkedin: organization?.linkedin,
       email: organization?.email,
       street: organization?.street,
       phoneNumber: organization?.phoneNumber,
@@ -310,6 +315,32 @@ export default function OrganizationDetails() {
                     </div>
                     <div className="flex items-center gap-5">
                       <label className="font-sora flex-[0.3]" htmlFor="">
+                        Twitter
+                      </label>
+                      <input
+                        type="text"
+                        name="twitter"
+                        onChange={hanleOnChange}
+                        value={formData?.twitter}
+                        className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
+                        placeholder="htttps://www.twitter.com/wrf"
+                      />
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
+                        LinkedIn
+                      </label>
+                      <input
+                        type="text"
+                        name="linkedin"
+                        onChange={hanleOnChange}
+                        value={formData?.linkedin}
+                        className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
+                        placeholder="htttps://www.linkedIn.com/wrf"
+                      />
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Email
                       </label>
                       <input
@@ -359,9 +390,17 @@ export default function OrganizationDetails() {
                         {formData?.description}
                       </textarea>
                     </div>
-                    <button className="text-white-100 text-center text-base font-medium font-sora whitespace-nowrap justify-center items-stretch rounded bg-green-800 self-center mt-6 px-8 py-3.5 max-md:px-5">
-                      Update
-                    </button>
+                    <div className="flex justify-center gap-5">
+                      <button className="text-white-100 font-light font-sora rounded bg-btnWarning mt-6 px-4 py-2">
+                        Update
+                      </button>
+                      <Link
+                        href={`/organization/${organization?.id}`}
+                        className="border border-btnWarning font-light font-sora rounded text-btnWarning mt-6 px-4 py-2"
+                      >
+                        View
+                      </Link>
+                    </div>
                   </div>
                 </form>
               </span>
