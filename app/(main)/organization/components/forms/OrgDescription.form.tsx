@@ -29,16 +29,16 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
     },
   });
 
-const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
-  // Update the store with the entered description
-  setData({
-    organizationDetails: {
-      ...data.organizationDetails,
-      description: formData.description,
-    },
-  });
-  handleNext();
-};
+  const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
+    // Update the store with the entered description
+    setData({
+      organizationDetails: {
+        ...data.organizationDetails,
+        description: formData.description,
+      },
+    });
+    handleNext();
+  };
 
 
   return (
@@ -55,7 +55,7 @@ const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
             About your organization
           </h1>
           <p className="text-base font-quickSand font-semibold">
@@ -78,7 +78,7 @@ const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
                 </span>
               )}
             </div>
-            <span className="flex gap-10">
+            <span className="flex gap-4">
               <Button
                 label="Go Back"
                 variant="primary"
@@ -91,7 +91,7 @@ const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
                 variant="primary"
                 fullWidth={false}
                 size="medium"
-              state={isValid ? "active" : "disabled"}
+                state={isValid ? "active" : "disabled"}
               />
             </span>
           </form>

@@ -59,17 +59,25 @@ const LandingPage = () => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
 
+
+
+
   // fetch lists of organizations
   const {
     data: organizations,
     isLoading: isOrganizationLoading,
     isError: isOrganizationError,
+    refetch: refetchOrganization
   } = useGET({
-    url: "/organizations",
+    url: "organizations",
     queryKey: ["organizations"],
     withAuth: false,
     enabled: true,
   });
+
+  useEffect(() => {
+    refetchOrganization()
+  }, [refetchOrganization]);
 
   // fetch lists of events
   const {
@@ -77,7 +85,7 @@ const LandingPage = () => {
     isLoading: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: "/events",
+    url: "events",
     queryKey: ["events"],
     withAuth: false,
     enabled: true,
@@ -154,14 +162,12 @@ const LandingPage = () => {
                   />
                 ) : (
                   <>
-                    {organizations?.content?.map(
-                      (organization: Organization) => (
-                        <OrganizationCard
-                          organization={organization}
-                          key={organization.id}
-                        />
-                      )
-                    )}
+                    {organizations?.content?.slice(0, 5).map((organization: Organization) => (
+                      <OrganizationCard
+                        organization={organization}
+                        key={organization.id}
+                      />
+                    ))}
                     <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE ALL ORGANIZATIONS"
@@ -174,11 +180,12 @@ const LandingPage = () => {
                       />
                     </div>
                   </>
+
                 )}
               </section>
             </div>
 
-            <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative lg:sticky top-0 lg:h-screen h-full overflow-y-scroll scrollable-section ">
+            <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative h-full overflow-y-scroll scrollable-section ">
               <aside className="w-full rounded-[1.5rem] ">
                 <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
                   EVENTS
@@ -210,7 +217,7 @@ const LandingPage = () => {
                       <>
                         <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
                           {Array.isArray(events?.content) &&
-                            events?.content.map((event: Event) => (
+                            events?.content?.slice(0, 5).map((event: Event) => (
                               <EventCard key={event.id} event={event} />
                             ))}
                         </div>

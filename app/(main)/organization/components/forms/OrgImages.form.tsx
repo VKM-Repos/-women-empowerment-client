@@ -41,16 +41,16 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     inputRef.current?.click();
   };
 
- const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const imageFile = e.target.files?.[0];
+  const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files?.[0];
 
-  if (imageFile) {
-    // Update the logo in the store with the URL
-    const imageUrl = URL.createObjectURL(imageFile);
-    setData({ imagePreview: imageUrl });
-    setData({ image: imageFile });
-  }
-};
+    if (imageFile) {
+      // Update the logo in the store with the URL
+      const imageUrl = URL.createObjectURL(imageFile);
+      setData({ imagePreview: imageUrl });
+      setData({ image: imageFile });
+    }
+  };
 
 
   const removeImage = () => {
@@ -76,10 +76,10 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-3xl font-bold font-sora">
+          <h1 className="text-primary text-2xl md:text-3xl font-bold font-sora">
             Add Images
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="text-sm md:text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. This serves as an
             identification for your organization and it will be displayed on the
             site
@@ -148,7 +148,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 </span>
               )}
             </div>
-            <span className="w-full flex gap-10 relative">
+            <span className="w-full flex flex-wrap gap-4 relative">
               <Button
                 label="Go Back"
                 variant="primary"
@@ -166,7 +166,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
 
               />
               <button
-                className="text-primary absolute inset-y-0 right-0"
+                className="text-primary md:flex-1 text-sm underline"
                 onClick={handleSkip}
                 disabled={isLoading}
               >

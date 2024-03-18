@@ -34,7 +34,7 @@ export default function DiscussionDetailsPage({
     isError: isDiscussionsError,
     isLoading: isDiscussionsLoading,
   } = useGET({
-    url: "/discussions",
+    url: "discussions",
     queryKey: ["discussions"],
     withAuth: false,
     enabled: false,
@@ -45,7 +45,7 @@ export default function DiscussionDetailsPage({
     isLoading: isDiscussionLoading,
     isError: isDiscussionError,
   } = useGET({
-    url: `/discussions/${params?.id}`,
+    url: `discussions/${params?.id}`,
     queryKey: ["discussion", params?.id],
     withAuth: false,
     enabled: !!params?.id,
@@ -57,11 +57,13 @@ export default function DiscussionDetailsPage({
     isError: isCommentsError,
     refetch: refetchComments,
   } = useGET({
-    url: `/discussions/${params?.id}/comments`,
+    url: `discussions/${params?.id}/comments`,
     queryKey: ["comments", params?.id],
     withAuth: false,
     enabled: !!params?.id,
   });
+
+  console.log(comments);
 
   const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
@@ -100,9 +102,13 @@ export default function DiscussionDetailsPage({
 
   const addComment: SubmitHandler<{ content: string }> = async (data) => {
     setIsLoading(true);
+    if (!isAuthenticated) {
+      toast.error("You must be logged in to comment.");
+      throw new Error("User is not authenticated");
+    }
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/discussions/${params?.id}/comments`;
+      const endpoint = `${apiUrl}discussions/${params?.id}/comments`;
 
       const formData = new FormData();
       formData.append("content", data.content);
@@ -131,10 +137,10 @@ export default function DiscussionDetailsPage({
 
   return (
     <AnimatePresence initial={false} mode="wait">
-      {isLoading || !discussions ? (
+      {isDiscussionLoading || !discussions ? (
         <DiscussionDetailsLoader />
       ) : (
-        <div className="lg:w-3/4 w-full mx-auto py-4 pt-8 rounded-[1rem] relative font-sora">
+        <div className="lg:w-3/4 w-full mx-auto my-[2rem]  pb-[7rem] pt-8 rounded-[1rem] relative font-sora">
           <button
             onClick={router.back}
             className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
@@ -157,14 +163,14 @@ export default function DiscussionDetailsPage({
           <div className="w-full mx-auto mt-6 flex flex-col gap-10 items-center my-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
               <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
-                <h3 className=" text-base md:text-xl font-sora font-bold text-primaryBlack">
+                <h3 className=" text-lg md:text-2xl font-sora font-bold text-primaryBlack">
                   {discussion?.title}
                 </h3>
-                <p className="text-sm font-quickSand text-gray-200 font-semibold">
+                <p className="text-base font-quickSand text-gray-100 font-semibold">
                   {discussion?.content}
                 </p>
                 <div className="flex items-center justify-start gap-4">
-                  <p className="text-sm font-sora text-gray-100">
+                  <p className="text-sm font-quickSand text-gray-400 font-semibold">
                     {formattedDate}
                   </p>
                   <p className="text-sm font-light font-sora text-primary flex items-center justify-center gap-1">
@@ -182,18 +188,21 @@ export default function DiscussionDetailsPage({
                   className="w-full flex flex-col gap-2"
                 >
                   <fieldset className="w-full grid grid-cols-8 gap-2">
-                    <Image
-                      src={
-                        discussion?.createdBy.photoUrl
-                          ? discussion?.createdBy.photoUrl
-                          : "https://placehold.co/400x400/png"
-                      }
-                      alt={`profile image`}
-                      width={100}
-                      height={100}
-                      // layout="responsive"
-                      className="col-span-1 h-full aspect-square rounded-full object-contain"
-                    />
+                    <span className="col-span-1 w-[3.5rem] aspect-square rounded-full overflow-hidden">
+                      <Image
+                        src={
+                          discussion?.createdBy.photoUrl
+                            ? discussion?.createdBy.photoUrl
+                            : "https://placehold.co/400x400/png"
+                        }
+                        alt={`profile image`}
+                        width={100}
+                        height={100}
+                        objectFit="cover"
+                        layout="responsive"
+                        className=""
+                      />
+                    </span>
                     <input
                       type="text"
                       id=""
@@ -221,7 +230,9 @@ export default function DiscussionDetailsPage({
                   </div>
                 </form>
 
-                <h5 className="font-sora">Comments</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Comments
+                </h5>
                 {isCommentsError && <p>Error fetching comments</p>}
 
                 {isCommentsLoading ? (
@@ -252,23 +263,28 @@ export default function DiscussionDetailsPage({
               {/*2nd col */}
               <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                 <div className=" flex items-center gap-4">
-                  <Image
-                    src={
-                      discussion?.createdBy.photoUrl
-                        ? discussion?.createdBy.photoUrl
-                        : "https://placehold.co/600x600/png"
-                    }
-                    alt={discussion?.title}
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                    className="w-[3rem] aspect-square rounded-full border border-gray-500"
-                  />
+                  <span className="w-[3rem] aspect-square rounded-full overflow-hidden">
+                    <Image
+                      src={
+                        discussion?.createdBy.photoUrl
+                          ? discussion?.createdBy.photoUrl
+                          : "https://placehold.co/400x400/png"
+                      }
+                      alt={`profile image`}
+                      width={100}
+                      height={100}
+                      objectFit="cover"
+                      layout="responsive"
+                      className=""
+                    />
+                  </span>
                   <h5 className="text-gray-200 font-semibold font-sora text-base">
                     {discussion?.createdBy?.name || "Anonymous"}
                   </h5>
                 </div>
-                <h5 className="font-sora">Share this discussion</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Share this discussion
+                </h5>
                 <div className="flex  items-center justify-center w-auto gap-2 text-primaryWhite">
                   <button onClick={handleFacebookShare}>
                     <svg
@@ -312,7 +328,9 @@ export default function DiscussionDetailsPage({
                     </svg>
                   </button>
                 </div>
-                <h5 className="font-sora">Other discussions</h5>
+                <h5 className="font-sora font-semibold text-primary text-base md:text-xl">
+                  Other discussions
+                </h5>
                 <div>
                   {isDiscussionsError && <p>Error fetching list</p>}
 

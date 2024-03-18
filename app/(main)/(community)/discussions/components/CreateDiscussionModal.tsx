@@ -31,9 +31,7 @@ export default function CreateDiscussionModal({}: Props) {
     enabled: true,
   });
 
-   const {
-    refetch
-  } = useGET({
+  const { refetch } = useGET({
     url: "/discussions",
     queryKey: ["discussions"],
     withAuth: false,
@@ -59,7 +57,7 @@ export default function CreateDiscussionModal({}: Props) {
     event.preventDefault();
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${apiUrl}/discussions`;
+      const endpoint = `${apiUrl}discussions`;
 
       let formData = new FormData();
 
@@ -77,7 +75,7 @@ export default function CreateDiscussionModal({}: Props) {
       if (response.status === 200) {
         setIsPending(false);
         toast.success("post created successfully");
-        hideModal()
+        hideModal();
       } else {
         toast.error(`Error creating post: ${response.data}`);
       }
@@ -86,9 +84,8 @@ export default function CreateDiscussionModal({}: Props) {
       // Handle network or other errors
       console.error("Error creating post:", error);
       toast.error("Error creating post", error.message);
-    }
-    finally {
-      refetch()
+    } finally {
+      refetch();
     }
   }
 
@@ -96,9 +93,11 @@ export default function CreateDiscussionModal({}: Props) {
     <Modal onClose={hideModal} isOpen={true}>
       <AnimatePresence initial={false} mode="wait">
         {!isAuthenticated ? (
-          <LoginFirst 
-          title="Join the community"
-          message="You have to Login to start your discussion"/>
+          <LoginFirst
+            title="Join the community"
+            message="You have to Login to start your discussion"
+            redirectURL={window.location.pathname}
+          />
         ) : (
           <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
             <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">

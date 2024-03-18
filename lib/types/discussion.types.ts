@@ -12,7 +12,7 @@ export interface Discussion {
 }
 export interface Comment {
   id: number;
-  createdBy: User;
+  user: User;
   content: string;
   createdAt: string;
 }

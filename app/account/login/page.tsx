@@ -20,6 +20,7 @@ const Login: React.FC = () => {
     email: "",
     password: "",
   });
+  const redirectUrl = localStorage.getItem("redirectUrl");
   const { login } = useAppContext();
   const { mutate, isPending, isError } = usePOST("auth/token");
   const handleShowPassword = () => {
@@ -41,13 +42,21 @@ const Login: React.FC = () => {
         login(data, data.token);
         // set the user to the data returned using the user store in zustand
         console.log(data);
-        router.push("/");
+        if (redirectUrl) {
+          router.push(redirectUrl);
+          localStorage.setItem("redirectUrl", "");
+        } else {
+          router.push("/");
+        }
       },
       onError: () => {
         console.log("On page Error");
       },
     });
   };
+
+  console.log(redirectUrl);
+
   return (
     <TransitionParent>
       <main>

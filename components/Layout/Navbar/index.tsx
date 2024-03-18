@@ -12,11 +12,12 @@ import { MenuContainer, MenuItem } from "./Menu";
 import { useAppContext } from "@/lib/context/app-context";
 import manage_org_blocker from "@/public/images/manage_org_blocker.svg";
 import CreateOrgFirstModal from "@/app/(main)/events/components/CreateOrgFirstModal";
+import { useSideMenu } from "@/lib/context/sidemenu-context";
+import MobileMenu from "./MobileMenu";
 const Navbar = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
     undefined
   );
-  const [showSideBar, setShowSideBar] = useState(false);
   const { isAuthenticated, user, showOrgBlocker, toggleOrganizationBlocker } =
     useAppContext();
 
@@ -229,9 +230,10 @@ const Navbar = () => {
   };
   const pathname = usePathname();
   const router = useRouter();
+  const { showSideMenu } = useSideMenu()
 
   const handleSideMenu = () => {
-    setShowSideBar((prevState) => !prevState);
+    showSideMenu(<MobileMenu />);
   };
   const navigateToCreateOgr = () => {
     router.push("/organization/create");
@@ -240,13 +242,12 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="fixed top-0 inset-x-0 z-[250] font-sora flex items-center justify-between text-secondaryGreen bg-primaryWhite px-2 md:px-8 py-3 md:py-0">
+      <nav className="fixed top-0 inset-x-0 z-[3000] font-sora flex items-center justify-between text-secondaryGreen bg-primaryWhite px-2 md:px-8 py-0">
         <div className="w-1/3 flex gap-4 items-center justify-between md:py-2">
           {/*side menu button */}
           <button className="lg:hidden block" onClick={handleSideMenu}>
             <svg
-              width="35"
-              height="31"
+              className="w-6 aspect-square"
               viewBox="0 0 35 31"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -277,68 +278,16 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="w-full">
-            <Link href="/" className="w-fit flex items-center space-x-2">
+            <Link href="/" className="w-fit flex items-center">
               <Image
                 src={Logo.src}
                 alt=""
                 className="w-[3rem] md:w-[4rem] aspect-auto"
-                width={100}
-                height={100}
+                width={100} height={100}
               />
             </Link>
           </div>
         </div>
-        {showSideBar && (
-          <div className="absolute bg-white-100 w-[70%] h-screen z-10 top-0 px-8 py-5 ">
-            <div className="flex justify-between">
-              <Link href="/" className="w-fit flex items-center space-x-2">
-                <Image
-                  src={Logo.src}
-                  alt=""
-                  className="w-[3rem] md:w-[4rem] aspect-auto"
-                  width={80}
-                  height={80}
-                />
-              </Link>
-              <button onClick={handleSideMenu}>
-                <svg
-                  width="25"
-                  height="31"
-                  viewBox="0 0 25 31"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.29529 5.93799L19.8578 22.4179"
-                    stroke="black"
-                    stroke-width="2.125"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M4.88513 22.1553L20.4486 5.67627"
-                    stroke="black"
-                    stroke-width="2.125"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div className="flex flex-col gap-5 mt-[100px] text-lg">
-              <MenuItem link="/about" subLinks={null} text="about" />
-              <MenuItem link="/category" subLinks={null} text="category" />
-              <MenuItem link="/events" subLinks={null} text="events" />
-              <MenuItem link="#" subLinks={null} text="community" />
-              <MenuItem link="/projects" subLinks={null} text="projects" />
-              <MenuItem link="/blog" subLinks={null} text="blog" />
-            </div>
-            <div className="absolute bottom-0 text-sm">
-              <p>© Copyright 2022. VHDO</p>
-            </div>
-          </div>
-        )}
         <div className="hidden lg:flex items-center justify-center w-1/3 mx-auto space-x-4 text-base font-light ">
           <MenuContainer>
             <MenuItem link="/about" subLinks={null} text="about" />
@@ -356,24 +305,24 @@ const Navbar = () => {
 
         <div className="w-fit lg:w-1/3 place-content-end flex items-center gap-5">
           {!isAuthenticated ? (
-            <div className="flex items-center text-xs md:text-base">
+            <div className="flex items-center gap-2 text-xs md:text-base">
               <Link
                 href="/account/login"
-                className="flex items-center gap-2 px-4 py-2 text-light"
-                onClick={() => {}}
+                className="flex items-center gap-1 p-2 text-light"
+                onClick={() => { }}
               >
                 <Image
                   width={0.5}
                   height={0.5}
                   src={userAccount.src}
                   alt=""
-                  className="w-[1.5rem] aspect-square object-contain"
+                  className="w-[1.2rem] aspect-square object-contain"
                 />
                 Log in
               </Link>
               <Link
                 href="/account/sign-up"
-                className="bg-btnWarning px-4 py-2 rounded-md font-light text-white-100"
+                className="bg-btnWarning p-2 rounded-md font-light text-white-100"
               >
                 Sign up
               </Link>

@@ -41,7 +41,7 @@ const Results = () => {
 
   const searchOrganizationsPage = async (page: number): Promise<PaginatedResponseOrganization> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations?page=${page}&size=${PAGE_SIZE}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}organizations?page=${page}&size=${PAGE_SIZE}`);
       if (!response.ok) {
         throw new Error('Failed to fetch organizations');
       }
@@ -78,7 +78,7 @@ const Results = () => {
     isLoading: isSearchLoading,
     isError: isSearchError,
   } = useGET({
-    url: `/organizations/search?name=${query}`,
+    url: `organizations/search?name=${query}`,
     queryKey: ["searchResults", query],
     withAuth: false,
     enabled: !!query,
@@ -131,18 +131,15 @@ const Results = () => {
                 <span className="flex gap-10 items-center justify-start text-base font-sora text-gray-300">
                   <p>Search for : </p>
                   <span className="flex gap-5">
-                    <Link href="/results?name=tech" className="hover:text-btnWarning underline">
+                    <button onClick={() => router.replace(`/results?query=Tech`)} className="hover:text-btnWarning underline">
                       Tech
-                    </Link>
-                    <Link href="/results?name=gender%20equity" className="hover:text-btnWarning underline">
-                      gender equity
-                    </Link>
-                    <Link href="/results?name=sensitization" className="hover:text-btnWarning underline">
+                    </button>
+                    <button onClick={() => router.replace(`/results?query=Sensitization`)} className="hover:text-btnWarning underline">
                       Sensitization
-                    </Link>
-                    <Link href="/results?name=feminism" className="hover:text-btnWarning underline">
+                    </button>
+                    <button onClick={() => router.replace(`/results?query=Feminism`)} className="hover:text-btnWarning underline">
                       Feminism
-                    </Link>
+                    </button>
                   </span>
                 </span>
               </div>

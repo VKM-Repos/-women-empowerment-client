@@ -8,11 +8,17 @@ import Link from "next/link";
 type Props = {
   title: string;
   message: string;
+  redirectURL: string;
 };
 
-function LoginWarning({ title, message }: Props) {
+function LoginWarning({ title, message, redirectURL }: Props) {
   const { hideModal } = useModal();
   const router = useRouter();
+
+  const handleRedirect = () => {
+    localStorage.setItem("redirectUrl", redirectURL);
+    router.push("/account/login");
+  };
   return (
     <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
       <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">
@@ -36,7 +42,9 @@ function LoginWarning({ title, message }: Props) {
         </span>
       </nav>
       <div className="w-full h-full flex flex-col mt-[15%] items-center justify-center gap-4">
-        <p className="text-xl font-semibold text-gray-200 font-quickSand">{message}</p>
+        <p className="text-xl font-semibold text-gray-200 font-quickSand">
+          {message}
+        </p>
         <Button
           label="Login"
           variant="primary"
@@ -44,11 +52,11 @@ function LoginWarning({ title, message }: Props) {
           fullWidth={false}
           state="active"
           onClick={() => {
-            router.push("/account/login");
+            handleRedirect();
             hideModal();
           }}
         />
-        <div className="w-full my-6 flex flex-col items-center justify-center gap-4">
+        {/* <div className="w-full my-6 flex flex-col items-center justify-center gap-4">
           <div
             className="w-full flex items-center justify-center gap-5
                                 before:content-[''] before:w-1/4 before:h-0.5 before:bg-gray-500 before:rounded
@@ -98,7 +106,7 @@ function LoginWarning({ title, message }: Props) {
             </span>
             <span className="text-sm font-sora">Continue with google</span>
           </button>
-        </div>
+        </div> */}
         <span className="text-sm font-quuckSand">
           Don&apos;t have an account?{" "}
           <Link

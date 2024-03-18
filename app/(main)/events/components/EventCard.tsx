@@ -12,7 +12,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
     <Link
       href={`/events/${event.id}`}
-      scroll={false}
+      // scroll={false}
       className="w-full grid grid-cols-8 items-center border-t border-gray-500 md:p-4 p-2 drop-shadow-sm gap-4 hover:bg-primary/10 transform transition-all ease-in-out duration-75 hover:rounded"
     >
       <div className="col-span-2 md:col-span-1">
