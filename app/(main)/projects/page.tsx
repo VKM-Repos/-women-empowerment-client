@@ -48,7 +48,7 @@ const ProjectPage = () => {
 
   const handleCreateProject = () => {
     if (!isAuthenticated) {
-      showModal(<LoginWarningModal />);
+      showModal(<LoginWarningModal redirectURL={window.location.pathname} />);
     } else if (isAuthenticated && user?.role !== "ADMIN") {
       showModal(<CreateOrgFirstModal />);
     } else {

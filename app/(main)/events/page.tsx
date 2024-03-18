@@ -22,9 +22,11 @@ const EventsPage = () => {
   const [selectedEventType, setSelectedEventType] = useState<EventTab>();
   const { showModal } = useModal();
   const router = useRouter();
+
   const { isAuthenticated, user } = useAppContext();
   const [eventDate, setEventDate] = useState("");
   const [filterEvent, setFilterEvent] = useState(false);
+  const [redirectURL, setRedirectURL] = useState("");
   // fetch lists of events
   const {
     data: events,
@@ -54,9 +56,9 @@ const EventsPage = () => {
     withAuth: false,
     enabled: !filterEvent,
   });
-
-  console.log(events);
-
+  useEffect(() => {
+    setRedirectURL(window.location.pathname);
+  }, []);
   const eventsTab = [
     {
       tabName: "PHYSICAL",
@@ -67,7 +69,7 @@ const EventsPage = () => {
   ];
   const handleCreateEvent = () => {
     if (!isAuthenticated) {
-      showModal(<LoginFirstModal />);
+      showModal(<LoginFirstModal redirectURL={redirectURL} />);
     } else if (isAuthenticated && user?.role !== "ADMIN") {
       showModal(<CreateOrgFirstModal />);
     } else {

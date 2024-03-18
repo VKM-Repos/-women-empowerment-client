@@ -8,11 +8,17 @@ import Link from "next/link";
 type Props = {
   title: string;
   message: string;
+  redirectURL: string;
 };
 
-function LoginFirst({ title, message }: Props) {
+function LoginFirst({ title, message, redirectURL }: Props) {
   const { hideModal } = useModal();
+
   const router = useRouter();
+  const handleRedirect = () => {
+    localStorage.setItem("redirectUrl", redirectURL);
+    router.push("/account/login");
+  };
   return (
     <div className="lg:w-1/3 w-full mx-auto bg-[#F6F7F8] pt-8 rounded-[1rem] px-8 py-4 pb-8 flex flex-col relative">
       <nav className="w-full border-b border-gray-500 py-4 absolute top-0 left-0">
@@ -44,7 +50,7 @@ function LoginFirst({ title, message }: Props) {
           fullWidth={false}
           state="active"
           onClick={() => {
-            router.push("/account/login");
+            handleRedirect();
             hideModal();
           }}
         />
