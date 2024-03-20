@@ -21,8 +21,6 @@ const Navbar = () => {
   const { isAuthenticated, user, showOrgBlocker, toggleOrganizationBlocker } =
     useAppContext();
 
-  console.log(user);
-
   const submenuLinks = {
     community: [
       { type: "link", text: "Discussions", href: "/discussions" },
@@ -230,7 +228,7 @@ const Navbar = () => {
   };
   const pathname = usePathname();
   const router = useRouter();
-  const { showSideMenu } = useSideMenu()
+  const { showSideMenu } = useSideMenu();
 
   const handleSideMenu = () => {
     showSideMenu(<MobileMenu />);
@@ -283,7 +281,8 @@ const Navbar = () => {
                 src={Logo.src}
                 alt=""
                 className="w-[3rem] md:w-[4rem] aspect-auto"
-                width={100} height={100}
+                width={100}
+                height={100}
               />
             </Link>
           </div>
@@ -309,7 +308,7 @@ const Navbar = () => {
               <Link
                 href="/account/login"
                 className="flex items-center gap-1 p-2 text-light"
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 <Image
                   width={0.5}
