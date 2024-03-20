@@ -11,7 +11,10 @@ interface LikeButtonProps {
   likesCount: number;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) => {
+const LikeButton: React.FC<LikeButtonProps> = ({
+  organizationId,
+  likesCount,
+}) => {
   const { token, isAuthenticated } = useAppContext();
   const { showModal } = useModal();
 
@@ -57,8 +60,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
       if (response.ok) {
         const data = await response.json();
         // setIsLiked((prevIsLiked) => data.message || prevIsLiked);
-        setNewLikesCount(data?.likesCount)
-        console.log(newLikesCount)
+        setNewLikesCount(data?.likesCount);
+        console.log(newLikesCount);
       }
     } catch (error) {
       console.error("Error fetching like status:", error);
@@ -76,7 +79,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
 
   const handleLikeClick = async () => {
     if (!isAuthenticated) {
-      showModal(<LoginWarningModal />);
+      showModal(<LoginWarningModal redirectURL={window.location.pathname} />);
       return;
     }
 
@@ -85,7 +88,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
     try {
       // Optimistically update UI
       setIsLiked((prevIsLiked) => !prevIsLiked);
-      setNewLikesCount((prevLikesCount) => (isLiked ? prevLikesCount - 1 : prevLikesCount + 1));
+      setNewLikesCount((prevLikesCount) =>
+        isLiked ? prevLikesCount - 1 : prevLikesCount + 1
+      );
 
       if (isLiked) {
         await unlikeOrganization(organizationId);
@@ -96,12 +101,13 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
       console.error("Error liking/unliking organization:", error);
       // Revert the optimistic update on error
       setIsLiked((prevIsLiked) => !prevIsLiked);
-      setNewLikesCount((prevLikesCount) => (isLiked ? prevLikesCount + 1 : prevLikesCount - 1));
+      setNewLikesCount((prevLikesCount) =>
+        isLiked ? prevLikesCount + 1 : prevLikesCount - 1
+      );
     } finally {
       setLoading(false);
     }
   };
-
 
   const likeOrganization = async (id: number) => {
     if (!isAuthenticated) {
@@ -136,7 +142,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
@@ -165,7 +171,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ organizationId, likesCount }) =
         </svg>
 
         <p className="text-neutral-500 text-center text-xs md:text-sm self-center my-auto">
-          {newLikesCount <= 0 ? '0' : newLikesCount}
+          {newLikesCount <= 0 ? "0" : newLikesCount}
         </p>
       </span>
     </button>

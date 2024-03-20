@@ -67,7 +67,9 @@ export default function Events() {
             {events?.content?.length < 1 ? (
               <div className="flex justify-center">
                 {" "}
-                <h2 className="text-xl font-semibold">No Event created yet</h2>
+                <h2 className="text-xl font-semibold text-gray-200">
+                  No event created yet
+                </h2>
               </div>
             ) : (
               events?.content?.map((event: any) => (

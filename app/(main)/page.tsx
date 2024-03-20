@@ -34,7 +34,6 @@ const LandingPage = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log(`Searching for: '${selectedTerm}'`);
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
@@ -59,15 +58,12 @@ const LandingPage = () => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
 
-
-
-
   // fetch lists of organizations
   const {
     data: organizations,
     isLoading: isOrganizationLoading,
     isError: isOrganizationError,
-    refetch: refetchOrganization
+    refetch: refetchOrganization,
   } = useGET({
     url: "organizations/top",
     queryKey: ["top_organizations"],
@@ -76,7 +72,7 @@ const LandingPage = () => {
   });
 
   useEffect(() => {
-    refetchOrganization()
+    refetchOrganization();
   }, [refetchOrganization]);
 
   // fetch lists of events
@@ -90,8 +86,6 @@ const LandingPage = () => {
     withAuth: false,
     enabled: true,
   });
-
-  // console.log(events?.content);
 
   return (
     <main className="w-full">
@@ -162,12 +156,14 @@ const LandingPage = () => {
                   />
                 ) : (
                   <>
-                    {organizations?.content?.slice(0, 5).map((organization: Organization) => (
-                      <OrganizationCard
-                        organization={organization}
-                        key={organization.id}
-                      />
-                    ))}
+                    {organizations?.content
+                      ?.slice(0, 5)
+                      .map((organization: Organization) => (
+                        <OrganizationCard
+                          organization={organization}
+                          key={organization.id}
+                        />
+                      ))}
                     <div className="w-fit mx-auto my-8">
                       <Button
                         label="SEE ALL ORGANIZATIONS"
@@ -180,7 +176,6 @@ const LandingPage = () => {
                       />
                     </div>
                   </>
-
                 )}
               </section>
             </div>
@@ -217,9 +212,11 @@ const LandingPage = () => {
                       <>
                         <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
                           {Array.isArray(events?.content) &&
-                            events?.content?.slice(0, 5).map((event: Event) => (
-                              <EventCard key={event.id} event={event} />
-                            ))}
+                            events?.content
+                              ?.slice(0, 5)
+                              .map((event: Event) => (
+                                <EventCard key={event.id} event={event} />
+                              ))}
                         </div>
                         <div className="w-fit mx-auto my-8">
                           <Button

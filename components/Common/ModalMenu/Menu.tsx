@@ -12,6 +12,8 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
   if (!showMenu) {
     return null;
   }
+  console.log(menuItems);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -43,7 +45,7 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
                       ? " border-b border-stone-800 border-solid border-opacity-10"
                       : ""
                   }`}
-                  href={item.link}
+                  href={`${item.link}`}
                   target={item?.blank ? "_blank" : ""}
                 >
                   <span>{item.icon}</span> {item.title}
