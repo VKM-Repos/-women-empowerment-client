@@ -25,6 +25,7 @@
     "react-hot-toast": "^2.4.1",
     "react-share-kit": "^1.1.0",
     "sharp": "^0.33.2",
+    "use-debounce": "^10.0.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

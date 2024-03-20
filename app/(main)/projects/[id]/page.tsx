@@ -4,14 +4,15 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { useGET } from "@/lib/hooks/useGET.hook";
-import { formatDateTime } from "@/lib/utils/helperFunctions";
+import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
+import ShareDropdown from "@/components/LandingPage/ShareDropDown";
+import Link from "next/link";
 
-export default function EventsDetailsPage({
+export default function ProjectDetailsPage({
   params,
 }: {
   params: { id: string };
 }) {
-
   const router = useRouter();
   const projectId = params?.id?.replace(/\(\.\)/g, "");
 
@@ -21,16 +22,17 @@ export default function EventsDetailsPage({
     withAuth: false,
     enabled: true,
   });
-  console.log(project);
+
+
+  const urlToShare = `https://womenhub.org/projects/${projectId}`;
 
   return (
     <>
       {isPending ? (
-        // <ProjectDetailsLoader />
-        <>loading</>
+        <LoadingThinkingWomen />
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-3/4 w-full mx-auto py-4 pt-8 rounded-[1rem] relative font-sora">
+          <div className="lg:w-3/4 w-full mx-auto p-4 pt-8 rounded-[1rem] relative font-sora">
             <button
               onClick={router.back}
               className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
@@ -51,42 +53,43 @@ export default function EventsDetailsPage({
               Go back
             </button>
 
-            <h3 className=" text-base md:text-xl font-sora font-bold text-primary text-center">
-              {project?.title || 'Women Hub Projects'}
+            <h3 className=" text-base md:text-xl font-sora font-bold text-primary text-center my-6">
+              {project?.title || "Project details"}
             </h3>
 
-
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 justify-start py-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-10 justify-start">
               <div className="col-span-1 flex flex-col items-start justify-start gap-8 p-2">
-
-
-
                 <Image
                   src={
-                    project?.createdBy.photoUrl ? project?.createdBy.photoUrl :
-                      "https://placehold.co/400x400/png"
+                    project?.image
+                      ? project?.image
+                      : "https://placehold.co/400x400/png"
                   }
                   alt={`profile image`}
-                  width={1000}
+                  width={500}
                   height={500}
                   // layout="responsive"
-                  className="w-full h-[60%] rounded object-cover"
+                  className="w-full h-[60%] rounded object-contain"
                 />
                 <span>
-                  <h5 className="text-base font-sora font-semibold text-primary">Description</h5>
+                  <h5 className="text-base font-sora font-semibold text-primary">
+                    Description
+                  </h5>
                   <p className="text-base font-quickSand text-gray-200 font-semibold">
-                    {project?.description || 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis saepe facilis blanditiis expedita amet maiores itaque tempore unde quidem dicta!'}
+                    {project?.description ||
+                      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis saepe facilis blanditiis expedita amet maiores itaque tempore unde quidem dicta!"}
                   </p>
                 </span>
-
               </div>
 
               {/*2nd col */}
-              <div className="col-span-1 flex flex-col items-start justify-start gap-5">
-                <div className=" flex items-center gap-4">
+              <div className="col-span-1 flex flex-col items-start justify-start gap-5 p-2">
+                <div className=" flex items-center justify-start gap-4">
                   <Image
                     src={
-                      project?.createdBy.photoUrl ? project?.createdBy.photoUrl : "https://placehold.co/600x600/png"
+                      project?.image
+                        ? project?.image
+                        : "https://placehold.co/600x600/png"
                     }
                     alt={project?.title}
                     width={100}
@@ -95,34 +98,46 @@ export default function EventsDetailsPage({
                     className="w-[3rem] aspect-square rounded-full border border-gray-500"
                   />
                   <h5 className="text-gray-200 font-semibold font-sora text-base">
-                    {project?.createdBy?.name || "Anonymous"}
+                    {project?.organization?.name || ""}
                   </h5>
+
                 </div>
 
                 <ul className="w-full flex flex-col gap-5 items-start">
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2">Status:</span>
-                    <span className="col-span-4">{project?.status || "Ongoing"}</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Status:</span>
+                    <span className="col-span-4 ">
+                      {project?.status || "not stated"}
+                    </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2">Starts</span>
-                    <span className="col-span-4">{project?.startDate || "1st March 2024"}</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Starts</span>
+                    <span className="col-span-4">
+                      {project?.startDate || "1st March 2024"}
+                    </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2">Ends:</span>
-                    <span className="col-span-4">{project?.endDate || "1st March 2024"}</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Ends:</span>
+                    <span className="col-span-4">
+                      {project?.endDate || "1st March 2024"}
+                    </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2">category:</span>
-                    <span className="col-span-4">{project?.category[0] || "Health"}</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">category:</span>
+                    <span className="col-span-4">
+                      {project?.category[0] || "Health"}
+                    </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2">Location:</span>
-                    <span className="col-span-4">{project?.location || "Abuja"}</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Location:</span>
+                    <span className="col-span-4">
+                      {project?.location || "Abuja"}
+                    </span>
                   </li>
                 </ul>
 
-
+                <span className="w-full border border-primary text-primary rounded flex items-center justify-center"><ShareDropdown text={"Share this page  "} urlToShare={urlToShare} /></span>
+                <Link href={project?.link || ''} target="_blank" className="w-full py-2 border bg-primary text-primaryWhite rounded flex items-center justify-center">Visit link</Link>
               </div>
             </div>
           </div>

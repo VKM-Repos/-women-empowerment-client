@@ -1,60 +1,89 @@
-"use client";
-import React, { useEffect, useState } from "react";
+// "use client";
+import React, { Suspense, useEffect, useState } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import ProjectManagers from "@/public/images/project-managers-illustration.png";
 import SearchForm from "@/components/LandingPage/SearchForm";
-import { useGET } from "@/lib/hooks/useGET.hook";
 import Button from "@/components/Common/Button/Button";
 import { ProjectCard } from "./components/ProjectCard";
 import { Project } from "@/lib/types/project.types";
 import { ProjectCardLoader } from "./components/ProjectCardLoader";
 import FilterDropdown from "@/components/Common/Dropdown/FilterDropdown";
-import Dropdown from "@/components/Common/Dropdown/Dropdown";
-import { Category } from "@/lib/types/category.types";
-import { useModal } from "@/lib/context/modal-context";
-import { useRouter } from "next/navigation";
-import { useAppContext } from "@/lib/context/app-context";
-import LoginWarningModal from "@/components/LandingPage/LoginWarningModal";
-import CreateOrgFirstModal from "../events/components/CreateOrgFirstModal";
-const ProjectPage = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const { showModal } = useModal();
 
-  const router = useRouter();
-  const { isAuthenticated, user } = useAppContext();
-  // fetch lists of projects
-  const {
-    data: projects,
-    isLoading: isProjectLoading,
-    isError: isProjectError,
-  } = useGET({
-    url: "/project",
-    queryKey: ["project"],
-    withAuth: false,
-    enabled: true,
-  });
+import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+import ProjectCTA from "./components/ProjectCTA";
 
-  const {
-    data: categories,
-    isLoading,
-    isError,
-  } = useGET({
-    url: "/categories",
-    queryKey: ["categories"],
-    withAuth: false,
-    enabled: true,
-  });
 
-  const handleCreateProject = () => {
-    if (!isAuthenticated) {
-      showModal(<LoginWarningModal />);
-    } else if (isAuthenticated && user?.role !== "ADMIN") {
-      showModal(<CreateOrgFirstModal />);
-    } else {
-      window.location.href = "/projects/create";
+interface ResultsPageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+interface PaginatedResponseData {
+  content: Project[];
+  page: number;
+  size: number;
+  numberOfElements: number;
+  totalElements: number;
+}
+
+
+const ProjectPage = ({
+  searchParams,
+}: ResultsPageProps) => {
+
+  const page = Number(searchParams["page"]) || 0;
+  const per_page = Number(searchParams["per_page"]) || 8;
+
+
+  const fetchProjects = async (): Promise<PaginatedResponseData> => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects?page=${page}&size=${per_page}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch projects');
+      }
+
+      const data: PaginatedResponseData = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      throw error;
     }
   };
+
+
+  const FetchAndRenderData = async () => {
+    const data = await fetchProjects();
+
+    if (!data) {
+      return null;
+    }
+    const entries = data?.content;
+
+
+    if (entries?.length === 0) {
+      return <>No projects found.</>;
+    } else {
+      return (
+        <>
+          <div className="w-full md:w-[98%] mx-auto flex flex-wrap justify-center gap-5 md:gap-y-16">
+            {Array.isArray(entries) &&
+              entries?.map((project: Project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+          </div>
+          <PaginationControls
+            totalPages={Math.ceil(data.totalElements / per_page)}
+            currentPage={data.page}
+          />
+        </>
+      );
+    }
+  };
+
+
+
+
+
   return (
     <main className="w-full">
       <TransitionParent>
@@ -77,26 +106,9 @@ const ProjectPage = () => {
             />
           </div>
         </header>
-        <section className="w-full md:w-[75%] mx-auto flex flex-col items-center justify-center text-center md:p-12 p-4 gap-y-[1rem]">
-          <h3 className="md:text-[32px] text-[18px] text-primary font-sora font-semibold leading-tight">
-            Women hub bringing the new initiatives to have you onboard.
-          </h3>
-          <p className="text-gray-100 text-center text-base font-normal font-quickSand">
-            You can add your projects for awareness, collaborations and
-            sponsorships
-          </p>
-          <div className="w-fit mx-auto">
-            <Button
-              label="Start a project"
-              variant="primary"
-              fullWidth={false}
-              size="normal"
-              onClick={handleCreateProject}
-            />
-          </div>
-        </section>
-        <section className="w-full md:w-[95%] mx-auto flex justify-center gap-5 md:gap-10 flex-wrap md:gap-y-16 pb-[8rem]">
-          <div className="w-full flex items-center justify-between">
+        <ProjectCTA />
+        <section className="w-full md:w-[95%] mx-auto flex justify-center gap-5 md:gap-10 flex-wrap md:gap-y-16 pb-[8rem] ">
+          <div className="w-[95%] mx-auto flex items-center justify-between">
             <span className="text-base md:text-xl text-gray-300 font-semibold font-quickSand">
               Click below to <br /> Discover Initiatives Making a Difference
             </span>
@@ -117,23 +129,13 @@ const ProjectPage = () => {
               </div>
             </FilterDropdown> */}
           </div>
-          {isProjectError && <p>Error fetching Projects</p>}
-
-          {isProjectLoading ? (
-            [1, 2, 3, 4, 5, 6, 7, 8].map((item: any) => (
+          <Suspense
+            fallback={[1, 2, 3, 4, 5, 6, 7, 8].map((item: any) => (
               <ProjectCardLoader key={item?.id} />
-            ))
-          ) : !isProjectLoading &&
-            !isProjectError &&
-            projects?.content?.length === 0 ? (
-            <p className="no-result">No projects yet</p>
-          ) : (
-            <>
-              {projects?.content?.map((project: Project) => (
-                <ProjectCard project={project} key={project.id} />
-              ))}
-            </>
-          )}
+            ))}
+          >
+            <FetchAndRenderData />
+          </Suspense>
         </section>
       </TransitionParent>
     </main>

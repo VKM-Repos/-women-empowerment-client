@@ -101,7 +101,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                         width={400}
                         height={400}
 
-                        className="w-full object-contain"
+                        className="w-full h-full bg-center object-cover"
                       />
                       <button
                         type="button"

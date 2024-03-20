@@ -20,7 +20,7 @@ function SuccessModal({ title, message, projectId }: Props) {
   const { hideModal } = useModal();
   const router = useRouter();
   const { resetStore } = useProjectFormStore();
-  const { mutate, isPending } = usePOST(`events/${projectId}/publish`);
+  const { mutate, isPending } = usePOST(`projects/${projectId}/publish`);
   const handlePublish = () => {
     resetStore();
     mutate(

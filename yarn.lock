@@ -4603,6 +4603,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"use-debounce@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "use-debounce@npm:10.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/c1166cba52dedeab17e3e29275af89c57a3e8981b75f6e38ae2896ac36ecd4ed7d8fff5f882ba4b2f91eac7510d5ae0dd89fa4f7d081622ed436c3c89eda5cd1
+  languageName: node
+  linkType: hard
+
 "use-sync-external-store@npm:1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
@@ -4746,6 +4755,7 @@ __metadata:
     sharp: "npm:^0.33.2"
     tailwindcss: "npm:^3.3.0"
     typescript: "npm:^5"
+    use-debounce: "npm:^10.0.0"
     zustand: "npm:^4.4.7"
   languageName: unknown
   linkType: soft

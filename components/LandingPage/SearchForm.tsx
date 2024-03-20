@@ -1,9 +1,11 @@
-"use client";
+
+'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Icon from '../Common/Icons/Icon';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useDebouncedCallback } from 'use-debounce';
+import Icon from '../Common/Icons/Icon';
 
 type Props = {
   placeholder: string;
@@ -12,25 +14,45 @@ type Props = {
 function SearchForm({ placeholder }: Props) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
- const handleSearch = () => {
-    if (searchQuery.length >= 2) {
-      router.push(`/results?query=${searchQuery}`);
+  const handleSearch = useDebouncedCallback((term: string) => {
+    console.log(`Searching... ${term}`);
+
+    if (searchQuery.length >= 3) {
+      const params = new URLSearchParams(searchParams);
+      if (searchQuery) {
+        params.set('query', searchQuery);
+        params.set('page', '0');
+
+      } else {
+        params.delete('query');
+        params.delete('page');
+      }
+      replace(`/results?${params.toString()}`);
     } else {
-      toast.error('Please enter at least 2 characters for the search.');
+      toast.error('Please enter at least 3 characters for the search.');
     }
-  };
+  }, 500);
+
+  console.log(pathname);
+
 
   return (
-    <div className="w-full mx-auto flex justify-center items-center font-quickSand">
+    <div className="w-full flex justify-center items-center font-quickSand">
       <input
         type="text"
         placeholder={placeholder}
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => {
+          setSearchQuery(e.target.value);
+          handleSearch(e.target.value);
+        }}
         className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
       />
-      <button onClick={handleSearch} className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md" >
+      <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md">
         <Icon name="img_search" className="" />
       </button>
     </div>
@@ -38,3 +60,4 @@ function SearchForm({ placeholder }: Props) {
 }
 
 export default SearchForm;
+

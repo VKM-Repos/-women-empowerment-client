@@ -87,7 +87,7 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({ handleNext, handleGoB
                         <span className="flex items-start justify-start gap-5">
                             <input
                                 className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                                type="datetime-local"
+                                type="date"
                                 placeholder="Start Date"
                                 {...register("startDate", {
                                     required: "this field is empty",
@@ -96,7 +96,7 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({ handleNext, handleGoB
                             />
                             <input
                                 className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                                type="datetime-local"
+                                type="date"
                                 placeholder="End Date"
                                 {...register("endDate", {
                                     required: "this field is empty",

@@ -65,6 +65,7 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
               <textarea
+                maxLength={500}
                 placeholder="Description"
                 className="w-full h-[10rem] p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                 {...register("description", {

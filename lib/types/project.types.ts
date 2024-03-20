@@ -6,13 +6,13 @@ type ProjectStatus = "completed" | "ongoing" | "upcoming";
 
 export interface Project {
   id: number;
-  name: string;
+  title: string;
   category: Category;
   startDate: LocalDate;
   endDate: LocalDate;
   startTime: LocalTime;
   endTime: LocalTime;
-  website: string;
+  link: string;
   location: string;
   description: string;
   image: string;
