@@ -406,7 +406,7 @@ export default function OrganizationDetails() {
               </span>
             </div>
 
-            <div className="w-screen mt-10 -ml-[100px]">
+            <div className="w-screen lg:hidden mt-10 -ml-[100px]">
               <div>
                 <h2 className="w-[300px] text-2xl">
                   View this page on laptop if you want manage your organization
