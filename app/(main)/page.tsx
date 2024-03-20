@@ -65,8 +65,8 @@ const LandingPage = () => {
     isError: isOrganizationError,
     refetch: refetchOrganization,
   } = useGET({
-    url: "organizations",
-    queryKey: ["organizations"],
+    url: "organizations/top",
+    queryKey: ["top_organizations"],
     withAuth: false,
     enabled: true,
   });

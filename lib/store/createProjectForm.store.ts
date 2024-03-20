@@ -10,7 +10,7 @@ export interface ProjectFormStore {
   step: number;
   data: {
     projectDetails: {
-      categoryIds: number[];
+      categoryId: number;
       title: string;
       location: string;
       link: string;
@@ -38,7 +38,7 @@ export const useProjectFormStore = create<ProjectFormStore>(
       step: 1,
       data: {
          projectDetails: {
-          categoryIds: [],
+          categoryId: 0,
           title: "",
           location: "",
           link: "",
@@ -57,7 +57,7 @@ export const useProjectFormStore = create<ProjectFormStore>(
           step: 9,
           data: {
                 projectDetails: {
-                categoryIds: [],
+                categoryId: 0,
                 title: "",
                 location: "",
                 link: "",

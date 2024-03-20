@@ -24,23 +24,21 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
         enabled: true,
     });
 
-    console.log(categories?.content);
-
     const {
         register,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<{ categoryIds: number[] }>({
+    } = useForm<{ categoryId: number }>({
         defaultValues: {
-            categoryIds: data.projectDetails.categoryIds || [],
+            categoryId: data.projectDetails.categoryId,
         },
     });
 
     const [displayedCategories, setDisplayedCategories] = useState(6);
 
-    const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
-        if (!formData.categoryIds || formData.categoryIds.length < 2) {
-            toast.error('Select at least 2 categories');
+    const onSubmit: SubmitHandler<{ categoryId: number }> = (formData) => {
+        if (!formData.categoryId) {
+            toast.error('Select a category');
             return;
         }
 
@@ -48,7 +46,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
         setData({
             projectDetails: {
                 ...data.projectDetails,
-                categoryIds: formData.categoryIds,
+                categoryId: formData.categoryId,
             },
         });
         handleNext();
@@ -84,11 +82,11 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
                                     <TransitionFromBottom>
                                         <label className="flex flex-nowrap cursor-pointer py-1 px-2 text-sm transition-colors bg-transparent text-base border border-btnWarning rounded-lg hover:border-btnWarning [&:has(input:checked)]:border-btnWarning [&:has(input:checked)]:bg-btnWarning [&:has(input:checked)]:text-primaryWhite">
                                             <input
-                                                {...register('categoryIds', {
+                                                {...register('categoryId', {
                                                     required: 'Select a category',
                                                 })}
-                                                type="checkbox"
-                                                name="categoryIds"
+                                                type="radio"
+                                                name="categoryId"
                                                 value={option.id}
                                                 className="cursor-pointer hidden"
                                             />
@@ -104,8 +102,8 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
                         >
                             {displayedCategories <= 6 ? 'See More' : 'See Less'}
                         </span>
-                        {errors?.categoryIds?.message && (
-                            <p className="text-error text-sm mt-1">{errors?.categoryIds?.message}</p>
+                        {errors?.categoryId?.message && (
+                            <p className="text-error text-sm mt-1">{errors?.categoryId?.message}</p>
                         )}
                     </div>
                     <span className="flex gap-10">

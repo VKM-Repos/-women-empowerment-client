@@ -44,7 +44,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
         <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center lg:p-12 p-4 font-quickSand">
             <div className="w-full lg:col-span-2 hidden lg:flex flex-col gap-5 place-self-start">
                 <p className="text-lg font-quickSand font-semibold text-primary">2 of 4</p>
-                <h2 className="text-2xl font-sora text-gray-100 font-semibold">Tell us about the event</h2>
+                <h2 className="text-2xl font-sora text-gray-100 font-semibold">Tell us about the project</h2>
                 <p className="text-lg text-gray-300 font-sora">This information puts it out there</p>
             </div>
 
@@ -103,6 +103,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
                     </div>
                     <div className="flex flex-col pb-4">
                         <textarea
+                            maxLength={500}
                             placeholder="Description"
                             className="w-full h-[6rem] p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                             {...register("description", {
