@@ -55,8 +55,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   return (
-    <div>
-      <div className="relative" onClick={handleShowMenu}>
+    <div className="group">
+      <div className="relative group" onClick={handleShowMenu}>
         {link != "" ? (
           <Link
             href={link}
@@ -95,12 +95,14 @@ export const MenuItem: React.FC<MenuItemProps> = ({
           </button>
         )}
         {subLinks && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isSubMenuOpen ? 1 : 0 }}
-          >
-            <SubMenu subLinks={subLinks} isOpen={isSubMenuOpen} />
-          </motion.div>
+          <div className="hidden group-hover:block hover:md:block">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isSubMenuOpen ? 1 : 0 }}
+            >
+              <SubMenu subLinks={subLinks} isOpen={isSubMenuOpen} />
+            </motion.div>
+          </div>
         )}
       </div>
     </div>
@@ -118,7 +120,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ subLinks, isOpen }) => {
       <div
         className={`absolute top-[calc(100%_+_1rem)] ${
           subLinks.length == 2 ? "left-[50%]" : ""
-        } transform -translate-x-1/2 ${isOpen ? "" : "hidden"}`}
+        } transform -translate-x-1/2`}
       >
         <div className="bg-primaryWhite backdrop-blur-sm rounded-lg overflow-hidden border border-gray-400 shadow-xl p-4 flex flex-col space-y-4">
           {subLinks.map((item, index) => {

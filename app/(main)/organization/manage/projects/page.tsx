@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Tab from "./components/Tab";
 import Project from "./components/Project";
 import projectImaage from "@/public/images/project_image_placeholder.svg";
+import Link from "next/link";
+import { useGET } from "@/lib/hooks/useGET.hook";
 interface EventTab {
   name: string;
 }
@@ -10,6 +12,19 @@ interface EventTab {
 const tabs: EventTab[] = [{ name: "All Projects" }, { name: "Drafts" }];
 export default function Projects() {
   const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
+
+  // const {
+  //   data: events,
+  //   isPending,
+  //   refetch,
+  // } = useGET({
+  //   url: `organizations/${user?.organizationId}/events${
+  //     selectedEventType?.name == "Drafts" ? "/drafts" : ""
+  //   }`,
+  //   queryKey: ["GET_ALL_EVENTS", selectedEventType?.name, fetchCount],
+  //   withAuth: true,
+  //   enabled: true,
+  // });
 
   const projectMenu = [
     {
@@ -165,9 +180,12 @@ export default function Projects() {
           </div>
         </div>
         <div>
-          <button className="px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100">
+          <Link
+            href={"/projects/create"}
+            className="px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100"
+          >
             Add Project
-          </button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-5">
