@@ -15,7 +15,7 @@ function ProjectCTA({ }: Props) {
 
     const handleCreateProject = () => {
         if (!isAuthenticated) {
-            showModal(<LoginWarningModal />);
+            showModal(<LoginWarningModal redirectURL='/projects/create' />);
         } else if (isAuthenticated && user?.role !== "ADMIN") {
             showModal(<CreateOrgFirstModal />);
         } else {
