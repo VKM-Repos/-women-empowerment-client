@@ -180,10 +180,12 @@ const Navbar = () => {
       },
       {
         name: "Projects",
+        href: "/projects",
         submenu: false,
       },
       {
         name: "Blog",
+        href: "/blog",
         submenu: false,
       },
     ],
