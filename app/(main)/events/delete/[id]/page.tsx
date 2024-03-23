@@ -29,7 +29,7 @@ export default function EventsDetailsPage({
     enabled: true,
   });
 
-  const { mutate: deleteEvent, isPending: deletingEvent } = useDELETE(
+  const { mutate: deleteEvent, isPending: deletingProject } = useDELETE(
     `events/${eventId}`
   );
   const toggleDeleteModal = () => {
@@ -40,8 +40,8 @@ export default function EventsDetailsPage({
     event.preventDefault();
     deleteEvent("", {
       onSuccess: () => {
-        console.log("deleted");
-        router.push("/organization/manage/events");
+        toggleDeleteModal();
+        window.location.href = "/organization/manage/events";
       },
       onError: (error) => {
         console.log(error);
@@ -51,7 +51,7 @@ export default function EventsDetailsPage({
 
   return (
     <>
-      {isPending || deletingEvent ? (
+      {isPending || deletingProject ? (
         <LoadingThinkingWomen />
       ) : (
         <AnimatePresence initial={false} mode="wait">
