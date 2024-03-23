@@ -6,16 +6,24 @@ export const usePATCH = (
   url: string,
   withAuth = true,
   storeCallback = undefined,
-  contentType = "application/json"
+  contentType = "application/json",
+  method = "PUT"
 ) => {
   const { mutate, isPending, isError, isSuccess, data, error } = useMutation({
     mutationFn: async (values: any) => {
       const axiosInstance = withAuth ? authApi : publicApi;
-      const response = await axiosInstance.put(url, values, {
-        headers: {
-          "Content-Type": contentType,
-        },
-      });
+      const response =
+        method == "PUT"
+          ? await axiosInstance.put(url, values, {
+              headers: {
+                "Content-Type": contentType,
+              },
+            })
+          : await axiosInstance.patch(url, values, {
+              headers: {
+                "Content-Type": contentType,
+              },
+            });
       return response?.data;
     },
     onSuccess: (returnedData) => {

@@ -164,11 +164,11 @@ export default function Event({ event, eventStatus }: EventCardProps) {
   return (
     <div className="flex justify-between items-center border border-gray-500 p-5 rounded-md w-[700px]">
       <div className="flex items-center gap-5">
-        <div>
+        <div className="rounded-full">
           <img
             src={event?.image}
             alt="organization logo"
-            className="w-16 rounded-full"
+            className="w-16 h-16 rounded-full object-cover"
           />
         </div>
         <div className="flex flex-col">

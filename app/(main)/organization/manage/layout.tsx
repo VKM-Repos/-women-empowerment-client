@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* <ProtectedPage> */}
-      <section className=" w-screen -mt-[50px] mb-[200px] px-16 ">
+      <section className=" w-screen  mb-[200px] px-16 ">
         <div className="mt-12 px-16 ">
           <div className="gap-5 flex ">
             <div className="lg:flex flex-col items-stretch w-[31%] max-md:w-full max-md:ml-0 hidden">
