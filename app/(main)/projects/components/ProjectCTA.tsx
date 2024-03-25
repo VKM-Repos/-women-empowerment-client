@@ -1,7 +1,7 @@
 'use client'
+import React from 'react'
 import Button from '@/components/Common/Button/Button'
 import LoginWarningModal from '@/components/LandingPage/LoginWarningModal';
-import React from 'react'
 import CreateOrgFirstModal from '../../events/components/CreateOrgFirstModal';
 import { useModal } from '@/lib/context/modal-context';
 import { useAppContext } from '@/lib/context/app-context';
