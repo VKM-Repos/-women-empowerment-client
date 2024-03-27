@@ -16,14 +16,6 @@ const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   distDir: "out",
-  async rewrites() {
-    return [
-      {
-        source: "/about",
-        destination: "/not-found",
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;
