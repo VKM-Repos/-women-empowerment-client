@@ -1,4 +1,3 @@
-"use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 // Define a type for your user data
@@ -13,12 +12,23 @@ type UserData = {
   // Add other relevant fields
 };
 
+// Define a type for your category data
+type CategoryData = {
+  id: number;
+  name: string;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string | null;
+  // Add other relevant fields
+};
+
 // Define the shape of the appContext
 type AppContextType = {
   isAuthenticated: boolean;
   user: UserData | null;
   token: string | null;
   showOrgBlocker: boolean;
+  categories: CategoryData[]; // Add categories
   setUser: (userData: UserData | null) => void;
   toggleOrganizationBlocker: () => void;
   login: (userData: UserData, token: string) => void;
@@ -31,6 +41,7 @@ const AppContext = createContext<AppContextType>({
   user: null,
   token: null,
   showOrgBlocker: false,
+  categories: [], // Initialize categories
   setUser: () => {},
   toggleOrganizationBlocker: () => {},
   login: () => {},
@@ -68,6 +79,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       return null; // or provide a default/fallback user object
     }
   });
+  const [categories, setCategories] = useState<CategoryData[]>([]); // Initialize categories state
+
+  // Fetch categories data or use a placeholder function
+  const fetchCategories = async () => {
+    try {
+      // Fetch categories data from your API or any source
+      const response = await fetch("https://www.womenhub.org/api/categories");
+      const data = await response.json();
+      setCategories(data?.content);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      // Handle error or set default categories
+      setCategories([]);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch categories data when the component mounts
+    fetchCategories();
+  }, []);
+
   const toggleOrganizationBlocker = () => {
     setShowOrgBlocker((prevState) => !prevState);
   };
@@ -96,6 +128,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     user,
     token,
     showOrgBlocker,
+    categories, // Add categories to the context value
     setUser,
     toggleOrganizationBlocker,
     login,

@@ -39,10 +39,10 @@ const BlogPage = () => {
             <div className="flex gap-5 items-center justify-center mt-5 w-[40%] mx-auto ">
               <input
                 type="email"
-                className="border border-gray-500 focus:outline-none px-4 py-1 rounded-md flex-1"
+                className="border border-gray-500 focus:outline-none px-4 py-2 rounded-md flex-1"
                 placeholder="sarahbling@gmail.com"
               />
-              <button className="bg-btnWarning text-white-100 px-2 py-1 rounded-md">
+              <button className="bg-btnWarning text-white-100 px-3 py-2 rounded-md">
                 Subscribe
               </button>
             </div>

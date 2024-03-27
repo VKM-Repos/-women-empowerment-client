@@ -9,11 +9,9 @@ import LikeButton from "./LikeButton";
 import ShareDropdown from "./ShareDropDown";
 import ExternalLinkButton from "./ExternalLinkButton";
 
-interface OrganizationProps extends Organization {
-  otherProps?: string;
-}
+
 export const OrganizationCard: React.FC<{
-  organization: OrganizationProps;
+  organization: Organization;
 }> = ({ organization }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -27,14 +25,14 @@ export const OrganizationCard: React.FC<{
       : text;
   };
 
-  const urlToShare = `https://womenhub.org/organization/${organization.id}`;
+  const urlToShare = `https://womenhub.org/organization/${organization?.id}`;
   return (
     <article className="border border-gray-500 shadow-sm bg-white self-stretch p-4 py-4 md:p-8 rounded-2xl max-md:max-w-full hover:bg-primary/10 transform transition-all ease-in-out duration-75 ">
       <div className="grid grid-cols-12 gap-5 place-content-center items-start ">
-        <div className="col-span-8 md:col-span-10 h-full flex flex-col gap-2 items-start justify-between">
+        <div className="col-span-9 md:col-span-10  flex flex-col gap-2 items-start justify-between h-[10rem] md:h-[8rem]">
           <Link
-            className="flex flex-col w-full hover:underline"
-            href={`/organization/${organization.id}`}
+            className="flex flex-col w-full h-[75%] hover:underline"
+            href={`/organization/${organization?.id}`}
             // as={`/organization/${formatIdToTitle(organization.name)}`}
             scroll={true}
           >
@@ -43,15 +41,15 @@ export const OrganizationCard: React.FC<{
             </h4>
             <p className=" text-xs md:text-sm font-quickSand leading-5 max-md:max-w-full">
               {/* {organization.description} */}
-              {truncatedText(organization?.description, 200)}
+              {truncatedText(organization?.description, 150)}
               &nbsp;
-              {organization.description.length > 200 && (
+              {organization.description.length > 150 && (
                 <span className="text-info text-xs">See more</span>
               )}
             </p>
           </Link>
 
-          <div className="justify-between border-gray-500  flex w-full gap-4 py-2 border-y items-center">
+          <div className="justify-between border-gray-500  flex w-full h-[25%] gap-4 py-1 border-y items-center">
             <div className="items-center flex justify-start gap-4">
               <LikeButton
                 organizationId={organization.id}
@@ -72,7 +70,7 @@ export const OrganizationCard: React.FC<{
             </button>
           </div>
         </div>
-        <div className="flex flex-col col-span-4 md:col-span-2">
+        <div className="flex flex-col col-span-3 md:col-span-2">
           <motion.img
             src={
               organization.logo ||

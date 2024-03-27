@@ -7,14 +7,13 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import ShareDropdown from "@/components/LandingPage/ShareDropDown";
 import Link from "next/link";
+import { useDELETE } from "@/lib/hooks/useDelete.hook";
+import { useState } from "react";
 
-export default function ProjectDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function DeleteProject({ params }: { params: { id: string } }) {
   const router = useRouter();
   const projectId = params?.id?.replace(/\(\.\)/g, "");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { data: project, isPending } = useGET({
     url: `projects/${projectId}`,
@@ -22,16 +21,71 @@ export default function ProjectDetailsPage({
     withAuth: false,
     enabled: true,
   });
+  const { mutate: deleteProject, isPending: deletingEvent } = useDELETE(
+    `projects/${projectId}`
+  );
+  const toggleDeleteModal = () => {
+    setShowDeleteModal(!showDeleteModal);
+  };
 
-
+  const handleDeleteEvent = (event: any) => {
+    event.preventDefault();
+    deleteProject("", {
+      onSuccess: () => {
+        toggleDeleteModal();
+        window.location.href = "/organization/manage/projects";
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
   const urlToShare = `https://womenhub.org/projects/${projectId}`;
 
   return (
     <>
-      {isPending ? (
+      {isPending || deletingEvent ? (
         <LoadingThinkingWomen />
       ) : (
         <AnimatePresence initial={false} mode="wait">
+          <div
+            className={`absolute w-[500px] left-[50%] z-10 ${
+              showDeleteModal ? "" : "hidden"
+            }`}
+          >
+            <div className="relative -left-[50%] w-[500px] bg-gray-500 py-5 px-5 rounded-md text-white-100">
+              <div className="flex justify-end mb-5">
+                <svg
+                  onClick={toggleDeleteModal}
+                  className="cursor-pointer"
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.75586 8.05762L18.6455 18.9472M7.75586 18.9472L18.6455 8.05762"
+                    stroke="black"
+                    stroke-width="1.58394"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="flex flex-col items-center gap-5">
+                <h2 className="text-black-100">
+                  Are sure you want to delete this project?
+                </h2>
+                <button
+                  onClick={handleDeleteEvent}
+                  className="border border-red-500 px-3 py-1 rounded-md text-red-500"
+                >
+                  Yes delete
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="lg:w-3/4 w-full mx-auto p-4 pt-8 rounded-[1rem] relative font-sora">
             <button
               onClick={router.back}
@@ -100,44 +154,57 @@ export default function ProjectDetailsPage({
                   <h5 className="text-gray-200 font-semibold font-sora text-base">
                     {project?.organization?.name || ""}
                   </h5>
-
                 </div>
 
                 <ul className="w-full flex flex-col gap-5 items-start">
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Status:</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">
+                      Status:
+                    </span>
                     <span className="col-span-4 ">
                       {project?.status || "not stated"}
                     </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Starts</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">
+                      Starts
+                    </span>
                     <span className="col-span-4">
                       {project?.startDate || "1st March 2024"}
                     </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Ends:</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">
+                      Ends:
+                    </span>
                     <span className="col-span-4">
                       {project?.endDate || "1st March 2024"}
                     </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">category:</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">
+                      category:
+                    </span>
                     <span className="col-span-4">
                       {project?.category[0] || "Health"}
                     </span>
                   </li>
                   <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Location:</span>
+                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">
+                      Location:
+                    </span>
                     <span className="col-span-4">
                       {project?.location || "Abuja"}
                     </span>
                   </li>
                 </ul>
 
-                <span className="w-full border border-primary text-primary rounded flex items-center justify-center"><ShareDropdown text={"Share this page  "} urlToShare={urlToShare} /></span>
-                <Link href={project?.link || ''} target="_blank" className="w-full py-2 border bg-primary text-primaryWhite rounded flex items-center justify-center">Visit link</Link>
+                <button
+                  onClick={toggleDeleteModal}
+                  className="w-full border py-2 hover:bg-red-600 hover:text-white-100 border-red-600 text-red-600 rounded flex items-center justify-center"
+                >
+                  Delete this project
+                </button>
               </div>
             </div>
           </div>

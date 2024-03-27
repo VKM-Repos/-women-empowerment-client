@@ -73,8 +73,9 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
         className="p-2 cursor-pointer flex items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {text}
         <ShareButton />
+        &nbsp;
+        {text}
       </button>
 
       <AnimatePresence>

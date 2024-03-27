@@ -55,19 +55,21 @@ export default function Events() {
               </div>
             </div>
             <div>
-              <Link
-                href={"/events/create"}
+              <button
+                onClick={() => (window.location.href = "/events/create")}
                 className="px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100"
               >
                 Add Event
-              </Link>
+              </button>
             </div>
           </div>
           <div className="flex flex-col gap-5">
             {events?.content?.length < 1 ? (
               <div className="flex justify-center">
                 {" "}
-                <h2 className="text-xl font-semibold">No Event created yet</h2>
+                <h2 className="text-2xl font-sora text-gray-400">
+                  No event created yet in {selectedEventType?.name}
+                </h2>
               </div>
             ) : (
               events?.content?.map((event: any) => (

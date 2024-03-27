@@ -58,7 +58,7 @@ function CreateOrganizationPage() {
             type: "application/json",
           })
         );
-        console.log(formData);
+
         if (data.logo) {
           formData.append("logo", data.logo);
         }

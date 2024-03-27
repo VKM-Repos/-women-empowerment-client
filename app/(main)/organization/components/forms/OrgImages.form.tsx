@@ -103,7 +103,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                         alt={`Image Preview`}
                         width={400}
                         height={400}
-                        className="w-full object-contain"
+                        className="w-full h-full bg-center object-cover"
                       />
                       <button
                         type="button"

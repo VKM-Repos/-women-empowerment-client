@@ -104,7 +104,8 @@ export default function DiscussionDetailsPage({
     setIsLoading(true);
     if (!isAuthenticated) {
       toast.error("You must be logged in to comment.");
-      throw new Error("User is not authenticated");
+      // throw new Error("User is not authenticated");
+      setIsLoading(false)
     }
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
