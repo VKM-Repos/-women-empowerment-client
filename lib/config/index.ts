@@ -1,1 +1,1 @@
-export const backendApiURL = "https://www.womenhub.org/api/";
+export const backendApiURL = "http://164.92.68.32/api/";
