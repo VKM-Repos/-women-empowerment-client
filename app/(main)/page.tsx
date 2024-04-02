@@ -37,7 +37,7 @@ const LandingPage = () => {
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
-  const { user, isAuthenticated } = useAppContext();
+  const { user, isAuthenticated, fetchUser } = useAppContext();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -57,6 +57,12 @@ const LandingPage = () => {
   useEffect(() => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchUser();
+    }
+  }, []);
 
   // fetch lists of organizations
   const {

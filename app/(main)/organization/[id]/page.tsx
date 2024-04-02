@@ -10,8 +10,7 @@ import { useAppContext } from "@/lib/context/app-context";
 import { useRouter } from "next/navigation";
 import NoContent from "@/components/EmptyStates/NoContent";
 import EventCardLoader from "../../events/components/EventCardLoader";
-import Button from "@/components/Common/Button/Button";
-import EventCard from "../../(community)/discussions/components/EventCard";
+import Project from "../manage/projects/components/Project";
 import { Event } from "@/lib/types/events.types";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
@@ -47,7 +46,6 @@ export default function OrganizationDetails({
     setShowMenu((prevState) => !prevState);
   };
   const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
-  console.log(params?.id, "<<<<<<");
 
   const { data: organization, isPending } = useGET({
     url: `organizations/${params?.id}`,
@@ -56,12 +54,12 @@ export default function OrganizationDetails({
     enabled: true,
   });
   const {
-    data: events,
-    isPending: isEventsPending,
-    isError: isEventsError,
+    data: projects,
+    isPending: isProjectsPending,
+    isError: isProjectsError,
   } = useGET({
-    url: "/events",
-    queryKey: ["events", params?.id],
+    url: "/projects?size=5",
+    queryKey: ["PROJECTS", params?.id],
     withAuth: false,
     enabled: true,
   });
@@ -180,7 +178,7 @@ export default function OrganizationDetails({
   ];
   return (
     <TransitionParent>
-      {isPending || isEventsPending ? (
+      {isPending || isProjectsPending ? (
         <LoadingThinkingWomen />
       ) : (
         <section className="bg-white flex flex-col items-stretch mb-[300px]">
@@ -485,46 +483,52 @@ export default function OrganizationDetails({
               </div>
               <div className="flex flex-col items-stretch w-[34%] ml-5 max-md:w-full max-md:ml-0">
                 <aside className="w-full rounded-[1.5rem] ">
-                  <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
-                    EVENTS
+                  <h3 className="text-primary text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+                    Projects
                   </h3>
 
                   <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
-                    {isEventsError && <p>Error fetching Events</p>}
-                    {isEventsPending ? (
+                    {isProjectsError && <p>Error fetching Events</p>}
+                    {isProjectsPending ? (
                       [1, 2, 3, 4].map((event: any, id: number) => (
                         <EventCardLoader key={id} event={event} />
                       ))
-                    ) : !isEventsPending &&
-                      !isEventsError &&
-                      events?.content.length === 0 ? (
+                    ) : !isProjectsPending &&
+                      !isProjectsError &&
+                      projects?.content.length === 0 ? (
                       <NoContent
-                        message="No events yet."
+                        message="No projects yet."
                         buttonText={
-                          isAuthenticated ? "Add events" : "Login to add"
+                          isAuthenticated ? "Add projects" : "Login to add"
                         }
                         buttonLink={
                           isAuthenticated
-                            ? () => router.push("/events/create")
+                            ? () => router.push("/projects/create")
                             : () => router.push("/account/login")
                         }
                       />
                     ) : (
-                      !isEventsPending &&
-                      !isEventsError && (
+                      !isProjectsPending &&
+                      !isProjectsError && (
                         <>
-                          <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap ">
-                            {Array.isArray(events?.content) &&
-                              events?.content.map((event: Event) => (
-                                <EventCard key={event.id} event={event} />
+                          <div className="w-full md:w-[95%] mx-auto gap-5 flex justify-center flex-wrap ">
+                            {Array.isArray(projects?.content) &&
+                              projects?.content.map((project: any) => (
+                                <Project
+                                  key={project?.name}
+                                  project={project}
+                                  projectStatus={""}
+                                  imageWidth={100}
+                                  includeMenu={false}
+                                />
                               ))}
                           </div>
                           <div className="w-fit mx-auto my-8">
                             <Link
-                              href={"/events"}
+                              href={"/projects"}
                               className="text-btnWarning border border-btnWarning px-4 py-2 rounded-md"
                             >
-                              SEE MORE EVENTS
+                              SEE MORE PROJECT
                             </Link>
                           </div>
                         </>

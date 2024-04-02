@@ -1,5 +1,6 @@
 "use client";
 
+import { notFound } from "next/navigation";
 import Sidebar from "./components/Sidebar/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

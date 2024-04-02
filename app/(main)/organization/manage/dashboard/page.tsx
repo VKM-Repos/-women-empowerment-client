@@ -9,8 +9,15 @@ import orgProfile from "@/public/images/org_profile.svg";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default function OrganizationDetails() {
+export default function OrganizationDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
+  // notFound();
+
   const { user } = useAppContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const inputCoverRef = useRef<HTMLInputElement>(null);
@@ -380,7 +387,9 @@ export default function OrganizationDetails() {
                     </div>
 
                     <div className="flex gap-5">
-                      <div className="text-black flex-[0.3]">Bio</div>
+                      <label className="font-sora flex-[0.3]">
+                        Description
+                      </label>
                       <textarea
                         name="description"
                         onChange={hanleOnChange}
