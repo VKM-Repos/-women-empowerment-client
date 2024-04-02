@@ -9,6 +9,7 @@ import { TransitionParent } from "@/lib/utils/transition";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import { usePOST } from "@/lib/hooks/usePOST.hook";
+import Link from "next/link";
 export default function EditEvent({ params }: { params: { id: string } }) {
   const eventId = params?.id;
   const [contentType, setContentType] = useState<any>("");
@@ -227,17 +228,20 @@ export default function EditEvent({ params }: { params: { id: string } }) {
                     <button
                       type="button"
                       onClick={handlePublishEvent}
-                      className="bg-btnWarning text-white-100 px-3 py-1 rounded-md"
+                      className="bg-btnWarning text-[17px] text-white-100 px-5 py-2 rounded-md"
                     >
                       Publish
                     </button>
-                    <button className="border border-btnWarning px-3 py-1 rounded-md">
+                    <Link
+                      href={`/events/${eventId}`}
+                      className="border text-[17px] border-btnWarning px-5 py-2 rounded-md"
+                    >
                       View
-                    </button>
+                    </Link>
                   </div>
                 ) : (
                   <div className="flex justify-center">
-                    <button className="bg-btnWarning text-white-100 px-3 py-1 rounded-md">
+                    <button className="bg-btnWarning text-[17px] text-white-100 px-5 py-2 rounded-md">
                       Update
                     </button>
                   </div>

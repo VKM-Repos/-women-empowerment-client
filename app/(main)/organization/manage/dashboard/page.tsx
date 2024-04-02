@@ -387,7 +387,9 @@ export default function OrganizationDetails({
                     </div>
 
                     <div className="flex gap-5">
-                      <div className="text-black flex-[0.3]">Bio</div>
+                      <label className="font-sora flex-[0.3]">
+                        Description
+                      </label>
                       <textarea
                         name="description"
                         onChange={hanleOnChange}

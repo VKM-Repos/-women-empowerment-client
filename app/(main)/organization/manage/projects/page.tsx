@@ -79,7 +79,7 @@ export default function Events() {
                   key={project?.name}
                   project={project}
                   projectStatus={selectedProjectType.name}
-                  imageWidth={150}
+                  imageWidth={130}
                   includeMenu={true}
                 />
               ))

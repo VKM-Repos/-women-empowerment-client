@@ -26,6 +26,7 @@ const EventsPage = () => {
   const { isAuthenticated, user } = useAppContext();
   const [eventDate, setEventDate] = useState("");
   const [filterEvent, setFilterEvent] = useState(false);
+  const [fetchCount, setFetchCount] = useState(0);
   const [redirectURL, setRedirectURL] = useState("");
   // fetch lists of events
   const {
@@ -35,27 +36,33 @@ const EventsPage = () => {
   } = useGET({
     url: `/events?type=${
       !selectedEventType?.tabName ? "PHYSICAL" : selectedEventType?.tabName
-    }`,
-    queryKey: ["EVENTS", selectedEventType?.tabName, eventDate, filterEvent],
-    withAuth: false,
-    enabled: true,
-  });
-
-  const {
-    data: filteredEvent,
-    isPending: filteredEventsLoading,
-    isError: filteredEventsError,
-  } = useGET({
-    url: `/events?date=${eventDate}`,
+    }${filterEvent ? `&date=${eventDate}` : ""}`,
     queryKey: [
-      "FILTER_EVENTS",
+      "EVENTS",
       selectedEventType?.tabName,
       eventDate,
       filterEvent,
+      fetchCount,
     ],
     withAuth: false,
-    enabled: !filterEvent,
+    enabled: filterEvent,
   });
+
+  // const {
+  //   data: filteredEvent,
+  //   isPending: filteredEventsLoading,
+  //   isError: filteredEventsError,
+  // } = useGET({
+  //   url: `/events?date=${eventDate}`,
+  //   queryKey: [
+  //     "FILTER_EVENTS",
+  //     selectedEventType?.tabName,
+  //     eventDate,
+  //     filterEvent,
+  //   ],
+  //   withAuth: false,
+  //   enabled: !filterEvent,
+  // });
   useEffect(() => {
     setRedirectURL(window.location.pathname);
   }, []);
