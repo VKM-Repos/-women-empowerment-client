@@ -258,7 +258,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   </div>
                   {isEventsLoading &&
                     [1, 2, 3, 4].map((event: any, id: number) => (
-                      <EventCardLoader key={id} event={event} />
+                      <EventCardLoader key={id} />
                     ))}
 
                   {isEventsError && <p>Error fetching Events</p>}

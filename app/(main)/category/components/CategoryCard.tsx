@@ -22,7 +22,7 @@ export const CategoryCard: React.FC<{ category: Category }> = ({
   return (
     <Link
       href={`/category/${category.id}`}
-      as={`/category/${formatIdToTitle(category.name)}`}
+      // as={`/category/${formatIdToTitle(category.name)}`}
       className="lg:w-[20rem] md:w-[14rem] w-[10rem] aspect-square flex flex-col items-center justify-center gap-2 md:gap-5 drop-shadow-sm transform transition-all ease-in-out duration-300 rounded-[0.5rem] shadow-md p-2 overflow-hidden bg-btnWarning/20 hover:bg-primary/40"
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}

@@ -12,6 +12,8 @@ interface EventTypeProps {
 const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
   const { data, setData } = useEventFormStore();
   const [selectedOption, setSelectedOption] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
   const {
     register,
@@ -40,6 +42,10 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     startDate: string;
     endDate: string;
   }> = async (formData) => {
+    if (formData.link && !formData.link.startsWith("https://")) {
+      formData.link = "https://" + formData.link;
+    }
+
     setData({
       eventDetails: {
         ...data.eventDetails,
@@ -80,7 +86,6 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                 required: "this field is empty",
               })}
               onChange={(e) => setSelectedOption(e.target.value)}
-              
             >
               <option value="">Select</option>
               <option value="ONLINE">Online</option>
@@ -91,7 +96,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               <div className="flex flex-col">
                 <input
                   className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="url"
+                  type="text"
                   placeholder="URL link"
                   {...register("link", {
                     required: "this field is empty",
@@ -126,28 +131,33 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
             )}
           </div>
           <div className="flex flex-col pb-8">
-            <label htmlFor="Event time and date" className="">Event Date and Time</label>
-            {/* <DatePicker /> */}
-            <span className="flex items-start justify-start gap-5">
+            <label htmlFor="Event time and date" className="">
+              Event Date and Time
+            </label>
+            <div className="flex items-start justify-start gap-5">
+              <span className="relative overflow-hidden w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning">
                 <input
-                  className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                   type="datetime-local"
-                  placeholder="Start Date"
                   {...register("startDate", {
                     required: "this field is empty",
                   })}
-                  name="startDate"
+                  className="absolute inset-0 -top-10 text-[150px] w-full opacity-0"
+                  onChange={(e) => setStartDate(e.target.value)}
                 />
+                {startDate ? startDate : "Start Date"}
+              </span>
+              <span className="relative w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning">
+                {endDate ? endDate : "End Date"}
                 <input
-                  className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
                   type="datetime-local"
-                  placeholder="End Date"
                   {...register("endDate", {
                     required: "this field is empty",
                   })}
-                  name="endDate"
+                  className="absolute inset-0 -top-10 text-[150px] w-full opacity-0"
+                  onChange={(e) => setEndDate(e.target.value)}
                 />
-            </span>
+              </span>
+            </div>
           </div>
           <span className="flex gap-10">
             <Button

@@ -30,10 +30,23 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       : text;
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'COMPLETED':
+        return 'bg-[#FF7400] text-primaryWhite';
+      case 'ONGOING':
+        return 'bg-[#FFFFFF] text-primary';
+      case 'UPCOMING':
+        return 'bg-[#93E5AB] text-primary';
+      default:
+        return '';
+    }
+  };
+
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 lg:w-[302px] w-[360px] h-[420px] lg:h-[520px] shadow-lg p-4 rounded-3xl"
+      className="justify-center bg-primaryWhite flex-col space-y-4 md:w-[320px]  w-[340px] h-[390px] md:h-[500px] mx-auto shadow-lg p-4 rounded-xl"
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
     >
@@ -49,19 +62,18 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             animate={imageControls}
             className=" object-contain object-center h-[12rem] md:h-[18rem] overflow-hidden"
           />
-          <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">
+          <span className={`w-fit text-xs p-1 px-2 rounded-md absolute bottom-2 left-2 ${getStatusColor(project.status)}`}>
             {project.status}
           </span>
         </div>
         <div className="flex flex-col gap-2 h-[40%] ">
-          <h6 className="text-xs md:text-sm font-quickSand text-gray-300">{project.category.name}</h6>
-          <h4 className="text-primary font-sora text-base md:text-lg lg:text-xl  font-semibold w-full whitespace-nowrap truncate">{project.title}</h4>
-          <p className="text-xs md:text-sm font-quickSand  text-gray-200 h-[5rem] overflow-hidden">
-            {truncatedText(project?.description, 50)}
-            &nbsp;
-            {project.description.length > 50 && (
+          <h6 className="text-xs md:text-sm font-quickSand text-gray-300 pt-3">{project.category.name}</h6>
+          <h4 className="text-primary font-sora text-base md:text-base lg:text-lg  font-semibold w-full whitespace-nowrap truncate">{project.title}</h4>
+          <p className="text-xs md:text-sm font-quickSand  text-gray-200 h-[3rem] md:h-[4rem] overflow-hidden">
+            {truncatedText(project?.description, 100)}
+            {/* {project.description.length > 50 && (
               <span className="text-info text-xs">See more</span>
-            )}
+            )} */}
           </p>
           <div className="w-full grid grid-cols-8 gap-2 items-center">
             <span className="col-span-1">
@@ -73,7 +85,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 className="w-full  aspect-square rounded-full object-contain"
               />
             </span>
-            <span className="w-full col-span-7 text-primary text-sm font-semibold font-sora ">
+            <span className="w-full col-span-7 text-gray-200 text-xs font-semibold font-sora whitespace-nowrap truncate">
               {project.organization.name}
             </span>
           </div>
