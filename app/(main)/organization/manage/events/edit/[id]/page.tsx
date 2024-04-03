@@ -13,8 +13,12 @@ import Link from "next/link";
 export default function EditEvent({ params }: { params: { id: string } }) {
   const eventId = params?.id;
   const [contentType, setContentType] = useState<any>("");
+  const [imageUrl, setImageUrl] = useState<any>("");
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | string>("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -37,7 +41,7 @@ export default function EditEvent({ params }: { params: { id: string } }) {
   });
 
   const { mutate, isPending: updatingEvent } = usePATCH(
-    `/events/${eventId}`,
+    `/events/${eventId}${imageUrl ? "/image" : ""}`,
     true,
     undefined,
     contentType
@@ -86,11 +90,40 @@ export default function EditEvent({ params }: { params: { id: string } }) {
         onError: () => {},
       }
     );
-
-    console.log("Clicked publish event");
   };
-  console.log(event);
+  const handleChooseFile = () => {
+    inputRef.current?.click();
+  };
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files?.[0];
 
+    if (imageFile) {
+      // Update the logo in the store with the URL
+      const imageUrl = URL.createObjectURL(imageFile);
+      setImagePreview(imageUrl);
+      setSelectedFile(imageFile);
+    }
+  };
+  const handleUpdateLogo = (event: any) => {
+    event.preventDefault();
+    setImageUrl("image");
+    setContentType("multipart/form-data");
+    let formData = new FormData();
+    formData.append("logo", selectedFile);
+    console.log(selectedFile);
+
+    mutate(formData, {
+      onSuccess: () => {
+        console.log("logo updated");
+        refetch();
+        setSelectedFile("");
+        setImagePreview(null);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
   return (
     <TransitionParent>
       {isPending || updatingEvent || publishingEvent ? (
@@ -98,38 +131,53 @@ export default function EditEvent({ params }: { params: { id: string } }) {
       ) : (
         <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
           <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
-            <Image
-              src={orgProfile2}
-              layout="responsive"
-              alt="bg"
-              width={1000}
-              height={1000}
-              className="absolute inset-0"
-            />
-            <div className="z-10 flex justify-end pt-10">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full mr-12 max-md:mr-2.5 cursor-pointer z-10 "
-              />
-            </div>
-            <span className="w-full flex flex-col px-2  max-md:max-w-full">
-              <div className="z-[1]  max-md:max-w-full  ">
-                <div className="gap-10 flex items-center px-10">
-                  <div className="flex flex-col justify-center w-full max-md:w-full text-white-100">
-                    <p className="text-sm font-light w-[550px] text-center">
-                      Add an image that clearly represents your Event. it will
-                      appear on your event page Your image should be at least
-                      1024x576 pixels. It will be cropped to a 16:9 ratio.
-                    </p>
-                  </div>
+            <div className="flex items-center gap-5 pt-10">
+              <div className="flex flex-col w-[28%] max-md:w-full max-md:ml-0">
+                <div className="bg-white flex flex-col  items-center aspect-square w-full rounded-[105px] ">
+                  <form
+                    action=""
+                    onSubmit={handleUpdateLogo}
+                    encType="multipart/form-data"
+                  >
+                    <div className="group flex-col overflow-hidden relative flex aspect-square lg:w-[212px] w-[80px] justify-center items-center rounded-full border-2 p-2">
+                      <input
+                        ref={inputRef}
+                        type="file"
+                        onChange={handleImageChange}
+                        name="image"
+                        className="hidden"
+                        accept="image/*"
+                      />
+                      <img
+                        loading="lazy"
+                        srcSet={
+                          imagePreview ||
+                          event?.image ||
+                          "https://placehold.co/400x400?text=Women\n Hub"
+                        }
+                        className="absolute h-full w-full object-cover object-center inset-0 group-hover:-z-10"
+                      />
+                      <img
+                        onClick={handleChooseFile}
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
+                        className="w-10 h-10 cursor-pointer object-contain object-center justify-center items-center overflow-hidden max-w-full my-8 hidden group-hover:block"
+                      />
+                      {selectedFile && (
+                        <button className="bg-gray-100 text-white-100 text-xs px-2 py-1 rounded-md">
+                          Update
+                        </button>
+                      )}
+                    </div>
+                  </form>
                 </div>
               </div>
-            </span>
+              <h2 className="lg:text-3xl text-xl">{event?.name}</h2>
+            </div>
             <form action="" onSubmit={updateEvent}>
-              <div className="flex flex-col gap-5  px-[100px] mt-[200px] font-quickSand">
+              <div className="flex flex-col gap-5  px-[100px] mt-10 font-quickSand">
                 <div className="flex items-center gap-5">
-                  <label className="font-sora flex-[0.5]" htmlFor="">
+                  <label className="font-sora flex-[0.4]" htmlFor="">
                     Date of event
                   </label>
                   <div className="flex gap-2 flex-1">
