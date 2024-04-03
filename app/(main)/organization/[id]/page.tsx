@@ -491,7 +491,7 @@ export default function OrganizationDetails({
                     {isProjectsError && <p>Error fetching Events</p>}
                     {isProjectsPending ? (
                       [1, 2, 3, 4].map((event: any, id: number) => (
-                        <EventCardLoader key={id} event={event} />
+                        <EventCardLoader key={id} />
                       ))
                     ) : !isProjectsPending &&
                       !isProjectsError &&

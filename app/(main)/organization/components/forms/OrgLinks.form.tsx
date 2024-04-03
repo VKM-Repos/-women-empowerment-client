@@ -33,10 +33,19 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
 
   const onSubmit: SubmitHandler<{ website: string; facebook: string }> = (formData) => {
     // Perform additional validation for the Facebook URL
-
     if (formData.facebook && !formData.facebook.includes('facebook.com/')) {
       toast.error('Invalid Facebook URL. Must include facebook.com/.');
       return;
+    }
+
+    // Autofill "https://" prefix for facebook URL
+    if (formData.facebook && !formData.facebook.startsWith('https://')) {
+      formData.facebook = 'https://' + formData.facebook;
+    }
+    
+    // Autofill "https://" prefix for website URL
+    if (formData.website && !formData.website.startsWith('https://')) {
+      formData.website = 'https://' + formData.website;
     }
 
     // Update the store with the entered values
@@ -90,7 +99,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                 <div className="flex flex-col">
                   <input
                     className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                    type="url"
+                    type="text"
                     placeholder="Website URL"
                     {...register('website', {
                       required: 'this field is empty',
@@ -109,7 +118,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                 <div className="flex flex-col">
                   <input
                     className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                    type="url"
+                    type="text"
                     placeholder="Facebook URL"
                     {...register('facebook', {
                       required: 'this field is empty',

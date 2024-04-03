@@ -11,16 +11,21 @@ interface PaginationControlsProps {
 
 const PaginationControls: FC<PaginationControlsProps> = ({ totalPages, currentPage }) => {
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { replace, refresh } = useRouter();
   const searchParams = useSearchParams();
 
   const setPage = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams);
     params.set('page', pageNumber.toString());
     replace(`${pathname}?${params.toString()}`);
+    refresh()
   };
 
+
+
   const pagesArray = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+
 
 
   return (

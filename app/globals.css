@@ -18,6 +18,8 @@
     /* Firefox */
   }
 }
+
+
 .inactive {
   pointer-events: none;
 }

@@ -138,7 +138,7 @@ const EventsPage = () => {
           <div className="min-h-screen w-full px-1">
             {isEventsLoading &&
               [1, 2, 3, 4].map((event: any, id: number) => (
-                <EventCardLoader key={id} event={event} />
+                <EventCardLoader key={id} />
               ))}
             {isEventsError && <p>Error fetching Events</p>}
             {!isEventsLoading &&
