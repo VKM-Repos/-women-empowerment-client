@@ -7,6 +7,7 @@ const nextConfig = {
       "placehold.co",
       "womenhub.org",
       "localhost",
+      "164.92.68.32",
     ],
     // unoptimized: true,
   },
