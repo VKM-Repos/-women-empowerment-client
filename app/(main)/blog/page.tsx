@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import GroupFaces from "@/public/images/group-faces.png";
-
 import heroImage from "@/public/images/blog_hero_image.svg";
 import BlogCard from "./components/BlogCard";
 import comingSoon from "@/public/images/comin_soon.svg";

@@ -44,7 +44,7 @@ function FindEvent({ getEventDate }: Props) {
         <legend className="text-primaryWhite py-2 font-quickSand">
           Find an Event:
         </legend>
-        <div className="w-full grid grid-cols-3 md:grid-cols-4 items-center">
+        <div className="w-[80%] grid grid-cols-3 md:grid-cols-4 items-center">
           <DateInput
             label="Day"
             bgClassName="bg-[#FFF200]"
@@ -78,7 +78,7 @@ function FindEvent({ getEventDate }: Props) {
             onDecrease={decrement}
             onChange={(field, value) => setDate({ ...date, [field]: value })}
           />
-          <button className="flex flex-row-reverse md:flex-col gap-1 items-center justify-center bg-btnWarning active:bg-gray-400 h-[50%] rounded-md text-primaryWhite">
+          <button className="flex flex-row-reverse md:flex-col gap-1 items-center justify-center bg-btnWarning active:bg-gray-400 h-[70%] w-[50%] rounded-md text-primaryWhite">
             <span>
               <svg
                 width="25"
