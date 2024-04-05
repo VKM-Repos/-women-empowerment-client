@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                   size="medium"
                   state="active"
                   variant="primary"
-                  onClick={() => router.push("discussions")}
+                  onClick={() => router.push("/discussions")}
                 />
               </>
             ) : (
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
                   size="medium"
                   state="active"
                   variant="primary"
-                  onClick={() => router.push("account/sign-up")}
+                  onClick={() => router.push("/account/sign-up")}
                 />
               </>
             )}
