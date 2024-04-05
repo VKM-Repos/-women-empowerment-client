@@ -28,13 +28,6 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
     });
 
     const onSubmit: SubmitHandler<{ title: string, location: string, link: string, description: string }> = async (formData) => {
-        // Autofill "https://" prefix for URL
-        if (formData.link && !formData.link.startsWith('https://')) {
-        formData.link = 'https://' + formData.link;
-        }
-        
-
-        
         setData({
             projectDetails: {
                 ...data.projectDetails,
@@ -95,7 +88,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
                     <div className="flex flex-col pb-4">
                         <input
                             className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                            type="text"
+                            type="url"
                             placeholder="Project link"
                             {...register("link", {
                                 required: "this field is empty",

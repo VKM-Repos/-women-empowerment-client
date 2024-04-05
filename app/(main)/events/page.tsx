@@ -26,7 +26,6 @@ const EventsPage = () => {
   const { isAuthenticated, user } = useAppContext();
   const [eventDate, setEventDate] = useState("");
   const [filterEvent, setFilterEvent] = useState(false);
-  const [fetchCount, setFetchCount] = useState(0);
   const [redirectURL, setRedirectURL] = useState("");
   // fetch lists of events
   const {
@@ -36,33 +35,27 @@ const EventsPage = () => {
   } = useGET({
     url: `/events?type=${
       !selectedEventType?.tabName ? "PHYSICAL" : selectedEventType?.tabName
-    }${filterEvent ? `&date=${eventDate}` : ""}`,
+    }`,
+    queryKey: ["EVENTS", selectedEventType?.tabName, eventDate, filterEvent],
+    withAuth: false,
+    enabled: true,
+  });
+
+  const {
+    data: filteredEvent,
+    isPending: filteredEventsLoading,
+    isError: filteredEventsError,
+  } = useGET({
+    url: `/events?date=${eventDate}`,
     queryKey: [
-      "EVENTS",
+      "FILTER_EVENTS",
       selectedEventType?.tabName,
       eventDate,
       filterEvent,
-      fetchCount,
     ],
     withAuth: false,
-    enabled: filterEvent,
+    enabled: !filterEvent,
   });
-
-  // const {
-  //   data: filteredEvent,
-  //   isPending: filteredEventsLoading,
-  //   isError: filteredEventsError,
-  // } = useGET({
-  //   url: `/events?date=${eventDate}`,
-  //   queryKey: [
-  //     "FILTER_EVENTS",
-  //     selectedEventType?.tabName,
-  //     eventDate,
-  //     filterEvent,
-  //   ],
-  //   withAuth: false,
-  //   enabled: !filterEvent,
-  // });
   useEffect(() => {
     setRedirectURL(window.location.pathname);
   }, []);
@@ -96,8 +89,8 @@ const EventsPage = () => {
       <TransitionParent>
         <header className="bg-primary mx-auto w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 md:grid-cols-5 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:w-3/4 md:col-span-4 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
-            <h1 className="text-xl md:text-4xl font-semibold text-primaryWhite font-sora text-left">
-              The Best <br /> Women Illuminating Conferences
+            <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">
+              The Best Women Illuminating Conferences
             </h1>
             <span className="w-full flex justify-start">
               <Button
@@ -138,7 +131,7 @@ const EventsPage = () => {
           <div className="min-h-screen w-full px-1">
             {isEventsLoading &&
               [1, 2, 3, 4].map((event: any, id: number) => (
-                <EventCardLoader key={id} />
+                <EventCardLoader key={id} event={event} />
               ))}
             {isEventsError && <p>Error fetching Events</p>}
             {!isEventsLoading &&

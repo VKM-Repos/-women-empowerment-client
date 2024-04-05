@@ -27,7 +27,7 @@ interface PaginatedResponseData {
 }
 
 
-const ProjectPage = async ({
+const ProjectPage = ({
   searchParams,
 }: ResultsPageProps) => {
 
@@ -37,14 +37,12 @@ const ProjectPage = async ({
 
   const fetchProjects = async (): Promise<PaginatedResponseData> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects?page=${page}&size=${per_page}`, { next: { revalidate: 180 } });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects?page=${page}&size=${per_page}`);
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
 
       const data: PaginatedResponseData = await response.json();
-      console.log(data);
-
       return data;
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -67,31 +65,11 @@ const ProjectPage = async ({
     } else {
       return (
         <>
-        <div className="w-[90%] mx-auto flex items-center justify-between">
-            <span className="text-base md:text-xl text-gray-300 font-semibold font-quickSand">
-              Click below to <br /> Discover Initiatives Making a Difference
-            </span>
-            {/* add filter dropdown here */}
-            {/* <FilterDropdown>
-              <div className="w-full flex flex-col gap-2">
-                <p>Show me projects on</p>
-                <span className="w-full border border-gray-500">
-                  <Dropdown
-                  options={categories?.content.map((category: Category) => ({
-                    id: category.id,
-                    label: category.name,
-                  }))}
-                  onSelect={(selectedCategory: any) => setSelectedOption(selectedCategory.id)}
-                  placeholder="select category" 
-                />
-                </span>
-              </div>
-            </FilterDropdown> */}
-          </div>
-          <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-y-8 ">
-            {entries?.map((project: Project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+          <div className="w-full md:w-[98%] mx-auto flex flex-wrap justify-center gap-5 md:gap-y-16">
+            {Array.isArray(entries) &&
+              entries?.map((project: Project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
           </div>
           <PaginationControls
             totalPages={Math.ceil(data.totalElements / per_page)}
@@ -115,7 +93,7 @@ const ProjectPage = async ({
               Explore Ongoing Projects for Change
             </h1>
             <div className="w-full md:w-3/4">
-              {/* <SearchForm placeholder="Search for a project" /> */}
+              <SearchForm placeholder="Search for a project" />
             </div>
           </div>
           <div className="md:col-span-1 relative lg:absolute lg:bottom-0 -bottom-10 md:right-10 block z-10">
@@ -129,7 +107,28 @@ const ProjectPage = async ({
           </div>
         </header>
         <ProjectCTA />
-        <section className="w-full m flex flex-col items-center justify-center justify-items-center gap-5 md:gap-10 md:gap-y-16 pb-[8rem] ">
+        <section className="w-full md:w-[95%] mx-auto flex justify-center gap-5 md:gap-10 flex-wrap md:gap-y-16 pb-[8rem] ">
+          <div className="w-[95%] mx-auto flex items-center justify-between">
+            <span className="text-base md:text-xl text-gray-300 font-semibold font-quickSand">
+              Click below to <br /> Discover Initiatives Making a Difference
+            </span>
+            {/* add filter dropdown here */}
+            {/* <FilterDropdown>
+              <div className="w-full flex flex-col gap-2">
+                <p>Show me projects on</p>
+                <span className="w-full border border-gray-500">
+                  <Dropdown
+                  options={categories?.content.map((category: Category) => ({
+                    id: category.id,
+                    label: category.name,
+                  }))}
+                  onSelect={(selectedCategory: any) => setSelectedOption(selectedCategory.id)}
+                  placeholder="select category" 
+                />
+                </span>
+              </div>
+            </FilterDropdown> */}
+          </div>
           <Suspense
             fallback={[1, 2, 3, 4, 5, 6, 7, 8].map((item: any) => (
               <ProjectCardLoader key={item?.id} />

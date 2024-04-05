@@ -6,7 +6,6 @@ import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import { Organization } from "@/lib/types/organization.types";
 import { Suspense } from "react";
 import PaginationControls from "@/components/Common/Pagination/PaginationControls";
-import GoBackBtn from "@/components/Common/GoBackBtn";
 
 interface ResultsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -72,11 +71,10 @@ export default function ResultsPage({
   };
 
   return (
-    <main className="w-full pb-[7rem]">
+    <main className="w-full">
       <TransitionParent>
         <header className="w-full flex flex-col gap-5 p-8">
-        <div className="relative w-[80%] mx-auto"><GoBackBtn /></div>
-          <h3 className="text-3xl text-primary font-semibold font-sora text-center">
+          <h3 className="text-3xl text-btnWarning font-semibold font-sora text-center">
             Search Results for &ldquo;{searchParams["query"]}&rdquo;
           </h3>
           <div className="w-full md:w-3/5 mx-auto flex items-center justify-center gap-5">

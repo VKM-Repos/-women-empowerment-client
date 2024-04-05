@@ -94,7 +94,7 @@ function FindEvent({ getEventDate }: Props) {
                 />
               </svg>
             </span>
-            <span>Go</span>
+            <span>go</span>
           </button>
         </div>
       </fieldset>

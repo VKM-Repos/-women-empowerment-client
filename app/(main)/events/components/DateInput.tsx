@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React from "react";
 import { BtnIncrease } from "@/components/Common/Icons/BtnIncrease";
 import { BtnDecrease } from "@/components/Common/Icons/BtnDecrease";
@@ -10,45 +10,23 @@ interface DateInputProps {
   value: number;
   min: number;
   max: number;
-  onIncrease: (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => void;
-  onDecrease: (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => void;
+  onIncrease: (field: string, event: React.MouseEvent<HTMLButtonElement>) => void;
+  onDecrease: (field: string, event: React.MouseEvent<HTMLButtonElement>) => void;
   onChange: (field: string, value: number) => void;
 }
 
-const DateInput: React.FC<DateInputProps> = ({
-  label,
-  bgClassName,
-  textClassName,
-  value,
-  min,
-  max,
-  onIncrease,
-  onDecrease,
-  onChange,
-}) => {
+const DateInput: React.FC<DateInputProps> = ({ label, bgClassName, textClassName, value, min, max, onIncrease, onDecrease, onChange }) => {
   // const textColorClass = `text-[${color}]`;
   // const bgColorClass = `bg-[${color}]`;
 
-  const handleIncrease = (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleIncrease = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (value < max) {
       onIncrease(field, event);
     }
   };
 
-  const handleDecrease = (
-    field: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleDecrease = (field: string, event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (value > min) {
       onDecrease(field, event);
@@ -56,10 +34,8 @@ const DateInput: React.FC<DateInputProps> = ({
   };
 
   return (
-    <div
-      className={`w-[70%] flex flex-col items-center justify-center border-2 gap-0 rounded-t-xl border-primaryWhite aspect-square relative `}
-    >
-      <span className="w-fit flex items-center justify-center p-[4px]">
+    <div className={`w-full flex flex-col items-center justify-center border-2 gap-0 rounded-t-xl border-primaryWhite aspect-square relative`}>
+      <span className="w-fit flex items-center justify-center p-2">
         <input
           type="number"
           id={label.toLowerCase()}
@@ -67,10 +43,8 @@ const DateInput: React.FC<DateInputProps> = ({
           min={min.toString()}
           max={max.toString()}
           value={value}
-          onChange={(e) =>
-            onChange(label.toLowerCase(), parseInt(e.target.value, 10))
-          }
-          className={` ${textClassName} focus:outline-none bg-transparent text-lg md:text-2xl font-quickSand font-bold max-w-5/6 text-center`}
+          onChange={(e) => onChange(label.toLowerCase(), parseInt(e.target.value, 10))}
+          className={` ${textClassName} focus:outline-none bg-transparent text-lg md:text-3xl font-quickSand font-bold max-w-5/6 text-center`}
         />
         <span className="flex flex-col gap-0.5">
           <button onClick={(e) => handleIncrease(label.toLowerCase(), e)}>
@@ -81,11 +55,7 @@ const DateInput: React.FC<DateInputProps> = ({
           </button>
         </span>
       </span>
-      <p
-        className={`text-primaryWhite font-normal text-base md:text-base font-sora`}
-      >
-        {label}
-      </p>
+      <p className={`text-primaryWhite font-normal text-base md:text-lg font-sora`}>{label}</p>
       <div className={`${bgClassName} absolute bottom-0 w-full h-1`} />
     </div>
   );
