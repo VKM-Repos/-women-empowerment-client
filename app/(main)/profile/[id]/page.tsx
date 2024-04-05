@@ -14,7 +14,6 @@ import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWom
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import { useAppContext } from "@/lib/context/app-context";
 
-import Project from "../../organization/manage/projects/components/Project";
 export default function ProfilePage({ params }: { params: { id: string } }) {
   const { user } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -49,12 +48,12 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   });
   // fetch lists of events
   const {
-    data: projects,
-    isLoading: isProjectsLoading,
-    isError: isProjectsError,
+    data: events,
+    isLoading: isEventsLoading,
+    isError: isEventsError,
   } = useGET({
-    url: "/projects?size=4",
-    queryKey: ["PROJECTS"],
+    url: "/events",
+    queryKey: ["events"],
     withAuth: false,
     enabled: true,
   });
@@ -129,10 +128,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
 
   return (
     <TransitionParent>
-      {updatingUser ||
-      isProjectsLoading ||
-      isUserLoading ||
-      updatingUserImage ? (
+      {updatingUser || isEventsLoading || isUserLoading || updatingUserImage ? (
         <LoadingThinkingWomen />
       ) : (
         <section className="bg-white flex flex-col items-center mb-[250px]">
@@ -256,40 +252,34 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 <div className="items-center flex grow flex-col px-5 py-0.5 max-md:mt-10">
                   <div className="self-stretch flex flex-col items-stretch px-7 max-md:px-5">
                     <div className="text-green-800 text-lg font-bold max-w-[393px]">
-                      Projects
+                      EVENTS
                     </div>
                     <div className="bg-neutral-200 w-[366px] shrink-0 max-w-full h-px mt-4" />
                   </div>
-                  {isProjectsLoading &&
+                  {isEventsLoading &&
                     [1, 2, 3, 4].map((event: any, id: number) => (
-                      <EventCardLoader key={id} />
+                      <EventCardLoader key={id} event={event} />
                     ))}
 
-                  {isProjectsError && <p>Error fetching Events</p>}
-                  {!isProjectsLoading &&
-                    !isProjectsError &&
-                    projects?.content.length === 0 && <p>No Events yet</p>}
+                  {isEventsError && <p>Error fetching Events</p>}
+                  {!isEventsLoading &&
+                    !isEventsError &&
+                    events?.content.length === 0 && <p>No Events yet</p>}
 
-                  {!isProjectsLoading && !isProjectsError && (
-                    <div className="w-full md:w-[95%] mx-auto gap-5 flex justify-center flex-wrap ">
-                      {Array.isArray(projects?.content) &&
-                        projects?.content.map((project: any) => (
-                          <Project
-                            key={project?.name}
-                            project={project}
-                            projectStatus={""}
-                            imageWidth={100}
-                            includeMenu={false}
-                          />
+                  {!isEventsLoading && !isEventsError && (
+                    <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap ">
+                      {Array.isArray(events?.content) &&
+                        events?.content.map((event: Event) => (
+                          <EventCard key={event.id} event={event} />
                         ))}
                     </div>
                   )}
 
                   <Link
-                    href={"/projects"}
+                    href={"/events"}
                     className="text-orange-500 text-base whitespace-nowrap justify-center items-center mt-5 border border-[color:var(--Secondary-Colour,#FF7400)] self-center w-[347px] max-w-full px-16 py-2.5 rounded-lg border-solid max-md:px-5"
                   >
-                    SEE MORE PROJECTS
+                    SEE MORE EVENTS
                   </Link>
                   {/* <div className="text-green-800 text-lg font-bold self-stretch mt-24 max-md:mt-10">
                     NEWS CENTER

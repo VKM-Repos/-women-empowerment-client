@@ -15,16 +15,12 @@ interface ShareDropdownProps {
   // children: ReactNode;
   urlToShare: string;
   text: string | null;
-  className?: string;
-  dropDownClassName?: string;
 }
 
 const ShareDropdown: React.FC<ShareDropdownProps> = ({
   // children,
   urlToShare,
   text,
-  className,
-  dropDownClassName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -72,9 +68,9 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
   };
 
   return (
-    <div className={`w-full relative inline-block ${className}` } ref={dropdownRef}>
+    <div className="relative z-[20000] inline-block" ref={dropdownRef}>
       <button
-        className="w-full p-2 cursor-pointer flex items-center justify-center"
+        className="p-2 cursor-pointer flex items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         <ShareButton />
@@ -88,7 +84,7 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`${dropDownClassName} p-4 w-fit whitespace-nowrap max-h-[15rem] absolute top-[-9rem] left-0 mt-2 bg-primaryWhite border border-gray-500  rounded-md shadow-md z-10 block`}
+            className="md:w-[300px] w-[200px] max-h-[15rem] absolute top-[-250%] left-[100%] mt-2 bg-primaryWhite border border-gray-500 p-2 rounded-md shadow-md z-[3000]"
           >
             <div className="w-full z-[4000]">
               <div className="w-full bg-primaryWhite flex flex-col items-start justify-start gap-2 text-xs">
@@ -141,7 +137,7 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                   >
                     <path
                       d="M21.6571 20.3648H25.3793L25.9637 16.5605H21.6563V14.4813C21.6563 12.901 22.1696 11.4996 23.6389 11.4996H26V8.17974C25.5852 8.12338 24.7078 8 23.05 8C19.5882 8 17.5587 9.8393 17.5587 14.0297V16.5605H14V20.3648H17.5587V30.821C18.2634 30.9276 18.9773 31 19.7101 31C20.3724 31 21.0189 30.9391 21.6571 30.8522V20.3648Z"
-                      fill="currentColor"
+                      fill="currentCOlor"
                     />
                   </svg>
                   <span>share via facebook</span>
@@ -159,7 +155,7 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                   >
                     <path
                       d="M30.6 14.9C29.9 15.2 29.1 15.4 28.3 15.5C29.1 15 29.8 14.2 30.1 13.3C29.3 13.8 28.5 14.1 27.5 14.3C26.8 13.5 25.7 13 24.6 13C22.4 13 20.6 14.8 20.6 17C20.6 17.3 20.6 17.6 20.7 17.9C17.4 17.7 14.4 16.1 12.4 13.7C12.1 14.3 11.9 15 11.9 15.7C11.9 17.1 12.6 18.3 13.7 19C13 19 12.4 18.8 11.9 18.5C11.9 20.4 13.3 22.1 15.1 22.4C14.8 22.5 14.4 22.5 14 22.5C13.7 22.5 13.5 22.5 13.2 22.4C13.7 24 15.2 25.2 17 25.2C15.6 26.3 13.9 26.9 12 26.9C11.7 26.9 11.4 26.9 11 26.8C12.8 27.9 14.9 28.6 17.2 28.6C24.6 28.6 28.6 22.5 28.6 17.2V16.7C29.4 16.4 30.1 15.7 30.6 14.9Z"
-                      fill="currentColor"
+                      fill="currentCOlor"
                     />
                   </svg>
                   <span>share via twitter</span>

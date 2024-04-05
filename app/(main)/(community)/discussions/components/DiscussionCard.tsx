@@ -25,8 +25,8 @@ const DiscussionCard: React.FC<{ discussion: Discussion }> = ({
   const formattedDate = useRelativeTime(discussion.createdAt);
 
   return (
-    <Link href={`/discussions/${discussion.id}`} className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 md:gap-10 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75 cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-start" >
-      <span className="col-span-2 md:col-span-1 w-[4rem] lg:w-[5rem] aspect-square rounded-full overflow-hidden">
+    <Link href={`/discussions/${discussion.id}`} className="w-full grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75 cursor-pointer rounded-[0.8rem] p-4 md:p-6 items-start" >
+      <span className="col-span-2 md:col-span-1 w-[6rem] aspect-square rounded-full overflow-hidden">
         <Image
           src={
             discussion?.createdBy.photoUrl
@@ -44,7 +44,7 @@ const DiscussionCard: React.FC<{ discussion: Discussion }> = ({
 
       <div className="col-span-6 lg:col-span-7 flex flex-col items-start justify-start gap-1">
         <h4 className="text-gray-100 text-base md:text-lg font-sora font-bold truncate whitespace-nowrap w-full block">{discussion?.title}</h4>
-        <p className="text-gray-300 font-light font-quickSand text-sm md:text-base md:h-[3rem] h-[4rem] overflow-hidden">
+        <p className="text-gray-300 font-light font-quickSand text-sm md:text-base">
           {truncatedText(discussion?.content, 150)}
           &nbsp;
           {/* {discussion.content.length > 100 && (

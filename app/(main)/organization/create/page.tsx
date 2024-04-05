@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { redirect, useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -26,7 +26,7 @@ function CreateOrganizationPage() {
   const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
-  const { token, fetchUser } = useAppContext();
+  const { token } = useAppContext();
 
   const RenderForm = () => {
     const handleNext = () => {
@@ -75,10 +75,8 @@ function CreateOrganizationPage() {
         });
 
         if (response.status === 200) {
-          fetchUser();
           setIsLoading(false);
           setOrgId(response.data.id);
-          resetStore();
           toast.success("Organization created successfully");
           handleNext();
         } else {
@@ -152,6 +150,7 @@ function CreateOrganizationPage() {
         return null;
     }
   };
+
   return (
     <AnimatePresence initial={true} mode="wait">
       {isLoading && <LoadingThinkingWomen />}

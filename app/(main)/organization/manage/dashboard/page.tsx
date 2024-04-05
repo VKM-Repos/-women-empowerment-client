@@ -9,15 +9,8 @@ import orgProfile from "@/public/images/org_profile.svg";
 import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
-export default function OrganizationDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
-  // notFound();
-
+export default function OrganizationDetails() {
   const { user } = useAppContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const inputCoverRef = useRef<HTMLInputElement>(null);
@@ -136,6 +129,7 @@ export default function OrganizationDetails({
     setContentType("multipart/form-data");
     let formData = new FormData();
     formData.append("logo", selectedFile);
+    console.log(selectedFile);
 
     mutate(formData, {
       onSuccess: () => {
@@ -176,7 +170,7 @@ export default function OrganizationDetails({
           <LoadingThinkingWomen />
         ) : (
           <>
-            <div className="lg:flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
+            <div className="lg:flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0 hidden">
               <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
                 <img
                   src={
@@ -227,9 +221,9 @@ export default function OrganizationDetails({
                     </div>
                   </div>
                 </form>
-                <span className="-ml-10 w-full flex flex-col lg:px-2  max-md:max-w-full">
+                <span className="w-full flex flex-col px-2  max-md:max-w-full">
                   <div className="z-[1] ">
-                    <div className="lg:gap-10 flex items-center px-10">
+                    <div className="gap-10 flex items-center px-10">
                       <div className="flex flex-col w-[28%] max-md:w-full max-md:ml-0">
                         <div className="bg-white flex flex-col  items-center aspect-square w-full rounded-[105px] ">
                           <form
@@ -237,7 +231,7 @@ export default function OrganizationDetails({
                             onSubmit={handleUpdateLogo}
                             encType="multipart/form-data"
                           >
-                            <div className="group flex-col overflow-hidden relative flex aspect-square lg:w-[212px] w-[80px] justify-center items-center rounded-full border-2 p-2">
+                            <div className="group flex-col overflow-hidden relative flex aspect-square w-[212px] justify-center items-center rounded-full border-2 p-2">
                               <input
                                 ref={inputRef}
                                 type="file"
@@ -270,8 +264,8 @@ export default function OrganizationDetails({
                           </form>
                         </div>
                       </div>
-                      <div className="flex flex-col w-full max-md:w-full">
-                        <div className="text-black-100 lg:text-2xl text-xl font-sora font-bold my-auto max-md:max-w-full ">
+                      <div className="flex flex-col w-full max-md:w-full text-white-100">
+                        <div className="text-white-100 text-2xl font-sora font-bold my-auto max-md:max-w-full ">
                           <span className="">{organization?.name}</span>
                         </div>
                       </div>
@@ -279,9 +273,9 @@ export default function OrganizationDetails({
                   </div>
                 </span>
                 <form onSubmit={handleUpdateOrg}>
-                  <div className="flex flex-col gap-5  lg:px-[100px] px-3 font-quickSand mt-2 text-sm">
-                    <div className="flex items-center justify-start lg:gap-5">
-                      <label className="font-sora flex-[0.6]" htmlFor="">
+                  <div className="flex flex-col gap-5  px-[100px] font-quickSand mt-2">
+                    <div className="flex items-center gap-5">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Org. Name
                       </label>
                       <input
@@ -294,7 +288,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Website
                       </label>
                       <input
@@ -307,7 +301,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Facebook
                       </label>
                       <input
@@ -320,7 +314,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Twitter
                       </label>
                       <input
@@ -333,7 +327,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         LinkedIn
                       </label>
                       <input
@@ -346,7 +340,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Email
                       </label>
                       <input
@@ -359,7 +353,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Location
                       </label>
                       <input
@@ -372,7 +366,7 @@ export default function OrganizationDetails({
                       />
                     </div>
                     <div className="flex items-center gap-5">
-                      <label className="font-sora flex-[0.5]" htmlFor="">
+                      <label className="font-sora flex-[0.3]" htmlFor="">
                         Contact
                       </label>
                       <input
@@ -386,9 +380,7 @@ export default function OrganizationDetails({
                     </div>
 
                     <div className="flex gap-5">
-                      <label className="font-sora flex-[0.5]">
-                        Description
-                      </label>
+                      <div className="text-black flex-[0.3]">Bio</div>
                       <textarea
                         name="description"
                         onChange={hanleOnChange}
@@ -414,13 +406,13 @@ export default function OrganizationDetails({
               </span>
             </div>
 
-            {/* <div className="w-screen lg:hidden mt-10 -ml-[100px]">
+            <div className="w-screen lg:hidden mt-10 -ml-[100px]">
               <div>
                 <h2 className="w-[300px] text-2xl">
                   View this page on laptop if you want manage your organization
                 </h2>
               </div>
-            </div> */}
+            </div>
           </>
         )}
       </section>

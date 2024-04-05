@@ -59,7 +59,7 @@ const DiscussionsPage = () => {
     <TransitionParent>
       <section className=" w-screen flex flex-col items-center justify-start">
         <div className="bg-primary w-[92%] md:w-[95%] lg:h-[22rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
-          <div className="w-full md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-[10]">
+          <div className="w-full md:col-span-1 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-[50]">
             <span className="pt-4 flex flex-col items-center justify-start gap-5 relative w-full z-[50] font-sora">
               <h1 className="text-xl md:text-3xl text-primaryWhite text-left">
                 “A girl should not expect special privileges because of her sex
@@ -161,7 +161,7 @@ const DiscussionsPage = () => {
                 {isEventsError && <p>Error fetching Events</p>}
                 {isEventsLoading ? (
                   [1, 2, 3, 4].map((event: any, id: number) => (
-                    <EventCardLoader key={id} />
+                    <EventCardLoader key={id} event={event} />
                   ))
                 ) : !isEventsLoading &&
                   !isEventsError &&
