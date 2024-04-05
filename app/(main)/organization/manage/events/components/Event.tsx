@@ -171,9 +171,9 @@ export default function Event({ event, eventStatus }: EventCardProps) {
             className="w-16 h-16 rounded-full object-cover"
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <h3 className="text-xl font-semibold font-sora">{event?.name}</h3>
-          <p className="text-base text-gray-300 font-quickSand font-[400]">
+          <p className="text-lg text-gray-300 font-quickSand font-bold">
             {event?.organization?.name}
           </p>
           <p className="text-xs text-info font-medium">

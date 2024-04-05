@@ -4460,13 +4460,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^11.0.7":
-  version: 11.0.7
-  resolution: "swiper@npm:11.0.7"
-  checksum: 10c0/d27b8c3b5deccde730317c2fe868350fad039e9776c8c6dfd11a89d9e732a66c1292292ca635141a7e0bbb363fcac1291c9fd716bf7a8e3b85d320e58ff94eba
-  languageName: node
-  linkType: hard
-
 "tabbable@npm:^6.0.1":
   version: 6.2.0
   resolution: "tabbable@npm:6.2.0"
@@ -4906,7 +4899,6 @@ __metadata:
     react-hot-toast: "npm:^2.4.1"
     react-share-kit: "npm:^1.1.0"
     sharp: "npm:^0.33.2"
-    swiper: "npm:^11.0.7"
     tailwindcss: "npm:^3.3.0"
     typescript: "npm:^5"
     use-debounce: "npm:^10.0.0"

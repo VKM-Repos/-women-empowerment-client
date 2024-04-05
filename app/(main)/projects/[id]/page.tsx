@@ -26,26 +26,13 @@ export default function ProjectDetailsPage({
 
   const urlToShare = `https://womenhub.org/projects/${projectId}`;
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'COMPLETED':
-        return 'bg-[#FF7400] text-primaryWhite border-[#FF7400]';
-      case 'ONGOING':
-        return 'bg-[#FFFFFF] text-primary border-primary';
-      case 'UPCOMING':
-        return 'bg-[#93E5AB] text-primary border-[#93E5AB]';
-      default:
-        return '';
-    }
-  };
-
   return (
     <>
       {isPending ? (
         <LoadingThinkingWomen />
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-3/4 w-full mx-auto p-4 pt-8 rounded-[1rem] relative font-sora pb-[7rem]">
+          <div className="lg:w-3/4 w-full mx-auto p-4 pt-8 rounded-[1rem] relative font-sora">
             <button
               onClick={router.back}
               className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
@@ -70,7 +57,7 @@ export default function ProjectDetailsPage({
               {project?.title || "Project details"}
             </h3>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-10 justify-start">
               <div className="col-span-1 flex flex-col items-start justify-start gap-8 p-2">
                 <Image
                   src={
@@ -90,7 +77,7 @@ export default function ProjectDetailsPage({
                   </h5>
                   <p className="text-base font-quickSand text-gray-200 font-semibold">
                     {project?.description ||
-                      ""}
+                      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis saepe facilis blanditiis expedita amet maiores itaque tempore unde quidem dicta!"}
                   </p>
                 </span>
               </div>
@@ -100,8 +87,8 @@ export default function ProjectDetailsPage({
                 <div className=" flex items-center justify-start gap-4">
                   <Image
                     src={
-                      project?.organization?.logo
-                        ? project?.organization.logo
+                      project?.image
+                        ? project?.image
                         : "https://placehold.co/600x600/png"
                     }
                     alt={project?.title}
@@ -119,7 +106,7 @@ export default function ProjectDetailsPage({
                 <ul className="w-full flex flex-col gap-5 items-start">
                   <li className="grid grid-cols-6 gap-2">
                     <span className="col-span-2 text-gray-200 font-medium font-quickSand">Status:</span>
-                    <span className={`col-span-4 w-fit text-xs p-1 px-2 rounded-md border  ${getStatusColor(project.status)}`}>
+                    <span className="col-span-4 ">
                       {project?.status || "not stated"}
                     </span>
                   </li>
@@ -149,7 +136,7 @@ export default function ProjectDetailsPage({
                   </li>
                 </ul>
 
-               <ShareDropdown text={"Share this page  "} urlToShare={urlToShare} className="border border-primary text-primary rounded flex items-center justify-center"  />
+                <span className="w-full border border-primary text-primary rounded flex items-center justify-center"><ShareDropdown text={"Share this page  "} urlToShare={urlToShare} /></span>
                 <Link href={project?.link || ''} target="_blank" className="w-full py-2 border bg-primary text-primaryWhite rounded flex items-center justify-center">Visit link</Link>
               </div>
             </div>

@@ -2,7 +2,7 @@ import { Category } from "./category.types";
 import { User } from "./user.types";
 
 export interface Discussion {
-  id: string;
+  id: number;
   createdBy: User;
   category: Category;
   title: string;
@@ -11,7 +11,7 @@ export interface Discussion {
   createdAt: string;
 }
 export interface Comment {
-  id: string;
+  id: number;
   user: User;
   content: string;
   createdAt: string;

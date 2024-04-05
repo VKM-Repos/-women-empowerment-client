@@ -327,25 +327,25 @@ export default function EditEvent({ params }: { params: { id: string } }) {
                     <button
                       type="button"
                       onClick={handlePublishProject}
-                      className="bg-btnWarning text-white-100 px-5 py-2 rounded-md"
+                      className="bg-btnWarning text-white-100 px-3 py-1 rounded-md"
                     >
                       Publish
                     </button>
                     <Link
                       href={`/projects/${projectId}`}
-                      className="border text-[17px] border-btnWarning px-5 py-2 rounded-md"
+                      className="border border-btnWarning px-3 py-1 rounded-md"
                     >
                       View
                     </Link>
                   </div>
                 ) : (
                   <div className="flex justify-center gap-5">
-                    <button className="text-[17px] bg-btnWarning text-white-100 px-5 py-2 rounded-md">
+                    <button className="bg-btnWarning text-white-100 px-3 py-1 rounded-md">
                       Update
                     </button>
                     <Link
                       href={`/projects/${projectId}`}
-                      className="border text-[17px] border-btnWarning px-5 py-2 rounded-md"
+                      className="border border-btnWarning px-3 py-1 rounded-md"
                     >
                       View
                     </Link>

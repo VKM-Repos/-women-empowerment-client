@@ -28,11 +28,12 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
           {menuItems?.map((item, index) => {
             if (item?.title == "Share") {
               return (
-                <button className="flex items-center -ml-1 text-primary w-full">
+                <button className="flex items-center -ml-1 text-primary">
                   <ShareDropdown
-                    text={"Share"}
+                    text={""}
                     urlToShare={`https://womenhub.org/organization/${item?.organizationId}`}
                   />
+                  Share
                 </button>
               );
             } else {

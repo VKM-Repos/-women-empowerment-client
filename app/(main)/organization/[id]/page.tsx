@@ -10,7 +10,8 @@ import { useAppContext } from "@/lib/context/app-context";
 import { useRouter } from "next/navigation";
 import NoContent from "@/components/EmptyStates/NoContent";
 import EventCardLoader from "../../events/components/EventCardLoader";
-import Project from "../manage/projects/components/Project";
+import Button from "@/components/Common/Button/Button";
+import EventCard from "../../(community)/discussions/components/EventCard";
 import { Event } from "@/lib/types/events.types";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
@@ -46,6 +47,7 @@ export default function OrganizationDetails({
     setShowMenu((prevState) => !prevState);
   };
   const [selectedEventType, setSelectedEventType] = useState<EventTab>(tabs[0]);
+  console.log(params?.id, "<<<<<<");
 
   const { data: organization, isPending } = useGET({
     url: `organizations/${params?.id}`,
@@ -54,12 +56,12 @@ export default function OrganizationDetails({
     enabled: true,
   });
   const {
-    data: projects,
-    isPending: isProjectsPending,
-    isError: isProjectsError,
+    data: events,
+    isPending: isEventsPending,
+    isError: isEventsError,
   } = useGET({
-    url: "/projects?size=5",
-    queryKey: ["PROJECTS", params?.id],
+    url: "/events",
+    queryKey: ["events", params?.id],
     withAuth: false,
     enabled: true,
   });
@@ -178,7 +180,7 @@ export default function OrganizationDetails({
   ];
   return (
     <TransitionParent>
-      {isPending || isProjectsPending ? (
+      {isPending || isEventsPending ? (
         <LoadingThinkingWomen />
       ) : (
         <section className="bg-white flex flex-col items-stretch mb-[300px]">
@@ -483,52 +485,46 @@ export default function OrganizationDetails({
               </div>
               <div className="flex flex-col items-stretch w-[34%] ml-5 max-md:w-full max-md:ml-0">
                 <aside className="w-full rounded-[1.5rem] ">
-                  <h3 className="text-primary text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
-                    Projects
+                  <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+                    EVENTS
                   </h3>
 
                   <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
-                    {isProjectsError && <p>Error fetching Events</p>}
-                    {isProjectsPending ? (
+                    {isEventsError && <p>Error fetching Events</p>}
+                    {isEventsPending ? (
                       [1, 2, 3, 4].map((event: any, id: number) => (
-                        <EventCardLoader key={id} />
+                        <EventCardLoader key={id} event={event} />
                       ))
-                    ) : !isProjectsPending &&
-                      !isProjectsError &&
-                      projects?.content.length === 0 ? (
+                    ) : !isEventsPending &&
+                      !isEventsError &&
+                      events?.content.length === 0 ? (
                       <NoContent
-                        message="No projects yet."
+                        message="No events yet."
                         buttonText={
-                          isAuthenticated ? "Add projects" : "Login to add"
+                          isAuthenticated ? "Add events" : "Login to add"
                         }
                         buttonLink={
                           isAuthenticated
-                            ? () => router.push("/projects/create")
+                            ? () => router.push("/events/create")
                             : () => router.push("/account/login")
                         }
                       />
                     ) : (
-                      !isProjectsPending &&
-                      !isProjectsError && (
+                      !isEventsPending &&
+                      !isEventsError && (
                         <>
-                          <div className="w-full md:w-[95%] mx-auto gap-5 flex justify-center flex-wrap ">
-                            {Array.isArray(projects?.content) &&
-                              projects?.content.map((project: any) => (
-                                <Project
-                                  key={project?.name}
-                                  project={project}
-                                  projectStatus={""}
-                                  imageWidth={100}
-                                  includeMenu={false}
-                                />
+                          <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap ">
+                            {Array.isArray(events?.content) &&
+                              events?.content.map((event: Event) => (
+                                <EventCard key={event.id} event={event} />
                               ))}
                           </div>
                           <div className="w-fit mx-auto my-8">
                             <Link
-                              href={"/projects"}
+                              href={"/events"}
                               className="text-btnWarning border border-btnWarning px-4 py-2 rounded-md"
                             >
-                              SEE MORE PROJECT
+                              SEE MORE EVENTS
                             </Link>
                           </div>
                         </>
