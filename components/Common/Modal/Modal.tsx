@@ -19,7 +19,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const wrapper = useRef(null);
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
-  const {toggleOrganizationBlocker} = useAppContext()
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -39,7 +38,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       document.body.style.overflow = "auto";
     };
   }, [isOpen, onClose]);
-
 
   const transition = { duration: 0.3, ease: "easeInOut" };
 
@@ -63,7 +61,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   };
 
   const onDismiss = useCallback(() => {
-    onClose()
+    onClose();
     // toggleOrganizationBlocker()
     // router.back();
   }, [router]);
