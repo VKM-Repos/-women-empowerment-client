@@ -1,4 +1,3 @@
-'use client'
 import React, { useState } from "react";
 import Image from "next/image";
 import { Event } from "@/lib/types/events.types";

@@ -7,7 +7,7 @@ import LoginWarningModal from "./LoginWarningModal";
 import { useGET } from "@/lib/hooks/useGET.hook";
 
 interface LikeButtonProps {
-  organizationId: string;
+  organizationId: number;
   likesCount: number;
 }
 
@@ -93,9 +93,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       );
 
       if (isLiked) {
-        await unlikeOrganization(Number(organizationId));
+        await unlikeOrganization(organizationId);
       } else {
-        await likeOrganization(Number(organizationId));
+        await likeOrganization(organizationId);
       }
     } catch (error) {
       console.error("Error liking/unliking organization:", error);

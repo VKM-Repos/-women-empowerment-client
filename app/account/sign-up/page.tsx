@@ -5,7 +5,9 @@ import {
   TransitionParent,
   TransitionStart,
 } from "@/lib/utils/transition";
-
+import leftLoginImg from "@/public/images/left_login_img.svg";
+import righGb from "@/public/images/right_login_bg.svg";
+import righGbMobile from "@/public/images/right_login_bg_mobile.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,10 +17,6 @@ import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWom
 import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
 
-import leftLoginImg from "@/public/images/left_login_img.svg";
-import righGb from "@/public/images/right_login_bg.svg";
-import righGbMobile from "@/public/images/right_login_bg_mobile.svg";
-import splashPicture from "@/public/images/splash_screen.png";
 let currentOtpIndex = 0;
 const Login: React.FC = () => {
   const router = useRouter();
@@ -31,7 +29,6 @@ const Login: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0);
   const [showOtpForm, setShowOtpForm] = useState(false);
-  const [showSpashScreen, setShowSpashScreen] = useState(true);
   const [url, setUrl] = useState<string>("");
   const [counter, setCounter] = useState(59);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -132,105 +129,6 @@ const Login: React.FC = () => {
   return (
     <TransitionParent>
       <main>
-        {showSpashScreen && (
-          <div className="bg-white-100 top-[20%] absolute z-50 w-[80%] left-0 right-0 ml-auto mr-auto rounded-xl">
-            <div className="absolute right-10 top-10">
-              <button onClick={() => setShowSpashScreen(false)}>
-                <svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M20.8487 4.40176C21.3368 4.88991 21.3368 5.68137 20.8487 6.16952L6.84872 20.1695C6.36057 20.6576 5.56911 20.6576 5.08096 20.1695C4.5928 19.6813 4.5928 18.8899 5.08096 18.4017L19.0809 4.40176C19.5691 3.9136 20.3605 3.9136 20.8487 4.40176Z"
-                    fill="black"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M5.08096 4.40176C5.56911 3.9136 6.36057 3.9136 6.84872 4.40176L20.8487 18.4017C21.3368 18.8899 21.3368 19.6813 20.8487 20.1695C20.3605 20.6576 19.5691 20.6576 19.0809 20.1695L5.08096 6.16952C4.5928 5.68137 4.5928 4.88991 5.08096 4.40176Z"
-                    fill="black"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="flex justify-center items-center">
-              <div className="px-[100px] flex flex-col gap-5">
-                <h2 className="text-btnWarning text-3xl font-semibold">
-                  Welcome to Women Hub
-                </h2>
-                <p className="font-quickSand text-[17px]">
-                  We're excited to have you join our empowering community
-                  dedicated to fostering positive change for women.
-                </p>
-                <p className="font-quickSand text-[17px]">
-                  Just a few steps to be officially part of the <span>HUB</span>
-                </p>
-                <div className="font-joseFine text-[18px] text-slate-600 pl-5">
-                  <div className="flex items-center gap-5">
-                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
-                      1
-                    </span>{" "}
-                    Fill credentials : Let’s get to know you{" "}
-                  </div>
-                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
-                    <span className="-mt-3">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5 -mb-1">.</span>
-                  </div>
-                  <div className="flex items-center gap-5">
-                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
-                      2
-                    </span>{" "}
-                    Verify your email : To secure your account
-                  </div>
-                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
-                    <span className="-mt-3">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5">.</span>
-                    <span className="-mt-5 -mb-1">.</span>
-                  </div>
-                  <div className="flex items-center gap-5">
-                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
-                      <svg
-                        width="12"
-                        height="9"
-                        viewBox="0 0 12 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.44531 4.24373L4.3492 7.14761L10.157 1.33984"
-                          stroke="white"
-                          strokeWidth="1.75993"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>{" "}
-                    That’s it! ✨
-                  </div>
-                </div>
-              </div>
-              <div className="h-[500px]">
-                <Image
-                  src={splashPicture}
-                  alt="Splash Picture"
-                  className="aspect-square object-cover w-[1000px] h-[500px] rounded-r-xl"
-                />
-              </div>
-            </div>
-          </div>
-        )}
         {showOtpForm && (
           <div className="absolute top-[20%] left-0 right-0 ml-auto mr-auto  lg:w-[500px] w-[380px] px-10  z-50  bg-[#F0EBD6] lg:pt-[80px] pt-[40px] pb-10 rounded-lg">
             <div className="flex justify-end mb-5">
@@ -307,7 +205,7 @@ const Login: React.FC = () => {
               <button
                 disabled={otp[5] == ""}
                 onClick={handleVerifyOtp}
-                className={`px-4 py-1 rounded-md text-sm font-light ${
+                className={`px-12 py-2 rounded-md text-sm font-light ${
                   otp[5] == "" ? "bg-gray-500" : "bg-btnWarning"
                 }  text-white-100`}
               >
@@ -319,11 +217,9 @@ const Login: React.FC = () => {
         {isPending && <LoadingThinkingWomen />}
         <div
           className={` ${
-            showOtpForm || showSpashScreen ? "inactive" : ""
+            showOtpForm ? "inactive" : ""
           } h-screen w-screen lg:px-5  ${
-            isPending || showOtpForm || showSpashScreen
-              ? "bg-black-100 bg-opacity-40"
-              : ""
+            isPending || showOtpForm ? "bg-black-100 bg-opacity-40" : ""
           }`}
         >
           <button
@@ -353,9 +249,7 @@ const Login: React.FC = () => {
                 src={leftLoginImg.src}
                 alt="Left Login Image"
                 className={`${
-                  isPending || showOtpForm || showSpashScreen
-                    ? "brightness-50"
-                    : ""
+                  showOtpForm ? "brightness-50" : ""
                 } lg:fixed z-10 lg:top-[10%] mt-[30px]`}
               />
             </div>
@@ -372,9 +266,7 @@ const Login: React.FC = () => {
               />
               <div
                 className={`${
-                  isPending || showOtpForm || showSpashScreen
-                    ? "brightness-50"
-                    : ""
+                  showOtpForm ? "brightness-50" : ""
                 } items-stretch w-[450px] flex flex-col lg:pt-10 pb-8 rounded-2xl h-full pt-[70px] z-10`}
               >
                 <img

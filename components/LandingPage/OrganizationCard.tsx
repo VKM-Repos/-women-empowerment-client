@@ -1,6 +1,8 @@
 "use client";
 import { Organization } from "@/lib/types/organization.types";
+import formatIdToTitle from "@/lib/utils/formatIdToTitle";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import LikeButton from "./LikeButton";
@@ -41,9 +43,9 @@ export const OrganizationCard: React.FC<{
               {/* {organization.description} */}
               {truncatedText(organization?.description, 150)}
               &nbsp;
-              {/* {organization.description.length > 150 && (
+              {organization.description.length > 150 && (
                 <span className="text-info text-xs">See more</span>
-              )} */}
+              )}
             </p>
           </Link>
 

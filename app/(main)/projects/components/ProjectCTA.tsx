@@ -36,7 +36,7 @@ function ProjectCTA({ }: Props) {
                     label="Start a project"
                     variant="primary"
                     fullWidth={false}
-                    size="normal"
+                    size="medium"
                     onClick={handleCreateProject}
                 />
             </div>

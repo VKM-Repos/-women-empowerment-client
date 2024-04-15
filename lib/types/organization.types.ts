@@ -1,7 +1,7 @@
 import { Instant, User } from "./user.types";
 
 export type Organization = {
-  id: string;
+  id: number;
   name: string;
   logo: string;
   website: string;

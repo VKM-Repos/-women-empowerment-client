@@ -8,9 +8,14 @@ import { useAppContext } from "@/lib/context/app-context";
 import userAccount from "@/public/icons/account-user.svg";
 import womenAvatar from "@/public/images/womenAvatar.svg";
 import building from "@/public/images/building.svg";
+
+import splashPicture from "@/public/images/splash_screen.svg";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { isAuthenticated, user } = useAppContext();
+  const router = useRouter();
+  const { isAuthenticated, user, showSignupProcess, toggleSignupProcess } =
+    useAppContext();
   const userWithOrgMenu = [
     {
       type: "link",
@@ -277,9 +282,9 @@ const Navbar = () => {
               d="M36.5 20.5C36.5 29.6127 29.1127 37 20 37C10.8873 37 3.5 29.6127 3.5 20.5C3.5 11.3873 10.8873 4 20 4C29.1127 4 36.5 11.3873 36.5 20.5Z"
               fill="#B5FFE1"
             />
-            <g clip-path="url(#clip0_7403_23678)">
+            <g clip-path="url(#clip0_7771_13075)">
               <path
-                d="M27.714 26.5703V31.0703H25.1426V26.9989V26.5703H27.714Z"
+                d="M27.714 26.5723V31.0723H25.1426V27.0008V26.5723H27.714Z"
                 fill="#808080"
               />
               <path
@@ -287,11 +292,11 @@ const Navbar = () => {
                 fill="#A67C52"
               />
               <path
-                d="M25.1431 26.5731V27.0017H23.8574V24.4302H21.286V27.0017H19.786V24.4302H17.2146V27.0017H15.7146V24.4302H13.1431V27.0017H11.8574V26.5731V23.1445H25.1431V26.5731Z"
+                d="M25.1431 26.5712V26.9997H23.8574V24.4283H21.286V26.9997H19.786V24.4283H17.2146V26.9997H15.7146V24.4283H13.1431V26.9997H11.8574V26.5712V23.1426H25.1431V26.5712Z"
                 fill="#8C6239"
               />
               <path
-                d="M25.1431 21.8555V23.1412H11.8574V21.8555H13.1431H15.7146H17.2146H19.786H21.286H23.8574H25.1431Z"
+                d="M25.1431 21.8574V23.1431H11.8574V21.8574H13.1431H15.7146H17.2146H19.786H21.286H23.8574H25.1431Z"
                 fill="#C69C6D"
               />
               <path
@@ -299,15 +304,15 @@ const Navbar = () => {
                 fill="#A67C52"
               />
               <path
-                d="M25.1431 13.9297V17.7868H23.8574V15.2154H21.286V17.7868H19.786V15.2154H17.2146V17.7868H15.7146V15.2154H13.1431V17.7868H11.8574V13.9297H18.286H25.1431Z"
+                d="M25.1431 13.9277V17.7849H23.8574V15.2135H21.286V17.7849H19.786V15.2135H17.2146V17.7849H15.7146V15.2135H13.1431V17.7849H11.8574V13.9277H18.286H25.1431Z"
                 fill="#8C6239"
               />
               <path
-                d="M25.1423 10.9297H18.2852V13.9297H25.1423V10.9297Z"
+                d="M25.1423 10.9277H18.2852V13.9277H25.1423V10.9277Z"
                 fill="#C69C6D"
               />
               <path
-                d="M23.8569 28.2852H22.1426V29.7851H23.8569V28.2852Z"
+                d="M23.8569 28.2871H22.1426V29.7871H23.8569V28.2871Z"
                 fill="#F2F2F2"
               />
               <path
@@ -315,7 +320,7 @@ const Navbar = () => {
                 fill="#F2F2F2"
               />
               <path
-                d="M23.8566 19.2852H21.2852V21.8566H23.8566V19.2852Z"
+                d="M23.8566 19.2871H21.2852V21.8585H23.8566V19.2871Z"
                 fill="#F2F2F2"
               />
               <path
@@ -328,7 +333,7 @@ const Navbar = () => {
                 fill="#F2F2F2"
               />
               <path
-                d="M19.7863 19.2852H17.2148V21.8566H19.7863V19.2852Z"
+                d="M19.7863 19.2871H17.2148V21.8585H19.7863V19.2871Z"
                 fill="#F2F2F2"
               />
               <path
@@ -340,7 +345,7 @@ const Navbar = () => {
                 fill="#F2F2F2"
               />
               <path
-                d="M15.714 19.2852H13.1426V21.8566H15.714V19.2852Z"
+                d="M15.714 19.2871H13.1426V21.8585H15.714V19.2871Z"
                 fill="#F2F2F2"
               />
               <path
@@ -348,31 +353,31 @@ const Navbar = () => {
                 fill="#F2F2F2"
               />
               <path
-                d="M14.8569 28.2852H13.1426V29.7851H14.8569V28.2852Z"
+                d="M14.8569 28.2871H13.1426V29.7871H14.8569V28.2871Z"
                 fill="#F2F2F2"
               />
               <path
-                d="M11.8566 26.9989V31.0703H9.28516V26.5703H11.8566V26.9989Z"
+                d="M11.8566 27.0008V31.0723H9.28516V26.5723H11.8566V27.0008Z"
                 fill="#808080"
               />
               <path
-                d="M28.0357 30.7483V26.2483H25.4643V14.2484V13.9269V10.6055H17.9643V13.6055H11.5357V26.2483H8.96428V30.7483H8V31.3912H29V30.7483H28.0357ZM24.8214 18.1055V21.534H24.1786V18.9626H20.9643V21.534H20.1072V18.9626H16.8929V21.534H16.0357V18.9626H12.8215V21.534H12.1786V18.1055H24.8214ZM13.4643 17.4626V15.5341H15.3928V17.4626H13.4643ZM17.5357 17.4626V15.5341H19.4643V17.4626H17.5357ZM21.6071 17.4626V15.5341H23.5357V17.4626H21.6071ZM23.5357 19.6055V21.534H21.6071V19.6055H23.5357ZM19.4643 19.6055V21.534H17.5357V19.6055H19.4643ZM15.3929 19.6055V21.534H13.4643V19.6055H15.3929ZM24.8214 22.1769V22.8198H12.1786V22.1769H24.8214ZM18.6071 11.2483H24.8214V13.6055H18.6071V11.2483ZM24.8214 14.2484V17.4626H24.1786V14.8912H20.9643V17.4626H20.1072V14.8912H16.8929V17.4626H16.0357V14.8912H12.8215V17.4626H12.1786V14.2484H24.8214ZM12.1786 23.4626H24.8215V26.6769H24.1786V24.1055H20.9643V26.6769H20.1072V24.1055H16.8929V26.6769H16.0358V24.1055H12.8215V26.6769H12.1787V23.4626H12.1786ZM23.5357 24.7484V26.6769H21.6071V24.7484H23.5357ZM19.4643 24.7484V26.6769H17.5357V24.7484H19.4643ZM15.3929 24.7484V26.6769H13.4643V24.7484H15.3929ZM11.5357 30.7483H9.60716V26.8912H11.5357V30.7483ZM17.3214 30.7483V28.8198H18.1786V29.784H18.8214V28.8198H19.6785V30.7483H17.3214ZM20.3214 30.7483V28.8198H21.0714V28.1769H15.9286V28.8197H16.6786V30.7483H12.1786V27.3197H24.8215V30.7483H20.3214V30.7483ZM27.3928 30.7483H25.4643V26.8912H27.3928V30.7483Z"
+                d="M28.0357 30.7503V26.2503H25.4643V14.2503V13.9289V10.6074H17.9643V13.6074H11.5357V26.2503H8.96428V30.7503H8V31.3931H29V30.7503H28.0357ZM24.8214 18.1074V21.536H24.1786V18.9646H20.9643V21.536H20.1072V18.9646H16.8929V21.536H16.0357V18.9646H12.8215V21.536H12.1786V18.1074H24.8214ZM13.4643 17.4646V15.536H15.3928V17.4646H13.4643ZM17.5357 17.4646V15.536H19.4643V17.4646H17.5357ZM21.6071 17.4646V15.536H23.5357V17.4646H21.6071ZM23.5357 19.6074V21.536H21.6071V19.6074H23.5357ZM19.4643 19.6074V21.536H17.5357V19.6074H19.4643ZM15.3929 19.6074V21.536H13.4643V19.6074H15.3929ZM24.8214 22.1789V22.8217H12.1786V22.1789H24.8214ZM18.6071 11.2503H24.8214V13.6074H18.6071V11.2503ZM24.8214 14.2503V17.4646H24.1786V14.8931H20.9643V17.4646H20.1072V14.8931H16.8929V17.4646H16.0357V14.8931H12.8215V17.4646H12.1786V14.2503H24.8214ZM12.1786 23.4646H24.8215V26.6789H24.1786V24.1074H20.9643V26.6789H20.1072V24.1074H16.8929V26.6789H16.0358V24.1074H12.8215V26.6789H12.1787V23.4646H12.1786ZM23.5357 24.7503V26.6789H21.6071V24.7503H23.5357ZM19.4643 24.7503V26.6789H17.5357V24.7503H19.4643ZM15.3929 24.7503V26.6789H13.4643V24.7503H15.3929ZM11.5357 30.7503H9.60716V26.8931H11.5357V30.7503ZM17.3214 30.7503V28.8217H18.1786V29.786H18.8214V28.8217H19.6785V30.7503H17.3214ZM20.3214 30.7503V28.8217H21.0714V28.1788H15.9286V28.8217H16.6786V30.7502H12.1786V27.3217H24.8215V30.7502H20.3214V30.7503ZM27.3928 30.7503H25.4643V26.8931H27.3928V30.7503Z"
                 fill="black"
               />
               <path
-                d="M20.2146 12.1055H19.3574V12.7483H20.2146V12.1055Z"
+                d="M20.2146 12.1074H19.3574V12.7503H20.2146V12.1074Z"
                 fill="black"
               />
               <path
-                d="M21.4997 12.1055H20.6426V12.7483H21.4997V12.1055Z"
+                d="M21.4997 12.1074H20.6426V12.7503H21.4997V12.1074Z"
                 fill="black"
               />
               <path
-                d="M22.7849 12.1055H21.9277V12.7483H22.7849V12.1055Z"
+                d="M22.7849 12.1074H21.9277V12.7503H22.7849V12.1074Z"
                 fill="black"
               />
               <path
-                d="M24.072 12.1055H23.2148V12.7483H24.072V12.1055Z"
+                d="M24.072 12.1074H23.2148V12.7503H24.072V12.1074Z"
                 fill="black"
               />
               <path
@@ -385,7 +390,7 @@ const Navbar = () => {
               />
             </g>
             <defs>
-              <clipPath id="clip0_7403_23678">
+              <clipPath id="clip0_7771_13075">
                 <rect
                   width="21"
                   height="21"
@@ -403,76 +408,194 @@ const Navbar = () => {
     ],
   };
   return (
-    <nav className="w-screen fixed top-0 z-50 bg-white-100 font-sora">
-      <div className="flex items-center font-medium justify-around">
-        <div className="z-50  md:w-auto w-full flex justify-between">
-          <div className="w-full">
-            <Link href="/" className="w-fit flex items-center">
-              <Image
-                src={Logo.src}
-                alt=""
-                className="w-[3rem] md:w-[4rem] aspect-auto"
-                width={100}
-                height={100}
-              />
-            </Link>
-          </div>
-          <div className="text-3xl md:hidden" onClick={() => setOpen(!open)}>
-            <button>Open</button>
-          </div>
-        </div>
-        <ul className="md:flex hidden items-center font-light">
-          <NavLinks links={links.mainNav} />
-        </ul>
-        <div className="lg:block hidden">
-          {!isAuthenticated ? (
-            <div className="flex items-center gap-2 text-xs md:text-base">
-              <Link
-                href="/account/login"
-                className="flex items-center gap-1 p-2 text-light"
-                onClick={() => {}}
+    <>
+      {showSignupProcess && (
+        <div className="bg-white-100 lg:top-[5%] top-[10%] fixed z-50 w-[80%] left-0 right-0 ml-auto mr-auto rounded-xl">
+          <div className="absolute right-10 top-10 z-50 my-10 mr-10">
+            <button onClick={toggleSignupProcess}>
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <Image
-                  width={0.5}
-                  height={0.5}
-                  src={userAccount.src}
-                  alt=""
-                  className="w-[1.2rem] aspect-square object-contain"
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M20.8487 4.40176C21.3368 4.88991 21.3368 5.68137 20.8487 6.16952L6.84872 20.1695C6.36057 20.6576 5.56911 20.6576 5.08096 20.1695C4.5928 19.6813 4.5928 18.8899 5.08096 18.4017L19.0809 4.40176C19.5691 3.9136 20.3605 3.9136 20.8487 4.40176Z"
+                  fill="black"
                 />
-                Log in
-              </Link>
-              <Link
-                href="/account/sign-up"
-                className="bg-btnWarning p-2 rounded-md font-light text-white-100"
-              >
-                Sign up
-              </Link>
-            </div>
-          ) : (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M5.08096 4.40176C5.56911 3.9136 6.36057 3.9136 6.84872 4.40176L20.8487 18.4017C21.3368 18.8899 21.3368 19.6813 20.8487 20.1695C20.3605 20.6576 19.5691 20.6576 19.0809 20.1695L5.08096 6.16952C4.5928 5.68137 4.5928 4.88991 5.08096 4.40176Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="flex flex-col">
             <div className="flex justify-center items-center">
-              <NavLinks links={links?.accountNav} />
+              <div className="px-[100px] flex flex-col gap-5">
+                <h2 className="text-btnWarning text-3xl font-semibold">
+                  Welcome to Women Hub
+                </h2>
+                <p className="font-quickSand text-[17px]">
+                  We're excited to have you join our empowering community
+                  dedicated to fostering positive change for women.
+                </p>
+                <p className="font-quickSand text-[17px]">
+                  Just a few steps to be officially part of the <span>HUB</span>
+                </p>
+                <div className="font-joseFine text-[18px] text-slate-600 pl-5">
+                  <div className="flex items-center gap-5 z-50">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      1
+                    </span>{" "}
+                    Fill credentials : Let’s get to know you{" "}
+                  </div>
+                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5 -mb-1">.</span>
+                  </div>
+                  <div className="flex items-center gap-5 z-50">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      2
+                    </span>{" "}
+                    Verify your email : To secure your account
+                  </div>
+                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5 -mb-1">.</span>
+                  </div>
+                  <div className="flex items-center gap-5">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      <svg
+                        width="12"
+                        height="9"
+                        viewBox="0 0 12 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.44531 4.24373L4.3492 7.14761L10.157 1.33984"
+                          stroke="white"
+                          strokeWidth="1.75993"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>{" "}
+                    That’s it! ✨
+                  </div>
+                </div>
+                <div className="flex justify-end absolute top-[80%] left-[40%]">
+                  <button
+                    onClick={() => {
+                      toggleSignupProcess();
+                      router.push("account/sign-up");
+                    }}
+                    className="bg-btnWarning text-white-100 px-10 py-2 rounded-md"
+                  >
+                    Let’s do this
+                  </button>
+                </div>
+              </div>
+              <div className="h-[600px]">
+                <Image
+                  src={splashPicture}
+                  alt="Splash Picture"
+                  className="aspect-square object-cover w-[1000px] h-[600px] rounded-r-xl"
+                />
+              </div>
             </div>
-          )}
+          </div>
         </div>
-        {/* Mobile nav */}
-        <ul
-          className={`
+      )}
+      <nav
+        className={`w-screen fixed z-50 bg-white-100 font-sora ${
+          showSignupProcess ? "inactive hidden" : ""
+        }`}
+      >
+        <div className="flex items-center font-medium justify-around">
+          <div className="z-50  md:w-auto w-full flex justify-between">
+            <div className="w-full">
+              <Link href="/" className="w-fit flex items-center">
+                <Image
+                  src={Logo.src}
+                  alt=""
+                  className="w-[3rem] md:w-[4rem] aspect-auto"
+                  width={100}
+                  height={100}
+                />
+              </Link>
+            </div>
+            <div className="text-3xl md:hidden" onClick={() => setOpen(!open)}>
+              <button>Open</button>
+            </div>
+          </div>
+          <ul className="md:flex hidden items-center font-light">
+            <NavLinks links={links.mainNav} />
+          </ul>
+          <div className="lg:block hidden">
+            {!isAuthenticated ? (
+              <div className="flex items-center gap-2 text-xs md:text-base">
+                <Link
+                  href="/account/login"
+                  className="flex items-center gap-1 p-2 text-light"
+                  onClick={() => {}}
+                >
+                  <Image
+                    width={0.5}
+                    height={0.5}
+                    src={userAccount.src}
+                    alt=""
+                    className="w-[1.2rem] aspect-square object-contain"
+                  />
+                  Log in
+                </Link>
+                <button
+                  onClick={toggleSignupProcess}
+                  className="bg-btnWarning p-2 rounded-md font-light text-white-100"
+                >
+                  Sign up
+                </button>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center">
+                <NavLinks links={links?.accountNav} />
+              </div>
+            )}
+          </div>
+          {/* Mobile nav */}
+          <ul
+            className={`
         md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
         duration-500 ${open ? "left-0" : "left-[-100%]"}
         `}
-        >
-          <li>
-            <Link href="/" className="py-7 px-3 inline-block">
-              Home
-            </Link>
-          </li>
-          <NavLinks links={links?.mainNav} />
-          <div className="py-5">
-            <button>Auth</button>
-          </div>
-        </ul>
-      </div>
-    </nav>
+          >
+            <li>
+              <Link href="/" className="py-7 px-3 inline-block">
+                Home
+              </Link>
+            </li>
+            <NavLinks links={links?.mainNav} />
+            <div className="py-5">
+              <button>Auth</button>
+            </div>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 

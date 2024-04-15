@@ -62,7 +62,7 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
       setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
       resetStore: () => {
         set({
-          step: 1,
+          step: 9,
           data: {
             organizationDetails: {
               name: "",

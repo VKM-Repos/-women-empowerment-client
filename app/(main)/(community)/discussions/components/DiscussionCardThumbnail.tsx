@@ -26,7 +26,7 @@ const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
   return (
     <div className="cursor-pointer" >
       <article onClick={() => window.location.href = `/discussions/${discussion.id}`} className="w-full my-2 grid grid-cols-8 border drop-shadow-sm gap-4 border-gray-500 hover:bg-primary/10 transform transition-all ease-in-out hover:scale-[99%] duration-75        cursor-pointer rounded-[0.5rem] p-2 items-center">
-        <span className="col-span-1 w-[2rem] md:w-[3rem] aspect-square rounded-full overflow-hidden">
+        <span className="col-span-1 w-[3rem] aspect-square rounded-full overflow-hidden">
           <Image
             src={
               discussion?.createdBy.photoUrl
