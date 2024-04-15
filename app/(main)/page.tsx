@@ -37,7 +37,7 @@ const LandingPage = () => {
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
-  const { user, isAuthenticated } = useAppContext();
+  const { user, isAuthenticated, showSignupProcess } = useAppContext();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -88,9 +88,17 @@ const LandingPage = () => {
   });
 
   return (
-    <main className="w-full">
+    <main
+      className={`w-full ${
+        showSignupProcess ? "inactive bg-black-100 bg-opacity-40" : ""
+      }`}
+    >
       <TransitionParent>
-        <section className=" w-screen flex flex-col items-center justify-start">
+        <section
+          className={`w-screen flex flex-col items-center justify-start ${
+            showSignupProcess ? "hidden " : ""
+          }`}
+        >
           <div className="z-10 absolute top-5 left-0 block">
             <Image
               src={doddles}
