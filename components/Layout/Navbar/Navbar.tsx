@@ -8,9 +8,12 @@ import { useAppContext } from "@/lib/context/app-context";
 import userAccount from "@/public/icons/account-user.svg";
 import womenAvatar from "@/public/images/womenAvatar.svg";
 import building from "@/public/images/building.svg";
+
+import splashPicture from "@/public/images/splash_screen.svg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { isAuthenticated, user } = useAppContext();
+  const { isAuthenticated, user, showSignupProcess, toggleSignupProcess } =
+    useAppContext();
   const userWithOrgMenu = [
     {
       type: "link",
@@ -265,76 +268,191 @@ const Navbar = () => {
     ],
   };
   return (
-    <nav className="w-screen fixed z-50 bg-white-100 font-sora">
-      <div className="flex items-center font-medium justify-around">
-        <div className="z-50  md:w-auto w-full flex justify-between">
-          <div className="w-full">
-            <Link href="/" className="w-fit flex items-center">
-              <Image
-                src={Logo.src}
-                alt=""
-                className="w-[3rem] md:w-[4rem] aspect-auto"
-                width={100}
-                height={100}
-              />
-            </Link>
-          </div>
-          <div className="text-3xl md:hidden" onClick={() => setOpen(!open)}>
-            <button>Open</button>
-          </div>
-        </div>
-        <ul className="md:flex hidden items-center font-light">
-          <NavLinks links={links.mainNav} />
-        </ul>
-        <div className="lg:block hidden">
-          {!isAuthenticated ? (
-            <div className="flex items-center gap-2 text-xs md:text-base">
-              <Link
-                href="/account/login"
-                className="flex items-center gap-1 p-2 text-light"
-                onClick={() => {}}
+    <>
+      {showSignupProcess && (
+        <div className="bg-white-100 top-[10%] fixed z-50 w-[80%] left-0 right-0 ml-auto mr-auto rounded-xl">
+          <div className="absolute right-10 top-10 z-50 my-10 mr-10">
+            <button onClick={toggleSignupProcess}>
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <Image
-                  width={0.5}
-                  height={0.5}
-                  src={userAccount.src}
-                  alt=""
-                  className="w-[1.2rem] aspect-square object-contain"
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M20.8487 4.40176C21.3368 4.88991 21.3368 5.68137 20.8487 6.16952L6.84872 20.1695C6.36057 20.6576 5.56911 20.6576 5.08096 20.1695C4.5928 19.6813 4.5928 18.8899 5.08096 18.4017L19.0809 4.40176C19.5691 3.9136 20.3605 3.9136 20.8487 4.40176Z"
+                  fill="black"
                 />
-                Log in
-              </Link>
-              <Link
-                href="/account/sign-up"
-                className="bg-btnWarning p-2 rounded-md font-light text-white-100"
-              >
-                Sign up
-              </Link>
-            </div>
-          ) : (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M5.08096 4.40176C5.56911 3.9136 6.36057 3.9136 6.84872 4.40176L20.8487 18.4017C21.3368 18.8899 21.3368 19.6813 20.8487 20.1695C20.3605 20.6576 19.5691 20.6576 19.0809 20.1695L5.08096 6.16952C4.5928 5.68137 4.5928 4.88991 5.08096 4.40176Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="flex flex-col">
             <div className="flex justify-center items-center">
-              <NavLinks links={links?.accountNav} />
+              <div className="px-[100px] flex flex-col gap-5">
+                <h2 className="text-btnWarning text-3xl font-semibold">
+                  Welcome to Women Hub
+                </h2>
+                <p className="font-quickSand text-[17px]">
+                  We're excited to have you join our empowering community
+                  dedicated to fostering positive change for women.
+                </p>
+                <p className="font-quickSand text-[17px]">
+                  Just a few steps to be officially part of the <span>HUB</span>
+                </p>
+                <div className="font-joseFine text-[18px] text-slate-600 pl-5">
+                  <div className="flex items-center gap-5 z-50">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      1
+                    </span>{" "}
+                    Fill credentials : Let’s get to know you{" "}
+                  </div>
+                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5 -mb-1">.</span>
+                  </div>
+                  <div className="flex items-center gap-5 z-50">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      2
+                    </span>{" "}
+                    Verify your email : To secure your account
+                  </div>
+                  <div className="flex flex-col pl-[10px] -gap-5 text-slate-400">
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5 -z-10">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5">.</span>
+                    <span className="-mt-5 -mb-1">.</span>
+                  </div>
+                  <div className="flex items-center gap-5">
+                    <span className="bg-primary w-6 h-6 text-white-100 flex justify-center items-center rounded-full">
+                      <svg
+                        width="12"
+                        height="9"
+                        viewBox="0 0 12 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.44531 4.24373L4.3492 7.14761L10.157 1.33984"
+                          stroke="white"
+                          strokeWidth="1.75993"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>{" "}
+                    That’s it! ✨
+                  </div>
+                </div>
+                <div className="flex justify-end absolute top-[80%] left-[40%]">
+                  <Link
+                    href={"account/sign-up"}
+                    className="bg-btnWarning text-white-100 px-10 py-2 rounded-md"
+                  >
+                    Let’s do this
+                  </Link>
+                </div>
+              </div>
+              <div className="h-[600px]">
+                <Image
+                  src={splashPicture}
+                  alt="Splash Picture"
+                  className="aspect-square object-cover w-[1000px] h-[600px] rounded-r-xl"
+                />
+              </div>
             </div>
-          )}
+          </div>
         </div>
-        {/* Mobile nav */}
-        <ul
-          className={`
+      )}
+      <nav
+        className={`w-screen fixed z-50 bg-white-100 font-sora ${
+          showSignupProcess ? "inactive hidden" : ""
+        }`}
+      >
+        <div className="flex items-center font-medium justify-around">
+          <div className="z-50  md:w-auto w-full flex justify-between">
+            <div className="w-full">
+              <Link href="/" className="w-fit flex items-center">
+                <Image
+                  src={Logo.src}
+                  alt=""
+                  className="w-[3rem] md:w-[4rem] aspect-auto"
+                  width={100}
+                  height={100}
+                />
+              </Link>
+            </div>
+            <div className="text-3xl md:hidden" onClick={() => setOpen(!open)}>
+              <button>Open</button>
+            </div>
+          </div>
+          <ul className="md:flex hidden items-center font-light">
+            <NavLinks links={links.mainNav} />
+          </ul>
+          <div className="lg:block hidden">
+            {!isAuthenticated ? (
+              <div className="flex items-center gap-2 text-xs md:text-base">
+                <Link
+                  href="/account/login"
+                  className="flex items-center gap-1 p-2 text-light"
+                  onClick={() => {}}
+                >
+                  <Image
+                    width={0.5}
+                    height={0.5}
+                    src={userAccount.src}
+                    alt=""
+                    className="w-[1.2rem] aspect-square object-contain"
+                  />
+                  Log in
+                </Link>
+                <button
+                  onClick={toggleSignupProcess}
+                  className="bg-btnWarning p-2 rounded-md font-light text-white-100"
+                >
+                  Sign up
+                </button>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center">
+                <NavLinks links={links?.accountNav} />
+              </div>
+            )}
+          </div>
+          {/* Mobile nav */}
+          <ul
+            className={`
         md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
         duration-500 ${open ? "left-0" : "left-[-100%]"}
         `}
-        >
-          <li>
-            <Link href="/" className="py-7 px-3 inline-block">
-              Home
-            </Link>
-          </li>
-          <NavLinks links={links?.mainNav} />
-          <div className="py-5">
-            <button>Auth</button>
-          </div>
-        </ul>
-      </div>
-    </nav>
+          >
+            <li>
+              <Link href="/" className="py-7 px-3 inline-block">
+                Home
+              </Link>
+            </li>
+            <NavLinks links={links?.mainNav} />
+            <div className="py-5">
+              <button>Auth</button>
+            </div>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 

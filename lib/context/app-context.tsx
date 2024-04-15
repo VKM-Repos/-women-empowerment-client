@@ -27,10 +27,10 @@ type AppContextType = {
   isAuthenticated: boolean;
   user: UserData | null;
   token: string | null;
-  showOrgBlocker: boolean;
+  showSignupProcess: boolean;
   categories: CategoryData[]; // Add categories
   setUser: (userData: UserData | null) => void;
-  toggleOrganizationBlocker: () => void;
+  toggleSignupProcess: () => void;
   login: (userData: UserData, token: string) => void;
   logout: () => void;
 };
@@ -40,10 +40,10 @@ const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   user: null,
   token: null,
-  showOrgBlocker: false,
+  showSignupProcess: false,
   categories: [], // Initialize categories
   setUser: () => {},
-  toggleOrganizationBlocker: () => {},
+  toggleSignupProcess: () => {},
   login: () => {},
   logout: () => {},
 });
@@ -67,7 +67,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     const storedToken = localStorage.getItem("token");
     return storedToken || "";
   });
-  const [showOrgBlocker, setShowOrgBlocker] = useState<boolean>(false);
+  const [showSignupProcess, setShowSignupProcess] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(() => {
     // Get the user data from localStorage or set to null if not found
     const storedUser = localStorage.getItem("user");
@@ -100,8 +100,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchCategories();
   }, []);
 
-  const toggleOrganizationBlocker = () => {
-    setShowOrgBlocker((prevState) => !prevState);
+  const toggleSignupProcess = () => {
+    setShowSignupProcess((prevState) => !prevState);
   };
   const login = (userData: UserData, authToken: string) => {
     setIsAuthenticated(true);
@@ -127,10 +127,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     isAuthenticated,
     user,
     token,
-    showOrgBlocker,
+    showSignupProcess,
     categories, // Add categories to the context value
     setUser,
-    toggleOrganizationBlocker,
+    toggleSignupProcess,
     login,
     logout,
   };
