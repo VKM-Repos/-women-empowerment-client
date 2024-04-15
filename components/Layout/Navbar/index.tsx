@@ -18,8 +18,7 @@ const Navbar = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
     undefined
   );
-  const { isAuthenticated, user, showOrgBlocker, toggleOrganizationBlocker } =
-    useAppContext();
+  const { isAuthenticated, user } = useAppContext();
 
   const submenuLinks = {
     community: [
@@ -235,7 +234,6 @@ const Navbar = () => {
   };
   const navigateToCreateOgr = () => {
     router.push("/organization/create");
-    toggleOrganizationBlocker();
   };
 
   return (
