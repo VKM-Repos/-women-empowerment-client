@@ -10,8 +10,10 @@ import womenAvatar from "@/public/images/womenAvatar.svg";
 import building from "@/public/images/building.svg";
 
 import splashPicture from "@/public/images/splash_screen.svg";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const { isAuthenticated, user, showSignupProcess, toggleSignupProcess } =
     useAppContext();
   const userWithOrgMenu = [
@@ -270,7 +272,7 @@ const Navbar = () => {
   return (
     <>
       {showSignupProcess && (
-        <div className="bg-white-100 top-[10%] fixed z-50 w-[80%] left-0 right-0 ml-auto mr-auto rounded-xl">
+        <div className="bg-white-100 lg:top-[5%] top-[10%] fixed z-50 w-[80%] left-0 right-0 ml-auto mr-auto rounded-xl">
           <div className="absolute right-10 top-10 z-50 my-10 mr-10">
             <button onClick={toggleSignupProcess}>
               <svg
@@ -359,12 +361,15 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex justify-end absolute top-[80%] left-[40%]">
-                  <Link
-                    href={"account/sign-up"}
+                  <button
+                    onClick={() => {
+                      toggleSignupProcess();
+                      router.push("account/sign-up");
+                    }}
                     className="bg-btnWarning text-white-100 px-10 py-2 rounded-md"
                   >
                     Let’s do this
-                  </Link>
+                  </button>
                 </div>
               </div>
               <div className="h-[600px]">

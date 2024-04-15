@@ -205,7 +205,7 @@ const Login: React.FC = () => {
               <button
                 disabled={otp[5] == ""}
                 onClick={handleVerifyOtp}
-                className={`px-4 py-1 rounded-md text-sm font-light ${
+                className={`px-12 py-2 rounded-md text-sm font-light ${
                   otp[5] == "" ? "bg-gray-500" : "bg-btnWarning"
                 }  text-white-100`}
               >

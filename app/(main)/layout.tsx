@@ -18,11 +18,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div
           className={`w-full min-h-screen flex flex-col items-center pt-24 justify-start ${
             showSignupProcess
-              ? " bg-black-100 bg-opacity-40"
+              ? " bg-black-100 bg-opacity-40 "
               : "bg-primaryWhite"
           } overflow-x-hidden`}
         >
-          {children}
+          {!showSignupProcess && children}
         </div>
       </div>
       <Footer />

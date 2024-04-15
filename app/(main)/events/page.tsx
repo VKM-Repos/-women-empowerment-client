@@ -89,8 +89,9 @@ const EventsPage = () => {
       <TransitionParent>
         <header className="bg-primary mx-auto w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 md:grid-cols-5 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
           <div className="w-full md:w-3/4 md:col-span-4 flex flex-col items-start justify-start gap-2 md:gap-4 relative left-0 z-20">
-            <h1 className="text-xl md:text-3xl font-semibold text-primaryWhite font-sora text-left">
-              The Best Women Illuminating Conferences
+            <h1 className="text-xl md:text-4xl font-semibold text-primaryWhite font-sora text-left">
+              The Best
+              <br /> Women Illuminating Conferences
             </h1>
             <span className="w-full flex justify-start">
               <Button
