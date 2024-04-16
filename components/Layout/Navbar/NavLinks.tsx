@@ -50,7 +50,7 @@ const NavLinks = ({ links }: NavLinkProps) => {
                       : ""
                   } hidden group-hover:md:block hover:md:block`}
                 >
-                  <div className="bg-white-100 border rounded-md px-4 py-4 flex flex-col gap-3">
+                  <div className="bg-white-100 border border-gray-500 rounded-md px-4 py-4 flex flex-col gap-3">
                     {link?.sublinks?.map((link: any) => (
                       <div className="flex">
                         <Link href={link?.href} className=" font-light">

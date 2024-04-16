@@ -3,6 +3,7 @@ import DateInput from "./DateInput";
 
 type Props = {
   getEventDate: any;
+  handleFIlter: any;
 };
 
 function FindEvent({ getEventDate }: Props) {
