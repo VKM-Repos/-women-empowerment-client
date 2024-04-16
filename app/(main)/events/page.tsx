@@ -79,7 +79,9 @@ const EventsPage = () => {
     setFilterEvent(true);
     console.log(eventDate, "CLicked");
   };
-  const handleFilter = () => {};
+  const handleFilter = () => {
+    console.log("Hello world");
+  };
   return (
     <main className="w-full">
       <TransitionParent>
