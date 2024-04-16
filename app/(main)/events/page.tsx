@@ -33,28 +33,22 @@ const EventsPage = () => {
     isPending: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: `/events?type=${
-      !selectedEventType?.tabName ? "PHYSICAL" : selectedEventType?.tabName
+    url: `${
+      !filterEvent
+        ? `/events?type=${
+            !selectedEventType?.tabName
+              ? "PHYSICAL"
+              : selectedEventType?.tabName
+          }`
+        : `/events?type=${
+            !selectedEventType?.tabName
+              ? "PHYSICAL"
+              : selectedEventType?.tabName
+          }&date=${eventDate}`
     }`,
     queryKey: ["EVENTS", selectedEventType?.tabName, eventDate, filterEvent],
     withAuth: false,
     enabled: true,
-  });
-
-  const {
-    data: filteredEvent,
-    isPending: filteredEventsLoading,
-    isError: filteredEventsError,
-  } = useGET({
-    url: `/events?date=${eventDate}`,
-    queryKey: [
-      "FILTER_EVENTS",
-      selectedEventType?.tabName,
-      eventDate,
-      filterEvent,
-    ],
-    withAuth: false,
-    enabled: !filterEvent,
   });
   useEffect(() => {
     setRedirectURL(window.location.pathname);
@@ -83,6 +77,10 @@ const EventsPage = () => {
     }-${date?.day > 9 ? date?.day : `0${date?.day}`}`;
     setEventDate(eventDate);
     setFilterEvent(true);
+    console.log(eventDate, "CLicked");
+  };
+  const handleFilter = () => {
+    console.log("Hello world");
   };
   return (
     <main className="w-full">
@@ -103,7 +101,10 @@ const EventsPage = () => {
                 onClick={handleCreateEvent}
               />
             </span>
-            <FindEvent getEventDate={getEventDate} />
+            <FindEvent
+              getEventDate={getEventDate}
+              handleFIlter={handleFilter}
+            />
           </div>
           <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
             <Image
