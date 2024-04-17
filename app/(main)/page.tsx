@@ -27,6 +27,10 @@ import SearchTerm from "@/components/LandingPage/SearchTerm";
 import { useRouter } from "next/navigation";
 import NoContent from "@/components/EmptyStates/NoContent";
 import { useAppContext } from "@/lib/context/app-context";
+import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
+import { Project } from "@/lib/types/project.types";
+import { ProjectCard } from "./projects/components/ProjectCard";
+import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -37,7 +41,7 @@ const LandingPage = () => {
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
-  const { user, isAuthenticated, showSignupProcess } = useAppContext();
+  const { user, isAuthenticated, fetchUser } = useAppContext();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -57,6 +61,12 @@ const LandingPage = () => {
   useEffect(() => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchUser();
+    }
+  }, []);
 
   // fetch lists of organizations
   const {
@@ -86,19 +96,27 @@ const LandingPage = () => {
     withAuth: false,
     enabled: true,
   });
+  // fetch lists of projects
+  const {
+    data: projects,
+    isLoading: isProjectsLoading,
+    isError: isProjectsError,
+    refetch: refetchProjects
+  } = useGET({
+    url: "projects",
+    queryKey: ["projects"],
+    withAuth: false,
+    enabled: false,
+  });
+
+console.log(projects, "this is the project");
+
+  
 
   return (
-    <main
-      className={`w-full ${
-        showSignupProcess ? "inactive bg-black-100 bg-opacity-40" : ""
-      }`}
-    >
+    <main className="w-full">
       <TransitionParent>
-        <section
-          className={`w-screen flex flex-col items-center justify-start ${
-            showSignupProcess ? "hidden " : ""
-          }`}
-        >
+        <section className=" w-screen flex flex-col items-center justify-start">
           <div className="z-10 absolute top-5 left-0 block">
             <Image
               src={doddles}
@@ -198,7 +216,7 @@ const LandingPage = () => {
                   {isEventsError && <p>Error fetching Events</p>}
                   {isEventsLoading ? (
                     [1, 2, 3, 4].map((event: any, id: number) => (
-                      <EventCardLoader key={id} event={event} />
+                      <EventCardLoader key={id} />
                     ))
                   ) : !isEventsLoading &&
                     !isEventsError &&
@@ -330,7 +348,7 @@ const LandingPage = () => {
           </section>
 
           {/* Projects */}
-          <section className="bg-[#EEEEED] self-stretch flex w-full flex-col pt-20 font-quickSand  relative z-2">
+          <section className="bg-[#EEEEED] flex w-full flex-col pt-20 font-quickSand  relative z-2">
             <div className="w-[90%] mx-auto">
               <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
                 Women Hub Projects
@@ -343,102 +361,8 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-hidden px-4 md:px-16 w-auto">
-              {featuredProjects.map((project) => (
-                <motion.div
-                  key={project.id}
-                  animate={controls}
-                  transition={{ ease: "easeInOut", duration: 0.5 }}
-                  className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 lg:min-w-[360px] min-w-[300px] h-[420px] lg:h-[520px] shadow-lg pt-6 px-6 rounded-3xl "
-                >
-                  <div className=" bg-slate-200 h-[60%] overflow-hidden flex items-center justify-center relative">
-                    <div className="bg-gradient-to-t from-primaryBlack/40 to-transparent absolute inset-0 "></div>
-                    <motion.img
-                      loading="lazy"
-                      // srcSet={project.image}
-                      src={WomenHubProjects.src}
-                      className=" object-contain object-center h-[20rem] overflow-hidden max-md:mr-0.5"
-                    />
-                    <span className="w-fit text-xs bg-btnWarning text-primaryWhite p-1 px-2 rounded-md absolute bottom-2 left-2">
-                      completed
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-2 h-[40%]">
-                    <h6 className="text-green-800 font-sora text-lg md:text-xl lg:text-2xl  font-semibold leading-5">
-                      {project.topic}
-                    </h6>
-                    <p className="text-xs md:text-sm  text-gray-200">
-                      {project.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <ProjectCarousel projects={projects} />
 
-            <div className="w-[90%] mx-auto flex items-center justify-between py-4">
-              <span className="flex gap-5 items-center justify-center">
-                <button
-                  onClick={handlePrevClick}
-                  className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
-                >
-                  <svg
-                    width="32"
-                    height="38"
-                    viewBox="0 0 32 38"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.34128 19H26.4402"
-                      stroke="white"
-                      stroke-width="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076"
-                      stroke="white"
-                      stroke-width="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <button
-                  onClick={handleNextClick}
-                  className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
-                >
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M26.6587 16.1099H5.55981"
-                      stroke="white"
-                      stroke-width="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636"
-                      stroke="white"
-                      stroke-width="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </span>
-              <Link
-                href="projects"
-                className="text-primary font-semibold text-sm md:text-base mr-0 md:mr-8"
-              >
-                View all
-              </Link>
-            </div>
 
             <svg
               className="-mb-[45px]"
