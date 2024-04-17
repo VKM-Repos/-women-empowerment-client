@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import NoContent from "@/components/EmptyStates/NoContent";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import Button from "@/components/Common/Button/Button";
-import EventCard from "../../(community)/discussions/components/EventCard";
 import { Event } from "@/lib/types/events.types";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
@@ -19,6 +18,7 @@ import threeDot from "@/public/icons/three_dots.svg";
 import { formatDateTime } from "@/lib/utils/helperFunctions";
 import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
 import { LocationIcon } from "@/components/Common/Icons/Location.icon";
+import EventCard from "../../events/components/EventCard";
 
 interface EventTab {
   name: string;
@@ -493,7 +493,7 @@ export default function OrganizationDetails({
                     {isEventsError && <p>Error fetching Events</p>}
                     {isEventsPending ? (
                       [1, 2, 3, 4].map((event: any, id: number) => (
-                        <EventCardLoader key={id} event={event} />
+                        <EventCardLoader key={id} />
                       ))
                     ) : !isEventsPending &&
                       !isEventsError &&

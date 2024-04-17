@@ -26,7 +26,7 @@ function CreateOrganizationPage() {
   const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
-  const { token, fetchUser } = useAppContext();
+  const { token } = useAppContext();
 
   const RenderForm = () => {
     const handleNext = () => {
@@ -75,7 +75,6 @@ function CreateOrganizationPage() {
         });
 
         if (response.status === 200) {
-          fetchUser();
           setIsLoading(false);
           setOrgId(response.data.id);
           resetStore();
