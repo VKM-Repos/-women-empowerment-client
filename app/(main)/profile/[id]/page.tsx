@@ -2,8 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import db from "@/data/db.json";
-import EventCard from "../../(community)/discussions/components/EventCard";
-import NewsCard from "../../(community)/discussions/components/NewsCard";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Event } from "@/lib/types/events.types";
 import EventCardLoader from "../../events/components/EventCardLoader";
@@ -13,6 +11,7 @@ import { TransitionParent } from "@/lib/utils/transition";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import { useAppContext } from "@/lib/context/app-context";
+import EventCard from "../../events/components/EventCard";
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
   const { user } = useAppContext();
@@ -258,7 +257,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   </div>
                   {isEventsLoading &&
                     [1, 2, 3, 4].map((event: any, id: number) => (
-                      <EventCardLoader key={id} event={event} />
+                      <EventCardLoader key={id} />
                     ))}
 
                   {isEventsError && <p>Error fetching Events</p>}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import { useRef } from "react";
+import { ProjectCard } from "@/app/(main)/projects/components/ProjectCard";
 import { Project } from "@/lib/types/project.types";
 import "swiper/swiper-bundle.css";
 
@@ -13,7 +14,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper/modules';
-import { ProjectCard } from "@/app/(main)/projects/components/ProjectCard";
 
 
 const ProjectCarousel = ({ projects }: any) => {

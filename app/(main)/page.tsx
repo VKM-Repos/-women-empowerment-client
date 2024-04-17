@@ -5,7 +5,6 @@ import womenInPower from "@/public/images/img_womeninpower1.svg";
 import WomenHubProjects from "@/public/images/women-hub-projects.png";
 import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
-import EventCard from "./(community)/discussions/components/EventCard";
 import Image from "next/image";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Link from "next/link";
@@ -31,6 +30,7 @@ import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
 import { Project } from "@/lib/types/project.types";
 import { ProjectCard } from "./projects/components/ProjectCard";
 import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
+import EventCard from "./events/components/EventCard";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -41,7 +41,7 @@ const LandingPage = () => {
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
-  const { user, isAuthenticated, fetchUser } = useAppContext();
+  const { user, isAuthenticated} = useAppContext();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -62,11 +62,6 @@ const LandingPage = () => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchUser();
-    }
-  }, []);
 
   // fetch lists of organizations
   const {
