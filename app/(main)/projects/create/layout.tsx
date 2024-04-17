@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Layout/Navbar/Navbar";
+import Navbar from "@/components/Layout/Navbar";
 import { useRouter } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -5,8 +5,9 @@ import StepThreeImg from "@/public/images/create-3.png";
 import Button from "@/components/Common/Button/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
-import { motion } from "framer-motion";
 import Icon from "@/components/Common/Icons/Icon";
+import AlertIcon from "../AlertIcon";
+import InfoIcon from "../InfoIcon";
 
 interface OrgLogoFormProps {
   handleNext: () => void;
@@ -21,6 +22,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [showInfo, setShowInfo] = useState(false)
 
 
   const {
@@ -28,6 +30,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     handleSubmit,
     formState: { errors },
     setValue,
+    setError,
     watch,
   } = useForm<{ logo: File | null; logoPreview: string | null }>();
 
@@ -40,12 +43,27 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     inputRef.current?.click();
   };
 
-  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile: any = e.target.files?.[0];
 
-
     if (imageFile) {
-      // Update the logo in the store as a string
+      if (imageFile.size > 2 * 1024 * 1024) {
+        setError("logo", {
+          type: "manual",
+          message: "File size limit is 2MB",
+        });
+        return;
+      }
+
+      const allowedTypes = ["image/png", "image/jpeg"];
+      if (!allowedTypes.includes(imageFile.type)) {
+        setError("logo", {
+          type: "manual",
+          message: "Incompatible file. Please upload a PNG or JPEG file.",
+        });
+        return;
+      }
+
       const imageUrl = URL.createObjectURL(imageFile);
       setData({ logoPreview: imageUrl });
       setData({ logo: imageFile });
@@ -74,9 +92,17 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
-            Add Logo
-          </h1>
+          <span className="w-full flex items-center justify-between">
+            <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+              Add Logo
+            </h1>
+            <div className="w-fit relative flex flex-col -mt-12">
+              <span onMouseEnter={() => setShowInfo(true)} onMouseLeave={() => setShowInfo(false)} className="relative flex items-center cursor-pointer justify-center"><InfoIcon /></span>
+              {showInfo && (
+                <span  className="w-fit whitespace-nowrap text-xs bg-white-100 p-1 px-4 rounded-lg text-gray-200 absolute right-[1.5rem] top-0">400 by 400 px image size recommended</span>
+              )}
+            </div>
+          </span>
           <p className="text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
@@ -141,11 +167,12 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   </button>
                 </div>
               </div>
-              {errors.logo && (
-                <span className="text-error text-xs">
-                  {errors.logo.message}
+              
+              {errors.logo ? (
+                <span className="text-error font-semibold text-xs flex gap-2 items-center">
+                  <AlertIcon size="24" /> {errors.logo.message}
                 </span>
-              )}
+              ) : <p className="text-xs text-gray-200">PNG or JPEGS only <strong>&bull; 2MB max</strong></p>}
             </div>
             <span className="w-full flex flex-wrap gap-4 relative">
               <Button

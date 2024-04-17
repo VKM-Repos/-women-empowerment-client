@@ -1,10 +1,12 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "@/components/Common/Button/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Icon from "@/components/Common/Icons/Icon";
 import { useProjectFormStore } from "@/lib/store/createProjectForm.store";
+import InfoIcon from "@/app/(main)/organization/components/InfoIcon";
+import AlertIcon from "@/app/(main)/organization/components/AlertIcon";
 
 interface ProjectImageProps {
   handleNext: () => void;
@@ -19,12 +21,15 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
 }) => {
   const { data, setData } = useProjectFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+   const [showInfo, setShowInfo] = useState(false)
+
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    setError,
     watch,
   } = useForm<{ image: string | null; imagePreview: string | null }>();
 
@@ -38,10 +43,27 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files?.[0];
+    const imageFile: any = e.target.files?.[0];
 
     if (imageFile) {
-      // Update the logo in the store with the URL
+
+      if (imageFile.size > 2 * 1024 * 1024) {
+        setError("image", {
+          type: "manual",
+          message: "File size limit is 2MB",
+        });
+        return;
+      }
+
+      const allowedTypes = ["image/png", "image/jpeg"];
+      if (!allowedTypes.includes(imageFile.type)) {
+        setError("image", {
+          type: "manual",
+          message: "Incompatible file. Please upload a PNG or JPEG file.",
+        });
+        return;
+      }
+
       const imageUrl = URL.createObjectURL(imageFile);
       setData({ imagePreview: imageUrl });
       setData({ image: imageFile });
@@ -73,10 +95,20 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
       </div>
 
       <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
-        <h1 className="text-primary text-xl font-bold font-sora">Add image</h1>
+        <span className="w-full flex items-center justify-between">
+            <h1 className="text-primary text-xl font-bold font-sora">
+              Add Image
+            </h1>
+            <div className="w-fit relative flex flex-col -mt-12">
+              <span onMouseEnter={() => setShowInfo(true)} onMouseLeave={() => setShowInfo(false)} className="relative flex items-center cursor-pointer justify-center"><InfoIcon /></span>
+              {showInfo && (
+                <span  className="w-fit whitespace-nowrap text-xs bg-white-100 p-1 px-4 rounded-lg text-gray-200 absolute right-[1.5rem] top-0">550 by 450 px image size recommended</span>
+              )}
+            </div>
+          </span>
 
         <p className="text-lg text-gray-300 font-sora">
-          Add a 300 by 500 pixel size for the best view
+          Recommended Size is 550 by 450px for the best view
         </p>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col pb-8">
@@ -134,9 +166,11 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
                 </button>
               </div>
             </div>
-            {errors.image && (
-              <span className="text-error text-xs">{errors.image.message}</span>
-            )}
+            {errors.image ? (
+                <span className="text-error font-semibold text-xs flex gap-2 items-center">
+                  <AlertIcon size="24" /> {errors.image.message}
+                </span>
+              ) : <p className="text-xs text-gray-200">PNG or JPEGS only <strong>&bull; 2MB max</strong></p>}
           </div>
           <span className="flex gap-10">
             <Button

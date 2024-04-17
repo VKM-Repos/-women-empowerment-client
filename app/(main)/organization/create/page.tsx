@@ -85,7 +85,7 @@ function CreateOrganizationPage() {
         }
       } catch (error: any) {
         // Handle network or other errors
-        toast.error(`Error: ${error.response.data.detail}`);
+        toast.error(`Error: ${error.response.status} - ${error.response.statusText}`);        
       } finally {
         setIsLoading(false);
       }
@@ -117,29 +117,28 @@ function CreateOrganizationPage() {
         );
       case 4:
         return (
-          <OrgLinksForm handleNext={handleNext} handleGoBack={handleGoBack} />
-        );
-      case 5:
-        return (
-          <OrgAddressForm handleNext={handleNext} handleGoBack={handleGoBack} />
-        );
-      case 6:
-        return (
-          <OrgContactForm handleNext={handleNext} handleGoBack={handleGoBack} />
-        );
-      case 7:
-        return (
-          <OrgDescriptionForm
+          <OrgImagesForm
             handleNext={handleNext}
+            handleSkip={handleSkip}
             handleGoBack={handleGoBack}
           />
         );
+      case 5:
+        return (
+          <OrgLinksForm handleNext={handleNext} handleGoBack={handleGoBack} />
+        );
+      case 6:
+        return (
+          <OrgAddressForm handleNext={handleNext} handleGoBack={handleGoBack} />
+        );
+      case 7:
+        return (
+          <OrgContactForm handleNext={handleNext} handleGoBack={handleGoBack} />
+        );
       case 8:
         return (
-          // TODO: prevent user from creating org by sending request twice when user clicks the button twice
-          <OrgImagesForm
+          <OrgDescriptionForm
             handleNext={handleSubmit(onSubmitHandler)}
-            handleSkip={handleSubmit(onSubmitHandler)}
             handleGoBack={handleGoBack}
             isLoading={isLoading}
           />
