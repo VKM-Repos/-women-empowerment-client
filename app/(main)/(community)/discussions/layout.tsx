@@ -11,7 +11,7 @@ export default function DiscussionsLayout(props: {
   modal: React.ReactNode;
 }) {
   return (
-    <div className="w-full bg-transparent overflow-x-hidden">
+    <div className="w-full bg-transparent">
       <div className="w-screen">
         {props.children}
       </div>

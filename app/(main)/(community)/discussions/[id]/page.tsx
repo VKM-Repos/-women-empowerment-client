@@ -64,7 +64,7 @@ export default function DiscussionDetailsPage({
     enabled: !!params?.id,
   });
 
-  console.log(comments);
+
 
   const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
@@ -164,7 +164,8 @@ export default function DiscussionDetailsPage({
             Go back
           </button>
           <div className="w-full mx-auto mt-6 flex flex-col gap-10 items-center my-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start relative">
+
               <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
                 <div className=" md:hidden flex items-center gap-4">
                   <span className="w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
@@ -277,7 +278,7 @@ export default function DiscussionDetailsPage({
               </div>
 
               {/*2nd col */}
-              <div className="col-span-1 flex flex-col items-start justify-start gap-10">
+              <div className="col-span-1 flex flex-col items-start justify-start gap-10 lg:sticky top-0 lg:h-screen">
                 <div className=" hidden md:flex items-center gap-4">
                   <span className="w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
                     <Image
@@ -298,6 +299,7 @@ export default function DiscussionDetailsPage({
                     {discussion?.createdBy?.name || "Anonymous"}
                   </h5>
                 </div>
+
                 <div className="">
                   <h5 className="font-sora font-light text-primary text-base md:text-lg">
                     Share this discussion

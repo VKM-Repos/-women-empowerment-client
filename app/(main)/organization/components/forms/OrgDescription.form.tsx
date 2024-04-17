@@ -9,11 +9,13 @@ import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 interface OrgDescriptionFormProps {
   handleNext: () => void;
   handleGoBack: () => void;
+  isLoading: boolean
 }
 
 const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
   handleNext,
   handleGoBack,
+  isLoading,
 }) => {
   const { data, setData } = useOrganizationFormStore();
 
@@ -93,6 +95,7 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
                 fullWidth={false}
                 size="medium"
                 state={isValid ? "active" : "disabled"}
+                disabled={isLoading}
               />
             </span>
           </form>

@@ -37,7 +37,7 @@ const ProjectPage = async ({
 
   const fetchProjects = async (): Promise<PaginatedResponseData> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects?page=${page}&size=${per_page}`, { next: { revalidate: 180 } });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects?page=${page}&size=${per_page}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
