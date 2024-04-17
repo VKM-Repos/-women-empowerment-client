@@ -5,6 +5,7 @@ import { OrgCardLoader } from "../components/OrgCardLoader";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import { Organization } from "@/lib/types/organization.types";
 import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+import GoBackBtn from "@/components/Common/GoBackBtn";
 
 interface PaginatedResponseOrganization {
   content: Organization[];
@@ -75,8 +76,9 @@ const AllOrganizationsPage = ({
   return (
     <main className="w-full pb-[7rem]">
       <TransitionParent>
-        <header className="w-full flex flex-col gap-10 border-b border-gray-500 h-[15rem] p-8 shadow-sm">
-          <h3 className="text-3xl text-btnWarning font-semibold font-sora text-center">All organizations</h3>
+        <header className="w-full flex flex-col gap-10 border-b border-gray-500 h-[15rem] p-8 shadow-sm relative">
+        <div className="relative w-[80%] mx-auto"><GoBackBtn /></div>
+          <h3 className="text-3xl text-primary font-semibold font-sora text-center">All organizations</h3>
           <div className="w-full md:w-3/5 mx-auto flex items-center justify-center gap-5">
             <span className="w-full md:w-[70%] mx-auto drop-shadow-2xl">
               <SearchForm placeholder="search for organization" />

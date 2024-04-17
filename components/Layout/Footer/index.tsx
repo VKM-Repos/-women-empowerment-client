@@ -10,9 +10,9 @@ import { useAppContext } from "@/lib/context/app-context";
 
 const Footer: React.FC = () => {
   const router = useRouter();
-  const { isAuthenticated, showSignupProcess } = useAppContext();
+  const { isAuthenticated } = useAppContext();
   return (
-    <div className={`w-full pt-[1rem] ${showSignupProcess ? "hidden" : ""}`}>
+    <div className="w-full pt-[1rem]">
       <div className="w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 items-end">
         <div className="">
           <div className="flex items-start justify-start w-1/2 md:mx-0 mx-auto">
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                   size="medium"
                   state="active"
                   variant="primary"
-                  onClick={() => router.push("discussions")}
+                  onClick={() => router.push("/discussions")}
                 />
               </>
             ) : (
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
                   size="medium"
                   state="active"
                   variant="primary"
-                  onClick={() => router.push("account/sign-up")}
+                  onClick={() => router.push("/account/sign-up")}
                 />
               </>
             )}
@@ -77,7 +77,8 @@ const Footer: React.FC = () => {
             />
           </div>
           <p className="text-base font-quickSand md:text-xl text-gray-100 w-auto text-center my-4">
-            Follow our social media links for the latest update
+            Follow our social media links for the 
+              latest update
           </p>
           <div className="flex  items-center justify-center w-auto my-4">
             <Link href="">

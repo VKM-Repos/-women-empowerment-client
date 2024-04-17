@@ -27,12 +27,13 @@ type AppContextType = {
   isAuthenticated: boolean;
   user: UserData | null;
   token: string | null;
-  showSignupProcess: boolean;
+  showOrgBlocker: boolean;
   categories: CategoryData[]; // Add categories
   setUser: (userData: UserData | null) => void;
-  toggleSignupProcess: () => void;
+  toggleOrganizationBlocker: () => void;
   login: (userData: UserData, token: string) => void;
   logout: () => void;
+  fetchUser: () => void;
 };
 
 // Create the context
@@ -40,12 +41,13 @@ const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   user: null,
   token: null,
-  showSignupProcess: false,
+  showOrgBlocker: false,
   categories: [], // Initialize categories
   setUser: () => {},
-  toggleSignupProcess: () => {},
+  toggleOrganizationBlocker: () => {},
   login: () => {},
   logout: () => {},
+  fetchUser: () => {},
 });
 
 // Custom hook to use the context
@@ -67,7 +69,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     const storedToken = localStorage.getItem("token");
     return storedToken || "";
   });
-  const [showSignupProcess, setShowSignupProcess] = useState<boolean>(false);
+  const [showOrgBlocker, setShowOrgBlocker] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(() => {
     // Get the user data from localStorage or set to null if not found
     const storedUser = localStorage.getItem("user");
@@ -85,7 +87,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchCategories = async () => {
     try {
       // Fetch categories data from your API or any source
-      const response = await fetch("https://www.womenhub.org/api/categories");
+      const response = await fetch("http://164.92.68.32/api/categories");
       const data = await response.json();
       setCategories(data?.content);
     } catch (error) {
@@ -100,8 +102,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchCategories();
   }, []);
 
-  const toggleSignupProcess = () => {
-    setShowSignupProcess((prevState) => !prevState);
+  const toggleOrganizationBlocker = () => {
+    setShowOrgBlocker((prevState) => !prevState);
   };
   const login = (userData: UserData, authToken: string) => {
     setIsAuthenticated(true);
@@ -122,17 +124,38 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.removeItem("user");
     localStorage.removeItem("token");
   };
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("http://164.92.68.32/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Include authorization token if required
+        },
+      });
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData)); // Update user data in localStorage
+      } else {
+        // Handle error responses
+        console.error("Failed to fetch user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const appContextValue: AppContextType = {
     isAuthenticated,
     user,
     token,
-    showSignupProcess,
+    showOrgBlocker,
     categories, // Add categories to the context value
     setUser,
-    toggleSignupProcess,
+    toggleOrganizationBlocker,
     login,
     logout,
+    fetchUser,
   };
 
   useEffect(() => {

@@ -13,8 +13,8 @@ const CommentCard: React.FC<{
   const formattedDate = useRelativeTime(comment.createdAt);
 
   return (
-    <div key={comment.id} className="w-full grid grid-cols-8 gap-2 p-2">
-      <span className="col-span-1 w-[3rem] aspect-square rounded-full overflow-hidden">
+    <div key={comment.id} className="w-full grid grid-cols-8 gap-4">
+      <span className="col-span-1 w-[2rem] md:w-[2.5rem] aspect-square rounded-full overflow-hidden">
         <Image
           src={
             comment?.user?.photoUrl
