@@ -82,7 +82,7 @@ export default function ProjectDetailsPage({
                   width={500}
                   height={500}
                   // layout="responsive"
-                  className="w-full h-[60%] rounded object-contain"
+                  className="w-full h-[60%] rounded object-cover"
                 />
                 <span>
                   <h5 className="text-base font-sora font-semibold text-primary">
