@@ -44,18 +44,21 @@ const NavLinks = ({ links }: NavLinkProps) => {
             {link.submenu && (
               <div>
                 <div
-                  className={`absolute group-hover:z-50 ${
+                  className={`absolute  group-hover:z-50 ${
                     link.sublinks[1]?.text == "Manage Organization"
-                      ? "-ml-[100px]"
-                      : ""
+                      ? "-ml-[80px] top-[80px]"
+                      : link?.sublinks.length > 2
+                      ? "-ml-[30px] top-[80px]"
+                      : "-ml-[10px] top-16"
                   } hidden group-hover:md:block hover:md:block`}
                 >
                   <div className="bg-white-100 border border-gray-500 rounded-md px-4 py-4 flex flex-col gap-3">
                     {link?.sublinks?.map((link: any) => (
                       <div className="flex">
-                        <Link href={link?.href} className=" font-light">
-                          <span className="flex gap-2">
-                            {link?.icon} {link?.text}
+                        <Link href={link?.href} className=" font-light text-sm">
+                          <span className="flex gap-4">
+                            <span className=""> {link?.icon}</span>
+                            <span className="">{link?.text}</span>
                           </span>
                         </Link>
                       </div>
