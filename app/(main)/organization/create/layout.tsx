@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     // <ProtectedPage>
-    <div className="w-full h-screen fixed inset-0 top-0 z-[2000] bg-primaryWhite scrollable-section flex justify-center items-center">
+    <div className="w-full h-screen fixed inset-0 top-0 z-[20] bg-primaryWhite scrollable-section flex justify-center items-center">
       <Navbar />
       <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
         <header className="w-full flex flex-col relative top-0 h-[20vh] pt-[5rem] z-[2000]">
