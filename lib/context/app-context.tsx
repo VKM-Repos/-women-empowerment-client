@@ -33,6 +33,7 @@ type AppContextType = {
   toggleSignupProcess: () => void;
   login: (userData: UserData, token: string) => void;
   logout: () => void;
+  fetchUser: () => Promise<void>;
 };
 
 // Create the context
@@ -46,6 +47,7 @@ const AppContext = createContext<AppContextType>({
   toggleSignupProcess: () => {},
   login: () => {},
   logout: () => {},
+  fetchUser: () => Promise.resolve(),
 });
 
 // Custom hook to use the context
@@ -85,7 +87,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchCategories = async () => {
     try {
       // Fetch categories data from your API or any source
-      const response = await fetch("https://dev.womenhub.org/api/categories");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}categories`
+      );
       const data = await response.json();
       setCategories(data?.content);
     } catch (error) {
@@ -123,6 +127,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.removeItem("token");
   };
 
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
+      } else {
+        // Handle error responses
+        console.error("Failed to fetch user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   const appContextValue: AppContextType = {
     isAuthenticated,
     user,
@@ -133,6 +158,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     toggleSignupProcess,
     login,
     logout,
+    fetchUser,
   };
 
   useEffect(() => {

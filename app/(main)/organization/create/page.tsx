@@ -27,7 +27,7 @@ function CreateOrganizationPage() {
   const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
-  const { token } = useAppContext();
+  const { token, fetchUser } = useAppContext();
 
   const RenderForm = () => {
     const handleNext = () => {
@@ -76,6 +76,7 @@ function CreateOrganizationPage() {
         });
 
         if (response.status === 200) {
+          fetchUser();
           setIsLoading(false);
           setOrgId(response.data.id);
           resetStore();
@@ -93,7 +94,6 @@ function CreateOrganizationPage() {
         if (error?.response?.status == 401) {
           router.push("/account/logout");
         }
-
       } finally {
         setIsLoading(false);
       }
