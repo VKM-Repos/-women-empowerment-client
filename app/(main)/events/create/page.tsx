@@ -86,6 +86,9 @@ function CreateEventPage() {
         // Handle network or other errors
         console.error("Error creating event:", error);
         toast.error(error?.response?.statusText);
+        if (error?.response?.status == 401) {
+          router.push("/account/logout");
+        }
       } finally {
         setIsLoading(false);
       }

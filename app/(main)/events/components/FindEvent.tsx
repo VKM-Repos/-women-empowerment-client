@@ -45,7 +45,7 @@ function FindEvent({ getEventDate }: Props) {
         <legend className="text-primaryWhite py-2 font-quickSand">
           Find an Event:
         </legend>
-        <div className="w-[60%] grid grid-cols-3 gap-3 md:grid-cols-4 items-center">
+        <div className="w-[60%] grid grid-cols-3 gap-7 md:grid-cols-4 items-center">
           <DateInput
             label="Day"
             bgClassName="bg-[#FFF200]"
