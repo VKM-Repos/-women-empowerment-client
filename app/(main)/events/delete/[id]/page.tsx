@@ -60,7 +60,7 @@ export default function EventsDetailsPage({
               showDeleteModal ? "" : "hidden"
             }`}
           >
-            <div className="relative -left-[50%] w-[500px] bg-gray-500 py-10 px-5 rounded-md text-white-100">
+            <div className="relative -left-[50%] w-[500px] bg-[#F0EBD6] py-10 px-5 rounded-md text-white-100">
               <div className="flex flex-col items-center gap-5">
                 <div>
                   <svg
@@ -130,7 +130,9 @@ export default function EventsDetailsPage({
           </div>
           <div
             className={`lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative mb-[200px] ${
-              showDeleteModal ? "inactive " : ""
+              showDeleteModal
+                ? "inactive bg-black-100 bg-opacity-40 w-full"
+                : ""
             }`}
           >
             <button
@@ -169,7 +171,11 @@ export default function EventsDetailsPage({
                 </div>
                 <div className="col-span-1 flex flex-col items-start justify-start gap-5">
                   <h3 className="font-semibold text-xl  font-sora">Details</h3>
-                  <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
+                  <div
+                    className={` ${
+                      showDeleteModal ? "hidden" : ""
+                    }bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5`}
+                  >
                     <div className=" flex items-center gap-4">
                       <Image
                         src={event?.organization?.logo}
@@ -241,7 +247,11 @@ export default function EventsDetailsPage({
                       </p>
                     </div>
                   </div>
-                  <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
+                  <div
+                    className={`${
+                      showDeleteModal ? "hidden" : ""
+                    }bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5`}
+                  >
                     <p className="text-sm text-gray-200 font-quickSand">
                       {event?.description}
                     </p>
