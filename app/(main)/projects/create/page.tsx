@@ -10,13 +10,15 @@ import { useAppContext } from "@/lib/context/app-context";
 
 import { useModal } from "@/lib/context/modal-context";
 import SelectCategory from "../components/forms/SelectCategory.form";
-import { ProjectFormStore, useProjectFormStore } from "@/lib/store/createProjectForm.store";
+import {
+  ProjectFormStore,
+  useProjectFormStore,
+} from "@/lib/store/createProjectForm.store";
 import ProjectDetails from "../components/forms/ProjectDetails.form";
 import ProjectCalender from "../components/forms/ProjectCalender.form";
 import ProjectImage from "../components/forms/ProjectImage.form";
 import SuccessModal from "../components/forms/SuccessModal";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
-
 
 function CreateProjectPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +46,10 @@ function CreateProjectPage() {
         const endpoint = `${apiUrl}projects`;
 
         let formData = new FormData();
-        formData.append("categoryId", data?.projectDetails?.categoryId.toString());
+        formData.append(
+          "categoryId",
+          data?.projectDetails?.categoryId.toString()
+        );
         formData.append("title", data?.projectDetails?.title);
         formData.append("description", data?.projectDetails?.description);
         formData.append("status", data?.projectDetails?.status);
@@ -69,23 +74,29 @@ function CreateProjectPage() {
           setIsLoading(false);
           const { id } = response?.data;
           toast.success("Project created successfully");
-          showModal(<SuccessModal title="All Done!" message="Your project has been created!" projectId={id} />);
+          showModal(
+            <SuccessModal
+              title="All Done!"
+              message="Your project has been created!"
+              projectId={id}
+            />
+          );
           handleNext();
         } else {
           setIsLoading(false);
           toast.error(` ${response?.status}`);
         }
-
       } catch (error: any) {
         // Handle network or other errors
         console.error("Error creating project:", error);
         toast.error(error?.response?.statusText);
+        if (error?.response?.status == 401) {
+          router.push("/account/logout");
+        }
       } finally {
         setIsLoading(false);
       }
     };
-
-
 
     const { handleSubmit } = useForm<ProjectFormStore>();
 
@@ -95,15 +106,10 @@ function CreateProjectPage() {
 
     switch (step) {
       case 1:
-        return (
-          <SelectCategory handleNext={handleNext} />
-        );
+        return <SelectCategory handleNext={handleNext} />;
       case 2:
         return (
-          <ProjectDetails
-            handleNext={handleNext}
-            handleGoBack={handleGoBack}
-          />
+          <ProjectDetails handleNext={handleNext} handleGoBack={handleGoBack} />
         );
       case 3:
         return (
@@ -119,7 +125,6 @@ function CreateProjectPage() {
             handleGoBack={handleGoBack}
             isLoading={isLoading}
           />
-
         );
       default:
         return null;

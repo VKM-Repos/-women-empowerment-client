@@ -22,6 +22,7 @@ import { useAppContext } from "@/lib/context/app-context";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateOrganizationPage() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
@@ -82,9 +83,15 @@ function CreateOrganizationPage() {
         } else {
           setIsLoading(false);
         }
+        if (response?.status == 401) {
+          router.push("/account/logout");
+        }
       } catch (error: any) {
         // Handle network or other errors
         toast.error(`Error: ${error.response.data.detail}`);
+        if (error?.response?.status == 401) {
+          router.push("/account/logout");
+        }
       } finally {
         setIsLoading(false);
       }
