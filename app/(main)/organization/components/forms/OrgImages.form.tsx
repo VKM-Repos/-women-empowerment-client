@@ -7,27 +7,29 @@ import Image from "next/image";
 import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
 import { motion } from "framer-motion";
 import Icon from "@/components/Common/Icons/Icon";
+import AlertIcon from "../AlertIcon";
+import InfoIcon from "../InfoIcon";
 
 interface OrgImagesFormProps {
   handleNext: () => void;
   handleGoBack: () => void;
   handleSkip: () => void;
-  isLoading: boolean
 }
 
 const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   handleNext,
   handleGoBack,
   handleSkip,
-  isLoading
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
+   const [showInfo, setShowInfo] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
     setValue,
     watch,
   } = useForm<{ image: File | null; imagePreview: string }>(); // Change to FileList type
@@ -41,11 +43,28 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     inputRef.current?.click();
   };
 
-  const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files?.[0];
+   const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile: any = e.target.files?.[0];
 
     if (imageFile) {
-      // Update the logo in the store with the URL
+
+      if (imageFile.size > 2 * 1024 * 1024) {
+        setError("image", {
+          type: "manual",
+          message: "File size limit is 2MB",
+        });
+        return;
+      }
+
+      const allowedTypes = ["image/png", "image/jpeg"];
+      if (!allowedTypes.includes(imageFile.type)) {
+        setError("image", {
+          type: "manual",
+          message: "Incompatible file. Please upload a PNG or JPEG file.",
+        });
+        return;
+      }
+
       const imageUrl = URL.createObjectURL(imageFile);
       setData({ imagePreview: imageUrl });
       setData({ image: imageFile });
@@ -76,9 +95,17 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
         </div>
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-2xl md:text-3xl font-bold font-sora">
-            Add Images
-          </h1>
+          <span className="w-full flex items-center justify-between">
+            <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+              Add Cover Image
+            </h1>
+            <div className="w-fit relative flex flex-col -mt-12">
+              <span onMouseEnter={() => setShowInfo(true)} onMouseLeave={() => setShowInfo(false)} className="relative flex items-center cursor-pointer justify-center"><InfoIcon /></span>
+              {showInfo && (
+                <span  className="w-fit whitespace-nowrap text-xs bg-white-100 p-1 px-4 rounded-lg text-gray-200 absolute right-[1.5rem] top-0">1500 by 500 px image size recommended</span>
+              )}
+            </div>
+          </span>
           <p className="text-sm md:text-base font-quickSand font-semibold">
             Let’s create awareness for your Organization. This serves as an
             identification for your organization and it will be displayed on the
@@ -142,11 +169,11 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                   </button>
                 </div>
               </div>
-              {errors.image && (
-                <span className="text-error text-xs">
-                  {errors.image.message}
+               {errors.image ? (
+                <span className="text-error font-semibold text-xs flex gap-2 items-center">
+                  <AlertIcon size="24" /> {errors.image.message}
                 </span>
-              )}
+              ) : <p className="text-xs text-gray-200">PNG or JPEGS only <strong>&bull; 2MB max</strong></p>}
             </div>
             <span className="w-full flex flex-wrap gap-4 relative">
               <Button
@@ -162,15 +189,13 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 fullWidth={false}
                 size="medium"
                 state={watch("imagePreview") ? "active" : "disabled"}
-                disabled={isLoading}
 
               />
               <button
                 className="text-primary md:flex-1 text-sm underline"
                 onClick={handleSkip}
-                disabled={isLoading}
               >
-                Skip & submit
+                Skip
               </button>
             </span>
           </form>

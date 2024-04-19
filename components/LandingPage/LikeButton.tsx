@@ -8,7 +8,7 @@ import { useGET } from "@/lib/hooks/useGET.hook";
 import { useRouter } from "next/navigation";
 
 interface LikeButtonProps {
-  organizationId: number;
+  organizationId: string;
   likesCount: number;
 }
 
@@ -98,9 +98,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       );
 
       if (isLiked) {
-        await unlikeOrganization(organizationId);
+        await unlikeOrganization(Number(organizationId));
       } else {
-        await likeOrganization(organizationId);
+        await likeOrganization(Number(organizationId));
       }
     } catch (error) {
       console.error("Error liking/unliking organization:", error);
