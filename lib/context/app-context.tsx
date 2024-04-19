@@ -85,7 +85,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchCategories = async () => {
     try {
       // Fetch categories data from your API or any source
-      const response = await fetch("https://www.womenhub.org/api/categories");
+      const response = await fetch("https://dev.womenhub.org/api/categories");
       const data = await response.json();
       setCategories(data?.content);
     } catch (error) {

@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { authApi, publicApi } from "@/lib/config/axiosInstance";
+import { useRouter } from "next/navigation";
 
 interface queryOptions {
   url: string;
@@ -29,11 +30,15 @@ export const usePOST = (
       // console.log('Data >>>>', returnedData)
       toast.success("Success");
     },
-    onError: (err: { response: { data: any } }) => {
+    onError: (err: { response: { data: any; status: any } }) => {
       // (err?.data?.message instanceof Array) ? toast.error(err?.data?.message[0]) : toast.error(err?.data?.message)
       // console.log('Error >>>>>', err.response?.data)
       const { status, detail } = err.response.data;
       toast.error(detail || "Something went wrong");
+      const router = useRouter();
+      if (status == 401) {
+        router.push("/account/logout");
+      }
     },
   });
 
