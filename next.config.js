@@ -17,7 +17,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   // distDir: "out",
+  trailingSlash: true,
 };
-
 
 module.exports = nextConfig;
