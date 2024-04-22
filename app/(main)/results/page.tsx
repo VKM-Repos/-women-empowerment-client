@@ -75,8 +75,8 @@ export default function ResultsPage({
     <main className="w-full pb-[7rem]">
       <TransitionParent>
         <header className="w-full flex flex-col gap-5 p-8">
-        <div className="relative w-[80%] mx-auto"><GoBackBtn /></div>
-          <h3 className="text-3xl text-primary font-semibold font-sora text-center">
+         <div className="relative -top-5 lg:left-0 -left-5 lg:w-[80%] w-full"><GoBackBtn /></div>
+          <h3 className="text-3xl text-primary font-semibold font-sora text-center mt-4">
             Search Results for &ldquo;{searchParams["query"]}&rdquo;
           </h3>
           <div className="w-full md:w-3/5 mx-auto flex items-center justify-center gap-5">

@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { TransitionParent } from "@/lib/utils/transition";
+import { TransitionOpacity, TransitionParent } from "@/lib/utils/transition";
 import SearchForm from "@/components/LandingPage/SearchForm";
 import { OrgCardLoader } from "../components/OrgCardLoader";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
@@ -74,10 +74,10 @@ const AllOrganizationsPage = ({
     }
   };
   return (
-    <main className="w-full pb-[7rem]">
-      <TransitionParent>
+    <section className="w-full pb-[7rem]">
+      <TransitionOpacity>
         <header className="w-full flex flex-col gap-10 border-b border-gray-500 h-[15rem] p-8 shadow-sm relative">
-        <div className="relative w-[80%] mx-auto"><GoBackBtn /></div>
+        <div className="relative top-0 lg:left-0 -left-5 lg:w-[80%] w-full"><GoBackBtn /></div>
           <h3 className="text-3xl text-primary font-semibold font-sora text-center">All organizations</h3>
           <div className="w-full md:w-3/5 mx-auto flex items-center justify-center gap-5">
             <span className="w-full md:w-[70%] mx-auto drop-shadow-2xl">
@@ -98,8 +98,8 @@ const AllOrganizationsPage = ({
             <FetchAndRenderData />
           </Suspense>
         </section>
-      </TransitionParent>
-    </main>
+      </TransitionOpacity>
+    </section>
   );
 };
 
