@@ -22,11 +22,12 @@ import { useAppContext } from "@/lib/context/app-context";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateOrganizationPage() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [orgId, setOrgId] = useState<number>();
   const { step, setStep, data, setData, resetStore } =
     useOrganizationFormStore();
-  const { token } = useAppContext();
+  const { token, fetchUser } = useAppContext();
 
   const RenderForm = () => {
     const handleNext = () => {
@@ -75,6 +76,7 @@ function CreateOrganizationPage() {
         });
 
         if (response.status === 200) {
+          fetchUser();
           setIsLoading(false);
           setOrgId(response.data.id);
           resetStore();
@@ -83,9 +85,15 @@ function CreateOrganizationPage() {
         } else {
           setIsLoading(false);
         }
+        if (response?.status == 401) {
+          router.push("/account/logout");
+        }
       } catch (error: any) {
         // Handle network or other errors
-        toast.error(`Error: ${error.response.status} - ${error.response.statusText}`);        
+        toast.error(`Error: ${error.response.data.detail}`);
+        if (error?.response?.status == 401) {
+          router.push("/account/logout");
+        }
       } finally {
         setIsLoading(false);
       }

@@ -276,7 +276,7 @@ export default function OrganizationDetails() {
                   <div className="flex flex-col gap-5  px-[100px] font-quickSand mt-2">
                     <div className="flex items-center gap-5">
                       <label className="font-sora flex-[0.3]" htmlFor="">
-                        Org. Name
+                        Org Name
                       </label>
                       <input
                         type="text"

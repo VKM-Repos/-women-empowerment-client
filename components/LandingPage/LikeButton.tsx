@@ -5,6 +5,7 @@ import { useModal } from "@/lib/context/modal-context";
 import { useAppContext } from "@/lib/context/app-context";
 import LoginWarningModal from "./LoginWarningModal";
 import { useGET } from "@/lib/hooks/useGET.hook";
+import { useRouter } from "next/navigation";
 
 interface LikeButtonProps {
   organizationId: string;
@@ -17,6 +18,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 }) => {
   const { token, isAuthenticated } = useAppContext();
   const { showModal } = useModal();
+  const router = useRouter();
 
   const [isLiked, setIsLiked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,6 +39,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       if (response.ok) {
         const data = await response.json();
         setIsLiked((prevIsLiked) => data.message || prevIsLiked);
+      }
+      if (response?.status == 401) {
+        router.push("/account/logout");
       }
     } catch (error) {
       console.error("Error fetching like status:", error);
@@ -111,6 +116,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
   const likeOrganization = async (id: number) => {
     if (!isAuthenticated) {
+      router.push("/account/logout");
       throw new Error("User is not authenticated");
     }
 
@@ -123,7 +129,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         },
       }
     );
-
+    if (response?.status == 401) {
+      router.push("/account/logout");
+    }
     if (!response.ok) {
       throw new Error("Failed to like organization");
     }
@@ -149,6 +157,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
     if (!response.ok) {
       throw new Error("Failed to unlike organization");
+    }
+    if (response?.status == 401) {
+      router.push("/account/logout");
     }
 
     return response.json();
