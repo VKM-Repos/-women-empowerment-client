@@ -31,27 +31,21 @@ export const OrganizationCard: React.FC<{
           <Link
             className="flex flex-col w-full h-[75%] hover:underline"
             href={`/organization/${organization?.id}`}
-            // as={`/organization/${formatIdToTitle(organization.name)}`}
             scroll={true}
           >
             <h4 className="text-primary text-base md:text-lg font-sora font-bold truncate whitespace-nowrap w-full block">
-              {organization.name}
+              {organization?.name}
             </h4>
             <p className=" text-xs md:text-sm font-quickSand leading-5 max-md:max-w-full">
-              {/* {organization.description} */}
               {truncatedText(organization?.description, 150)}
-              &nbsp;
-              {/* {organization.description.length > 150 && (
-                <span className="text-info text-xs">See more</span>
-              )} */}
             </p>
           </Link>
 
           <div className="justify-between border-gray-500  flex w-full h-[25%] gap-4 py-1 border-y items-center">
             <div className="items-center flex justify-start gap-4">
               <LikeButton
-                organizationId={organization.id}
-                likesCount={organization.likesCount}
+                organizationId={organization?.id}
+                likesCount={organization?.likesCount}
               />
               <ShareDropdown text={""} urlToShare={urlToShare} />
             </div>
@@ -59,11 +53,11 @@ export const OrganizationCard: React.FC<{
             <button className="flex flex-nowrap items-center gap-1.5 whitespace-nowrap">
               <ExternalLinkButton />
               <Link
-                href={organization.website}
+                href={organization.website ? organization.website : organization.facebook}
                 target="_blank"
                 className="text-gray-300 font-sora text-center text-xs md:text-sm self-center hover:underline my-auto"
               >
-                visit website
+                {organization?.website ? 'visit website' : 'visit facebook page'}
               </Link>
             </button>
           </div>

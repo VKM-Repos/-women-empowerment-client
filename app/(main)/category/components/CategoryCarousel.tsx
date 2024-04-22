@@ -24,8 +24,8 @@ const CategoryCarousel = ({ category, params }: any) => {
 
   const swiperRef = useRef<any>();
 
-  const navigationNextRef = useRef(null);
-  const navigationPrevRef = useRef(null);
+  const NextRef = useRef(null);
+  const PrevRef = useRef(null);
 
 
 
@@ -40,13 +40,13 @@ const CategoryCarousel = ({ category, params }: any) => {
             </span>
             <span className="flex gap-5 items-center justify-center">
             <button
-                ref={navigationPrevRef}
+                ref={PrevRef}
                 // onClick={() => swiper.slidePrev()}
-                className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+                className="w-[2.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
             >
                 <svg
-                width="32"
-                height="38"
+                width="24"
+                height="24"
                 viewBox="0 0 32 38"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,13 +68,13 @@ const CategoryCarousel = ({ category, params }: any) => {
                 </svg>
             </button>
             <button
-                ref={navigationNextRef}
+                ref={NextRef}
                 // onClick={() => swiper.slideNext()}
-                className="w-[3.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
+                className="w-[2.5rem] aspect-square rounded-full bg-primary flex items-center justify-center"
             >
                 <svg
-                width="32"
-                height="32"
+                width="24"
+                height="24"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
