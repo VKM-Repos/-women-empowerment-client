@@ -9,7 +9,7 @@ function GoBackBtn({}: Props) {
   return (
     <button
       onClick={router.back}
-      className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
+      className="w-fit flex items-center justify-center gap-1 absolute top-0 left-1 text-btnWarning "
     >
       <svg
         className="cursor-pointer"

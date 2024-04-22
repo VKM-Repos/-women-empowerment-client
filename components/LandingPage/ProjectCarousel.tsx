@@ -45,7 +45,7 @@ const ProjectCarousel = ({ projects }: any) => {
           loop={true} 
           breakpoints={{
             768: {
-              slidesPerView: 2, // Display 3 slides per view on tablet screens
+              slidesPerView: 3, // Display 3 slides per view on tablet screens
             },
             1024: {
               slidesPerView: 4, // Display 4 slides per view on larger screens

@@ -1,12 +1,9 @@
-import React, { Suspense, useEffect, useState } from "react";
-import db from "@/data/db.json";
+import React, { Suspense } from "react";
 import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
 import EventCard from "../../(community)/discussions/components/EventCard";
 import Button from "@/components/Common/Button/Button";
 import { Organization } from "@/lib/types/organization.types";
-import { Category } from "@/lib/types/category.types";
 import { OrgCardLoader } from "../../organization/components/OrgCardLoader";
-import { CategoryCard } from "../components/CategoryCard";
 import EventCardLoader from "../../events/components/EventCardLoader";
 import { Event } from "@/lib/types/events.types";
 import SearchForm from "@/components/LandingPage/SearchForm";
@@ -31,14 +28,13 @@ export default async function CategoryDetailsPage({ params }: PageProps) {
   let page = Number(params["page"]) || 0;
   let per_page = Number(params["per_page"]) || 5;
 
-  console.log(params, "page<<<<<<<<<<");
 
   const fetchOrganizationsByCategoryId =
     async (): Promise<OrgPaginatedResponse> => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}categories/${params?.id}/organizations?page=${page}&size=${per_page}`,
-          { next: { revalidate: 180 } }
+          {cache: 'no-store'}
         );
         // const response = await fetch(
         //   `${process.env.NEXT_PUBLIC_API_URL}categories/${params?.id}/organizations`,
@@ -87,9 +83,9 @@ export default async function CategoryDetailsPage({ params }: PageProps) {
 
   const fetchEvents = async (): Promise<any> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}events`, {
-        next: { revalidate: 180 },
-      });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}events`, 
+        {cache: 'no-store'},
+      );
       if (!response.ok) {
         toast.error("Failed to fetch events");
       }
@@ -136,7 +132,7 @@ export default async function CategoryDetailsPage({ params }: PageProps) {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}categories`,
-        { next: { revalidate: 180 } }
+        {cache: 'no-store'}
       );
       if (!response.ok) {
         toast.error("Failed to fetch organizations");
