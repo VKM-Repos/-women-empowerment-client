@@ -1,13 +1,13 @@
-import React, { useRef, useEffect, useState } from "react";
-import { TransitionParent } from "@/lib/utils/transition";
-import Image from "next/image";
-import StepThreeImg from "@/public/images/create-3.png";
-import Button from "@/components/Common/Button/Button";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
-import Icon from "@/components/Common/Icons/Icon";
-import AlertIcon from "../AlertIcon";
-import InfoIcon from "../InfoIcon";
+import React, { useRef, useEffect, useState } from 'react';
+import { TransitionParent } from '@/lib/utils/transition';
+import Image from 'next/image';
+import StepThreeImg from '@/public/images/create-3.png';
+import Button from '@/components/Common/Button/Button';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import Icon from '@/components/Common/Icons/Icon';
+import AlertIcon from '../AlertIcon';
+import InfoIcon from '../InfoIcon';
 
 interface OrgLogoFormProps {
   handleNext: () => void;
@@ -22,8 +22,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showInfo, setShowInfo] = useState(false)
-
+  const [showInfo, setShowInfo] = useState<boolean>(true);
 
   const {
     register,
@@ -36,30 +35,30 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 
   // Set default value from the store on initial render
   useEffect(() => {
-    setValue("logoPreview", data.logoPreview);
+    setValue('logoPreview', data.logoPreview);
   }, [data.logoPreview, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
 
-   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile: any = e.target.files?.[0];
 
     if (imageFile) {
       if (imageFile.size > 2 * 1024 * 1024) {
-        setError("logo", {
-          type: "manual",
-          message: "File size limit is 2MB",
+        setError('logo', {
+          type: 'manual',
+          message: 'File size limit is 2MB',
         });
         return;
       }
 
-      const allowedTypes = ["image/png", "image/jpeg"];
+      const allowedTypes = ['image/png', 'image/jpeg'];
       if (!allowedTypes.includes(imageFile.type)) {
-        setError("logo", {
-          type: "manual",
-          message: "Incompatible file. Please upload a PNG or JPEG file.",
+        setError('logo', {
+          type: 'manual',
+          message: 'Incompatible file. Please upload a PNG or JPEG file.',
         });
         return;
       }
@@ -80,8 +79,8 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
-        <div className="lg:col-span-2 hidden lg:block">
+      <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-start gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+        <div className="hidden lg:col-span-2 lg:block">
           <Image
             src={StepThreeImg}
             alt=""
@@ -91,21 +90,29 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
           />
         </div>
 
-        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <span className="w-full flex items-center justify-between">
-            <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+        <div className="flex w-full flex-col items-start space-y-3 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+          <span className="flex w-full items-center justify-between">
+            <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
               Add Logo
             </h1>
-            <div className="w-fit relative flex flex-col -mt-12">
-              <span onMouseEnter={() => setShowInfo(true)} onMouseLeave={() => setShowInfo(false)} className="relative flex items-center cursor-pointer justify-center"><InfoIcon /></span>
+            <div className="relative -mt-12 flex w-fit flex-col">
+              <span
+                onMouseEnter={() => setShowInfo(true)}
+                onMouseLeave={() => setShowInfo(false)}
+                className="relative flex cursor-pointer items-center justify-center"
+              >
+                <InfoIcon />
+              </span>
               {showInfo && (
-                <span  className="w-fit whitespace-nowrap text-xs bg-white-100 p-1 px-4 rounded-lg text-gray-200 absolute right-[1.5rem] top-0">400 by 400 px image size recommended</span>
+                <span className="bg-white-100 text-gray-200 absolute right-[1.5rem] top-0 w-fit whitespace-nowrap rounded-lg p-1 px-4 text-xs">
+                  400 by 400 px image size recommended
+                </span>
               )}
             </div>
           </span>
-          <p className="text-base font-quickSand font-semibold">
-            Let’s create awareness for your Organization. Enter the name of your
-            organization to get started
+          <p className="font-quickSand text-base font-semibold">
+            This serves as an identification for your organization and it will
+            be displayed on your dashboard.
           </p>
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
@@ -119,19 +126,18 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   accept="image/*"
                 />
                 <div className="flex items-center gap-4">
-                  {watch("logoPreview") && (
-                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
+                  {watch('logoPreview') && (
+                    <span className="border-btnWarning relative aspect-square w-[15rem] overflow-hidden rounded-full border-2">
                       <Image
                         src={data?.logoPreview}
                         alt={`logo Preview`}
                         width={400}
                         height={400}
-
-                        className="w-full h-full bg-center object-cover"
+                        className="h-full w-full bg-center object-cover"
                       />
                       <button
                         type="button"
-                        className="absolute inset-0 text-xs bg-primaryBlack/50 text-primaryWhite rounded-full flex items-center justify-center"
+                        className="bg-primaryBlack/50 text-primaryWhite absolute inset-0 flex items-center justify-center rounded-full text-xs"
                         onClick={() => removeImage()}
                       >
                         <Icon name="delete-round" size={42} />
@@ -142,7 +148,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   <button
                     type="button"
                     onClick={handleChooseFile}
-                    className="py-6 w-full flex flex-col space-y-6 items-start justify-center  text-small focus:outline-none rounded-md "
+                    className="text-small flex w-full flex-col items-start justify-center space-y-6  rounded-md py-6 focus:outline-none "
                   >
                     <svg
                       width="144"
@@ -167,14 +173,18 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                   </button>
                 </div>
               </div>
-              
+
               {errors.logo ? (
-                <span className="text-error font-semibold text-xs flex gap-2 items-center">
+                <span className="text-error flex items-center gap-2 text-xs font-semibold">
                   <AlertIcon size="24" /> {errors.logo.message}
                 </span>
-              ) : <p className="text-xs text-gray-200">PNG or JPEGS only <strong>&bull; 2MB max</strong></p>}
+              ) : (
+                <p className="text-gray-200 text-xs">
+                  PNG or JPEGS only <strong>&bull; 2MB max</strong>
+                </p>
+              )}
             </div>
-            <span className="w-full flex flex-wrap gap-4 relative">
+            <span className="relative flex w-full flex-wrap gap-4">
               <Button
                 label="Go Back"
                 variant="primary"
@@ -187,10 +197,10 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
                 variant="primary"
                 fullWidth={false}
                 size="medium"
-                state={watch("logoPreview") ? "active" : "disabled"}
+                state={watch('logoPreview') ? 'active' : 'disabled'}
               />
               <button
-                className="text-primary md:flex-1 text-sm underline"
+                className="text-primary text-sm underline md:flex-1"
                 onClick={handleSkip}
               >
                 Skip

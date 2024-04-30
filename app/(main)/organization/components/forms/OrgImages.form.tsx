@@ -23,7 +23,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
-   const [showInfo, setShowInfo] = useState(false)
+   const [showInfo, setShowInfo] = useState<boolean>(true)
 
   const {
     register,
@@ -107,9 +107,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
             </div>
           </span>
           <p className="text-sm md:text-base font-quickSand font-semibold">
-            Let’s create awareness for your Organization. This serves as an
-            identification for your organization and it will be displayed on the
-            site
+            This will be displayed as the cover image of your dashboard.
           </p>
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
@@ -184,7 +182,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                 onClick={handleGoBack}
               />
               <Button
-                label="Submit"
+                label="Continue"
                 variant="primary"
                 fullWidth={false}
                 size="medium"

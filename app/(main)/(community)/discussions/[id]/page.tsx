@@ -278,7 +278,7 @@ export default function DiscussionDetailsPage({
               </div>
 
               {/*2nd col */}
-              <div className="col-span-1 flex flex-col items-start justify-start gap-10 lg:sticky top-0 lg:h-screen">
+              <div className="col-span-1 flex flex-col items-start justify-start gap-10">
                 <div className=" hidden md:flex items-center gap-4">
                   <span className="w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
                     <Image

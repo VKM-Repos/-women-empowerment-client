@@ -161,7 +161,7 @@ function CreateOrganizationPage() {
   return (
     <AnimatePresence initial={true} mode="wait">
       {isLoading && <LoadingThinkingWomen />}
-      <RenderForm />
+      {RenderForm()}
     </AnimatePresence>
   );
 }

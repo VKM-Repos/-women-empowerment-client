@@ -42,8 +42,8 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
   const [displayedCategories, setDisplayedCategories] = useState(6);
 
   const onSubmit: SubmitHandler<{ categoryIds: number[] }> = (formData) => {
-    if (!formData.categoryIds || formData.categoryIds.length < 2) {
-      toast.error('Select at least 2 categories.');
+    if (!formData.categoryIds || formData.categoryIds.length < 1) {
+      toast.error('Select a category.');
       return;
     }
 
@@ -72,7 +72,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
           <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">Choose a category</h1>
           <p className="text-base font-quickSand font-semibold">
-            Select at least 2 categories that best describe what your organization stands for
+            Select a category that best describe what your organization stands for
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="flex flex-col pb-8 py-4">
@@ -86,7 +86,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
                       <label className="flex flex-nowrap cursor-pointer py-1 px-2 text-sm transition-colors bg-transparent text-base border border-btnWarning rounded-lg hover:border-btnWarning [&:has(input:checked)]:border-btnWarning [&:has(input:checked)]:bg-btnWarning [&:has(input:checked)]:text-primaryWhite">
                         <input
                           {...register('categoryIds', {
-                            required: 'Select at least two categories',
+                            required: 'Select a category',
                           })}
                           type="checkbox"
                           name="categoryIds"

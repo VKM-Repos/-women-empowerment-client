@@ -90,7 +90,7 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
                 onClick={handleGoBack}
               />
               <Button
-                label="Continue"
+                label="Submit"
                 variant="primary"
                 fullWidth={false}
                 size="medium"
