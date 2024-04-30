@@ -117,32 +117,32 @@ export default function ProjectDetailsPage({
                 </div>
 
                 <ul className="w-full flex flex-col gap-5 items-start">
-                  <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Status:</span>
+                  <li className="w-full grid grid-cols-6 gap-2">
+                    <span className="col-span-2 md:col-span-1 text-gray-200 font-medium font-quickSand">Status:</span>
                     <span className={`col-span-4 w-fit text-xs p-1 px-2 rounded-md border  ${getStatusColor(project.status)}`}>
                       {project?.status || "not stated"}
                     </span>
                   </li>
-                  <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Starts</span>
+                  <li className="w-full grid grid-cols-6 gap-2">
+                    <span className="col-span-2 md:col-span-1 text-gray-200 font-medium font-quickSand">Starts</span>
                     <span className="col-span-4">
                       {project?.startDate || "1st March 2024"}
                     </span>
                   </li>
-                  <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Ends:</span>
+                  <li className="w-full grid grid-cols-6 gap-2">
+                    <span className="col-span-2 md:col-span-1 text-gray-200 font-medium font-quickSand">Ends:</span>
                     <span className="col-span-4">
                       {project?.endDate || "1st March 2024"}
                     </span>
                   </li>
-                  <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">category:</span>
+                  <li className="w-full grid grid-cols-6 gap-2">
+                    <span className="col-span-2 md:col-span-1 text-gray-200 font-medium font-quickSand">category:</span>
                     <span className="col-span-4">
                       {project?.category[0] || "Health"}
                     </span>
                   </li>
-                  <li className="grid grid-cols-6 gap-2">
-                    <span className="col-span-2 text-gray-200 font-medium font-quickSand">Location:</span>
+                  <li className="w-full grid grid-cols-6 gap-2">
+                    <span className="col-span-2 md:col-span-1 text-gray-200 font-medium font-quickSand">Location:</span>
                     <span className="col-span-4">
                       {project?.location || "Abuja"}
                     </span>
