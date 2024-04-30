@@ -60,7 +60,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             loading="lazy"
             srcSet={project?.image}
             animate={imageControls}
-            className=" object-contain object-center h-[12rem] md:h-[18rem] overflow-hidden"
+            className="w-full object-cover object-center h-[12rem] md:h-[18rem] overflow-hidden"
           />
           <span className={`w-fit text-xs p-1 px-2 rounded-md absolute bottom-2 left-2 ${getStatusColor(project.status)}`}>
             {project.status}
@@ -82,7 +82,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 alt={`author`}
                 width={50}
                 height={50}
-                className="w-full  aspect-square rounded-full object-contain"
+                className="w-full  aspect-square rounded-full object-cover"
               />
             </span>
             <span className="w-full col-span-7 text-gray-200 text-xs font-semibold font-sora whitespace-nowrap truncate">
