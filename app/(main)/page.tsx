@@ -30,7 +30,7 @@ import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
 import { Project } from "@/lib/types/project.types";
 import { ProjectCard } from "./projects/components/ProjectCard";
 import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
-import EventCard from "./events/components/EventCard";
+import EventCard from "./(community)/discussions/components/EventCard";
 
 const LandingPage = () => {
   const handleSearch = (

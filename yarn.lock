@@ -37,6 +37,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.24.1":
+  version: 7.24.5
+  resolution: "@babel/runtime@npm:7.24.5"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/05730e43e8ba6550eae9fd4fb5e7d9d3cb91140379425abcb2a1ff9cebad518a280d82c4c4b0f57ada26a863106ac54a748d90c775790c0e2cd0ddd85ccdf346
+  languageName: node
+  linkType: hard
+
 "@emotion/is-prop-valid@npm:^0.8.2":
   version: 0.8.8
   resolution: "@emotion/is-prop-valid@npm:0.8.8"
@@ -241,6 +250,15 @@ __metadata:
   dependencies:
     glob: "npm:7.1.7"
   checksum: 10c0/7ab9cb7a4dcaf97b66fc79aefa848ce0e46a43d48145484ffa0ce8629f3355e684ca4a52d1b2c1093a527a4f7ac31b57a2e429377c93770747046f41a1a73e1e
+  languageName: node
+  linkType: hard
+
+"@next/font@npm:^14.2.3":
+  version: 14.2.3
+  resolution: "@next/font@npm:14.2.3"
+  peerDependencies:
+    next: "*"
+  checksum: 10c0/e436515f7830d82d772a0edbd630112c0a5937b6ebecb6995939493fd63c8874bc77b1357f3dfd527f454f44dcd85241aa250ff566c4c8546eac70903ed95364
   languageName: node
   linkType: hard
 
@@ -1037,6 +1055,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "class-variance-authority@npm:0.7.0"
+  dependencies:
+    clsx: "npm:2.0.0"
+  checksum: 10c0/e11c57edf4bf50ef1c97bae41d68885afbaaedba26c48b7cc5dfb033390fed7012147e9532168d8c4f3497fce4dff15e20e6e60b8c9c9a4b0fe26b0e804513db
+  languageName: node
+  linkType: hard
+
 "classnames@npm:^2.5.1":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
@@ -1058,10 +1085,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "clsx@npm:2.1.0"
-  checksum: 10c0/c09c00ad14f638366ca814097e6cab533dfa1972a358da5b557be487168acbb25b4c1395e89ffa842a8a61ba87a462d2b4885bc9d4f8410b598f3cb339599cdb
+"clsx@npm:2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: 10c0/c09f43b3144a0b7826b6b11b6a111b2c7440831004eecc02d333533c5e58ef0aa5f2dce071d3b25fbb8c8ea97b45df96c74bcc1d51c8c2027eb981931107b0cd
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -2797,6 +2831,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-react@npm:^0.378.0":
+  version: 0.378.0
+  resolution: "lucide-react@npm:0.378.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/b420601bdda257ec9f62c40f6e048d4a3b2845d1db8599dce80497fa4ffe438a227dceedeb4a9b7afca17dfc7a07f23ef0a06e72276c5c6c6f51c32b581ece67
+  languageName: node
+  linkType: hard
+
 "make-fetch-happen@npm:^13.0.0":
   version: 13.0.0
   resolution: "make-fetch-happen@npm:13.0.0"
@@ -4187,6 +4230,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwind-merge@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "tailwind-merge@npm:2.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.24.1"
+  checksum: 10c0/5ea308e23c3ab1cf4c3f35f0a471753f4d3ed232d63dd7c09151a74428737321902203d90e9f0cb76ea5c3978e71b0adbc503dc455e56cda967a7674ae4b94b5
+  languageName: node
+  linkType: hard
+
+"tailwindcss-animate@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "tailwindcss-animate@npm:1.0.7"
+  peerDependencies:
+    tailwindcss: "*"
+  checksum: 10c0/ec7dbd1631076b97d66a1fbaaa06e0725fccfa63119221e8d87a997b02dcede98ad88bb1ef6665b968f5d260fcefb10592e0299ca70208d365b37761edf5e19a
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:^3.3.0":
   version: 3.4.1
   resolution: "tailwindcss@npm:3.4.1"
@@ -4586,6 +4647,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "women-empowerment@workspace:."
   dependencies:
+    "@next/font": "npm:^14.2.3"
     "@tanstack/react-query": "npm:^5.8.4"
     "@tanstack/react-query-devtools": "npm:^5.8.4"
     "@tanstack/react-table": "npm:^8.10.7"
@@ -4594,13 +4656,15 @@ __metadata:
     "@types/react-dom": "npm:^18"
     autoprefixer: "npm:^10.0.1"
     axios: "npm:^1.6.2"
-    clsx: "npm:^2.0.0"
+    class-variance-authority: "npm:^0.7.0"
+    clsx: "npm:^2.1.1"
     date-fns: "npm:^3.3.1"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.0.3"
     flowbite: "npm:^2.3.0"
     flowbite-react: "npm:^0.7.5"
     framer-motion: "npm:^11.0.8"
+    lucide-react: "npm:^0.378.0"
     next: "npm:14.0.1"
     next-auth: "npm:^4.24.5"
     postcss: "npm:^8"
@@ -4610,7 +4674,9 @@ __metadata:
     react-hot-toast: "npm:^2.4.1"
     react-share-kit: "npm:^1.1.0"
     swiper: "npm:^11.1.1"
+    tailwind-merge: "npm:^2.3.0"
     tailwindcss: "npm:^3.3.0"
+    tailwindcss-animate: "npm:^1.0.7"
     typescript: "npm:^5"
     use-debounce: "npm:^10.0.0"
     zustand: "npm:^4.4.7"
