@@ -13,9 +13,9 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
@@ -28,22 +28,22 @@ const config = {
         primary: '#106840',
         secondary: '#13FF79',
         btnWarning: '#FF7400',
-        primaryBlack: "#0F0F0F",
-        primaryWhite: "#FFFFFF",
-        secondaryOffWhite: "#F2F2F2",
+        primaryBlack: '#0F0F0F',
+        primaryWhite: '#FFFFFF',
+        secondaryOffWhite: '#F2F2F2',
         // State Colors
-        warning: "#F5BB0A",
-        success: "#27AE60",
-        error: "#EB5757",
-        info: "#2F80ED",
+        warning: '#F5BB0A',
+        success: '#27AE60',
+        error: '#EB5757',
+        info: '#2F80ED',
         black: {
-          100: "#000000",
-          200: "#1D1D1D",
-          300: "#282828",
+          100: '#000000',
+          200: '#1D1D1D',
+          300: '#282828',
         },
         white: {
-          100: "#FFFFFF",
-          200: "#ffffffcc",
+          100: '#FFFFFF',
+          200: '#ffffffcc',
         },
         gray: {
           100: "#333333",
