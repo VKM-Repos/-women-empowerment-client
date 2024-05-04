@@ -2,8 +2,6 @@ import { create, StateCreator } from "zustand";
 import {
   persist,
   PersistOptions,
-  createJSONStorage,
-  StateStorage,
 } from "zustand/middleware";
 
 export interface OrganizationFormStore {
@@ -87,7 +85,6 @@ export const useOrganizationFormStore = create<OrganizationFormStore>(
     }),
     {
       name: "organizationFormStore",
-      getStorage: () => localStorage as StateStorage,
     }
   )
 );

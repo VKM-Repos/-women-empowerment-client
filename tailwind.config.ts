@@ -1,17 +1,20 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
-const config: Config = {
+const config = {
+  darkMode: ['class'],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
+  prefix: '',
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
@@ -24,35 +27,35 @@ const config: Config = {
         primary: '#106840',
         secondary: '#13FF79',
         btnWarning: '#FF7400',
-        primaryBlack: "#0F0F0F",
-        primaryWhite: "#FFFFFF",
-        secondaryOffWhite: "#F2F2F2",
+        primaryBlack: '#0F0F0F',
+        primaryWhite: '#FFFFFF',
+        secondaryOffWhite: '#F2F2F2',
         // State Colors
-        warning: "#F5BB0A",
-        success: "#27AE60",
-        error: "#EB5757",
-        info: "#2F80ED",
+        warning: '#F5BB0A',
+        success: '#27AE60',
+        error: '#EB5757',
+        info: '#2F80ED',
         black: {
-          100: "#000000",
-          200: "#1D1D1D",
-          300: "#282828",
+          100: '#000000',
+          200: '#1D1D1D',
+          300: '#282828',
         },
         white: {
-          100: "#FFFFFF",
-          200: "#ffffffcc",
+          100: '#FFFFFF',
+          200: '#ffffffcc',
         },
         gray: {
-          100: "#333333",
-          200: "#4F4F4F",
-          300: "#828282",
-          400: "#BDBDBD",
-          500: "#E0E0E0",
+          100: '#333333',
+          200: '#4F4F4F',
+          300: '#828282',
+          400: '#BDBDBD',
+          500: '#E0E0E0',
         },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         // primary: {
         //   DEFAULT: "hsl(var(--primary))",
         //   foreground: "hsl(var(--primary-foreground))",
@@ -82,11 +85,6 @@ const config: Config = {
         //   foreground: "hsl(var(--card-foreground))",
         // },
       },
-      // borderRadius: {
-      //   lg: "var(--radius)",
-      //   md: "calc(var(--radius) - 2px)",
-      //   sm: "calc(var(--radius) - 4px)",
-      // },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
         sora: ["Sora", "sans-serif"],
@@ -102,20 +100,35 @@ const config: Config = {
       },
       // line height
       leading: {
-        tight: "1.2",
-        normal: "1.5",
-        relaxed: "1.8",
+        tight: '1.2',
+        normal: '1.5',
+        relaxed: '1.8',
       },
       // letter spacing
       tracking: {
-        tighter: "-0.5px",
-        tight: "-0.25px",
-        normal: "0",
-        wide: "0.25px",
-        wider: "0.5px",
+        tighter: '-0.5px',
+        tight: '-0.25px',
+        normal: '0',
+        wide: '0.25px',
+        wider: '0.5px',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
-  plugins: [],
-}
-export default config
+  plugins: [require('tailwindcss-animate')],
+} satisfies Config;
+
+export default config;

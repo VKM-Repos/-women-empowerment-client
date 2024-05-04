@@ -1,10 +1,11 @@
-'use client'
 import React from "react";
-import Button from "@/components/Common/Button/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useProjectFormStore } from "@/lib/store/createProjectForm.store";
-
-
+import { Form } from "@/components/UI/Form";
+import FormInput from "@/components/Form/FormInput";
+import FormTextArea from "@/components/Form/FormTextArea";
+import { z, ZodError } from "zod";
+import Button from "@/components/Common/Button/Button";
 
 interface ProjectDetailsProps {
     handleNext: () => void;
@@ -14,37 +15,68 @@ interface ProjectDetailsProps {
 const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBack }) => {
     const { data, setData } = useProjectFormStore();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isDirty, isValid },
-    } = useForm<{ title: string, location: string, link: string, description: string }>({
+    const projectDetailsSchema = z.object({
+        title: z.string().min(5, { message: "Please enter at least 5 characters for the title." }).max(250),
+        location: z.string().min(3, { message: "Please enter at least 3 characters for location" }).max(50),
+        link: z.string().refine((value) => {
+            const regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+            return regex.test(value);
+        }, { message: "Invalid URL format" }),
+        description: z.string().min(100, { message: "Description requires at least 100 characters" }).max(1000, {message: "Description is too long!"}),
+    });
+
+    const form = useForm<{ title: string; location: string; link: string; description: string }>({
         defaultValues: {
             title: data.projectDetails.title,
-            location: data.projectDetails.title,
-            link: data.projectDetails.title,
+            location: data.projectDetails.location,
+            link: data.projectDetails.link,
             description: data.projectDetails.description,
         },
     });
 
-    const onSubmit: SubmitHandler<{ title: string, location: string, link: string, description: string }> = async (formData) => {
-        // Autofill "https://" prefix for URL
-        if (formData.link && !formData.link.startsWith('https://')) {
-        formData.link = 'https://' + formData.link;
-        }
-        
+    const {
+        register,
+        handleSubmit,
+        formState: { isValid },
+        setError,
+    } = form;
 
-        
-        setData({
-            projectDetails: {
-                ...data.projectDetails,
-                title: formData.title,
-                location: formData.location,
-                link: formData.link,
-                description: formData.description,
-            },
-        });
-        handleNext();
+    const onSubmit: SubmitHandler<{
+        title: string;
+        location: string;
+        link: string;
+        description: string;
+    }> = async (formData) => {
+        try {
+            const validatedData = projectDetailsSchema.parse(formData);
+
+            // Autofill "https://" prefix for URL if necessary
+            let link = validatedData.link.trim();
+            if (!link.startsWith("http://") && !link.startsWith("https://")) {
+                link = `https://${link}`;
+            }
+
+            setData({
+                projectDetails: {
+                    ...data.projectDetails,
+                    title: validatedData.title,
+                    location: validatedData.location,
+                    link,
+                    description: validatedData.description,
+                },
+            });
+            handleNext();
+        } catch (error) {
+            if (error instanceof ZodError) {
+                error.errors.forEach((validationError) => {
+                    // Set error message for corresponding form field
+                    setError(validationError.path[0] as keyof typeof formData, {
+                        type: "manual",
+                        message: validationError.message,
+                    });
+                });
+            }
+        }
     };
 
     return (
@@ -56,91 +88,63 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ handleNext, handleGoBac
             </div>
 
             <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
-                <h1 className="text-primary text-xl font-bold font-sora">
-                    About your project
-                </h1>
-                <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="flex flex-col pb-4">
-                        <input
-                            {...register("title", {
-                                required: "This field is required",
-                            })}
-                            className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                            type="text"
-                            placeholder="Project title"
-                            name="title"
-                        />
-                        {errors?.title?.message && (
-                            <p className="text-error text-sm mt-1">
-                                {errors?.title?.message}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col pb-4">
-                        <input
-                            className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                            type="address"
-                            placeholder="Location"
-                            {...register("location", {
-                                required: "this field is empty",
-                            })}
-                            name="location"
-                        />
-                        {errors.location && (
-                            <span className="text-error text-xs">
-                                {errors.location.message}
-                            </span>
-                        )}
-                    </div>
-                    <div className="flex flex-col pb-4">
-                        <input
-                            className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                            type="text"
-                            placeholder="Project link"
-                            {...register("link", {
-                                required: "this field is empty",
-                            })}
-                            name="link"
-                        />
-                        {errors.link && (
-                            <span className="text-error text-xs">
-                                {errors.link.message}
-                            </span>
-                        )}
-                    </div>
-                    <div className="flex flex-col pb-4">
-                        <textarea
-                            maxLength={500}
-                            placeholder="Description"
-                            className="w-full h-[6rem] p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                            {...register("description", {
-                                required: "This field is required",
-                            })}
-                            name="description"
-                        />
-                        {errors.description && (
-                            <span className="text-error text-xs">
-                                {errors.description.message}
-                            </span>
-                        )}
-                    </div>
-                    <span className="flex gap-10">
-                        <Button
-                            label="Go Back"
-                            variant="primary"
-                            fullWidth={false}
-                            size="medium"
-                            onClick={handleGoBack}
-                        />
-                        <Button
-                            label="Continue"
-                            variant="primary"
-                            fullWidth={false}
-                            size="medium"
-                            state={isValid ? "active" : "disabled"}
-                        />
-                    </span>
-                </form>
+                <h1 className="text-primary text-xl font-bold font-sora">About your project</h1>
+                <Form {...form}>
+                    <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="flex flex-col">
+                            <FormInput
+                                label=""
+                                placeholder="Project title"
+                                {...register("title", {
+                                    required: "This field is required",
+                                })}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <FormInput
+                                label=""
+                                placeholder="Location"
+                                {...register("location", {
+                                    required: "This field is required",
+                                })}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <FormInput
+                                label=""
+                                placeholder="https://"
+                                {...register("link", {
+                                    required: "This field is required",
+                                })}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <FormTextArea
+                                label=""
+                                placeholder="Project description"
+                                {...register("description", {
+                                    required: "This field is required",
+                                })}
+                            />
+                        </div>
+                        <span className="flex gap-10">
+                            <Button
+                                label="Go Back"
+                                variant="primary"
+                                fullWidth={false}
+                                size="medium"
+                                onClick={handleGoBack}
+                            />
+                            <Button
+                                label="Continue"
+                                variant="primary"
+                                fullWidth={false}
+                                size="medium"
+                                state={isValid ? "active" : "disabled"}
+                            />
+                        </span>
+                    </form>
+                </Form>
             </div>
         </div>
     );

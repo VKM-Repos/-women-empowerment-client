@@ -4,7 +4,7 @@ import "./globals.css";
 
 import { Providers } from "@/lib/utils/providers";
 import { Metadata } from "next";
-import { Inter, Sora } from 'next/font/google'
+import { Quicksand, Sora } from 'next/font/google'
 
 
 
