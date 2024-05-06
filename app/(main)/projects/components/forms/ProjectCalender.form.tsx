@@ -100,12 +100,10 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-5">
               <FormSelect
-                label="Status"
-                options={statusOptions}
-                {...register('status', {
-                  required: 'Please select the status',
-                })}
-              />
+                  label=""
+                  options={statusOptions}
+                  {...register('status')}
+                />
             </div>
             <div className="">
               <FormLabel className="mb-2 flex gap-1 font-semibold">

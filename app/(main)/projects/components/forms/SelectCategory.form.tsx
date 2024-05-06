@@ -63,17 +63,17 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
             <div className="w-full lg:col-span-2 hidden lg:flex flex-col gap-5 place-self-start">
                 <p className="text-lg font-quickSand font-semibold text-primary">1 of 4</p>
                 <h2 className="text-2xl font-sora text-gray-100 font-semibold">Let’s begin with what Category of project you have</h2>
-                <p className="text-lg text-gray-300 font-sora">This helps users find your projects with ease</p>
+                <p className="text-lg text-gray-300 font-quickSand">This helps users find your projects with ease</p>
             </div>
 
-            <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
+            <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start font-sora">
                 <h1 className="text-primary text-3xl font-bold font-sora">Choose a category</h1>
-                <p className="text-base font-quickSand font-semibold">
+                <p className="text-base font-quickSand">
                     Select a category that best suit your project
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                     <div className="flex flex-col pb-8">
-                        <ul className="w-full flex gap-3 flex-wrap">
+                        <ul className="w-full flex gap-3 flex-wrap font-quickSand">
 
                             {isLoading && <LoadingDots />}
 

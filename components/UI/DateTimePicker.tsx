@@ -7,7 +7,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
 import { Button } from "./Button";
-import { Calendar } from "./calendar";
+import { Calendar } from "./Calendar";
 import { TimePicker } from "./TimePicker";
 
  

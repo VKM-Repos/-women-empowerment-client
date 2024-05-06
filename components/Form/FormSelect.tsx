@@ -10,11 +10,12 @@ export interface Option {
   value: string;
 }
 
+
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   label?: string;
   required?: boolean;
-  options: Option[];
+  options: any[];
 }
 
 const FormSelect: FC<SelectProps> = ({ name, label, required, options }) => {
@@ -46,8 +47,8 @@ const FormSelect: FC<SelectProps> = ({ name, label, required, options }) => {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {options.map((option, index) => (
-                  <SelectItem key={index} value={option.value}>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
                     {option.label}
                   </SelectItem>
                 ))}
@@ -62,3 +63,6 @@ const FormSelect: FC<SelectProps> = ({ name, label, required, options }) => {
 };
 
 export default FormSelect;
+
+
+

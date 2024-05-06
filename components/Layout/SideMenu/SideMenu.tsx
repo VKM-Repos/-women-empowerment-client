@@ -91,16 +91,16 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, children }) => {
                 <path
                   d="M4.29529 5.93799L19.8578 22.4179"
                   stroke="black"
-                  stroke-width="2.125"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2.125"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M4.88513 22.1553L20.4486 5.67627"
                   stroke="black"
-                  stroke-width="2.125"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2.125"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>

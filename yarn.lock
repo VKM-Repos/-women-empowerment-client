@@ -46,15 +46,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.24.1":
-  version: 7.24.5
-  resolution: "@babel/runtime@npm:7.24.5"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/05730e43e8ba6550eae9fd4fb5e7d9d3cb91140379425abcb2a1ff9cebad518a280d82c4c4b0f57ada26a863106ac54a748d90c775790c0e2cd0ddd85ccdf346
-  languageName: node
-  linkType: hard
-
 "@emotion/is-prop-valid@npm:^0.8.2":
   version: 0.8.8
   resolution: "@emotion/is-prop-valid@npm:0.8.8"
@@ -281,15 +272,6 @@ __metadata:
   dependencies:
     glob: "npm:7.1.7"
   checksum: 10c0/7ab9cb7a4dcaf97b66fc79aefa848ce0e46a43d48145484ffa0ce8629f3355e684ca4a52d1b2c1093a527a4f7ac31b57a2e429377c93770747046f41a1a73e1e
-  languageName: node
-  linkType: hard
-
-"@next/font@npm:^14.2.3":
-  version: 14.2.3
-  resolution: "@next/font@npm:14.2.3"
-  peerDependencies:
-    next: "*"
-  checksum: 10c0/e436515f7830d82d772a0edbd630112c0a5937b6ebecb6995939493fd63c8874bc77b1357f3dfd527f454f44dcd85241aa250ff566c4c8546eac70903ed95364
   languageName: node
   linkType: hard
 
@@ -1584,7 +1566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^3.6.0":
+"date-fns@npm:^3.3.1":
   version: 3.6.0
   resolution: "date-fns@npm:3.6.0"
   checksum: 10c0/0b5fb981590ef2f8e5a3ba6cd6d77faece0ea7f7158948f2eaae7bbb7c80a8f63ae30b01236c2923cf89bb3719c33aeb150c715ea4fe4e86e37dcf06bed42fb6
@@ -5069,7 +5051,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "women-empowerment@workspace:."
   dependencies:
-    "@next/font": "npm:^14.2.3"
+    "@radix-ui/react-popover": "npm:^1.0.7"
     "@tanstack/react-query": "npm:^5.8.4"
     "@tanstack/react-query-devtools": "npm:^5.8.4"
     "@tanstack/react-table": "npm:^8.10.7"

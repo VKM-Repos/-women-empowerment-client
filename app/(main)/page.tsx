@@ -49,12 +49,12 @@ const LandingPage = () => {
 
   const handlePrevClick = () => {
     const newIndex =
-      (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
+      (activeIndex - 1 + featuredProjects?.length) % featuredProjects?.length;
     setActiveIndex(newIndex);
   };
 
   const handleNextClick = () => {
-    const newIndex = (activeIndex + 1) % featuredProjects.length;
+    const newIndex = (activeIndex + 1) % featuredProjects?.length;
     setActiveIndex(newIndex);
   };
 
@@ -215,7 +215,7 @@ console.log(projects, "this is the project");
                     ))
                   ) : !isEventsLoading &&
                     !isEventsError &&
-                    events?.content.length === 0 ? (
+                    events?.content?.length === 0 ? (
                     <NoContent
                       message="No events yet."
                       buttonText={
