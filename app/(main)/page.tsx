@@ -104,7 +104,7 @@ const LandingPage = () => {
     enabled: false,
   });
 
-console.log(projects, "this is the project");
+// console.log(projects, "this is the project");
 
   
 
