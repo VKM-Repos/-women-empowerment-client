@@ -20,7 +20,8 @@ const Login: React.FC = () => {
     email: "",
     password: "",
   });
-  const redirectUrl = localStorage.getItem("redirectUrl");
+    // Check if localStorage is available before using it
+  const redirectUrl = typeof window !== "undefined" ? localStorage.getItem("redirectUrl") : null;
   const { login } = useAppContext();
   const { mutate, isPending, isError } = usePOST("auth/token");
   const handleShowPassword = () => {

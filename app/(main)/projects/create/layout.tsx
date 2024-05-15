@@ -2,7 +2,7 @@
 import Navbar from "@/components/Layout/Navbar";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ProtectedPage from "../../protectedPage";
+// import ProtectedPage from "../../protectedPage";
 
 interface DropdownProps {
   options: DropdownOption[];
@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-   <ProtectedPage>
+  //  <ProtectedPage>
      <div className="w-screen h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section hide-scroll-bar flex justify-center items-center">
       <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
         <Navbar />
@@ -56,6 +56,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </div>
     </div>
-  </ProtectedPage>
+  // </ProtectedPage>
   );
 }

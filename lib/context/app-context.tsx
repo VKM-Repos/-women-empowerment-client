@@ -75,16 +75,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     return "";
   });
   const [showSignupProcess, setShowSignupProcess] = useState<boolean>(false);
-  const [user, setUser] = useState<UserData | null>(() => {
-    // Get the user data from localStorage or set to null if not found
-    const storedUser = localStorage.getItem("user");
-    try {
-      return storedUser ? JSON.parse(storedUser) : null;
-    } catch (error) {
-      // If there's an error parsing the stored user data, handle it gracefully
-      console.error("Error parsing user data:", error);
-      return null; // or provide a default/fallback user object
+ const [user, setUser] = useState<UserData | null>(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      try {
+        return storedUser ? JSON.parse(storedUser) : null;
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        return null; // or provide a default/fallback user object
+      }
     }
+    return null;
   });
   const [categories, setCategories] = useState<CategoryData[]>([]); // Initialize categories state
 
@@ -117,9 +118,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(userData);
     setToken(authToken);
     // Store the authentication status, user data, and token in localStorage
-    localStorage.setItem("isAuthenticated", JSON.stringify(true));
-    localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", authToken);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isAuthenticated", JSON.stringify(true));
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", authToken);
+     
+    }
   };
 
   const logout = () => {
@@ -127,9 +131,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(null);
     setToken("");
     // Clear the authentication status, user data, and token from localStorage
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
+    }
   };
 
   const fetchUser = async () => {
@@ -143,7 +150,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       if (response.ok) {
         const userData = await response.json();
         setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", JSON.stringify(userData));
+        }
       } else {
         // Handle error responses
         console.error("Failed to fetch user data:", response.statusText);

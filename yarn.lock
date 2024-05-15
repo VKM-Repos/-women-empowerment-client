@@ -636,10 +636,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tanstack/query-core@5.36.0":
-  version "5.36.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.36.0.tgz#905bd05b6a73e58d70d95912d84e979ed865ab6a"
-  integrity sha512-B5BD3pg/mztDR36i77hGcyySKKeYrbM5mnogOROTBi1SUml5ByRK7PGUUl16vvubvQC+mSnqziFG/VIy/DE3FQ==
+"@tanstack/query-core@5.36.1":
+  version "5.36.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.36.1.tgz#ae46f935c4752812a56c6815305061a3da82e7b8"
+  integrity sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==
 
 "@tanstack/query-devtools@5.32.1":
   version "5.32.1"
@@ -647,18 +647,18 @@
   integrity sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==
 
 "@tanstack/react-query-devtools@^5.8.4":
-  version "5.36.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.36.0.tgz#0e8f9a0ae655d723c0b449977dba75b5ef76cb7c"
-  integrity sha512-AxZSmM7CmjDQrcY9gceFBS+1DqkfTqAMpDCMltzIxMKvKn+ZhgBsV49aewhVXP1DgZzb+Is4f9HH2EMu//njXw==
+  version "5.36.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.36.1.tgz#1e12d8eaa395c4aca59380c4fd8bedef0fc8e9ea"
+  integrity sha512-otAxs2vy5KcZ2E1AUuVCCTI9Lj8/a3V/DNqgdyAjtQYrYrfCHAZJsg0ap2E1l4NjtyjN9h+6IKiIqDAyjOaTIg==
   dependencies:
     "@tanstack/query-devtools" "5.32.1"
 
 "@tanstack/react-query@^5.8.4":
-  version "5.36.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.36.0.tgz#680cb1490d8b823ec7185e1a97065241cda2ea67"
-  integrity sha512-BATvtM0rohwg7pRHUnxgeDiwLWRGZ8OM/4y8LImHVpecQWoH6Uhytu3Z8YV6V7hQ1sMQBFcUrGE1/e4MxR6YiA==
+  version "5.36.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.36.1.tgz#7494a4e740a2be60470b45f8d9e9b849a495e23e"
+  integrity sha512-BxGdE0DQYcLYJoEWVerxgT8iLLbjM8DOB8C0ASwyLeJZC2hqYYjWa8g4KQOaquB2Z+tf7qsH5FS63fvCoX+eVA==
   dependencies:
-    "@tanstack/query-core" "5.36.0"
+    "@tanstack/query-core" "5.36.1"
 
 "@tanstack/react-table@^8.10.7":
   version "8.17.3"
@@ -1780,9 +1780,9 @@ fraction.js@^4.3.7:
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
 framer-motion@^11.0.8:
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.2.0.tgz#8eacf5e6acbe83a7777fa6179cc5fc8b47a3b853"
-  integrity sha512-LRfLVPEwtO9IXJCAsWvtj3XZxrdZDcTxNNkZEq30aQ8p7/wimfUkDy67TDWdtzPiyKDkqOHDhaQC6XVrQ4Fh7A==
+  version "11.2.2"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.2.2.tgz#e93b70244ee7a2b6bb381043573641ce9521beea"
+  integrity sha512-Jq65YXsRUUDPJ1VQ30pblGeE5g+a/oOKGiP3zlZT9whL652guO6KJjFhNXtcmatoVkyyNjZ2NDVPUlydpCprzA==
   dependencies:
     tslib "^2.4.0"
 
@@ -3043,7 +3043,6 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
-  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
