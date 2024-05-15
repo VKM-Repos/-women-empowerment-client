@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { TransitionParent } from "@/lib/utils/transition";
-import Image from "next/image";
-import StepFourImg from "@/public/images/create-4.png";
-import Button from "@/components/Common/Button/Button";
-import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
-import toast from "react-hot-toast";
+import React from 'react';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import { TransitionParent } from '@/lib/utils/transition';
+import Image from 'next/image';
+import StepFourImg from '@/public/images/create-4.png';
+import Button from '@/components/Common/Button/Button';
+import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import toast from 'react-hot-toast';
+import { Form } from '@/components/UI/Form';
+import FormInput from '@/components/Form/FormInput';
+import FormLabel from '@/components/Form/FormLabel';
+import FormSelect from '@/components/Form/FormSelect';
 
 interface OrgLinksFormProps {
   handleNext: () => void;
@@ -18,44 +22,67 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<{ website: string; facebook: string }>({
+  const form = useForm<{ linkType: string; linkValue: string }>({
     defaultValues: {
-      website: data.organizationDetails.website || "",
-      facebook: data.organizationDetails.facebook || "",
+      linkType: data.organizationDetails.website ? 'website' : 'facebook',
+      linkValue:
+        data.organizationDetails.website || data.organizationDetails.facebook,
     },
   });
 
-  const [selectedOption, setSelectedOption] = useState("");
+  const {
+    handleSubmit,
+    formState: { errors },
+    setError,
+    setValue,
+    register,
+    watch,
+  } = form;
 
-  const onSubmit: SubmitHandler<{ website: string; facebook: string }> = (formData) => {
-    // Perform additional validation for the Facebook URL
+  const onSubmit: SubmitHandler<{
+    linkType: string;
+    linkValue: string;
+  }> = formData => {
+    const { linkType, linkValue } = formData;
 
-    if (formData.facebook && !formData.facebook.includes('facebook.com/')) {
-      toast.error('Invalid Facebook URL. Must include facebook.com/.');
-      return;
+    // Append "https://" prefix for URL if necessary
+    let formattedLinkValue = linkValue.trim();
+    if (
+      !formattedLinkValue.startsWith('http://') &&
+      !formattedLinkValue.startsWith('https://')
+    ) {
+      formattedLinkValue = `https://${formattedLinkValue}`;
+    }
+
+    // Perform specific validation for Facebook URLs
+    if (linkType === 'facebook') {
+      if (!formattedLinkValue.includes('facebook.com/')) {
+        toast.error('Invalid Facebook URL. Must include facebook.com/.');
+        return;
+      }
     }
 
     // Update the store with the entered values
     setData({
       organizationDetails: {
         ...data.organizationDetails,
-        website: formData.website,
-        facebook: formData.facebook,
+        [linkType]: formattedLinkValue,
       },
     });
 
     handleNext();
   };
 
+  const linkType = useWatch({ control: form.control, name: 'linkType' });
+
+  const isFormValid = Object.keys(errors).length === 0;
+
+  const linkOptions: any[] = ['website', 'facebook'];
 
   return (
     <TransitionParent className="w-screen">
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
-        <div className="lg:col-span-2 hidden lg:block">
+      <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-start gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+        <div className="hidden lg:col-span-2 lg:block">
           <Image
             src={StepFourImg}
             alt=""
@@ -65,86 +92,73 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
           />
         </div>
 
-        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+        <div className="flex w-full flex-col items-start space-y-3 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+          <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             Add a Link
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="font-quickSand text-base">
             Add your website link or Facebook page
           </p>
-          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-5 pb-8">
-              <select
-                className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
-                required
-              >
-                <option value="">Select</option>
-                <option value="website">Website</option>
-                <option value="facebook">Facebook Page</option>
-              </select>
-
-              {/* Show component according to the selected option value */}
-              {selectedOption === "website" && (
+          <Form {...form}>
+            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex flex-col gap-5 pb-8">
                 <div className="flex flex-col">
-                  <input
-                    className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                    type="url"
-                    placeholder="Website URL"
-                    {...register('website', {
-                      required: 'this field is empty',
-                    })}
-                    name="website"
+                  <FormLabel label="Select link" />
+                  <FormSelect
+                    placeholder="Select link"
+                    value={linkType}
+                    onChange={value => {
+                      setValue('linkType', value);
+                    }}
+                    defaultValue={''}
+                    options={linkOptions?.map(option => ({
+                      label: option,
+                      value: option.toLowerCase().replace(/\s/g, '_'),
+                    }))}
                   />
-                  {errors.website && (
-                    <span className="text-error text-xs">
-                      {errors.website.message}
-                    </span>
-                  )}
                 </div>
-              )}
 
-              {selectedOption === "facebook" && (
-                <div className="flex flex-col">
-                  <input
-                    className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                    type="url"
-                    placeholder="Facebook URL"
-                    {...register('facebook', {
-                      required: 'this field is empty',
-                    })}
-                    name="facebook"
-                  />
-                  {errors.facebook && (
-                    <span className="text-error text-xs">
-                      {errors.facebook.message}
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-            <span className="flex gap-4">
-              <Button
-                label="Go Back"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                onClick={handleGoBack}
-              />
-              <Button
-                label="Continue"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                state={isValid ? "active" : "disabled"}
-              />
-            </span>
-          </form>
+                {linkType === 'website' && (
+                  <div className="flex flex-col">
+                    <FormInput
+                      label="Website Url"
+                      placeholder="https://"
+                      {...register('linkValue')}
+                    />
+                  </div>
+                )}
+
+                {linkType === 'facebook' && (
+                  <div className="flex flex-col">
+                    <FormInput
+                      label="Facebook Url"
+                      placeholder="https://facebook.com/"
+                      {...register('linkValue')}
+                    />
+                  </div>
+                )}
+              </div>
+              <span className="flex gap-4">
+                <Button
+                  label="Go Back"
+                  variant="secondary"
+                  fullWidth={false}
+                  size="medium"
+                  onClick={handleGoBack}
+                />
+                <Button
+                  label="Continue"
+                  variant="primary"
+                  fullWidth={false}
+                  size="medium"
+                  state={isFormValid ? 'active' : 'disabled'}
+                />
+              </span>
+            </form>
+          </Form>
         </div>
       </div>
     </TransitionParent>
-
   );
 };
 

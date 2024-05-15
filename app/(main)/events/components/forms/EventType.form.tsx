@@ -1,158 +1,200 @@
-"use client";
-import React, { useState } from "react";
-import Button from "@/components/Common/Button/Button";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useEventFormStore } from "@/lib/store/createEventForm.store";
+import React, { useState } from 'react';
+import Button from '@/components/Common/Button/Button';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import { useEventFormStore } from '@/lib/store/createEventForm.store';
+import FormLabel from '@/components/Form/FormLabel';
+import FormSelect from '@/components/Form/FormSelect';
+import { FormDateTimePicker } from '@/components/Form/FormDateTimePicker';
+import { ZodError, z } from 'zod';
+import { cn } from '@/lib/utils';
+import FormInput from '@/components/Form/FormInput';
+import { Form } from '@/components/UI/Form';
 
 interface EventTypeProps {
   handleNext: () => void;
   handleGoBack: () => void;
 }
 
+interface EventTypeFormData {
+  type: string;
+  link: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+}
+
+const schema = z.object({
+  type: z.string().min(1, 'Event type is required'),
+  link: z
+    .string(),
+  location: z.string(),
+  startDate: z.string().min(1, 'Start date is required'),
+  endDate: z
+    .string()
+    .min(1, 'End date is required')
+});
+
 const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
   const { data, setData } = useEventFormStore();
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>('');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isDirty, isValid },
-  } = useForm<{
-    type: string;
-    link: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-  }>({
+  const form = useForm<z.infer<typeof schema>>({
     defaultValues: {
-      type: data.eventDetails.type || "",
-      link: data.eventDetails.link || "",
-      location: data.eventDetails.location || "",
-      startDate: data.eventDetails.startDate || "",
-      endDate: data.eventDetails.endDate || "",
+      type: data.eventDetails.type || '',
+      link: data.eventDetails.link || '',
+      location: data.eventDetails.location || '',
+      startDate: data.eventDetails.startDate || '',
+      endDate: data.eventDetails.endDate || '',
     },
+    mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<{
-    type: string;
-    link: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-  }> = async (formData) => {
-    setData({
-      eventDetails: {
-        ...data.eventDetails,
-        type: selectedOption,
-        link: formData.link,
-        location: formData.location,
-        startDate: formData.startDate,
-        endDate: formData.endDate,
-      },
-    });
-    handleNext();
+  const {
+    handleSubmit,
+    formState: { errors },
+    setError,
+    register,
+    setValue,
+    watch,
+  } = form;
+
+  let eventType = watch('type');
+  let eventStartDate = watch('startDate');
+  let eventEndDate = watch('endDate');
+
+  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData: EventTypeFormData) => {
+    try {
+      schema.parse(formData);
+      setData({
+        eventDetails: {
+          ...data.eventDetails,
+          type: formData.type,
+          link: formData.link,
+          location: formData.location,
+          startDate: formData.startDate,
+          endDate: formData.endDate,
+        },
+      });
+      handleNext();
+    } catch (error) {
+      if (error instanceof ZodError) {
+        error.errors.forEach((err) => {
+          const path = err.path[0];
+          setError(path as keyof typeof formData, {
+            type: 'manual',
+            message: err.message,
+          });
+        });
+      }
+    }
   };
 
+  const eventOptions: any[] = ['ONLINE', 'PHYSICAL'];
+
+  const isFormValid = eventType && eventStartDate && eventEndDate && Object.keys(errors).length === 0;
+
   return (
-    <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center lg:p-12 p-4 font-quickSand">
-      <div className="w-full lg:col-span-2 hidden lg:flex flex-col gap-5 place-self-start">
-        <p className="text-lg font-quickSand font-semibold text-primary">
+    <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-center gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+      <div className="hidden w-full flex-col gap-5 place-self-start lg:col-span-2 lg:flex">
+        <p className="font-quickSand text-primary text-lg font-semibold">
           2 of 3
         </p>
-        <h2 className="text-2xl font-sora text-gray-100 font-semibold">
+        <h2 className="font-sora text-gray-100 text-2xl font-semibold">
           What type of event are you having
         </h2>
-        <p className="text-lg text-gray-300 font-sora">
+        <p className="text-gray-300 font-quickSand text-base">
           Let us know the what, when and where about your event
         </p>
       </div>
 
-      <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
-        <h1 className="text-primary text-xl font-bold font-sora">
+      <div className="flex w-full flex-col items-start space-y-6 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+        <h1 className="text-primary font-sora text-xl font-bold">
           About your event
         </h1>
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-5 pb-8">
-            <select
-              className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-              value={selectedOption}
-              {...register("type", {
-                required: "this field is empty",
-              })}
-              onChange={(e) => setSelectedOption(e.target.value)}
-              
-            >
-              <option value="">Select</option>
-              <option value="ONLINE">Online</option>
-              <option value="PHYSICAL">Physical</option>
-            </select>
+        <Form {...form}>
+          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col">
+            <FormLabel label="Select event type" />
+            <FormSelect
+              placeholder="Select event type"
+              value={eventType}
+              onChange={(value) => {
+                setValue('type', value);
+                setSelectedOption(value);
+              }}
+              defaultValue={''}
+              options={eventOptions?.map((option) => ({
+                label: option,
+                value: option.toLowerCase().replace(/\s/g, '_'),
+              }))}
+            />
+            {errors && errors.type && (
+              <p className="text-error mt-0 text-xs font-medium">
+                {errors.type.message}
+              </p>
+            )}
+          </div>
 
-            {selectedOption === "ONLINE" && (
-              <div className="flex flex-col">
-                <input
-                  className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="url"
-                  placeholder="URL link"
-                  {...register("link", {
-                    required: "this field is empty",
-                  })}
-                  name="link"
+          <div className={cn('mt-4', !eventType ? 'hidden' : 'block')}>
+            {eventType === 'online' && (
+              <div className="flex flex-col gap-0">
+                <FormInput
+                  label="Url link"
+                  placeholder="https://"
+                  {...register('link')}
                 />
-                {errors.link && (
-                  <span className="text-error text-xs">
-                    {errors.link.message}
-                  </span>
-                )}
               </div>
             )}
 
-            {selectedOption === "PHYSICAL" && (
-              <div className="flex flex-col">
-                <input
-                  className="w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="address"
-                  placeholder="Location"
-                  {...register("location", {
-                    required: "this field is empty",
-                  })}
-                  name="location"
+            {eventType === 'physical' && (
+              <div className="flex flex-col gap-0">
+                <FormInput
+                  label="location"
+                  placeholder="Enter event location"
+                  {...register('location')}
                 />
-                {errors.location && (
-                  <span className="text-error text-xs">
-                    {errors.location.message}
-                  </span>
-                )}
               </div>
             )}
           </div>
-          <div className="flex flex-col pb-8">
-            <label htmlFor="Event time and date" className="">Event Date and Time</label>
-            {/* <DatePicker /> */}
-            <span className="flex items-start justify-start gap-5">
-                <input
-                  className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="datetime-local"
-                  placeholder="Start Date"
-                  {...register("startDate", {
-                    required: "this field is empty",
-                  })}
-                  name="startDate"
+
+          <div className="mt-4">
+            <FormLabel label="Select date range" />
+            <div className="flex gap-5 pb-8">
+              <span>
+                <FormDateTimePicker
+                  placeholder="start date"
+                  date={eventStartDate}
+                  onChange={(value: Date | any) =>
+                    setValue('startDate', value.toISOString())
+                  }
                 />
-                <input
-                  className="w-1/3 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="datetime-local"
-                  placeholder="End Date"
-                  {...register("endDate", {
-                    required: "this field is empty",
-                  })}
-                  name="endDate"
+                {errors && errors.startDate && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {errors.startDate.message}
+                  </p>
+                )}
+              </span>
+              <span>
+                <FormDateTimePicker
+                  placeholder="end date"
+                  date={eventEndDate}
+                  onChange={(value: Date | any) =>
+                    setValue('endDate', value.toISOString())
+                  }
                 />
-            </span>
+                {errors && errors.endDate && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {errors.endDate.message}
+                  </p>
+                )}
+              </span>
+            </div>
           </div>
+
           <span className="flex gap-10">
             <Button
               label="Go Back"
-              variant="primary"
+              variant="secondary"
               fullWidth={false}
               size="medium"
               onClick={handleGoBack}
@@ -162,10 +204,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               variant="primary"
               fullWidth={false}
               size="medium"
-              state={isValid ? "active" : "disabled"}
+              state={isFormValid ? 'active' : 'disabled'}
             />
           </span>
         </form>
+        </Form>
       </div>
     </div>
   );

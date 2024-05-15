@@ -34,8 +34,8 @@ const ProjectCarousel = ({ projects }: any) => {
           slidesPerView={1}
           modules={[Navigation]}
             navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
+            prevEl: navigationPrevRef?.current,
+            nextEl: navigationNextRef?.current,
             }}
         // onBeforeInit={(swiper) => {
         //   swiper.navigation.nextEl = navigationNextRef.current;
@@ -53,7 +53,7 @@ const ProjectCarousel = ({ projects }: any) => {
           }}
         >
           {projects?.content.slice(0, 6).map((project: Project) => (
-            <SwiperSlide className="" key={project.id}>
+            <SwiperSlide className="" key={project?.id}>
               <div className="w-full flex ">
                 <ProjectCard project={project} />
               </div>

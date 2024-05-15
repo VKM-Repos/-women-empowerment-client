@@ -5,6 +5,7 @@ import Button from "@/components/Common/Button/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEventFormStore } from "@/lib/store/createEventForm.store";
 import Icon from "@/components/Common/Icons/Icon";
+import AlertIcon from "@/app/(main)/organization/components/AlertIcon";
 
 interface EventImageProps {
   handleNext: () => void;
@@ -67,27 +68,22 @@ const EventImage: React.FC<EventImageProps> = ({
         <h2 className="text-2xl font-sora text-gray-100 font-semibold">
           Visual Representation
         </h2>
-        <p className="text-lg text-gray-300 font-sora">
+        <p className="text-lg text-gray-300 font-quickSand">
           Add an image that represents your event
         </p>
       </div>
 
       <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
         <h1 className="text-primary text-xl font-bold font-sora">Add image</h1>
+        <p className="text-gray-300 font-quickSand text-base">
+          Recommended image size is 450 by 350px for the best view
+        </p>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col pb-8">
             <div className="w-full focus:outline-none ">
-              <input
-                ref={inputRef}
-                type="file"
-                onChange={handleImageChange}
-                name="image"
-                className="hidden"
-                accept="image/*"
-              />
               <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
                 {watch("imagePreview") && (
-                  <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative bg-primaryWhite">
+                  <span className="w-[10rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative bg-primaryWhite">
                     <motion.img
                       src={data?.imagePreview}
                       alt={`Image Preview`}
@@ -102,7 +98,16 @@ const EventImage: React.FC<EventImageProps> = ({
                     </button>
                   </span>
                 )}
-                <button
+                <span>
+                  <input
+                ref={inputRef}
+                type="file"
+                onChange={handleImageChange}
+                name="image"
+                className="hidden"
+                accept="image/*"
+              />
+                  <button
                   type="button"
                   onClick={handleChooseFile}
                   className="py-6 w-full flex flex-col space-y-6 items-start justify-center  text-small focus:outline-none rounded-md "
@@ -128,16 +133,23 @@ const EventImage: React.FC<EventImageProps> = ({
                     />
                   </svg>
                 </button>
+                </span>
               </div>
             </div>
-            {errors.image && (
-              <span className="text-error text-xs">{errors.image.message}</span>
+            {errors.image ? (
+              <span className="text-error flex items-center gap-2 text-xs font-semibold">
+                <AlertIcon size="24" /> {errors.image.message}
+              </span>
+            ) : (
+              <p className="text-gray-200 text-xs">
+                PNG or JPEGS only <strong>&bull; 2MB max</strong>
+              </p>
             )}
           </div>
           <span className="flex gap-10">
             <Button
               label="Go Back"
-              variant="primary"
+              variant="secondary"
               fullWidth={false}
               size="medium"
               onClick={handleGoBack}

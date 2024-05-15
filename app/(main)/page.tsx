@@ -30,7 +30,7 @@ import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
 import { Project } from "@/lib/types/project.types";
 import { ProjectCard } from "./projects/components/ProjectCard";
 import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
-import EventCard from "./events/components/EventCard";
+import EventCard from "./(community)/discussions/components/EventCard";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -49,12 +49,12 @@ const LandingPage = () => {
 
   const handlePrevClick = () => {
     const newIndex =
-      (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
+      (activeIndex - 1 + featuredProjects?.length) % featuredProjects?.length;
     setActiveIndex(newIndex);
   };
 
   const handleNextClick = () => {
-    const newIndex = (activeIndex + 1) % featuredProjects.length;
+    const newIndex = (activeIndex + 1) % featuredProjects?.length;
     setActiveIndex(newIndex);
   };
 
@@ -104,7 +104,7 @@ const LandingPage = () => {
     enabled: false,
   });
 
-console.log(projects, "this is the project");
+// console.log(projects, "this is the project");
 
   
 
@@ -215,7 +215,7 @@ console.log(projects, "this is the project");
                     ))
                   ) : !isEventsLoading &&
                     !isEventsError &&
-                    events?.content.length === 0 ? (
+                    events?.content?.length === 0 ? (
                     <NoContent
                       message="No events yet."
                       buttonText={

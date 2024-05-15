@@ -2,8 +2,6 @@ import { create, StateCreator } from "zustand";
 import {
   persist,
   PersistOptions,
-  createJSONStorage,
-  StateStorage,
 } from "zustand/middleware";
 
 export interface EventFormStore {
@@ -72,7 +70,6 @@ export const useEventFormStore = create<EventFormStore>(
     }),
     {
       name: "EventFormStore",
-      getStorage: () => localStorage as StateStorage,
     }
   )
 );

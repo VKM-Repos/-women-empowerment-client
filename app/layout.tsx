@@ -1,14 +1,16 @@
 
-
+import { cn } from "@/lib/utils";
 import "./globals.css";
 
 import { Providers } from "@/lib/utils/providers";
 import { Metadata } from "next";
-import { Inter, Sora } from 'next/font/google'
+import { Quicksand, Sora } from 'next/font/google'
 
 
 
-const sora = Sora({ subsets: ['latin'] })
+
+const sora = Sora({ subsets: ['latin'], variable: "--font-sora" })
+const quickSand = Quicksand({ subsets: ['latin'], variable: "--font-quickSand" })
 
 export const metadata: Metadata = {
   title: "Women Empowerment",
@@ -22,7 +24,11 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <head>
         <link rel="icon" href="./favicon.ico" sizes="any" />
       </head>
-      <body className={sora.className}>
+      <body className={cn(
+          "antialiased",
+          sora.variable,
+          quickSand.variable
+        )}>
         <Providers>      
           {props.children}
         </Providers>
