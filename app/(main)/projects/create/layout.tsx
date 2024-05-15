@@ -1,11 +1,35 @@
 "use client";
 import Navbar from "@/components/Layout/Navbar";
 import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import ProtectedPage from "../../protectedPage";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface DropdownProps {
+  options: DropdownOption[];
+  onSelect: (selectedOption: DropdownOption | null) => void;
+  placeholder?: string;
+}
+
+interface DropdownOption {
+  id: string;
+  label: string;
+}
+
+
+export default function Layout({ children }: { children: React.ReactNode }) {  
   const router = useRouter();
+
+ useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="w-screen h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section hide-scroll-bar flex justify-center items-center">
+   <ProtectedPage>
+     <div className="w-screen h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section hide-scroll-bar flex justify-center items-center">
       <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
         <Navbar />
         <header className="w-full flex flex-col relative top-0">
@@ -32,5 +56,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </div>
     </div>
+  </ProtectedPage>
   );
 }

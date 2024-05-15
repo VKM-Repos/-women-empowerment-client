@@ -1,6 +1,6 @@
 import { TransitionParent } from '@/lib/utils/transition';
 import React, { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import Image from 'next/image';
 import StepFiveImg from '@/public/images/create-5.png';
 import statesList from '@/lib/utils/nigerian-states.json';
@@ -9,6 +9,7 @@ import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
 import FormSelect from '@/components/Form/FormSelect';
 import { Form } from '@/components/UI/Form';
 import FormInput from '@/components/Form/FormInput';
+import FormLabel from '@/components/Form/FormLabel';
 
 interface OrgAddressFormProps {
   handleNext: () => void;
@@ -53,6 +54,14 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
     handleNext(); // Move to the next step
   };
 
+ // Watch all form values
+  const stateValue = useWatch({ control: form.control, name: 'state' });
+  const postalCodeValue = useWatch({ control: form.control, name: 'postalCode' });
+  const streetValue = useWatch({ control: form.control, name: 'street' });
+
+  // Custom function to check if all form fields are filled
+  const isFormValid = !!stateValue && !!postalCodeValue && !!streetValue;
+
   return (
     <TransitionParent>
       <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-start gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
@@ -70,29 +79,32 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
           <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             Where is your organization located?
           </h1>
-          <p className="font-quickSand text-base font-semibold">
+          <p className="font-quickSand text-base">
             These details help people locate you and get in touch
           </p>
           <Form {...form}>
             <form className="w-full py-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-5 pb-8">
                 <div className="flex flex-col">
+                  <FormLabel label="Select state" />
                   <FormSelect
-                    label=""
-                    // required
+                    placeholder="Select"
+                    value={stateValue}
+                    onChange={value => {
+                      setValue('state', value);
+                    }}
+                    defaultValue={''}
                     options={statesList?.map(option => ({
                       label: option,
                       value: option.toLowerCase().replace(/\s/g, '_'),
                     }))}
-                    {...register('state', {
-                      required: 'This field is required',
-                    })}
+           
                   />
                 </div>
                 <div className="flex flex-col">
                 <FormInput
-                  label=""
-                  placeholder="Postal Code"
+                  label="Postal code"
+                  placeholder="Eg. 900100"
                   {...register('postalCode', {
                     required: 'This field is required',
                   })}
@@ -100,8 +112,8 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                 </div>
                 <div className="flex flex-col">
                   <FormInput
-                  label=""
-                  placeholder="Street Address"
+                  label="Street Address"
+                  placeholder="Eg. 1234b, Baker Str."
                   {...register('street', {
                     required: 'This field is required',
                   })}
@@ -111,7 +123,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
               <span className="flex gap-4">
                 <Button
                   label="Go Back"
-                  variant="primary"
+                  variant="secondary"
                   fullWidth={false}
                   size="medium"
                   onClick={handleGoBack}
@@ -121,7 +133,7 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
                   variant="primary"
                   fullWidth={false}
                   size="medium"
-                  state={isValid ? 'active' : 'disabled'}
+                  state={isFormValid ? 'active' : 'disabled'}
                 />
               </span>
             </form>

@@ -1,69 +1,42 @@
-import { FC } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { Button } from '../UI/Button';
-import { FormControl, FormField, FormItem, FormMessage } from '../UI/Form';
-import { Popover, PopoverContent, PopoverTrigger } from '../UI/Popover';
-import { cn } from '@/lib/utils';
-import { Calendar } from '../UI/Calendar';
+import * as React from "react";
+import { format } from "date-fns";
+import { Popover, PopoverContent, PopoverTrigger } from "../UI/Popover";
+import { Button } from "../UI/Button";
+import { Calendar } from "../UI/Calendar";
 
-interface DatePickerProps {
-  name: string;
-  label?: string;
-  required?: boolean;
-}
 
-const FormDatePicker: FC<DatePickerProps> = ({ name, label, required }) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => {
-        const { value, onChange } = field;
-
-        const handleDateChange = (date: Date | undefined) => {
-          onChange(date);
-        };
-
-        return (
-          <FormItem className="flex flex-col gap-0">
-            <Popover>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant={'outline'}
-                    className={cn(
-                      'font-normal flex w-full items-center justify-between gap-2 p-3 text-left',
-                      !value && 'text-muted-foreground'
-                    )}
-                  >
-                    {value ? format(value, 'PPP') : <span>{label}</span>}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={value}
-                  onSelect={handleDateChange}
-                  disabled={date =>
-                    date > new Date() || date < new Date('1900-01-01')
-                  }
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-            <FormMessage />
-          </FormItem>
-        );
-      }}
-    />
-  );
+type Props = {
+  placeholder?: string;
+  date: Date | undefined | any;
+  onChange?: (date: Date | undefined) => void; 
 };
 
-export default FormDatePicker;
+export function FormDatePicker({date, placeholder, onChange }: Props) {
+
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={`w-full justify-start text-left font-normal ${
+            !date && "text-gray-100"
+          }`}
+        >
+          {date ? format(date, "PPP") : <span>{placeholder}</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={onChange}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+
+

@@ -1,13 +1,13 @@
-'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TransitionParent } from '@/lib/utils/transition';
 import Image from 'next/image';
 import StepOneImg from '@/public/images/create-org-1.png';
 import Button from '@/components/Common/Button/Button';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
 import { Form } from '@/components/UI/Form';
 import FormInput from '@/components/Form/FormInput';
+import { useGET } from '@/lib/hooks/useGET.hook';
 
 interface OrgNameFormProps {
   handleNext: () => void;
@@ -24,16 +24,43 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    setError,
   } = form;
 
-  const onSubmit: SubmitHandler<{ name: string }> = async formData => {
-    setData({
-      organizationDetails: {
-        ...data.organizationDetails,
-        name: formData.name,
-      },
-    });
-    handleNext(); // Move to the next step
+  const { data: nameCheckData, isLoading: nameCheckLoading } = useGET({
+    url: `organizations/${data.organizationDetails.name}/name-check?name=${form.getValues().name}`,
+    queryKey: ['nameCheck'],
+    withAuth: false,
+    enabled: false,
+  });
+
+  const [nameCheckError, setNameCheckError] = useState('');
+  const [nameCheckSuccess, setNameCheckSuccess] = useState('');
+
+  const onSubmit: SubmitHandler<{ name: string }> = async (formData: any) => {
+    setNameCheckError('');
+    setNameCheckSuccess('');
+    if (formData.name) {
+      const timeoutId = setTimeout(async () => {
+        const response = await fetch(`/api/organizations/${data.organizationDetails.name}/name-check?name=${formData.name}`);
+        if (response.ok) {
+          setNameCheckError('Organization name already exists.');
+        } else {
+          setNameCheckSuccess('Name is available');
+        }
+        clearTimeout(timeoutId);
+      }, 1000);
+    }
+
+    if (!nameCheckError) {
+      setData({
+        organizationDetails: {
+          ...data.organizationDetails,
+          name: formData.name,
+        },
+      });
+      handleNext(); // Move to the next step
+    }
   };
 
   return (
@@ -53,7 +80,7 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
           <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             Hey there 👋
           </h1>
-          <p className="font-quickSand text-base font-semibold">
+          <p className="font-quickSand text-base ">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
           </p>
@@ -61,19 +88,39 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
             <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col pb-8">
                 <FormInput
-                  label=""
-                  placeholder="Organization Name"
+                  label="Organization Name"
+                  placeholder="Eg Unicef."
                   {...register('name', {
                     required: 'Organization Name is required',
                   })}
                 />
+                {errors.name && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {errors.name.message}
+                  </p>
+                )}
+                {nameCheckLoading && (
+                  <p className="text-gray-300 mt-0 text-xs font-medium">
+                    Checking organization name...
+                  </p>
+                )}
+                {nameCheckError && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {nameCheckError}
+                  </p>
+                )}
+                {nameCheckSuccess && (
+                  <p className="text-success mt-0 text-xs font-medium">
+                    {nameCheckSuccess}
+                  </p>
+                )}
               </div>
               <Button
-                label="Continue"
+                label={nameCheckLoading && nameCheckData ? "Please wait" : "Continue"}
                 variant="primary"
                 fullWidth={false}
                 size="medium"
-                state={isValid ? 'active' : 'disabled'}
+                state={isValid && !nameCheckError ? 'active' : 'disabled'}
               />
             </form>
           </Form>

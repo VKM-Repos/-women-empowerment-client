@@ -1,22 +1,30 @@
 "use client";
 import Navbar from "@/components/Layout/Navbar";
 import { useRouter } from "next/navigation";
-// import ProtectedPage from "../../protectedPage";
+import { useEffect } from "react";
+import ProtectedPage from "../../protectedPage";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
-    // <ProtectedPage>
-    <div className="w-full h-screen fixed inset-0 top-0 z-[20] bg-primaryWhite scrollable-section flex justify-center items-center">
-      <Navbar />
+    <ProtectedPage>
+     <div className="w-screen h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section hide-scroll-bar flex justify-center items-center">
       <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
-        <header className="w-full flex flex-col relative top-0 h-[20vh] pt-[5rem] z-[2000]">
+        <Navbar />
+        <header className="w-full flex flex-col relative top-0">
           <button
-            className="block lg:hidden w-full relative left-2 top-5"
+            className="block lg:hidden w-full relative left-2 -top-5"
             onClick={router.back}
           >
             <svg
-              className="w-6 aspect-square"
+              className="w-10 aspect-square"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -27,14 +35,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </svg>
           </button>
-          <h4 className="block lg:hidden font-bold text-gray-300 text-sm font-sora text-center">
-            Create Organization profile
+          <h4 className="block lg:hidden font-bold text-gray-300 text-lg font-sora text-center">
+             Create Organization profile
           </h4>
         </header>
-        <div className="h-[80vh]">{children}</div>
+        {children}
       </div>
     </div>
-
-    // </ProtectedPage>
+    </ProtectedPage>
   );
 }

@@ -27,7 +27,7 @@ const FormInput: FC<InputProps> = ({ name, label, ...rest }) => {
         const { value, onChange } = field;
         return (
           <FormItem className="flex flex-col gap-0">
-            <FormLabel className="flex gap-1 font-semibold -mb-1">
+            <FormLabel className="flex gap-0 -mb-1 font-semibold">
               {label}
               {required && (
                 <span className="text-error " title="required">

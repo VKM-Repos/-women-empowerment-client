@@ -1,7 +1,6 @@
 "use client";
  
 import * as React from "react";
-import { Clock } from "lucide-react";
 import { Label } from "./Label";
 import { TimePickerInput } from "./TimePickerInput";
 
@@ -55,7 +54,7 @@ export function TimePicker({ date, setDate }: TimePickerProps) {
         />
       </div>
       <div className="flex h-10 items-center">
-        <Clock className="ml-2 h-4 w-4" />
+        {/* <Clock className="ml-2 h-4 w-4" /> */}
       </div>
     </div>
   );

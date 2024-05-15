@@ -59,15 +59,20 @@ export const useAppContext = () => {
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    // Get the authentication status from localStorage or set to false if not found
-    const storedAuth = localStorage.getItem("isAuthenticated");
-    return storedAuth ? JSON.parse(storedAuth) : false;
+   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    // Check if the code is running in a browser environment before accessing localStorage
+    if (typeof window !== "undefined") {
+      const storedAuth = localStorage.getItem("isAuthenticated");
+      return storedAuth ? JSON.parse(storedAuth) : false;
+    }
+    return false;
   });
   const [token, setToken] = useState<string>(() => {
-    // Get the token from localStorage or set to null if not found
-    const storedToken = localStorage.getItem("token");
-    return storedToken || "";
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      return storedToken || "";
+    }
+    return "";
   });
   const [showSignupProcess, setShowSignupProcess] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(() => {
@@ -161,10 +166,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchUser,
   };
 
+  // Ensure the context is updated in localStorage whenever isAuthenticated or user changes
   useEffect(() => {
-    // Ensure the context is updated in localStorage whenever isAuthenticated or user changes
-    localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
-    localStorage.setItem("user", JSON.stringify(user));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+      localStorage.setItem("user", JSON.stringify(user));
+    }
   }, [isAuthenticated, user]);
 
   return (
