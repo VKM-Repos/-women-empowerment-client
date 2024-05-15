@@ -45,7 +45,7 @@ const nextConfig = {
     },
     reactStrictMode: true,
     output: "standalone",
-    distDir: "out",
+    // distDir: "build",
 }
 
 module.exports = nextConfig;
