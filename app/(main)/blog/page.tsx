@@ -33,35 +33,17 @@ const BlogPage = () => {
           <div className="flex flex-col items-center mt-10">
             <p>Follow us on</p>
             <div className="flex gap-3">
-              <a href="" target="__blank">
-                <svg
-                  width="50"
-                  height="50"
-                  viewBox="0 0 50 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M27.0713 25.456H31.7241L32.4546 20.7007H27.0704V18.1017C27.0704 16.1262 27.712 14.3745 29.5486 14.3745H32.5V10.2247C31.9815 10.1542 30.8847 10 28.8125 10C24.4852 10 21.9483 12.2991 21.9483 17.5371V20.7007H17.5V25.456H21.9483V38.5263C22.8293 38.6596 23.7216 38.75 24.6376 38.75C25.4656 38.75 26.2737 38.6738 27.0713 38.5653V25.456Z"
-                    fill="#106840"
-                  />
+              <a href="https://x.com/TheWomen_hub?t=GzIJ8w21eTToumkHJfvQTA&s=09" target="__blank">
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147" stroke="#106840" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147" stroke="#106840" strokeOpacity="0.2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147" stroke="#106840" strokeOpacity="0.2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147" stroke="#106840" strokeOpacity="0.2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147" stroke="#106840" strokeOpacity="0.2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
+
               </a>
-              <a href="" target="__blank">
-                <svg
-                  width="50"
-                  height="50"
-                  viewBox="0 0 50 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M38.25 18.625C37.375 19 36.375 19.25 35.375 19.375C36.375 18.75 37.25 17.75 37.625 16.625C36.625 17.25 35.625 17.625 34.375 17.875C33.5 16.875 32.125 16.25 30.75 16.25C28 16.25 25.75 18.5 25.75 21.25C25.75 21.625 25.75 22 25.875 22.375C21.75 22.125 18 20.125 15.5 17.125C15.125 17.875 14.875 18.75 14.875 19.625C14.875 21.375 15.75 22.875 17.125 23.75C16.25 23.75 15.5 23.5 14.875 23.125C14.875 25.5 16.625 27.625 18.875 28C18.5 28.125 18 28.125 17.5 28.125C17.125 28.125 16.875 28.125 16.5 28C17.125 30 19 31.5 21.25 31.5C19.5 32.875 17.375 33.625 15 33.625C14.625 33.625 14.25 33.625 13.75 33.5C16 34.875 18.625 35.75 21.5 35.75C30.75 35.75 35.75 28.125 35.75 21.5V20.875C36.75 20.5 37.625 19.625 38.25 18.625Z"
-                    fill="#106840"
-                  />
-                </svg>
-              </a>
-              <a href="" target="__blank">
+              <a href="https://ng.linkedin.com/company/viable-helpers-development-organization" target="__blank">
                 <svg
                   width="50"
                   height="50"
@@ -75,7 +57,7 @@ const BlogPage = () => {
                   />
                 </svg>
               </a>
-              <a href="" target="__blank">
+              <a href="https://www.instagram.com/women_hub_org?igsh=MTN2d3h6aGgyOHV5NA==" target="__blank">
                 <svg
                   width="50"
                   height="50"
@@ -156,7 +138,7 @@ const BlogPage = () => {
                       John Doe . 19 Feb 2024
                     </p>
                     <p
-                      className={`flex items-center gap-5 text-lg text-gray-200 font-sora font-bold`}
+                      className={`flex items-center gap-5 textLg text-gray-200 font-sora font-bold`}
                     >
                       Ongoing TFVA discussions{" "}
                       <span>
@@ -196,8 +178,8 @@ const BlogPage = () => {
                           <path
                             d="M2.33714 10.4739C2.80455 16.5563 9.15347 20.4162 12.2695 21.5859C15.5904 20.4809 21.6782 16.6136 22.2316 10.4739C23.225 2.8017 14.3089 1.75789 12.2695 6.25385C10.3084 1.75789 1.75288 2.87089 2.33714 10.4739Z"
                             stroke="#787878"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                         </svg>{" "}
                         3.5K
@@ -214,20 +196,20 @@ const BlogPage = () => {
                           <path
                             d="M8.30859 6.58594L12.3086 2.58594L16.3086 6.58594"
                             stroke="#787878"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                           <path
                             d="M16.3086 10.5859H18.3086C18.5738 10.5859 18.8282 10.6913 19.0157 10.8788C19.2032 11.0664 19.3086 11.3207 19.3086 11.5859V20.5859C19.3086 20.8512 19.2032 21.1055 19.0157 21.293C18.8282 21.4806 18.5738 21.5859 18.3086 21.5859H6.30859C6.04338 21.5859 5.78902 21.4806 5.60149 21.293C5.41395 21.1055 5.30859 20.8512 5.30859 20.5859V11.5859C5.30859 11.3207 5.41395 11.0664 5.60149 10.8788C5.78902 10.6913 6.04338 10.5859 6.30859 10.5859H8.30859"
                             stroke="#787878"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                           <path
                             d="M12.3086 2.58594V15.5859"
                             stroke="#787878"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                         </svg>
                       </span>

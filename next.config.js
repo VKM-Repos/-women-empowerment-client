@@ -1,15 +1,51 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['www.figma.com', 'cdn.builder.io', 'placehold.co', 'womenhub.org', 'localhost', "164.92.68.32", "dev.womenhub.org"],
-        // unoptimized: true,
+        formats: ['image/avif', 'image/webp'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'www.figma.com',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.builder.io',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'placehold.co',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'womenhub.org',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'dev.womenhub.org',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'localhost',
+                pathname: '/*/**'
+            },
+            {
+                protocol: 'http',
+                hostname: '164.92.68.32',
+                pathname: '/*/**'
+            },
+        ]
     },
     eslint: {
         ignoreDuringBuilds: true,
     },
     reactStrictMode: true,
     output: "standalone",
-    // distDir: "out",
+    distDir: "out",
 }
 
 module.exports = nextConfig;

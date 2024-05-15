@@ -1,12 +1,13 @@
-'use client'
-import React from "react";
-import { TransitionParent } from "@/lib/utils/transition";
-import Image from "next/image";
-import StepOneImg from "@/public/images/create-org-1.png";
-import Button from "@/components/Common/Button/Button";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
-
+import React, { useState, useEffect } from 'react';
+import { TransitionParent } from '@/lib/utils/transition';
+import Image from 'next/image';
+import StepOneImg from '@/public/images/create-org-1.png';
+import Button from '@/components/Common/Button/Button';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import { Form } from '@/components/UI/Form';
+import FormInput from '@/components/Form/FormInput';
+import { useGET } from '@/lib/hooks/useGET.hook';
 
 interface OrgNameFormProps {
   handleNext: () => void;
@@ -14,31 +15,58 @@ interface OrgNameFormProps {
 
 const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
   const { data, setData } = useOrganizationFormStore();
-
+  const form = useForm<{ name: string }>({
+    defaultValues: {
+      name: data.organizationDetails.name,
+    },
+  });
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<{ name: string }>({
-    defaultValues: {
-      name: data.organizationDetails.name, // Set default value from the store
-    },
+    setError,
+  } = form;
+
+  const { data: nameCheckData, isLoading: nameCheckLoading } = useGET({
+    url: `organizations/${data.organizationDetails.name}/name-check?name=${form.getValues().name}`,
+    queryKey: ['nameCheck'],
+    withAuth: false,
+    enabled: false,
   });
 
-  const onSubmit: SubmitHandler<{ name: string }> = async (formData) => {
-    setData({
-      organizationDetails: {
-        ...data.organizationDetails,
-        name: formData.name,
-      },
-    });
-    handleNext(); // Move to the next step
+  const [nameCheckError, setNameCheckError] = useState('');
+  const [nameCheckSuccess, setNameCheckSuccess] = useState('');
+
+  const onSubmit: SubmitHandler<{ name: string }> = async (formData: any) => {
+    setNameCheckError('');
+    setNameCheckSuccess('');
+    if (formData.name) {
+      const timeoutId = setTimeout(async () => {
+        const response = await fetch(`/api/organizations/${data.organizationDetails.name}/name-check?name=${formData.name}`);
+        if (response.ok) {
+          setNameCheckError('Organization name already exists.');
+        } else {
+          setNameCheckSuccess('Name is available');
+        }
+        clearTimeout(timeoutId);
+      }, 1000);
+    }
+
+    if (!nameCheckError) {
+      setData({
+        organizationDetails: {
+          ...data.organizationDetails,
+          name: formData.name,
+        },
+      });
+      handleNext(); // Move to the next step
+    }
   };
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center lg:p-12 p-4 font-quickSand">
-        <div className="lg:col-span-2 hidden lg:block">
+      <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-center gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+        <div className="hidden lg:col-span-2 lg:block">
           <Image
             src={StepOneImg}
             alt=""
@@ -48,39 +76,54 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
           />
         </div>
 
-        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-6 items-start ">
-          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+        <div className="flex w-full flex-col items-start space-y-6 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+          <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             Hey there 👋
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="font-quickSand text-base ">
             Let’s create awareness for your Organization. Enter the name of your
             organization to get started
           </p>
-          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col pb-8">
-              <input
-                {...register("name", {
-                  required: "Organization Name is required",
-                })}
-                className="md:w-4/5 w-full p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                type="text"
-                placeholder="Organization Name"
-                name="name"
+          <Form {...form}>
+            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex flex-col pb-8">
+                <FormInput
+                  label="Organization Name"
+                  placeholder="Eg Unicef."
+                  {...register('name', {
+                    required: 'Organization Name is required',
+                  })}
+                />
+                {errors.name && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {errors.name.message}
+                  </p>
+                )}
+                {nameCheckLoading && (
+                  <p className="text-gray-300 mt-0 text-xs font-medium">
+                    Checking organization name...
+                  </p>
+                )}
+                {nameCheckError && (
+                  <p className="text-error mt-0 text-xs font-medium">
+                    {nameCheckError}
+                  </p>
+                )}
+                {nameCheckSuccess && (
+                  <p className="text-success mt-0 text-xs font-medium">
+                    {nameCheckSuccess}
+                  </p>
+                )}
+              </div>
+              <Button
+                label={nameCheckLoading && nameCheckData ? "Please wait" : "Continue"}
+                variant="primary"
+                fullWidth={false}
+                size="medium"
+                state={isValid && !nameCheckError ? 'active' : 'disabled'}
               />
-              {errors?.name?.message && (
-                <p className="text-error text-sm mt-1">
-                  {errors?.name?.message}
-                </p>
-              )}
-            </div>
-            <Button
-              label="Continue"
-              variant="primary"
-              fullWidth={false}
-              size="medium"
-              state={isValid ? "active" : "disabled"}
-            />
-          </form>
+            </form>
+          </Form>
         </div>
       </div>
     </TransitionParent>

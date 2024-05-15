@@ -1,15 +1,18 @@
-import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import Image from "next/image";
-import StepSevenImg from "@/public/images/create-7.png";
-import Button from "@/components/Common/Button/Button";
-import { TransitionParent } from "@/lib/utils/transition";
-import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import Image from 'next/image';
+import StepSevenImg from '@/public/images/create-7.png';
+import Button from '@/components/Common/Button/Button';
+import { TransitionParent } from '@/lib/utils/transition';
+import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import FormTextArea from '@/components/Form/FormTextArea';
+import { Form } from '@/components/UI/Form';
+import { ZodError, z } from 'zod';
 
 interface OrgDescriptionFormProps {
   handleNext: () => void;
   handleGoBack: () => void;
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
@@ -19,34 +22,51 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
 }) => {
   const { data, setData } = useOrganizationFormStore();
 
+  const orgDescriptionSchema = z.object({
+    description: z
+      .string()
+      .min(100, { message: 'Description requires at least 100 characters' })
+      .max(1000, { message: 'Description is too long!' }),
+  });
+
+  const form = useForm<{ description: string }>({
+    defaultValues: {
+      description: data.organizationDetails.description || '',
+    },
+  });
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
-    setValue,
-    watch,
-  } = useForm<{ description: string }>({
-    defaultValues: {
-      description: data.organizationDetails.description || "",
-    },
-  });
+    formState: { isValid },
+    setError,
+  } = form;
 
-  const onSubmit: SubmitHandler<{ description: string }> = (formData) => {
-    // Update the store with the entered description
-    setData({
-      organizationDetails: {
-        ...data.organizationDetails,
-        description: formData.description,
-      },
-    });
-    handleNext();
+  const onSubmit: SubmitHandler<{ description: string }> = formData => {
+    try {
+      const validatedData = orgDescriptionSchema.parse(formData);
+      setData({
+        organizationDetails: {
+          ...data.organizationDetails,
+          description: validatedData.description,
+        },
+      });
+      handleNext();
+    } catch (error) {
+      if (error instanceof ZodError) {
+        error.errors.forEach(validationError => {
+          setError(validationError.path[0] as keyof typeof formData, {
+            type: 'manual',
+            message: validationError.message,
+          });
+        });
+      }
+    }
   };
-
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
-        <div className="lg:col-span-2 hidden lg:block">
+      <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-start gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+        <div className="hidden lg:col-span-2 lg:block">
           <Image
             src={StepSevenImg}
             alt=""
@@ -56,49 +76,48 @@ const OrgDescriptionForm: React.FC<OrgDescriptionFormProps> = ({
           />
         </div>
 
-        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+        <div className="flex w-full flex-col items-start space-y-3 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+          <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             About your organization
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="font-quickSand text-base">
             To help people understand your organization give a basic description
             about your company
           </p>
-          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col pb-8">
-              <textarea
-                maxLength={500}
-                placeholder="Description"
-                className="w-full h-[10rem] p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                {...register("description", {
-                  required: "This field is required",
-                })}
-                name="description"
-              />
-              {errors.description && (
-                <span className="text-error text-xs">
-                  {errors.description.message}
-                </span>
-              )}
-            </div>
-            <span className="flex gap-4">
-              <Button
-                label="Go Back"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                onClick={handleGoBack}
-              />
-              <Button
-                label="Submit"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                state={isValid ? "active" : "disabled"}
-                disabled={isLoading}
-              />
-            </span>
-          </form>
+
+          <Form {...form}>
+            <form
+              className="flex w-full flex-col gap-4"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="flex flex-col">
+                <FormTextArea
+                  label="Description"
+                  placeholder="Describe your project"
+                  {...register('description', {
+                    required: 'This field is required',
+                  })}
+                />
+              </div>
+              <span className="flex gap-10">
+                <Button
+                  label="Go Back"
+                  variant="secondary"
+                  fullWidth={false}
+                  size="medium"
+                  onClick={handleGoBack}
+                />
+                <Button
+                  label="Submit"
+                  variant="primary"
+                  fullWidth={false}
+                  size="medium"
+                  state={isValid ? 'active' : 'disabled'}
+                  disabled={isLoading}
+                />
+              </span>
+            </form>
+          </Form>
         </div>
       </div>
     </TransitionParent>

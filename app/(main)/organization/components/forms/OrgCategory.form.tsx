@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 import StepTwoImg from '@/public/images/create-org-2.png';
@@ -71,7 +72,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
 
         <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
           <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">Choose a category</h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="text-base font-quickSand">
             Select a category that best describe what your organization stands for
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -113,7 +114,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
             <span className="flex gap-4">
               <Button
                 label="Go Back"
-                variant="primary"
+                variant="secondary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}

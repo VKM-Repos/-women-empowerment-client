@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
-import { getSession } from "next-auth/react";
+
 
 const backendApiURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -11,7 +11,7 @@ export const authApi: AxiosInstance = axios.create({
 authApi.defaults.headers.common["Content-Type"] = "application/json";
 
 authApi.interceptors.request.use(async (config) => {
-  const session = await getSession();
+
 
   const userToken = localStorage.getItem("token"); // change later
   // const userToken = '';

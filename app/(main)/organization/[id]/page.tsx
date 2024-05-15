@@ -483,6 +483,7 @@ export default function OrganizationDetails({
                   </div>
                 </div>
               </div>
+              
               <div className="flex flex-col items-stretch w-[34%] ml-5 max-md:w-full max-md:ml-0">
                 <aside className="w-full rounded-[1.5rem] ">
                   <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">

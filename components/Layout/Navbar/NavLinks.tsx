@@ -12,8 +12,8 @@ const NavLinks = ({ links }: NavLinkProps) => {
   const [showSubMenu, setShowSubMenu] = useState(false);
   return (
     <>
-      {links.map((link) => (
-        <div>
+      {links.map((link, index) => (
+        <div key={index}>
           <div className="px-3 text-left md:cursor-pointer group">
             {link.submenu ? (
               <span
@@ -53,8 +53,8 @@ const NavLinks = ({ links }: NavLinkProps) => {
                   } hidden group-hover:md:block hover:md:block`}
                 >
                   <div className="bg-white-100 border border-gray-500 rounded-md px-4 py-4 flex flex-col gap-3">
-                    {link?.sublinks?.map((link: any) => (
-                      <div className="flex">
+                    {link?.sublinks?.map((link: any, index: number) => (
+                      <div key={index + 1} className="flex">
                         <Link href={link?.href} className=" font-light text-sm">
                           <span className="flex gap-4">
                             <span className=""> {link?.icon}</span>

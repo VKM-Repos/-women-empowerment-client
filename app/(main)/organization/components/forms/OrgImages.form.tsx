@@ -106,23 +106,16 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
               )}
             </div>
           </span>
-          <p className="text-sm md:text-base font-quickSand font-semibold">
+          <p className="text-sm md:text-base font-quickSand">
             This will be displayed as the cover image of your dashboard.
           </p>
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col pb-8">
               <div className="w-full focus:outline-none ">
-                <input
-                  ref={inputRef}
-                  type="file"
-                  onChange={handleImagesChange}
-                  name="image"
-                  className="hidden"
-                  accept="image/*"
-                />
+               
                 <div className="flex flex-nowrap  overflow-x-auto items-center gap-4">
                   {watch("imagePreview") && (
-                    <span className="w-[15rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
+                    <span className="w-[10rem] aspect-square rounded-full border-2 border-btnWarning overflow-hidden relative">
                       <Image
                         src={data?.imagePreview}
                         alt={`Image Preview`}
@@ -139,7 +132,16 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                       </button>
                     </span>
                   )}
-                  <button
+                  <span>
+                       <input
+                        ref={inputRef}
+                        type="file"
+                        onChange={handleImagesChange}
+                        name="image"
+                        className="hidden"
+                        accept="image/*"
+                      />
+                      <button
                     type="button"
                     onClick={handleChooseFile}
                     className="py-6 w-full flex flex-col space-y-6 items-start justify-center  text-small focus:outline-none rounded-md "
@@ -165,6 +167,8 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
                       />
                     </svg>
                   </button>
+                  </span>
+                  
                 </div>
               </div>
                {errors.image ? (
@@ -176,7 +180,7 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
             <span className="w-full flex flex-wrap gap-4 relative">
               <Button
                 label="Go Back"
-                variant="primary"
+                variant="secondary"
                 fullWidth={false}
                 size="medium"
                 onClick={handleGoBack}

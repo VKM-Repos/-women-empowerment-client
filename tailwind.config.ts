@@ -1,17 +1,21 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss"
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
-const config: Config = {
+const config = {
+  darkMode: ["class"],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
+  prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
@@ -20,26 +24,26 @@ const config: Config = {
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        // Brand Colors
+       // Brand Colors
         primary: '#106840',
         secondary: '#13FF79',
         btnWarning: '#FF7400',
-        primaryBlack: "#0F0F0F",
-        primaryWhite: "#FFFFFF",
-        secondaryOffWhite: "#F2F2F2",
+        primaryBlack: '#0F0F0F',
+        primaryWhite: '#FFFFFF',
+        secondaryOffWhite: '#F2F2F2',
         // State Colors
-        warning: "#F5BB0A",
-        success: "#27AE60",
-        error: "#EB5757",
-        info: "#2F80ED",
+        warning: '#F5BB0A',
+        success: '#27AE60',
+        error: '#EB5757',
+        info: '#2F80ED',
         black: {
-          100: "#000000",
-          200: "#1D1D1D",
-          300: "#282828",
+          100: '#000000',
+          200: '#1D1D1D',
+          300: '#282828',
         },
         white: {
-          100: "#FFFFFF",
-          200: "#ffffffcc",
+          100: '#FFFFFF',
+          200: '#ffffffcc',
         },
         gray: {
           100: "#333333",
@@ -47,7 +51,7 @@ const config: Config = {
           300: "#828282",
           400: "#BDBDBD",
           500: "#E0E0E0",
-        },
+        }, 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -61,37 +65,37 @@ const config: Config = {
         //   DEFAULT: "hsl(var(--secondary))",
         //   foreground: "hsl(var(--secondary-foreground))",
         // },
-        // destructive: {
-        //   DEFAULT: "hsl(var(--destructive))",
-        //   foreground: "hsl(var(--destructive-foreground))",
-        // },
-        // muted: {
-        //   DEFAULT: "hsl(var(--muted))",
-        //   foreground: "hsl(var(--muted-foreground))",
-        // },
-        // accent: {
-        //   DEFAULT: "hsl(var(--accent))",
-        //   foreground: "hsl(var(--accent-foreground))",
-        // },
-        // popover: {
-        //   DEFAULT: "hsl(var(--popover))",
-        //   foreground: "hsl(var(--popover-foreground))",
-        // },
-        // card: {
-        //   DEFAULT: "hsl(var(--card))",
-        //   foreground: "hsl(var(--card-foreground))",
-        // },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
-      // borderRadius: {
-      //   lg: "var(--radius)",
-      //   md: "calc(var(--radius) - 2px)",
-      //   sm: "calc(var(--radius) - 4px)",
-      // },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
-        sora: ["Sora", "sans-serif"],
-        quickSand: ["Quicksand", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"]
+        montserrat: ["Montserrat", "sans-serif"],
+        sora: ["var(--font-sora)", ...fontFamily.sans],
+        quickSand: ["var(--font-quickSand)", ...fontFamily.sans],
       },
       fontSize: {
         "extra-small": "12px",
@@ -100,22 +104,23 @@ const config: Config = {
         large: "26px",
         "extra-large": "32px",
       },
-      // line height
-      leading: {
-        tight: "1.2",
-        normal: "1.5",
-        relaxed: "1.8",
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
       },
-      // letter spacing
-      tracking: {
-        tighter: "-0.5px",
-        tight: "-0.25px",
-        normal: "0",
-        wide: "0.25px",
-        wider: "0.5px",
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
+
 export default config

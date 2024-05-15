@@ -5,8 +5,7 @@ import { Toaster, ToastPosition } from "react-hot-toast";
 import { SideMenuProvider } from "../context/sidemenu-context";
 import { ModalProvider } from "../context/modal-context";
 import { AppProvider } from "../context/app-context";
-import { SessionProvider } from "next-auth/react";
-import AuthWrap from "./auth-wrap";
+
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const client = new QueryClient();
@@ -31,8 +30,6 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   } as const;
 
   return (
-    <SessionProvider>
-      <AuthWrap>
         <QueryClientProvider client={client}>
           <AppProvider>
             <ModalProvider>
@@ -44,7 +41,5 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
           </AppProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
-      </AuthWrap>
-    </SessionProvider>
   );
 };

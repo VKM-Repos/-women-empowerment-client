@@ -1,11 +1,15 @@
-import { TransitionParent } from "@/lib/utils/transition";
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import Image from "next/image";
-import StepFiveImg from "@/public/images/create-5.png";
-import statesList from "@/lib/utils/nigerian-states.json";
-import Button from "@/components/Common/Button/Button";
-import { useOrganizationFormStore } from "@/lib/store/createOrgForm.store";
+import { TransitionParent } from '@/lib/utils/transition';
+import React, { useState } from 'react';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
+import Image from 'next/image';
+import StepFiveImg from '@/public/images/create-5.png';
+import statesList from '@/lib/utils/nigerian-states.json';
+import Button from '@/components/Common/Button/Button';
+import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
+import FormSelect from '@/components/Form/FormSelect';
+import { Form } from '@/components/UI/Form';
+import FormInput from '@/components/Form/FormInput';
+import FormLabel from '@/components/Form/FormLabel';
 
 interface OrgAddressFormProps {
   handleNext: () => void;
@@ -17,6 +21,13 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
   handleGoBack,
 }) => {
   const { data, setData } = useOrganizationFormStore();
+  const form = useForm<{ state: string; postalCode: string; street: string }>({
+    defaultValues: {
+      state: data.organizationDetails.state || '',
+      postalCode: data.organizationDetails.postalCode || '',
+      street: data.organizationDetails.street || '',
+    },
+  });
 
   const {
     register,
@@ -24,15 +35,13 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
     formState: { errors, isValid },
     setValue,
     watch,
-  } = useForm<{ state: string, postalCode: string, street: string }>({
-    defaultValues: {
-      state: data.organizationDetails.state || "",
-      postalCode: data.organizationDetails.postalCode || "",
-      street: data.organizationDetails.street || "",
-    },
-  });
+  } = form;
 
-  const onSubmit: SubmitHandler<{ state: string; postalCode: string; street: string }> = (formData) => {
+  const onSubmit: SubmitHandler<{
+    state: string;
+    postalCode: string;
+    street: string;
+  }> = formData => {
     // Update the store with the entered address details
     setData({
       organizationDetails: {
@@ -45,11 +54,18 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
     handleNext(); // Move to the next step
   };
 
+ // Watch all form values
+  const stateValue = useWatch({ control: form.control, name: 'state' });
+  const postalCodeValue = useWatch({ control: form.control, name: 'postalCode' });
+  const streetValue = useWatch({ control: form.control, name: 'street' });
+
+  // Custom function to check if all form fields are filled
+  const isFormValid = !!stateValue && !!postalCodeValue && !!streetValue;
 
   return (
     <TransitionParent>
-      <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
-        <div className="lg:col-span-2 hidden lg:block">
+      <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-start gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
+        <div className="hidden lg:col-span-2 lg:block">
           <Image
             src={StepFiveImg}
             alt=""
@@ -59,88 +75,69 @@ const OrgAddressForm: React.FC<OrgAddressFormProps> = ({
           />
         </div>
 
-        <div className="w-full lg:col-span-3 bg-[#F0EBD6] rounded-[1rem] p-0 md:p-[2rem] flex flex-col space-y-3 items-start ">
-          <h1 className="text-primary text-xl md:text-3xl font-bold font-sora">
+        <div className="flex w-full flex-col items-start space-y-3 rounded-[1rem] bg-[#F0EBD6] p-0 md:p-[2rem] lg:col-span-3 ">
+          <h1 className="text-primary font-sora text-xl font-bold md:text-3xl">
             Where is your organization located?
           </h1>
-          <p className="text-base font-quickSand font-semibold">
+          <p className="font-quickSand text-base">
             These details help people locate you and get in touch
           </p>
-          <form className="w-full py-4" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-5 pb-8">
-              <div className="flex flex-col">
-                <select
-                  className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  value={watch("state")}
-                  required
-                  {...register("state", {
-                    required: "This field is required",
+          <Form {...form}>
+            <form className="w-full py-4" onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex flex-col gap-5 pb-8">
+                <div className="flex flex-col">
+                  <FormLabel label="Select state" />
+                  <FormSelect
+                    placeholder="Select"
+                    value={stateValue}
+                    onChange={value => {
+                      setValue('state', value);
+                    }}
+                    defaultValue={''}
+                    options={statesList?.map(option => ({
+                      label: option,
+                      value: option.toLowerCase().replace(/\s/g, '_'),
+                    }))}
+           
+                  />
+                </div>
+                <div className="flex flex-col">
+                <FormInput
+                  label="Postal code"
+                  placeholder="Eg. 900100"
+                  {...register('postalCode', {
+                    required: 'This field is required',
                   })}
-                  name="state"
-                >
-                  <option value="">Select a state</option>
-                  {statesList.map((state, index) => (
-                    <option key={index} value={state}>
-                      {state}
-                    </option>
-                  ))}
-                </select>
-                {errors.state && (
-                  <span className="text-error text-xs">
-                    {errors.state.message}
-                  </span>
-                )}
-              </div>
-              <div className="flex flex-col">
-                <input
-                  className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="text"
-                  placeholder="Postal code"
-                  {...register("postalCode", {
-                    required: "This field is required",
-                  })}
-                  name="postalCode"
                 />
-                {errors.postalCode && (
-                  <span className="text-error text-xs">
-                    {errors.postalCode.message}
-                  </span>
-                )}
-              </div>
-              <div className="flex flex-col">
-                <input
-                  className="w-full md:w-4/5 p-3 bg-primaryWhite rounded-md text-gray-100 placeholder:text-gray-200 focus:outline-btnWarning"
-                  type="text"
-                  placeholder="Street address"
-                  {...register("street", {
-                    required: "This field is required",
+                </div>
+                <div className="flex flex-col">
+                  <FormInput
+                  label="Street Address"
+                  placeholder="Eg. 1234b, Baker Str."
+                  {...register('street', {
+                    required: 'This field is required',
                   })}
-                  name="street"
                 />
-                {errors.street && (
-                  <span className="text-error text-xs">
-                    {errors.street.message}
-                  </span>
-                )}
+                </div>
               </div>
-            </div>
-            <span className="flex gap-4">
-              <Button
-                label="Go Back"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                onClick={handleGoBack}
-              />
-              <Button
-                label="Continue"
-                variant="primary"
-                fullWidth={false}
-                size="medium"
-                state={isValid ? "active" : "disabled"}
-              />
-            </span>
-          </form>
+              <span className="flex gap-4">
+                <Button
+                  label="Go Back"
+                  variant="secondary"
+                  fullWidth={false}
+                  size="medium"
+                  onClick={handleGoBack}
+                />
+                <Button
+                  label="Continue"
+                  variant="primary"
+                  fullWidth={false}
+                  size="medium"
+                  state={isFormValid ? 'active' : 'disabled'}
+                />
+              </span>
+            </form>
+          </Form>
         </div>
       </div>
     </TransitionParent>
