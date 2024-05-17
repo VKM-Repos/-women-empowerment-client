@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Logo from "@/public/logo.svg";
-import NavLinks from "./NavLinks";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppContext } from "@/lib/context/app-context";
@@ -11,6 +10,7 @@ import building from "@/public/images/building.svg";
 
 import splashPicture from "@/public/images/splash_screen.svg";
 import { useRouter } from "next/navigation";
+import NavLinks from "./NavLinks copy";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const router = useRouter();

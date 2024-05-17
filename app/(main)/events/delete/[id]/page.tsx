@@ -149,7 +149,7 @@ export default function EventsDetailsPage({
                 <path
                   d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
                   stroke="black"
-                  stroke-width="1.58394"
+                  strokeWidth="1.58394"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -201,12 +201,12 @@ export default function EventsDetailsPage({
                         <path
                           d="M11.7377 21.3094C16.8406 21.3094 20.9774 17.1727 20.9774 12.0698C20.9774 6.96682 16.8406 2.83008 11.7377 2.83008C6.63479 2.83008 2.49805 6.96682 2.49805 12.0698C2.49805 17.1727 6.63479 21.3094 11.7377 21.3094Z"
                           stroke="#106840"
-                          stroke-width="1.18796"
+                          strokeWidth="1.18796"
                         />
                         <path
                           d="M11.7383 7.44971V12.0695L14.0482 14.3795"
                           stroke="#106840"
-                          stroke-width="1.18796"
+                          strokeWidth="1.18796"
                         />
                       </svg>
 

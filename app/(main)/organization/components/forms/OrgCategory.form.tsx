@@ -21,7 +21,7 @@ interface OrgCategoryFormProps {
 const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoBack }) => {
   const { data, setData } = useOrganizationFormStore();
 
-  const { data: categories, isLoading, isError } = useGET({
+  const { data: categories, isLoading, isError, refetch } = useGET({
     url: "/categories",
     queryKey: ["categories"],
     withAuth: false,
@@ -80,6 +80,7 @@ const OrgCategoryForm: React.FC<OrgCategoryFormProps> = ({ handleNext, handleGoB
               <ul className="w-full flex gap-2 flex-wrap">
 
                 {isLoading && <LoadingDots />}
+                {isError && <p className='text-xs font-bold text-error'>Error fetching categories. <button className='underline' onClick={() => refetch()}>try again</button></p>}
 
                 {Array.isArray(categories?.content) && categories.content.slice(0, displayedCategories).map((option: Category) => (
                   <li className="w-fit" key={option.id}>

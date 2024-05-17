@@ -67,9 +67,9 @@ export default function DeleteProject({ params }: { params: { id: string } }) {
                   <path
                     d="M7.75586 8.05762L18.6455 18.9472M7.75586 18.9472L18.6455 8.05762"
                     stroke="black"
-                    stroke-width="1.58394"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.58394"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
