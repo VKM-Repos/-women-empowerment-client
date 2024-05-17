@@ -2,7 +2,7 @@
 <g filter="url(#filter0_d_973_2616)">
 <circle cx="114" cy="110" r="106" fill="url(#pattern0)" shape-rendering="crispEdges"/>
 <circle cx="114" cy="110" r="106" fill="black" fillOpacity="0.45" shape-rendering="crispEdges"/>
-<circle cx="114" cy="110" r="102" stroke="#F7F7F7" stroke-width="8" shape-rendering="crispEdges"/>
+<circle cx="114" cy="110" r="102" stroke="#F7F7F7" strokeWidth="8" shape-rendering="crispEdges"/>
 </g>
 <defs>
 <filter id="filter0_d_973_2616" x="0" y="0" width="228" height="228" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

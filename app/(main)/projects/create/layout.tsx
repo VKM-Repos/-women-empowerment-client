@@ -31,7 +31,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   //  <ProtectedPage>
      <div className="w-screen h-screen fixed inset-0 top-0 z-[1000] bg-primaryWhite scrollable-section hide-scroll-bar flex justify-center items-center">
       <div className="w-full overflow-auto bg-[#F0EBD6] md:bg-primaryWhite min-h-screen flex flex-col items-center justify-center relative">
-        <Navbar />
         <header className="w-full flex flex-col relative top-0">
           <button
             className="block lg:hidden w-full relative left-2 -top-5"

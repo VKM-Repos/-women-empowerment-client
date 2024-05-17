@@ -54,14 +54,14 @@ const CategoryCarousel = ({ category, params }: any) => {
                 <path
                     d="M5.34128 19H26.4402"
                     stroke="white"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
                 <path
                     d="M11.9341 26.6922C11.9341 26.6922 5.34067 21.027 5.34067 18.9999C5.34067 16.9728 11.9341 11.3076 11.9341 11.3076"
                     stroke="white"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
@@ -82,14 +82,14 @@ const CategoryCarousel = ({ category, params }: any) => {
                 <path
                     d="M26.6587 16.1099H5.55981"
                     stroke="white"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
                 <path
                     d="M20.0659 22.7032C20.0659 22.7032 26.6593 17.8473 26.6593 16.1098C26.6593 14.3723 20.0659 9.51636 20.0659 9.51636"
                     stroke="white"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
