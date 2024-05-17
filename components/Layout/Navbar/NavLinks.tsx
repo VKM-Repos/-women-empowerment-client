@@ -1,77 +1,94 @@
-import React, { useState } from "react";
-// import { links } from "./links";
+'use client'
+import React, { useState } from 'react'
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/UI/Popover";
 import Link from "next/link";
-import { ChevronFilledIcon } from "@/components/Common/Icons/chevronFilled.icon";
+import { siteNavigation } from "@/navigation";
+import { ChevronFilledIcon } from '@/components/Common/Icons';
+import { usePathname } from 'next/navigation';
+import cn from 'classnames';
 
-type NavLinkProps = {
-  links: any[];
-};
-const NavLinks = ({ links }: NavLinkProps) => {
-  const [heading, setHeading] = useState("");
-  const [subHeading, setSubHeading] = useState("");
-  const [showSubMenu, setShowSubMenu] = useState(false);
+export function NavLinks() {
+  const [isOpen, setIsOpen] = useState(false);
+  const currentPath = usePathname();
+
+
   return (
-    <>
-      {links.map((link, index) => (
-        <div key={index}>
-          <div className="px-3 text-left md:cursor-pointer group">
-            {link.submenu ? (
-              <span
-                className="py-7 flex gap-1 justify-between items-center md:pr-0 pr-5 "
-                onMouseEnter={() => setShowSubMenu(true)}
-                onMouseLeave={() => setShowSubMenu(false)}
-                onClick={() => {
-                  heading !== link.name
-                    ? setHeading(link.name)
-                    : setHeading("");
-                  setSubHeading("");
-                }}
-              >
-                <span className="">
-                  {link.name} {link?.icon}
-                </span>
-                <ChevronFilledIcon
-                  className={`transition-transform duration-150 ease-in-out group-hover:rotate-90 ${
-                    link?.showArrow
-                      ? "group-hover:text-btnWarning"
-                      : "text-white-100 group-hover:text-white-100"
-                  } `}
-                />
-              </span>
-            ) : (
-              <Link href={link.href || ""}>{link?.name}</Link>
-            )}
-            {link.submenu && (
-              <div>
-                <div
-                  className={`absolute  group-hover:z-50 ${
-                    link.sublinks[1]?.text == "Manage Organization"
-                      ? "-ml-[80px] top-[80px]"
-                      : link?.sublinks.length > 2
-                      ? "-ml-[30px] top-[80px]"
-                      : "-ml-[10px] top-16"
-                  } hidden group-hover:md:block hover:md:block`}
+    <nav className="w-full">
+      <ul className="flex gap-6 justify-center font-quickSand">
+        {Object.entries(siteNavigation.topNavigation).map(([key, value]) => {
+          if ("items" in value) {
+            return (
+              <li key={key} className="relative">
+                <Popover open={isOpen} onOpenChange={setIsOpen}>
+                  <PopoverTrigger>
+                    <span
+                    className={cn(
+                    'flex items-center gap-1 text-lg font-normal transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
+                    { 'link': !currentPath.startsWith(value.label) },
+         
+                  )}
+                    >
+                      {value.label}
+                    <ChevronFilledIcon
+                      className={cn(
+                        'transition-transform duration-150 ease-in-out',
+                        {
+                          'group-hover:rotate-90': value.items,
+                          'group-hover:text-btnWarning': value.items,
+                          'text-white-100 group-hover:text-white-100': !value.items
+                        },
+                        {'rotate-90': isOpen}
+                      )}
+                    />
+                    
+                    </span>
+                  </PopoverTrigger>
+                  <PopoverContent align='start' className="absolute top-full left-0 w-48 bg-primaryWhite shadow-md rounded">
+                    <ul className="flex flex-col items-start justify-center gap-4 font-quickSand text-gray-200">
+                      {Object.entries(value.items).map(([key, item]) => (
+                        <li key={key}>
+                          <Link
+                           onClick={() => setIsOpen(false)}
+                            href={item.link}
+                            className={cn(
+                              ' relative text-sm font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
+                              { ' link': !currentPath.startsWith(item.link) },
+                              { 'text-btnWarning': currentPath.startsWith(item.link) }
+                            )}
+                          >
+                            {item.label}
+                           {!currentPath.startsWith(item.label) && (
+                            <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
+                  )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </PopoverContent>
+                </Popover>
+              </li>
+            );
+          } else {
+            return (
+              <li key={key} className="relative">
+                <Link
+                  href={value.link}
+                  className={cn(
+                    'text-lg font-normal transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
+                    { 'link': !currentPath.startsWith(value.link) },
+                    { 'text-btnWarning': currentPath.startsWith(value.link) }
+                  )}
                 >
-                  <div className="bg-white-100 border border-gray-500 rounded-md px-4 py-4 flex flex-col gap-3">
-                    {link?.sublinks?.map((link: any, index: number) => (
-                      <div key={index + 1} className="flex">
-                        <Link href={link?.href} className=" font-light text-sm">
-                          <span className="flex gap-4">
-                            <span className=""> {link?.icon}</span>
-                            <span className="">{link?.text}</span>
-                          </span>
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </>
+                  {value.label}
+                  {currentPath.startsWith(value.link) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
+                  )}
+                </Link>
+              </li>
+            );
+          }
+        })}
+      </ul>
+    </nav>
   );
-};
-
-export default NavLinks;
+}

@@ -19,7 +19,7 @@ const loadSvg = (name: string) => {
   }
 };
 
-const Icon: React.FC<IconProps> = ({ name, size = 24, filled = true, className }) => {
+const Icon: React.FC<IconProps> = ({ name, size = 20, filled = true, className }) => {
   const svgUrl = loadSvg(name);
 
   if (!svgUrl) {

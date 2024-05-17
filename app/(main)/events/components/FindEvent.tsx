@@ -91,7 +91,7 @@ function FindEvent({ getEventDate }: Props) {
                 <path
                   d="M11.4194 6.47656L18.4141 6.4768V13.4386M6.41406 18.4766L18.1252 6.76568"
                   stroke="white"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                 />
               </svg>
             </span>

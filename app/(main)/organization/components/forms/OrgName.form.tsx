@@ -27,32 +27,17 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
     setError,
   } = form;
 
-  const { data: nameCheckData, isLoading: nameCheckLoading } = useGET({
-    url: `organizations/${data.organizationDetails.name}/name-check?name=${form.getValues().name}`,
+  const { data: nameCheckData, isPending:nameCheckLoading, isError:nameCheckError,  } = useGET({
+    url: `organizations/name/check?name=${form.getValues().name}`,
     queryKey: ['nameCheck'],
     withAuth: false,
     enabled: false,
   });
 
-  const [nameCheckError, setNameCheckError] = useState('');
-  const [nameCheckSuccess, setNameCheckSuccess] = useState('');
 
   const onSubmit: SubmitHandler<{ name: string }> = async (formData: any) => {
-    setNameCheckError('');
-    setNameCheckSuccess('');
-    if (formData.name) {
-      const timeoutId = setTimeout(async () => {
-        const response = await fetch(`/api/organizations/${data.organizationDetails.name}/name-check?name=${formData.name}`);
-        if (response.ok) {
-          setNameCheckError('Organization name already exists.');
-        } else {
-          setNameCheckSuccess('Name is available');
-        }
-        clearTimeout(timeoutId);
-      }, 1000);
-    }
 
-    if (!nameCheckError) {
+
       setData({
         organizationDetails: {
           ...data.organizationDetails,
@@ -60,7 +45,7 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
         },
       });
       handleNext(); // Move to the next step
-    }
+
   };
 
   return (
@@ -104,19 +89,9 @@ const OrgNameForm: React.FC<OrgNameFormProps> = ({ handleNext }) => {
                     Checking organization name...
                   </p>
                 )}
-                {nameCheckError && (
-                  <p className="text-error mt-0 text-xs font-medium">
-                    {nameCheckError}
-                  </p>
-                )}
-                {nameCheckSuccess && (
-                  <p className="text-success mt-0 text-xs font-medium">
-                    {nameCheckSuccess}
-                  </p>
-                )}
               </div>
               <Button
-                label={nameCheckLoading && nameCheckData ? "Please wait" : "Continue"}
+                label={nameCheckLoading ? "Please wait" : "Continue"}
                 variant="primary"
                 fullWidth={false}
                 size="medium"

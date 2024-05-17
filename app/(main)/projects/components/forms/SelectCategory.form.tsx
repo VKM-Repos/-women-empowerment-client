@@ -105,7 +105,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ handleNext }) => {
           <div className="">
             <ul className="font-quickSand flex w-full flex-wrap gap-3">
               {isLoading && <LoadingDots />}
-              {isError && <p className='text-xs font-bold text-error'>Error fetching categories. <button className='underline' onClick={refetch}>try again</button></p>}
+              {isError && <p className='text-xs font-bold text-error'>Error fetching categories. <button className='underline' onClick={() => refetch()}>try again</button></p>}
 
               {Array.isArray(categories?.content) &&
                 categories.content
