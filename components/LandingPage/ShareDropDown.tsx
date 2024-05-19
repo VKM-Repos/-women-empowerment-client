@@ -1,18 +1,13 @@
-"use client";
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  ReactNode,
-} from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ShareButton from "./ShareButton";
 
-import toast from "react-hot-toast";
+
+'use client';
+import React, { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/UI/Popover";
+import toast from 'react-hot-toast';
+import ShareButton from '@/components/LandingPage/ShareButton';
+
 
 interface ShareDropdownProps {
-  // children: ReactNode;
   urlToShare: string;
   text: string | null;
   className?: string;
@@ -20,32 +15,12 @@ interface ShareDropdownProps {
 }
 
 const ShareDropdown: React.FC<ShareDropdownProps> = ({
-  // children,
   urlToShare,
   text,
   className,
   dropDownClassName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
-
   const [copied, setCopied] = useState(false);
 
   const handleCopyClick = () => {
@@ -72,32 +47,22 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
   };
 
   return (
-    <div className={`w-full relative inline-block ${className}` } ref={dropdownRef}>
-      <button
-        className="w-full p-2 cursor-pointer flex items-center justify-center"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <ShareButton />
-        &nbsp;
-        {text}
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className={`${dropDownClassName} p-4 w-fit whitespace-nowrap max-h-[15rem] absolute top-[-9rem] left-0 mt-2 bg-primaryWhite border border-gray-500  rounded-md shadow-md z-10 block`}
-          >
-            <div className="w-full z-[4000]">
-              <div className="w-full bg-primaryWhite flex flex-col items-start justify-start gap-2 text-xs">
-                {/* copy link */}
-                <button
-                  onClick={handleCopyClick}
-                  className="w-full p-1 flex items-center justify-start gap-2 text-gray-300 hover:bg-primary/10 rounded"
-                >
-                  <svg
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger>
+        <button
+          className={`w-full p-2 cursor-pointer flex items-center justify-center ${className}`}
+        >
+          <ShareButton />
+          &nbsp;
+          {text}
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className={`absolute top-full left-0 w-48 bg-primaryWhite shadow-md rounded ${dropDownClassName}`}>
+        <ul className="flex flex-col items-start gap-2 font-quickSand text-gray-200">
+          <ShareButtonItem
+            onClick={handleCopyClick}
+            icon={
+               <svg
                     className="w-6 aspect-square"
                     viewBox="0 0 30 30"
                     fill="none"
@@ -125,15 +90,13 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                       ></path>{" "}
                     </g>
                   </svg>
-                  <span>copy link</span>
-                </button>
-                <hr className="w-full border-b border-gray-500" />
-                {/* facebook share */}
-                <button
-                  onClick={handleFacebookShare}
-                  className="w-full p-1 flex items-center justify-start gap-2 text-gray-300 hover:bg-primary/10 rounded"
-                >
-                  <svg
+            }
+            label="copy link"
+          />
+          <ShareButtonItem
+            onClick={handleFacebookShare}
+            icon={
+              <svg
                     className="w-6 aspect-square "
                     viewBox="0 0 40 40"
                     fill="none"
@@ -144,14 +107,13 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                       fill="currentColor"
                     />
                   </svg>
-                  <span>share via facebook</span>
-                </button>
-                {/* twitter share */}
-                <button
-                  onClick={handleTwitterShare}
-                  className="w-full p-1 flex items-center justify-start gap-2 text-gray-300 hover:bg-primary/10 rounded"
-                >
-                  <svg
+            }
+            label="share via facebook"
+          />
+          <ShareButtonItem
+            onClick={handleTwitterShare}
+            icon={
+              <svg
                     className="w-6 aspect-square"
                     viewBox="0 0 40 40"
                     fill="none"
@@ -162,14 +124,13 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                       fill="currentColor"
                     />
                   </svg>
-                  <span>share via twitter</span>
-                </button>
-                {/* linkedin share */}
-                <button
-                  onClick={handleLinkedInShare}
-                  className="w-full p-1 flex items-center justify-start gap-2 text-gray-300 hover:bg-primary/10 rounded"
-                >
-                  <svg
+            }
+            label="share via twitter"
+          />
+          <ShareButtonItem
+            onClick={handleLinkedInShare}
+            icon={
+              <svg
                     className="w-6 aspect-square"
                     viewBox="0 0 40 40"
                     fill="none"
@@ -180,16 +141,32 @@ const ShareDropdown: React.FC<ShareDropdownProps> = ({
                       fill="currentColor"
                     />
                   </svg>
-                  <span>share via linkedIn</span>
-                </button>
-              </div>
-              {/* {children} */}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            }
+            label="share via linkedin"
+          />
+        </ul>
+      </PopoverContent>
+    </Popover>
   );
 };
 
 export default ShareDropdown;
+
+
+interface ShareButtonItemProps {
+  onClick: () => void;
+  icon: JSX.Element;
+  label: string;
+}
+
+const ShareButtonItem: React.FC<ShareButtonItemProps> = ({ onClick, icon, label }) => {
+  return (
+      <button
+        onClick={onClick}
+        className="w-full p-1 flex items-center justify-stretch gap-2 text-gray-300 hover:bg-primary/10 rounded"
+      >
+        {icon}
+        <span className='text-xs'>{label}</span>
+      </button>
+  );
+};

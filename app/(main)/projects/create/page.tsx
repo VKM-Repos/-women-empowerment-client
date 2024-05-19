@@ -134,7 +134,9 @@ function CreateProjectPage() {
   return (
     <AnimatePresence initial={true} mode="wait">
       {isLoading && <LoadingThinkingWomen />}
-      {RenderForm()}
+      <div className="min-w-full">
+        {RenderForm()}
+      </div>
     </AnimatePresence>
   );
 }

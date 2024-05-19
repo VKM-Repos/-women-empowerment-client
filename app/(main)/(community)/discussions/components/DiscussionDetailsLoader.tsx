@@ -19,9 +19,9 @@ export default function DiscussionDetailsLoader() {
             </span>
             <div className="flex items-center justify-start gap-4">
               <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
-              <p className="text-sm font-light text-primary flex items-center justify-center gap-1">
+              <div className="text-sm font-light text-primary flex items-center justify-center gap-1">
                 <p className="w-full h-2 bg-gray-400  animate-pulse"></p>
-              </p>
+              </div>
             </div>
             <div className="w-full grid grid-cols-8 gap-2">
               <div className="w-[3rem] aspect-square rounded-full border bg-gray-500 animate-pulse" />
@@ -53,9 +53,9 @@ export default function DiscussionDetailsLoader() {
                     <div className="w-full flex items-center justify-start gap-4">
                       <p className="w-1/3 h-2 bg-gray-400  animate-pulse"></p>
                       <p className="w-1/3 h-2 bg-gray-400  animate-pulse"></p>
-                      <p className="text-sm font-light text-primary flex items-center justify-center gap-1">
+                      <div className="text-sm font-light text-primary flex items-center justify-center gap-1">
                         <p className="w-full h-2 bg-gray-400  animate-pulse"></p>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -125,10 +125,10 @@ export default function DiscussionDetailsLoader() {
                     <div className="w-full flex items-center justify-start gap-4">
                       <p className="w-full h-2 bg-gray-400  animate-pulse"></p>
                       <p className="w-1/3 h-2 bg-gray-400  animate-pulse"></p>
-                      <p className="text-sm font-light text-primary flex items-center justify-center gap-1">
+                      <div className="text-sm font-light text-primary flex items-center justify-center gap-1">
                         <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
                         <p className="w-1/2 h-2 bg-gray-400  animate-pulse"></p>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>

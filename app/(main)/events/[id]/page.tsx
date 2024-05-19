@@ -13,6 +13,7 @@ import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
 import { LocationIcon } from "@/components/Common/Icons/Location.icon";
 import ShareDropdown from "@/components/LandingPage/ShareDropDown";
 import Link from "next/link";
+import ImageWithFallback from "@/components/Common/ImageWithFallBack";
 
 export default function EventsDetailsPage({
   params,
@@ -38,7 +39,7 @@ export default function EventsDetailsPage({
         <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 pt-8 rounded-[1rem] relative mb-[200px]">
+          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 p-4 rounded-md relative ">
             <button
               onClick={router.back}
               className="w-fit absolute top-0 right-1 m-4"
@@ -59,15 +60,16 @@ export default function EventsDetailsPage({
                 />
               </svg>
             </button>
-            <div className="w-full mx-auto flex flex-col gap-10 items-center  my-auto px-4 ">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start">
-                <div className="w-full col-span-1 flex flex-col items-start justify-start gap-5 ">
-                  <div className=" h-4/5 mx-auto flex flex-col gap-3 items-center justify-center overflow-hidden">
-                    <motion.img
-                      src={event?.image}
-                      alt={event?.name}
-                      className="md:h-[20rem] h-[15rem] w-full"
-                    />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start justify-items-stretch">
+                <div className="w-full col-span-1 flex flex-col items-start justify-items-stretch gap-5 ">
+                  <div className="w-full h-4/5 rounded-md overflow-hidden">
+                    <ImageWithFallback
+                        src={event?.image}
+                        fallbackSrc={"https://placehold.co/600x500?text=Women\n Hub"}
+                        aspectRatio={{ width: 6, height: 5 }}
+                        alt={event?.name}
+                        className=""
+                      />
                   </div>
                   <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
                     {event?.name}
@@ -77,14 +79,24 @@ export default function EventsDetailsPage({
                   <h3 className="font-semibold text-xl  font-sora">Details</h3>
                   <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
                     <div className=" flex items-center gap-4">
-                      <Image
+                      {/* <Image
                         src={event?.organization?.logo}
                         alt={event?.organization?.name}
                         width={100}
                         height={100}
                         objectFit="cover"
                         className="w-[3rem] aspect-square rounded-full border border-gray-500"
+                      /> */}
+                      <span className="w-[3rem] aspect-square rounded-full border border-gray-500 overflow-hidden">
+                      <ImageWithFallback
+                        src={event?.organization?.logo}
+                        fallbackSrc={"https://placehold.co/100x100?text=Women\n Hub"}
+                        aspectRatio={{ width: 1, height: 1 }}
+                        alt={event?.organization?.name}
+                        className=""
                       />
+
+                      </span>
                       <h5 className="text-gray-200 font-semibold text-base font-quickSand">
                         {event?.organization?.name}
                       </h5>
@@ -175,24 +187,20 @@ export default function EventsDetailsPage({
                 </div>
               </div>
 
-              <div className="font-quickSand flex gap-10">
-                <button className="border border-primary text-primary text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
-                  {/* <Icon name="" size={24} /> */}
-                  <span className="flex items-center">
+              <div className="font-quickSand my-8 flex gap-10 justify-center">
+                <button className="border border-primary text-primary text-xs md:text-base px-4 py-1 rounded-md flex items-center space-x-2">
                     <ShareDropdown text={"Share"} urlToShare={urlToShare} />
-                  </span>
                 </button>
-                <button className="border border-primary bg-primary text-primaryWhite text-xs md:text-base px-4 py-2 rounded-md flex items-center space-x-2">
-                  {/* <Icon name="" size={24} /> */}
+                <button className="border border-primary bg-primary text-primaryWhite text-xs md:text-base px-4 py-1 rounded-md flex items-center space-x-2">
                   <Link
-                    className="flex items-center"
+                    className="flex items-center gap-2"
                     href={event?.organization?.website}
                     target="_blank"
                   >
                     <span>Visit Website</span>
                     <svg
-                      width="20"
-                      height="19"
+                      width="16"
+                      height="16"
                       viewBox="0 0 20 19"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +230,6 @@ export default function EventsDetailsPage({
                   </Link>
                 </button>
               </div>
-            </div>
           </div>
         </AnimatePresence>
       )}

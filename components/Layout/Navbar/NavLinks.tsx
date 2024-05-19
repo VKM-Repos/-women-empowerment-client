@@ -31,7 +31,7 @@ export function NavLinks() {
                       {value.label}
                     <ChevronFilledIcon
                       className={cn(
-                        'transition-transform duration-150 ease-in-out',
+                        'transition-transform duration-150 ease-in-out mt-2',
                         {
                           'group-hover:rotate-90': value.items,
                           'group-hover:text-btnWarning': value.items,
