@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/UI/Popover
 import  Link  from "next/link";
 import { siteNavigation } from "@/navigation";
 import { ChevronFilledIcon } from '@/components/Common/Icons';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import cn from 'classnames';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/UI/Tooltip';
 import { Badge } from '@/components/UI/Badge';
@@ -16,6 +16,7 @@ export function ProfileMenu({user}: any) {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname();
   const profileLink = `/profile/${user?.userId}`;
+    const router = useRouter();
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -52,9 +53,8 @@ export function ProfileMenu({user}: any) {
             <React.Fragment key={key}>
             <li className='flex gap-4 items-center justify-center' >
               <Icon name={icon} />
-              <Link
-              onClick={() => setIsOpen(false)}
-                  href={key === 'profile' ? profileLink : link}
+              <div
+                  onClick={() => {setIsOpen(false); router.push(key === 'profile' ? profileLink : link)}}
                   className={cn(
                     ' relative text-sm font-quickSand font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
                     { ' link': !currentPath.startsWith(link) },
@@ -65,7 +65,7 @@ export function ProfileMenu({user}: any) {
                   {!currentPath.startsWith(link) && (
                     <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
                   )}
-                </Link>
+                </div>
             </li>
             {key !== Object.keys(siteNavigation.profileNav).pop() && <Separator />}
             </React.Fragment>

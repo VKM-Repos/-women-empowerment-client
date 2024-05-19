@@ -9,8 +9,8 @@ import { Quicksand, Sora } from 'next/font/google'
 
 
 
-const sora = Sora({ subsets: ['latin'], variable: "--font-sora" })
-const quickSand = Quicksand({ subsets: ['latin'], variable: "--font-quickSand" })
+const sora = Sora({ subsets: ['latin'], variable: "--font-sora", display: 'swap', adjustFontFallback: false })
+const quickSand = Quicksand({ subsets: ['latin'], variable: "--font-quickSand", display: 'swap', adjustFontFallback: false })
 
 export const metadata: Metadata = {
   title: "Women Empowerment",

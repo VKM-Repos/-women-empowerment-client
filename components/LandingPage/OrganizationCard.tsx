@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import LikeButton from "./LikeButton";
 import ShareDropdown from "./ShareDropDown";
 import ExternalLinkButton from "./ExternalLinkButton";
+import ImageWithFallback from "../Common/ImageWithFallBack";
 
 
 export const OrganizationCard: React.FC<{
@@ -63,13 +64,14 @@ export const OrganizationCard: React.FC<{
           </div>
         </div>
         <div className="flex flex-col col-span-3 md:col-span-2">
-          <motion.img
+           <ImageWithFallback
             src={
               organization.logo ||
               "https://placehold.co/400x400?text=Women\n Hub"
             }
-            alt=""
-            loading="lazy"
+            fallbackSrc={"https://placehold.co/400x400?text=Women\n Hub"}
+            aspectRatio={{ width: 400, height: 400 }}
+            alt={organization?.name}
             className="w-full aspect-square justify-center items-center overflow-hidden rounded-md"
           />
         </div>

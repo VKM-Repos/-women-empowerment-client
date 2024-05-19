@@ -97,7 +97,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           ref={overlay}
-          className="w-screen fixed left-0 right-0 top-0 bottom-0 mx-auto bg-primaryBlack/40 z-[3000] flex items-center justify-center"
+          className="w-screen fixed left-0 right-0 top-0 bottom-0 mx-auto bg-primaryBlack/40 z-[4000] flex items-center justify-center"
           onClick={onClick}
         >
           <motion.div

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/UI/Popover";
 import  Link  from "next/link";
 import  OrgAvatar  from '@/public/images/org-avatar.svg';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import cn from 'classnames';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/UI/Tooltip';
 import { Avatar, AvatarImage } from '@/components/UI/Avatar';
@@ -12,6 +12,8 @@ import { Separator } from '@/components/UI/Separator';
 export function OrganizationMenu({ user }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname();
+  const router = useRouter();
+
 
   const organizationId = user?.organizationId;
   const isAdmin = user?.role.includes('ADMIN');
@@ -57,9 +59,8 @@ export function OrganizationMenu({ user }: any) {
             <React.Fragment key={key}>
             <li className='flex gap-4 items-center justify-center' >
               <Icon name={icon} />
-              <Link
-               onClick={() => setIsOpen(false)}
-                href={link}
+              <div
+               onClick={() => {setIsOpen(false); router.push(link)}}
                 className={cn(
                   'relative text-sm font-quickSand font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
                   { ' link': !currentPath.startsWith(link) },
@@ -70,7 +71,7 @@ export function OrganizationMenu({ user }: any) {
                 {!currentPath.startsWith(link) && (
                   <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
                 )}
-              </Link>
+              </div>
             </li>
             {index !== organizationLinks.length - 1 && <Separator />}
             </React.Fragment>
