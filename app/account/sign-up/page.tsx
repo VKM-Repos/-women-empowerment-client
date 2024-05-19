@@ -16,9 +16,12 @@ import { usePOST } from "@/lib/hooks/usePOST.hook";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { useAppContext } from "@/lib/context/app-context";
 import Image from "next/image";
+import { useSideMenu } from "@/lib/context/sidemenu-context";
+import SplashScreenModal from "./splash-screen/SplashScreenModal";
+import { useModal } from "@/lib/context/modal-context";
 
 let currentOtpIndex = 0;
-const Login: React.FC = () => {
+const Signup: React.FC = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,6 +35,14 @@ const Login: React.FC = () => {
   const [url, setUrl] = useState<string>("");
   const [counter, setCounter] = useState(59);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { showModal, hideModal } = useModal();
+
+  // create a useffect to showSidemenu of SplashScreenModal when the page is mounted
+  useEffect(() => {
+    showModal(<SplashScreenModal />);
+    }, []);
+
 
   const { login, isAuthenticated, user } = useAppContext();
   const { mutate, isPending, isError } = usePOST(`auth/${url}`);
@@ -129,6 +140,7 @@ const Login: React.FC = () => {
   return (
     <TransitionParent>
       <main>
+   
         {showOtpForm && (
           <div className="absolute top-[20%] left-0 right-0 ml-auto mr-auto  lg:w-[500px] w-[380px] px-10  z-50  bg-[#F0EBD6] lg:pt-[80px] pt-[40px] pb-10 rounded-lg">
             <div className="flex justify-end mb-5">
@@ -396,4 +408,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Signup;

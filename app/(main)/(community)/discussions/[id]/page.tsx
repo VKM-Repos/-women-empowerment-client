@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Button from "@/components/Common/Button/Button";
-import DiscussionCardThumbnail from "../components/DiscussionCardThumbnail";
-import DiscussionDetailsLoader from "../components/DiscussionDetailsLoader";
-import { useAppContext } from "@/lib/context/app-context";
-import useRelativeTime from "@/lib/utils/useRelativeTime";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { SubmitHandler, useForm } from "react-hook-form";
-import DiscussionCardLoader from "../components/DiscussionCardLoader";
-import { Comment, Discussion } from "@/lib/types/discussion.types";
-import CommentCard from "../components/CommentCard";
-import NoContent from "@/components/EmptyStates/NoContent";
-import Icon from "@/components/Common/Icons/Icon";
-import { useGET } from "@/lib/hooks/useGET.hook";
-
+import { AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Button from '@/components/Common/Button/Button';
+import DiscussionCardThumbnail from '../components/DiscussionCardThumbnail';
+import DiscussionDetailsLoader from '../components/DiscussionDetailsLoader';
+import { useAppContext } from '@/lib/context/app-context';
+import useRelativeTime from '@/lib/utils/useRelativeTime';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import DiscussionCardLoader from '../components/DiscussionCardLoader';
+import { Comment, Discussion } from '@/lib/types/discussion.types';
+import CommentCard from '../components/CommentCard';
+import NoContent from '@/components/EmptyStates/NoContent';
+import Icon from '@/components/Common/Icons/Icon';
+import { useGET } from '@/lib/hooks/useGET.hook';
+import ImageWithFallback from '@/components/Common/ImageWithFallBack';
 
 export default function DiscussionDetailsPage({
   params,
@@ -35,8 +35,8 @@ export default function DiscussionDetailsPage({
     isError: isDiscussionsError,
     isLoading: isDiscussionsLoading,
   } = useGET({
-    url: "discussions",
-    queryKey: ["discussions"],
+    url: 'discussions',
+    queryKey: ['discussions'],
     withAuth: false,
     enabled: false,
   });
@@ -47,7 +47,7 @@ export default function DiscussionDetailsPage({
     isError: isDiscussionError,
   } = useGET({
     url: `discussions/${params?.id}`,
-    queryKey: ["discussion", params?.id],
+    queryKey: ['discussion', params?.id],
     withAuth: false,
     enabled: !!params?.id,
   });
@@ -59,19 +59,17 @@ export default function DiscussionDetailsPage({
     refetch: refetchComments,
   } = useGET({
     url: `discussions/${params?.id}/comments`,
-    queryKey: ["comments", params?.id],
+    queryKey: ['comments', params?.id],
     withAuth: false,
     enabled: !!params?.id,
   });
-
-
 
   const urlToShare = `https://womenhub.org/discussions/${params.id}`;
 
   const handleFacebookShare = () => {
     const shareUrl = encodeURIComponent(urlToShare);
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-    window.open(facebookUrl, "_blank", "width=600,height=400");
+    window.open(facebookUrl, '_blank', 'width=600,height=400');
   };
 
   const handleTwitterShare = () => {
@@ -79,12 +77,12 @@ export default function DiscussionDetailsPage({
       `Check out this awesome link - ${discussion.title}`
     );
     const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${urlToShare}`;
-    window.open(twitterUrl, "_blank", "width=600,height=400");
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
   };
 
   const handleLinkedInShare = () => {
     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${urlToShare}`;
-    window.open(linkedInUrl, "_blank", "width=600,height=400");
+    window.open(linkedInUrl, '_blank', 'width=600,height=400');
   };
 
   const formattedDate = useRelativeTime(discussion?.createdAt);
@@ -97,14 +95,14 @@ export default function DiscussionDetailsPage({
     formState: { errors, isDirty, isValid },
   } = useForm<{ content: string }>({
     defaultValues: {
-      content: "",
+      content: '',
     },
   });
 
-  const addComment: SubmitHandler<{ content: string }> = async (data) => {
+  const addComment: SubmitHandler<{ content: string }> = async data => {
     setIsLoading(true);
     if (!isAuthenticated) {
-      toast.error("You must be logged in to comment.");
+      toast.error('You must be logged in to comment.');
       // throw new Error("User is not authenticated");
       setIsLoading(false);
     } else {
@@ -113,22 +111,22 @@ export default function DiscussionDetailsPage({
         const endpoint = `${apiUrl}discussions/${params?.id}/comments`;
 
         const formData = new FormData();
-        formData.append("content", data.content);
+        formData.append('content', data.content);
 
         const response: any = await axios.post(endpoint, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         });
 
         if (response.status === 200) {
-          toast.success("comment added!");
+          toast.success('comment added!');
           refetchComments();
         } else {
           toast.error(` ${response?.status}`);
         }
-      } catch (error: any) {       
+      } catch (error: any) {
         toast.error(`Error: ${error.response.statusText}`);
       } finally {
         setIsLoading(false);
@@ -143,10 +141,10 @@ export default function DiscussionDetailsPage({
       {isDiscussionLoading || !discussions ? (
         <DiscussionDetailsLoader />
       ) : (
-        <div className="lg:w-3/4 w-full mx-auto my-[2rem]  pb-[7rem] pt-8 rounded-[1rem] relative font-sora">
+        <div className="font-sora relative mx-auto my-[2rem]  w-full rounded-[1rem] pb-[7rem] pt-8 lg:w-3/4">
           <button
             onClick={router.back}
-            className="w-fit flex items-center justify-center gap-5 absolute top-0 left-1 text-btnWarning "
+            className="text-btnWarning absolute left-1 top-0 flex w-fit items-center justify-center gap-5 "
           >
             <svg
               className="cursor-pointer"
@@ -163,67 +161,58 @@ export default function DiscussionDetailsPage({
             </svg>
             Go back
           </button>
-          <div className="w-full mx-auto mt-6 flex flex-col gap-10 items-center my-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start relative">
-
+          <div className="mx-auto my-auto mt-6 flex w-full flex-col items-center gap-10 px-4">
+            <div className="relative grid grid-cols-1 justify-start gap-10 md:grid-cols-2">
               <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
-                <div className=" md:hidden flex items-center gap-4">
-                  <span className="w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
-                    <Image
-                      src={
-                        discussion?.createdBy.photoUrl
-                          ? discussion?.createdBy.photoUrl
-                          : "https://placehold.co/400x400/png"
+                <div className=" flex items-center gap-4 md:hidden">
+                  <span className="aspect-square w-[2.5rem] overflow-hidden rounded-full md:w-[3.5rem]">
+                    <ImageWithFallback
+                      src={discussion?.createdBy.photoUrl}
+                      fallbackSrc={
+                        'https://placehold.co/500x500?text=Women\n Hub'
                       }
-                      alt={`profile image`}
-                      width={100}
-                      height={100}
-                      objectFit="cover"
-                      layout="responsive"
+                      aspectRatio={{ width: 1, height: 1 }}
+                      alt={discussion.createdBy.name}
                       className=""
                     />
                   </span>
-                  <h5 className="text-gray-200 font-semibold font-sora text-base">
-                    {discussion?.createdBy?.name || "Anonymous"}
+                  <h5 className="text-gray-200 font-sora text-base font-semibold">
+                    {discussion?.createdBy?.name || 'Anonymous'}
                   </h5>
                 </div>
-                <h3 className=" text-lg md:text-2xl font-sora font-bold text-primaryBlack">
+                <h3 className=" font-sora text-primaryBlack text-lg font-bold md:text-2xl">
                   {discussion?.title}
                 </h3>
-                <p className="text-base font-quickSand text-gray-100 font-semibold">
+                <p className="font-quickSand text-gray-100 text-base font-semibold">
                   {discussion?.content}
                 </p>
                 <div className="flex items-center justify-start gap-4">
-                  <p className="text-sm font-quickSand text-gray-400 font-semibold">
+                  <p className="font-quickSand text-gray-400 text-sm font-semibold">
                     {formattedDate}
                   </p>
-                  <p className="text-sm font-light font-sora text-primary flex items-center justify-center gap-1">
-                    <Icon name="comment-icon" className="w-4 aspect-square" />
+                  <p className="font-light font-sora text-primary flex items-center justify-center gap-1 text-sm">
+                    <Icon name="comment-icon" className="aspect-square w-4" />
 
                     <span>
-                      {comments?.length}{" "}
-                      {comments?.length <= 1 ? "comment" : "comments"}
+                      {comments?.length}{' '}
+                      {comments?.length <= 1 ? 'comment' : 'comments'}
                     </span>
                   </p>
                   {/* <span>{discussions.comments} comments</span></p> */}
                 </div>
                 <form
                   onSubmit={handleSubmit(addComment)}
-                  className="w-full flex flex-col gap-2"
+                  className="flex w-full flex-col gap-2"
                 >
-                  <fieldset className="w-full grid grid-cols-8 gap-4 items-center">
-                    <span className="col-span-1 w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
-                      <Image
-                        src={
-                          discussion?.createdBy.photoUrl
-                            ? discussion?.createdBy.photoUrl
-                            : "https://placehold.co/400x400/png"
+                  <fieldset className="grid w-full grid-cols-8 items-center gap-4">
+                    <span className="col-span-1 aspect-square w-[2.5rem] overflow-hidden rounded-full md:w-[3.5rem]">
+                      <ImageWithFallback
+                        src={discussion?.createdBy.photoUrl}
+                        fallbackSrc={
+                          'https://placehold.co/100x100?text=Women\n Hub'
                         }
-                        alt={`profile image`}
-                        width={100}
-                        height={100}
-                        objectFit="cover"
-                        layout="responsive"
+                        aspectRatio={{ width: 100, height: 100 }}
+                        alt={discussion.createdBy.name}
                         className=""
                       />
                     </span>
@@ -231,24 +220,24 @@ export default function DiscussionDetailsPage({
                       type="text"
                       id=""
                       placeholder="Add comment"
-                      {...register("content", {
-                        required: "This field is required",
+                      {...register('content', {
+                        required: 'This field is required',
                       })}
-                      className=" col-span-7 py-3 font-quickSand border border-gray-500 bg-primaryWhite rounded-l text-base text-gray-100 focus:outline-btnWarning p-2 "
+                      className=" font-quickSand border-gray-500 bg-primaryWhite text-gray-100 focus:outline-btnWarning col-span-7 rounded-l border p-2 py-3 text-base "
                     />
                     {errors?.content?.message && (
-                      <p className="text-error text-sm mt-1">
+                      <p className="text-error mt-1 text-sm">
                         {errors?.content?.message}
                       </p>
                     )}
                   </fieldset>
-                  <div className="w-full flex justify-end">
+                  <div className="flex w-full justify-end">
                     <Button
-                      label={isLoading ? "Adding..." : "Add"}
+                      label={isLoading ? 'please wait...' : 'Add'}
                       variant="primary"
                       size="medium"
                       fullWidth={false}
-                      state={isValid ? "active" : "disabled"}
+                      state={isValid ? 'active' : 'disabled'}
                       disabled={isLoading}
                     />
                   </div>
@@ -266,7 +255,9 @@ export default function DiscussionDetailsPage({
                   ) : !isCommentsLoading &&
                     !isCommentsError &&
                     comments?.length === 0 ? (
-                    <p className="text-gray-300">No comments yet. Be the first to leave a comment!</p>
+                    <p className="text-gray-300">
+                      No comments yet. Be the first to leave a comment!
+                    </p>
                   ) : (
                     <div className="flex flex-col gap-10">
                       {comments?.map((comment: Comment) => (
@@ -279,24 +270,20 @@ export default function DiscussionDetailsPage({
 
               {/*2nd col */}
               <div className="col-span-1 flex flex-col items-start justify-start gap-10">
-                <div className=" hidden md:flex items-center gap-4">
-                  <span className="w-[2.5rem] md:w-[3.5rem] aspect-square rounded-full overflow-hidden">
-                    <Image
-                      src={
-                        discussion?.createdBy.photoUrl
-                          ? discussion?.createdBy.photoUrl
-                          : "https://placehold.co/400x400/png"
+                <div className=" hidden items-center gap-4 md:flex">
+                  <span className="aspect-square w-[2.5rem] overflow-hidden rounded-full md:w-[3.5rem]">
+                    <ImageWithFallback
+                      src={discussion?.createdBy.photoUrl}
+                      fallbackSrc={
+                        'https://placehold.co/100x100?text=Women\n Hub'
                       }
-                      alt={`profile image`}
-                      width={100}
-                      height={100}
-                      objectFit="cover"
-                      layout="responsive"
+                      aspectRatio={{ width: 100, height: 100 }}
+                      alt={discussion.createdBy.name}
                       className=""
                     />
                   </span>
-                  <h5 className="text-gray-200 font-semibold font-sora text-base">
-                    {discussion?.createdBy?.name || "Anonymous"}
+                  <h5 className="text-gray-200 font-sora text-base font-semibold">
+                    {discussion?.createdBy?.name || 'Anonymous'}
                   </h5>
                 </div>
 
@@ -304,10 +291,10 @@ export default function DiscussionDetailsPage({
                   <h5 className="font-sora font-light text-primary text-base md:text-lg">
                     Share this discussion
                   </h5>
-                  <span className="flex  items-center justify-start w-auto gap-2 text-primaryWhite">
+                  <span className="text-primaryWhite  flex w-auto items-center justify-start gap-2">
                     <button onClick={handleFacebookShare}>
                       <svg
-                        className="w-8 aspect-square rounded-full bg-info"
+                        className="bg-info aspect-square w-8 rounded-full"
                         viewBox="0 0 40 40"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +308,7 @@ export default function DiscussionDetailsPage({
 
                     <button onClick={handleTwitterShare}>
                       <svg
-                        className="w-8 aspect-square rounded-full bg-info"
+                        className="bg-info aspect-square w-8 rounded-full"
                         viewBox="0 0 40 40"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -335,7 +322,7 @@ export default function DiscussionDetailsPage({
 
                     <button onClick={handleLinkedInShare}>
                       <svg
-                        className="w-8 aspect-square rounded-full bg-info"
+                        className="bg-info aspect-square w-8 rounded-full"
                         viewBox="0 0 40 40"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

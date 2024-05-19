@@ -1,43 +1,35 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import Icon from "@/components/Common/Icons/Icon";
-import { Comment, Discussion } from "@/lib/types/discussion.types";
-import useRelativeTime from "@/lib/utils/useRelativeTime";
-
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Icon from '@/components/Common/Icons/Icon';
+import { Comment, Discussion } from '@/lib/types/discussion.types';
+import useRelativeTime from '@/lib/utils/useRelativeTime';
+import ImageWithFallback from '@/components/Common/ImageWithFallBack';
 
 const CommentCard: React.FC<{
   comment: Comment;
 }> = ({ comment }) => {
-
-
   const formattedDate = useRelativeTime(comment.createdAt);
 
   return (
-    <div key={comment.id} className="w-full grid grid-cols-8 gap-4">
-      <span className="col-span-1 w-[2rem] md:w-[2.5rem] aspect-square rounded-full overflow-hidden">
-        <Image
-          src={
-            comment?.user?.photoUrl
-              ? comment?.user?.photoUrl
-              : "https://placehold.co/400x400/png"
-          }
-          alt={`profile image`}
-          width={100}
-          height={100}
-          objectFit="cover"
-          layout="responsive"
+    <div key={comment.id} className="grid w-full grid-cols-8 gap-4">
+      <span className="col-span-1 aspect-square w-[2rem] overflow-hidden rounded-full md:w-[2.5rem]">
+        <ImageWithFallback
+          src={comment?.user?.photoUrl ? comment?.user?.photoUrl : ''}
+          fallbackSrc={'https://placehold.co/100x100?text=Women\n Hub'}
+          aspectRatio={{ width: 100, height: 100 }}
+          alt={comment?.user?.name}
           className=""
         />
       </span>
       <div className="col-span-7 flex flex-col items-start justify-center gap-1">
-        <h6 className="text-sm md:text-base font-sora text-gray-100">
+        <h6 className="font-sora text-gray-100 text-sm md:text-base">
           {comment.user?.name}
         </h6>
-        <p className="text-sm font-quickSand text-gray-200">
+        <p className="font-quickSand text-gray-200 text-sm">
           {comment.content}
         </p>
-        <div className="w-full flex items-center justify-start gap-4 font-semibold">
-          <p className="text-xs font-quickSand text-gray-400">
+        <div className="flex w-full items-center justify-start gap-4 font-semibold">
+          <p className="font-quickSand text-gray-400 text-xs">
             {formattedDate}
           </p>
           {/* <button className="text-sm font-sora text-primary flex items-center justify-center gap-1">

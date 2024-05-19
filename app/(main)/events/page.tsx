@@ -140,7 +140,7 @@ const EventsPage = () => {
               !isEventsError &&
               events?.content.length === 0 && <p>No Events yet</p>}
             {!isEventsLoading && !isEventsError && (
-              <div className="w-full md:w-[95%] mx-auto flex justify-center flex-wrap pb-[8rem]">
+              <div className="w-full mx-auto flex justify-center flex-wrap pb-[8rem]">
                 {events?.content.map((event: Event) => (
                   <EventCard key={event.id} event={event} />
                 ))}

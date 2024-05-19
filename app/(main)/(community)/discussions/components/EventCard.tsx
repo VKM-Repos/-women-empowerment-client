@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Event } from "@/lib/types/events.types";
 import { formatDateTime } from "@/lib/utils/helperFunctions";
 import Link from "next/link";
+import ImageWithFallback from "@/components/Common/ImageWithFallBack";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
@@ -12,7 +13,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
       className="w-full font-sora grid grid-cols-8 items-center my-1 cursor-pointer hover:bg-primary/10 drop-shadow-sm gap-4 md:gap-0 border-gray-500 transform transition-all ease-in-out hover:scale-[99%] duration-75 rounded-[0.5rem] p-1 md:p-2"
     >
       <span className="col-span-2  w-full md:w-2/3  aspect-square rounded-full overflow-hidden relative">
-        <Image
+        {/* <Image
           src={
             event?.image
               ? event?.image
@@ -22,7 +23,17 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           objectFit="cover"
           layout="fill"
           className=""
-        />
+        /> */}
+         <ImageWithFallback
+            src={
+              event?.image ||
+              "https://placehold.co/200x200?text=Women\n Hub"
+            }
+            fallbackSrc={"https://placehold.co/200x200?text=Women\n Hub"}
+            aspectRatio={{ width: 200, height: 200 }}
+            alt={event?.name}
+            className="w-full"
+          />
       </span>
 
 

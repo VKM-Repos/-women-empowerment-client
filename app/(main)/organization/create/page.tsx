@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import OrgNameForm from "../components/forms/OrgName.form";
 import OrgCategoryForm from "../components/forms/OrgCategory.form";
@@ -152,17 +151,18 @@ function CreateOrganizationPage() {
           />
         );
       case 9:
-        // pass the new org id created here
         return <OrgStepComplete orgId={orgId} />;
       default:
         return null;
     }
   };
   return (
-    <AnimatePresence initial={true} mode="wait">
+    <>
       {isLoading && <LoadingThinkingWomen />}
-      {RenderForm()}
-    </AnimatePresence>
+      <div className="min-w-full">
+        {RenderForm()}
+      </div>
+    </>
   );
 }
 

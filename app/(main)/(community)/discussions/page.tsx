@@ -8,9 +8,7 @@ import Group from "@/public/images/group-of-girls.png";
 import Button from "@/components/Common/Button/Button";
 import DiscussionCard from "./components/DiscussionCard";
 import EventCard from "./components/EventCard";
-import NewsCard from "./components/NewsCard";
 
-import db from "@/data/db.json";
 import DiscussionCardLoader from "./components/DiscussionCardLoader";
 import { useModal } from "@/lib/context/modal-context";
 import CreateDiscussionModal from "./components/CreateDiscussionModal";
