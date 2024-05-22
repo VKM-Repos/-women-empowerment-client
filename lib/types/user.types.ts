@@ -8,16 +8,17 @@ export interface User {
   email: string;
   enabled: boolean;
   isEmailVerified: boolean;
+  userId: number;
+  role: string;
+  organizationId: string;
+  token: string;
+  refreshToken: string;
   photoUrl?: string;
   createdAt: Instant;
   updatedAt: Instant;
 }
 
-
 export interface UserResponse {
   userId: string;
   email: string;
 }
-
-
-

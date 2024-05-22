@@ -51,21 +51,25 @@ export function ProfileMenu({user}: any) {
         <ul className="flex flex-col items-start justify-center gap-2 font-quickSand text-gray-200">
           {Object.entries(siteNavigation.profileNav).map(([key, { label, link, icon, alt }]) => (
             <React.Fragment key={key}>
-            <li className='flex gap-4 items-center justify-center' >
+            <li className='flex gap-4 items-center justify-center relative' >
               <Icon name={icon} />
               <div
                   onClick={() => {setIsOpen(false); router.push(key === 'profile' ? profileLink : link)}}
                   className={cn(
-                    ' relative text-sm font-quickSand font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
+                    ' relative text-sm font-quickSand font-medium transition duration-300 ease-in-out cursor-pointer hover:text-btnWarning hover:no-underline',
                     { ' link': !currentPath.startsWith(link) },
                     { 'text-btnWarning': currentPath.startsWith(key === 'profile' ? profileLink : link) }
                   )}
                 >
                   {label}
+                 
                   {!currentPath.startsWith(link) && (
                     <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
                   )}
                 </div>
+             {key === 'notification' && (
+                    <Badge className="absolute -right-12 bottom-0 bg-black-100 text-[10px] text-white-100 z-10">New</Badge>
+                  )}
             </li>
             {key !== Object.keys(siteNavigation.profileNav).pop() && <Separator />}
             </React.Fragment>

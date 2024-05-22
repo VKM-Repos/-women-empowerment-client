@@ -11,6 +11,7 @@ import { useAppContext } from '@/lib/context/app-context';
 import { ProfileMenu } from './ProfileMenu';
 import { OrganizationMenu } from './OrganizationMenu';
 import userAccount from '@/public/icons/account-user.svg';
+import { cn } from '@/lib/utils';
 
 const NavBar = () => {
   const { user } = useAppContext();
@@ -22,9 +23,9 @@ const NavBar = () => {
   return (
     <header className="w-full border-b">
       <nav
-        className={`font-sora bg-primaryWhite fixed inset-x-0 top-0 z-[2000] flex items-center justify-between px-2 py-1 shadow-sm md:px-8`}
+        className={`font-sora bg-primaryWhite fixed inset-x-0 top-0 z-[2000] flex items-center justify-between px-2 py-2 shadow-sm md:px-8`}
       >
-        <div className="flex w-1/3 items-center justify-start gap-4 md:py-2">
+        <div className="flex w-1/3 items-center justify-start gap-4 py-2">
           <button onClick={handleSideMenu} className={'block lg:hidden'}>
             <MenuIcon />
           </button>
@@ -55,7 +56,8 @@ const NavBar = () => {
             <div className="flex items-center gap-2 text-xs md:text-base">
               <Link
                 href="/account/login"
-                className="text-light flex items-center gap-1 p-2 px-4 "
+                className={cn(" text-light flex items-center gap-1 p-2 px-4 hover:text-btnWarning hover:no-underline relative link",
+                )}
               >
                 <Image
                   width={0.5}

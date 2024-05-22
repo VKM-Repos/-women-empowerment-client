@@ -23,8 +23,8 @@ export function NavLinks() {
                   <PopoverTrigger>
                     <span
                     className={cn(
-                    'flex items-center gap-1 text-lg font-normal transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
-                    { 'link': !currentPath.startsWith(value.label) },
+                    ' relative flex items-center gap-1 text-lg font-normal transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
+                    { 'link': currentPath.includes(value.items.discussions.link || value.items.support.link) },
          
                   )}
                     >
@@ -40,7 +40,9 @@ export function NavLinks() {
                         {'rotate-90': isOpen}
                       )}
                     />
-                    
+                         {currentPath.includes(value.items.discussions.link || value.items.support.link) && (
+                  <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
+                )}
                     </span>
                   </PopoverTrigger>
                   <PopoverContent align='start' className="absolute top-full left-0 w-48 bg-primaryWhite shadow-md rounded">
@@ -52,12 +54,12 @@ export function NavLinks() {
                             href={item.link}
                             className={cn(
                               ' relative text-sm font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline',
-                              { ' link': !currentPath.startsWith(item.link) },
+                              { 'link': currentPath.startsWith(item.link) },
                               { 'text-btnWarning': currentPath.startsWith(item.link) }
                             )}
                           >
                             {item.label}
-                           {!currentPath.startsWith(item.label) && (
+                           {currentPath.startsWith(item.label) && (
                             <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
                   )}
                           </Link>
