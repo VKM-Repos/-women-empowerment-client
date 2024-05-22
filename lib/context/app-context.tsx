@@ -6,7 +6,7 @@ type UserData = {
   email: string;
   userId: number;
   role: string;
-  organizationId: number;
+  organizationId: string;
   token: string;
   refreshToken: string;
   // Add other relevant fields
