@@ -3,7 +3,23 @@ import React from "react";
 import { Menu } from "./Menu";
 
 export default function Sidebar() {
-  const menus = [
+
+  return (
+    <span className="w-full space-y-12 absolute inset-y-0 h-[70dvh] p-4 border rounded-[1rem] shadow-sm overflow-hidden">
+      <h3 className="text-primary text-lg text-center whitespace-nowrap font-sora font-semibold ">
+        Manage Organization
+      </h3>
+      <div className="flex flex-col gap-1 font-quickSand w-full">
+        {menus?.map((menu, id) => (
+          <Menu key={id} link={menu.link} icon={menu.icon} title={menu.title} />
+        ))}
+      </div>
+    </span>
+  );
+}
+
+
+export const menus = [
     {
       link: "/organization/manage/dashboard",
       title: "Dashboard",
@@ -189,16 +205,3 @@ export default function Sidebar() {
       ),
     },
   ];
-  return (
-    <span className="items-stretch  bg-white flex grow flex-col w-full px-14 py-11 rounded-2xl border border-gray-500 max-md:mt-5 max-md:px-5">
-      <div className="text-black text-xl tracking-wide whitespace-nowrap font-sora">
-        Manage Organization
-      </div>
-      <div className="justify-center flex flex-col gap-3 mt-12 mb-[652px] py-2.5 items-start max-md:my-10 max-md:pr-5 font-quickSand w-full">
-        {menus?.map((menu, id) => (
-          <Menu key={id} link={menu.link} icon={menu.icon} title={menu.title} />
-        ))}
-      </div>
-    </span>
-  );
-}

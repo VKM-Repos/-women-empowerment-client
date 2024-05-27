@@ -92,7 +92,7 @@ const OrgEvents: React.FC<OrgEventsProps> = ({
       ) : (
         <NoContent
           message="No events yet."
-          buttonText={'Add Images'}
+          buttonText={'Add Event'}
           buttonLink={() => router.push('/events/create')}
           withButton={user?.organizationId == organization?.id}
         />

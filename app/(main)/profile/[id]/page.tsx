@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 
-import db from "@/data/db.json";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { Event } from "@/lib/types/events.types";
 import EventCardLoader from "../../events/components/EventCardLoader";

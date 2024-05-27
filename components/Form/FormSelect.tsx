@@ -18,7 +18,7 @@ const FormSelect: FC<FormSelect> = ({ value, onChange, defaultValue, placeholder
 
   return (
     <Select onValueChange={onChange} defaultValue={defaultValue} value={value}>
-      <SelectTrigger className="w-full select-none">
+      <SelectTrigger className="w-full select-none placeholder:text-black/30 bg-[#F9F9F9] font-medium ">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

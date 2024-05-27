@@ -31,7 +31,7 @@ export function ProfileMenu({user}: any) {
                   src={user?.photoUrl || ""}
                   alt={user?.name}
                 />
-                <AvatarFallback className='font-sora font-bold'>{getInitials(user?.name) || "W"}</AvatarFallback>
+                <AvatarFallback className='font-sora font-bold'>{getInitials(user?.name, "letter") || "W"}</AvatarFallback>
               </Avatar>
               <ChevronFilledIcon
                       className={cn(
@@ -42,7 +42,7 @@ export function ProfileMenu({user}: any) {
               </span>
             </TooltipTrigger>
             <TooltipContent side='left' className='text-primaryWhite bg-primary font-quickSand border-none'>
-              <p>profile</p>
+              <p className='capitalize'>{`${getInitials(user?.name?.toLowerCase() || "", "word" , true)} profile`}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -57,15 +57,10 @@ export function ProfileMenu({user}: any) {
                   onClick={() => {setIsOpen(false); router.push(key === 'profile' ? profileLink : link)}}
                   className={cn(
                     ' relative text-sm font-quickSand font-medium transition duration-300 ease-in-out cursor-pointer hover:text-btnWarning hover:no-underline',
-                    { ' link': !currentPath.startsWith(link) },
                     { 'text-btnWarning': currentPath.startsWith(key === 'profile' ? profileLink : link) }
                   )}
                 >
                   {label}
-                 
-                  {!currentPath.startsWith(link) && (
-                    <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
-                  )}
                 </div>
              {key === 'notification' && (
                     <Badge className="absolute -right-12 bottom-0 bg-black-100 text-[10px] text-white-100 z-10">New</Badge>
@@ -80,10 +75,23 @@ export function ProfileMenu({user}: any) {
   );
 }
 
-const getInitials = (name: string): string => {
-  // Check if the name is provided
+const getInitials = (name: string | undefined, mode: 'letter' | 'word' = 'letter', possessive: boolean = false): string => {
   if (!name) return '';
 
-  // Get the first letter and convert it to uppercase
-  return name.charAt(0).toUpperCase();
+  let result = '';
+
+  if (mode === 'word') {
+    const firstWord = name.split(' ')[0];
+    result = firstWord.toLowerCase();
+  } else {
+    result = name.charAt(0).toUpperCase();
+  }
+
+  if (possessive) {
+    // Regular expression to check if the name ends with 's' or 'z' sounds
+    const endsWithSOrZ = /[sz]$/i;
+    result = endsWithSOrZ.test(result) ? `${result}'` : `${result}'s`;
+  }
+
+  return result;
 };

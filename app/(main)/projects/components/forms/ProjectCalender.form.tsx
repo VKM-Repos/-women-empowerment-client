@@ -140,7 +140,7 @@ const isFormValid = status && startDate && endDate && Object.keys(errors).length
                   <FormDatePicker
                   placeholder="start date"
                   date={projectStartDate}
-                  onChange={(value: Date | any) => setValue('startDate', value.toISOString())}
+                  onChange={(value: Date | any) => setValue('startDate', value.toISOString().split('.')[0])}
                 />
                 {errors && errors.startDate && (
                   <p className="text-error mt-0 text-xs font-medium">
@@ -152,7 +152,7 @@ const isFormValid = status && startDate && endDate && Object.keys(errors).length
                   <FormDatePicker
                   placeholder="end date"
                   date={projectEndDate}
-                  onChange={(value: Date | any) => setValue('endDate', value.toISOString())}
+                  onChange={(value: Date | any) => setValue('endDate', value.toISOString().split('.')[0])}
              
                 />
                 {errors && errors.endDate && (
