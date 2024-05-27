@@ -1,33 +1,62 @@
-"use client";
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import db from "@/data/db.json";
-import { useEffect, useState } from "react";
-import formatIdToTitle from "@/lib/utils/formatIdToTitle";
-import EventDetailsLoader from "../components/EventDetailsLoader";
-import DefaultImage from "@/public/images/defaultEventsImage.png";
-import { useRouter } from "next/navigation";
-import { useGET } from "@/lib/hooks/useGET.hook";
-import { formatDateTime } from "@/lib/utils/helperFunctions";
-import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
-import { LocationIcon } from "@/components/Common/Icons/Location.icon";
-import ShareDropdown from "@/components/LandingPage/ShareDropDown";
-import Link from "next/link";
-import ImageWithFallback from "@/components/Common/ImageWithFallBack";
+'use client';
+import { AnimatePresence, motion } from 'framer-motion';
+import EventDetailsLoader from '../components/EventDetailsLoader';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useGET } from '@/lib/hooks/useGET.hook';
+import { formatDateTime } from '@/lib/utils/helperFunctions';
+import { CameraIcon } from '@/components/Common/Icons/Camera.icon';
+import { LocationIcon } from '@/components/Common/Icons/Location.icon';
+import ShareDropdown from '@/components/LandingPage/ShareDropDown';
+import Link from 'next/link';
+import ImageWithFallback from '@/components/Common/ImageWithFallBack';
+import ThreeDotsMenu from '../../organization/components/ThreeDotsMenu';
+import GoBackBtn from '@/components/Common/GoBackBtn';
+import Icon from '@/components/Common/Icons/Icon';
+import { useModal } from '@/lib/context/modal-context';
+import DeleteEventModal from '../components/DeleteEventModal';
+
+const menu = [
+  {
+    title: 'Edit',
+    blank: false,
+    isButton: true,
+    onClick: () => {
+      alert('removed');
+    },
+  },
+  {
+    title: 'delete',
+    blank: false,
+    isButton: true,
+    onClick: () => {
+      alert('changed');
+    },
+  },
+];
 
 export default function EventsDetailsPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const [events, setEvents] = useState<any | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const eventId = params?.id?.replace(/\(\.\)/g, "");
+  const eventId = params?.id?.replace(/\(\.\)/g, '');
+    const { showModal, hideModal } = useModal();
+
+  const handleDeleteModal = () => {
+    showModal(<DeleteEventModal eventId={eventId} />); }
+
+
+  // when owner wants to delete
+  const searchParams = useSearchParams();
+  const deleteQuery = searchParams.get('query') === 'delete';
+
+  // when owner wants to preview
+  const previewQuery = searchParams.get('query') === 'preview';
 
   const { data: event, isPending } = useGET({
     url: `events/${eventId}`,
-    queryKey: ["GET_EVENT_DETAILS_EVENT_DETAILS_PAGE", eventId],
+    queryKey: ['GET_EVENT_DETAILS_EVENT_DETAILS_PAGE', eventId],
     withAuth: false,
     enabled: true,
   });
@@ -36,110 +65,90 @@ export default function EventsDetailsPage({
   return (
     <>
       {isPending ? (
-        <EventDetailsLoader />
+        // <EventDetailsLoader />
+        'loading'
       ) : (
         <AnimatePresence initial={false} mode="wait">
-          <div className="lg:w-2/3 w-full mx-auto bg-[#F6F7F8] py-4 p-4 rounded-md relative ">
-            <button
-              onClick={router.back}
-              className="w-fit absolute top-0 right-1 m-4"
-            >
-              <svg
-                width="27"
-                height="27"
-                viewBox="0 0 27 27"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.75488 8.05713L18.6445 18.9467M7.75488 18.9467L18.6445 8.05713"
-                  stroke="black"
-                  strokeWidth="1.58394"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-start justify-items-stretch">
-                <div className="w-full col-span-1 flex flex-col items-start justify-items-stretch gap-5 ">
-                  <div className="w-full h-4/5 rounded-md overflow-hidden">
-                    <ImageWithFallback
-                        src={event?.image}
-                        fallbackSrc={"https://placehold.co/600x500?text=Women\n Hub"}
-                        aspectRatio={{ width: 6, height: 5 }}
-                        alt={event?.name}
-                        className=""
-                      />
-                  </div>
-                  <h3 className="h-fit w-full uppercase text-base font-bold text-primary font-sora">
-                    {event?.name}
-                  </h3>
+          <div className="font-sora relative mx-auto w-full rounded-[1rem] p-4 pb-[7rem] pt-8 lg:w-3/4 ">
+            <GoBackBtn />
+            <span className="flex w-full items-center justify-end">
+              {previewQuery && <ThreeDotsMenu menu={menu} />}
+            </span>
+            <div className="grid grid-cols-1 my-6 justify-start justify-items-stretch gap-10 md:grid-cols-2">
+              <div className="col-span-1 flex w-full flex-col items-start justify-items-stretch gap-5 ">
+                <div className="h-3/5 w-full overflow-hidden rounded-md">
+                  <ImageWithFallback
+                    src={event?.image}
+                    fallbackSrc={
+                      'https://placehold.co/600x500?text=Women\n Hub'
+                    }
+                    aspectRatio={{ width: 6, height: 5 }}
+                    alt={event?.name}
+                    className=""
+                  />
                 </div>
-                <div className="col-span-1 flex flex-col items-start justify-start gap-5">
-                  <h3 className="font-semibold text-xl  font-sora">Details</h3>
-                  <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
-                    <div className=" flex items-center gap-4">
-                      {/* <Image
-                        src={event?.organization?.logo}
-                        alt={event?.organization?.name}
-                        width={100}
-                        height={100}
-                        objectFit="cover"
-                        className="w-[3rem] aspect-square rounded-full border border-gray-500"
-                      /> */}
-                      <span className="w-[3rem] aspect-square rounded-full border border-gray-500 overflow-hidden">
+                <h3 className="text-primary font-sora h-fit w-full text-base font-bold uppercase">
+                  {event?.name}
+                </h3>
+              </div>
+              <div className="col-span-1 flex flex-col items-start justify-start gap-5">
+                <h3 className="font-sora text-xl  font-semibold">Details</h3>
+                <div className="bg-primaryWhite flex w-full flex-col gap-5 rounded-lg p-4">
+                  <div className=" flex items-center gap-4">
+                    <span className="border-gray-500 aspect-square w-[3rem] overflow-hidden rounded-full border">
                       <ImageWithFallback
                         src={event?.organization?.logo}
-                        fallbackSrc={"https://placehold.co/100x100?text=Women\n Hub"}
+                        fallbackSrc={
+                          'https://placehold.co/100x100?text=Women\n Hub'
+                        }
                         aspectRatio={{ width: 1, height: 1 }}
                         alt={event?.organization?.name}
                         className=""
                       />
+                    </span>
+                    <h5 className="text-gray-200 font-quickSand text-base font-semibold">
+                      {event?.organization?.name}
+                    </h5>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {/* <Icon name="" size={20} /> */}
+                    <svg
+                      width="23"
+                      height="24"
+                      viewBox="0 0 23 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.7377 21.3094C16.8406 21.3094 20.9774 17.1727 20.9774 12.0698C20.9774 6.96682 16.8406 2.83008 11.7377 2.83008C6.63479 2.83008 2.49805 6.96682 2.49805 12.0698C2.49805 17.1727 6.63479 21.3094 11.7377 21.3094Z"
+                        stroke="#106840"
+                        strokeWidth="1.18796"
+                      />
+                      <path
+                        d="M11.7383 7.44971V12.0695L14.0482 14.3795"
+                        stroke="#106840"
+                        strokeWidth="1.18796"
+                      />
+                    </svg>
 
-                      </span>
-                      <h5 className="text-gray-200 font-semibold text-base font-quickSand">
-                        {event?.organization?.name}
+                    <span className="font-sora flex flex-col items-start gap-1">
+                      <h5 className="text-gray-200 text-sm">
+                        {formatDateTime(event?.startDate)}
                       </h5>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      {/* <Icon name="" size={20} /> */}
-                      <svg
-                        width="23"
-                        height="24"
-                        viewBox="0 0 23 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M11.7377 21.3094C16.8406 21.3094 20.9774 17.1727 20.9774 12.0698C20.9774 6.96682 16.8406 2.83008 11.7377 2.83008C6.63479 2.83008 2.49805 6.96682 2.49805 12.0698C2.49805 17.1727 6.63479 21.3094 11.7377 21.3094Z"
-                          stroke="#106840"
-                          strokeWidth="1.18796"
-                        />
-                        <path
-                          d="M11.7383 7.44971V12.0695L14.0482 14.3795"
-                          stroke="#106840"
-                          strokeWidth="1.18796"
-                        />
-                      </svg>
-
-                      <span className="flex flex-col gap-1 items-start font-sora">
-                        <h5 className="text-gray-200 text-sm">
-                          {formatDateTime(event?.startDate)}
-                        </h5>
-                        <h5 className="text-gray-200 text-sm">
-                          {formatDateTime(event?.endDate)}
-                        </h5>
-                        {/* <button
+                      <h5 className="text-gray-200 text-sm">
+                        {formatDateTime(event?.endDate)}
+                      </h5>
+                      {/* <button
                           onClick={() => {}}
                           className="text-info hover:underline text-sm"
                         >
                           Add to calender
                         </button> */}
-                      </span>
-                    </div>
-                    <div className=" flex items-center gap-4">
-                      {/* <Icon name="" size={20} /> */}
-                      {/* <svg
+                    </span>
+                  </div>
+                  <div className=" flex items-center gap-4">
+                    {/* <Icon name="" size={20} /> */}
+                    {/* <svg
                         width="23"
                         height="23"
                         viewBox="0 0 23 23"
@@ -158,78 +167,92 @@ export default function EventsDetailsPage({
                           fill="#106840"
                         />
                       </svg> */}
-                      {event?.type == "ONLINE" ? (
-                        <CameraIcon className="w-6 aspect-square" />
+                    {event?.type == 'ONLINE' ? (
+                      <CameraIcon className="aspect-square w-6" />
+                    ) : (
+                      <LocationIcon className="aspect-square w-6" />
+                    )}
+                    <p className="text-gray-200 font-sora text-sm">
+                      {event?.type == 'ONLINE' ? (
+                        <p>
+                          <a href={event?.link} className="underline">
+                            {event?.link}
+                          </a>{' '}
+                          ({event?.type})
+                        </p>
                       ) : (
-                        <LocationIcon className="w-6 aspect-square" />
-                      )}
-                      <p className="text-sm text-gray-200 font-sora">
-                        {event?.type == "ONLINE" ? (
-                          <p>
-                            <a href={event?.link} className="underline">
-                              {event?.link}
-                            </a>{" "}
-                            ({event?.type})
-                          </p>
-                        ) : (
-                          <p>
-                            {event?.location} ({event?.type})
-                          </p>
-                        )}{" "}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="bg-primaryWhite w-full rounded-lg drop-shadow-sm p-4 flex flex-col gap-5">
-                    <p className="text-sm text-gray-200 font-quickSand">
-                      {event?.description}
+                        <p>
+                          {event?.location} ({event?.type})
+                        </p>
+                      )}{' '}
                     </p>
                   </div>
                 </div>
+                <div className="bg-primaryWhite flex w-full flex-col gap-5 rounded-lg p-4">
+                  <p className="text-gray-200 font-quickSand text-sm">
+                    {event?.description}
+                  </p>
+                </div>
               </div>
+            </div>
 
-              <div className="font-quickSand my-8 flex gap-10 justify-center">
-                <button className="border border-primary text-primary text-xs md:text-base px-4 py-1 rounded-md flex items-center space-x-2">
-                    <ShareDropdown text={"Share"} urlToShare={urlToShare} />
+            <div className="font-quickSand my-4 flex justify-center gap-10">
+              {deleteQuery ? (
+                <button onClick={handleDeleteModal} className="border-error bg-error text-primaryWhite flex items-center space-x-2 rounded-md border px-6 py-4 text-xs md:text-base">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 3.66602L12.5869 10.3494C12.4813 12.0569 12.4285 12.9107 12.0005 13.5246C11.7889 13.8281 11.5165 14.0842 11.2005 14.2767C10.5614 14.666 9.706 14.666 7.99513 14.666C6.28208 14.666 5.42553 14.666 4.78603 14.2759C4.46987 14.0831 4.19733 13.8265 3.98579 13.5225C3.55792 12.9077 3.5063 12.0527 3.40307 10.3428L3 3.66602" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M2 3.66732H14M10.7038 3.66732L10.2487 2.72847C9.9464 2.10482 9.7952 1.793 9.53447 1.59852C9.47667 1.55538 9.4154 1.51701 9.35133 1.48378C9.0626 1.33398 8.71607 1.33398 8.023 1.33398C7.31253 1.33398 6.95733 1.33398 6.66379 1.49006C6.59873 1.52466 6.53665 1.56458 6.47819 1.60943C6.21443 1.81178 6.06709 2.13502 5.77241 2.78149L5.36861 3.66732" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M6.33301 11V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M9.66699 11V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                  <span>Delete</span>
                 </button>
-                <button className="border border-primary bg-primary text-primaryWhite text-xs md:text-base px-4 py-1 rounded-md flex items-center space-x-2">
-                  <Link
-                    className="flex items-center gap-2"
-                    href={event?.organization?.website}
-                    target="_blank"
-                  >
-                    <span>Visit Website</span>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 20 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+              ) : (
+                <>
+                  <button className="border-primary text-primary flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base">
+                    <ShareDropdown text={'Share'} urlToShare={urlToShare} />
+                  </button>
+                  <button className="border-primary bg-primary text-primaryWhite flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base">
+                    <Link
+                      className="flex items-center gap-2"
+                      href={event?.organization?.website}
+                      target="_blank"
                     >
-                      <path
-                        d="M17.2916 9.50031V15.8361C17.2916 16.0461 17.2082 16.2476 17.0597 16.3961C16.9111 16.5446 16.7097 16.6281 16.4997 16.6281H3.8281C3.61806 16.6281 3.41662 16.5446 3.2681 16.3961C3.11957 16.2476 3.03613 16.0461 3.03613 15.8361V3.16453C3.03613 2.95449 3.11957 2.75305 3.2681 2.60452C3.41662 2.456 3.61806 2.37256 3.8281 2.37256H10.1639"
-                        stroke="white"
-                        strokeWidth="0.791972"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M13.332 2.37256H16.8484C16.966 2.37256 17.0788 2.41928 17.162 2.50246C17.2452 2.58563 17.2919 2.69844 17.2919 2.81606V6.33242"
-                        stroke="white"
-                        strokeWidth="0.791972"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M17.1651 2.49902L10.1641 9.50005"
-                        stroke="white"
-                        strokeWidth="0.791972"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
-                </button>
-              </div>
+                      <span>Visit Website</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 19"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M17.2916 9.50031V15.8361C17.2916 16.0461 17.2082 16.2476 17.0597 16.3961C16.9111 16.5446 16.7097 16.6281 16.4997 16.6281H3.8281C3.61806 16.6281 3.41662 16.5446 3.2681 16.3961C3.11957 16.2476 3.03613 16.0461 3.03613 15.8361V3.16453C3.03613 2.95449 3.11957 2.75305 3.2681 2.60452C3.41662 2.456 3.61806 2.37256 3.8281 2.37256H10.1639"
+                          stroke="white"
+                          strokeWidth="0.791972"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M13.332 2.37256H16.8484C16.966 2.37256 17.0788 2.41928 17.162 2.50246C17.2452 2.58563 17.2919 2.69844 17.2919 2.81606V6.33242"
+                          stroke="white"
+                          strokeWidth="0.791972"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M17.1651 2.49902L10.1641 9.50005"
+                          stroke="white"
+                          strokeWidth="0.791972"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Link>
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </AnimatePresence>
       )}

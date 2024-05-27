@@ -1,20 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Tab from "./components/Tab";
-import Project from "./components/Project";
 import orgLogo from "@/public/images/wtn.svg";
 import Link from "next/link";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { useAppContext } from "@/lib/context/app-context";
 import { TransitionParent } from "@/lib/utils/transition";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
-interface EventTab {
+import { BreadcrumbComponent } from "../components/WithBreadcrumb";
+import Button from "@/components/Common/Button/Button";
+import NoContent from "@/components/EmptyStates/NoContent";
+import Project, { Loader } from "./components/Project";
+interface ProjectTab {
   name: string;
 }
 
-const tabs: EventTab[] = [{ name: "All Projects" }, { name: "Drafts" }];
-export default function Events() {
-  const [selectedProjectType, setSelectedProjectType] = useState<EventTab>(
+const tabs: ProjectTab[] = [{ name: "All Projects" }, { name: "Drafts" }];
+export default function ProjectPage() {
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectTab>(
     tabs[0]
   );
   const [fetchCount, setFetchCount] = useState(0);
@@ -38,14 +41,10 @@ export default function Events() {
   }, [selectedProjectType.name]);
 
   return (
-    <TransitionParent>
-      {isPending ? (
-        <LoadingThinkingWomen />
-      ) : (
-        <div>
-          <div className="w-full flex justify-between my-10">
-            <div className="flex items-center gap-10">
-              <div className="flex gap-10">
+    <TransitionParent className="p-0 md:px-8 md:py-4 space-y-2">
+      <BreadcrumbComponent />     
+          <div className="w-full flex justify-between">
+              <div className="flex gap-4 md:gap-8">
                 {tabs?.map((tab) => (
                   <Tab
                     key={tab.name}
@@ -55,24 +54,31 @@ export default function Events() {
                   />
                 ))}
               </div>
-            </div>
-            <div>
-              <Link
-                href={"/projects/create"}
-                className="px-5 py-2 bg-btnWarning rounded-md font-light font-sora text-white-100"
-              >
-                Add Project
-              </Link>
-            </div>
+        
+             <Button
+              label="Add Project"
+              variant="primary"
+              state="active"
+              size="normal"
+              fullWidth={false}
+              onClick={() => (window.location.href = '/projects/create')}
+              />
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 py-4">
+            {isPending && (
+               [1, 2, 3, 4, 5].map((item: any) => (
+            <Loader key={item.id} />
+          )))
+          }
             {projects?.content?.length < 1 ? (
-              <div className="flex justify-center">
-                {" "}
-                <h2 className="text-2xl font-sora text-gray-400">
-                  No project created yet in {selectedProjectType.name}
-                </h2>
-              </div>
+            <div className="flex justify-center">
+            <NoContent
+              message={`There's nothing here.`}
+              buttonText={'Add Project'}
+              buttonLink={() => (window.location.href = '/projects/create')}
+              withButton={true}
+            />
+            </div>
             ) : (
               projects?.content?.map((project: any) => (
                 <Project
@@ -83,8 +89,7 @@ export default function Events() {
               ))
             )}
           </div>
-        </div>
-      )}
+
     </TransitionParent>
   );
 }

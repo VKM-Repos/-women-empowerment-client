@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { format } from 'date-fns';
 import { Popover, PopoverContent, PopoverTrigger } from '../UI/Popover';
 import { Button } from '../UI/Button';
@@ -14,34 +14,51 @@ type Props = {
 };
 
 export function FormDateTimePicker({ date, placeholder, onChange }: Props) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
-    date
-  );
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(date);
 
-  const handleDateChange = (newDate: Date | undefined) => {
-    setSelectedDate(newDate);
-    onChange && onChange(newDate);
-  };
+  useEffect(() => {
+    if (date) {
+      setSelectedDate(new Date(date));
+    }
+  }, [date]);
 
-  const handleTimeChange = (time: Date | undefined) => {
-    if (!selectedDate) return;
+  const handleDateChange = useCallback((newDate: Date | undefined) => {
+    if (newDate) {
+      setSelectedDate((prev) => {
+        const updatedDate = new Date(newDate);
+        if (prev instanceof Date && !isNaN(prev.getTime())) {
+          updatedDate.setHours(prev.getHours());
+          updatedDate.setMinutes(prev.getMinutes());
+          updatedDate.setSeconds(prev.getSeconds());
+        }
+        onChange && onChange(updatedDate);
+        return updatedDate;
+      });
+    } else {
+      setSelectedDate(undefined);
+      onChange && onChange(undefined);
+    }
+  }, [onChange]);
+
+  const handleTimeChange = useCallback((time: Date | undefined) => {
+    if (!(selectedDate instanceof Date) || isNaN(selectedDate.getTime()) || !time) return;
 
     const newDateTime = new Date(selectedDate);
-    newDateTime.setHours(time?.getHours() ?? selectedDate.getHours());
-    newDateTime.setMinutes(time?.getMinutes() ?? selectedDate.getMinutes());
-    newDateTime.setSeconds(time?.getSeconds() ?? selectedDate.getSeconds());
+    newDateTime.setHours(time.getHours());
+    newDateTime.setMinutes(time.getMinutes());
+    newDateTime.setSeconds(time.getSeconds());
 
     setSelectedDate(newDateTime);
     onChange && onChange(newDateTime);
-  };
+  }, [selectedDate, onChange]);
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant={'outline'}
-          className={`font-normal w-full justify-start text-left ${
-            !date && 'text-gray-100'
+          className={`font-medium placeholder:text-black/30 bg-[#F9F9F9] w-fit truncate text-xs justify-start text-left ${
+            !selectedDate && 'text-gray-100'
           }`}
         >
           {selectedDate ? (

@@ -6,15 +6,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* <ProtectedPage> */}
-      <section className=" w-screen  mb-[200px] px-16 ">
-        <div className="mt-12 px-16 ">
-          <div className="gap-5 flex ">
-            <div className="lg:flex flex-col items-stretch w-[31%] max-md:w-full max-md:ml-0 hidden">
+      <section className="pb-[10rem] min-h-screen w-full lg:w-[90%] mx-auto flex gap-10 relative mt-4 ">
+            <aside className="hidden lg:block lg:w-[25%] relative">
               <Sidebar />
-            </div>
-            <div className="w-[69%]">{children}</div>
-          </div>
-        </div>
+            </aside>
+            <div className="lg:w-[75%] w-full md:border rounded-[1rem] p-4 md:shadow-sm">
+              {children}
+            </div> 
       </section>
       {/* </ProtectedPage> */}
     </>

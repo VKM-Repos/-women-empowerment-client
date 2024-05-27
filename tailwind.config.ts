@@ -35,7 +35,7 @@ const config = {
         // State Colors
         warning: '#F5BB0A',
         success: '#27AE60',
-        error: '#EB5757',
+        error: '#FF3C3C',
         info: '#2F80ED',
         black: {
           100: '#000000',

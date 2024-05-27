@@ -1,36 +1,36 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import doddles from "@/public/images/img_circledoodle.png";
-import womenInPower from "@/public/images/img_womeninpower1.svg";
-import WomenHubProjects from "@/public/images/women-hub-projects.png";
-import { TransitionElement, TransitionParent } from "@/lib/utils/transition";
-import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
-import Image from "next/image";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import Link from "next/link";
+'use client';
+import React, { useEffect, useState } from 'react';
+import doddles from '@/public/images/img_circledoodle.png';
+import womenInPower from '@/public/images/img_womeninpower1.svg';
+import WomenHubProjects from '@/public/images/women-hub-projects.png';
+import { TransitionElement, TransitionParent } from '@/lib/utils/transition';
+import { OrganizationCard } from '@/components/LandingPage/OrganizationCard';
+import Image from 'next/image';
+import { AnimatePresence, motion, useAnimation } from 'framer-motion';
+import Link from 'next/link';
 import {
   communityDiscussionTopics,
   featuredProjects,
   howItWorks,
   searchTerms,
-} from "@/lib/utils/constants";
-import Button from "@/components/Common/Button/Button";
-import AnimatedTitle from "@/components/LandingPage/AnimatedTitle";
-import { useGET } from "@/lib/hooks/useGET.hook";
-import { Organization } from "@/lib/types/organization.types";
-import { Event } from "@/lib/types/events.types";
-import { OrgCardLoader } from "./organization/components/OrgCardLoader";
-import EventCardLoader from "./events/components/EventCardLoader";
-import SearchForm from "@/components/LandingPage/SearchForm";
-import SearchTerm from "@/components/LandingPage/SearchTerm";
-import { useRouter } from "next/navigation";
-import NoContent from "@/components/EmptyStates/NoContent";
-import { useAppContext } from "@/lib/context/app-context";
-import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
-import { Project } from "@/lib/types/project.types";
-import { ProjectCard } from "./projects/components/ProjectCard";
-import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
-import EventCard from "./(community)/discussions/components/EventCard";
+} from '@/lib/utils/constants';
+import Button from '@/components/Common/Button/Button';
+import AnimatedTitle from '@/components/LandingPage/AnimatedTitle';
+import { useGET } from '@/lib/hooks/useGET.hook';
+import { Organization } from '@/lib/types/organization.types';
+import { Event } from '@/lib/types/events.types';
+import { OrgCardLoader } from './organization/components/OrgCardLoader';
+import EventCardLoader from './events/components/EventCardLoader';
+import SearchForm from '@/components/LandingPage/SearchForm';
+import SearchTerm from '@/components/LandingPage/SearchTerm';
+import { useRouter } from 'next/navigation';
+import NoContent from '@/components/EmptyStates/NoContent';
+import { useAppContext } from '@/lib/context/app-context';
+import { ProjectCardLoader } from './projects/components/ProjectCardLoader';
+import { Project } from '@/lib/types/project.types';
+import { ProjectCard } from './projects/components/ProjectCard';
+import ProjectCarousel from '@/components/LandingPage/ProjectCarousel';
+import EventCard from './(community)/discussions/components/EventCard';
 
 const LandingPage = () => {
   const handleSearch = (
@@ -41,7 +41,7 @@ const LandingPage = () => {
     router.push(`/results?query=${selectedTerm}`);
   };
   const router = useRouter();
-  const { user, isAuthenticated} = useAppContext();
+  const { user, isAuthenticated } = useAppContext();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -62,7 +62,6 @@ const LandingPage = () => {
     controls.start({ x: `-${activeIndex * 107}%` });
   }, [activeIndex, controls]);
 
-
   // fetch lists of organizations
   const {
     data: organizations,
@@ -70,8 +69,8 @@ const LandingPage = () => {
     isError: isOrganizationError,
     refetch: refetchOrganization,
   } = useGET({
-    url: "organizations/top",
-    queryKey: ["top_organizations"],
+    url: 'organizations/top',
+    queryKey: ['top_organizations'],
     withAuth: false,
     enabled: true,
   });
@@ -86,8 +85,8 @@ const LandingPage = () => {
     isLoading: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: "events",
-    queryKey: ["events"],
+    url: 'events',
+    queryKey: ['events'],
     withAuth: false,
     enabled: true,
   });
@@ -96,37 +95,35 @@ const LandingPage = () => {
     data: projects,
     isLoading: isProjectsLoading,
     isError: isProjectsError,
-    refetch: refetchProjects
+    refetch: refetchProjects,
   } = useGET({
-    url: "projects",
-    queryKey: ["projects"],
+    url: 'projects',
+    queryKey: ['projects'],
     withAuth: false,
     enabled: false,
   });
 
-// console.log(projects, "this is the project");
-
-  
+  // console.log(projects, "this is the project");
 
   return (
     <main className="w-full">
       <TransitionParent>
-        <section className=" w-screen flex flex-col items-center justify-start">
-          <div className="z-10 absolute top-5 left-0 block">
+        <section className=" flex w-screen flex-col items-center justify-start">
+          <div className="absolute left-0 top-5 z-10 block">
             <Image
               src={doddles}
               alt="doodles"
               width={200}
               height={200}
-              className="lg:w-[10rem] w-[6rem] aspect-auto"
+              className="aspect-auto w-[6rem] lg:w-[10rem]"
             />
           </div>
 
           {/* Hero */}
-          <section className="bg-primary w-[92%] md:w-[95%] lg:h-[26rem] h-[22rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start md:place-content-center items-center p-4 md:p-16 relative overflow-hidden">
-            <div className="w-full md:col-span-1 flex flex-col items-start justify-center mt-[2.5rem] gap-2 md:gap-4 relative left-0 lg:left-[5%] z-20">
+          <section className="bg-primary relative grid h-[22rem] w-[92%] grid-cols-1 place-content-start items-center overflow-hidden rounded-[1rem] p-4 md:w-[95%] md:place-content-center md:p-16 lg:h-[26rem] lg:grid-cols-2">
+            <div className="relative left-0 z-20 mt-[2.5rem] flex w-full flex-col items-start justify-center gap-2 md:col-span-1 md:gap-4 lg:left-[5%]">
               <AnimatedTitle title="Together we are" />
-              <p className="text-white-100 font-light text-sm md:text-base font-quickSand text-left">
+              <p className="text-white-100 font-light font-quickSand text-left text-sm md:text-base">
                 Discover and learn about women organizations with only one
                 click.
               </p>
@@ -136,21 +133,21 @@ const LandingPage = () => {
                 handleSearch={handleSearch}
               />
             </div>
-            <div className="md:col-span-1 relative lg:absolute bottom-0 mt-2 right-0 block z-10">
+            <div className="relative bottom-0 right-0 z-10 mt-2 block md:col-span-1 lg:absolute">
               <Image
                 src={womenInPower}
                 alt="group of women"
                 width={100}
                 height={100}
-                className="lg:w-[30rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
+                className="mx-auto aspect-auto w-[15rem] rounded-br-xl lg:w-[30rem]"
               />
             </div>
           </section>
 
           {/* Organizations, events and news  */}
-          <section className="w-full md:w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-6 gap-10 relative px-4">
-            <div className="lg:col-span-4 w-full flex flex-col py-[5rem]">
-              <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+          <section className="relative mx-auto grid w-full grid-cols-1 gap-10 px-4 md:w-[95%] lg:grid-cols-6">
+            <div className="flex w-full flex-col py-[5rem] lg:col-span-4">
+              <h3 className="text-orange-500 font-sora max-md:max-w-full mb-5 items-stretch justify-center border-b border-solid border-b-neutral-200 py-1 text-lg font-semibold md:text-2xl">
                 TOP ORGANIZATIONS
               </h3>
               {/* Organization feeds */}
@@ -159,7 +156,7 @@ const LandingPage = () => {
 
                 {isOrganizationLoading ? (
                   [1, 2, 3, 4, 5, 6].map((item: any) => (
-                    <OrgCardLoader key={item?.id} />
+                    <OrgCardLoader key={item.id} />
                   ))
                 ) : !isOrganizationLoading &&
                   !isOrganizationError &&
@@ -167,12 +164,12 @@ const LandingPage = () => {
                   <NoContent
                     message="No organization yet."
                     buttonText={
-                      isAuthenticated ? "Add organization" : "Login to add"
+                      isAuthenticated ? 'Add organization' : 'Login to add'
                     }
                     buttonLink={
                       isAuthenticated
-                        ? () => router.push("/organization/create")
-                        : () => router.push("/account/login")
+                        ? () => router.push('/organization/create')
+                        : () => router.push('/account/login')
                     }
                   />
                 ) : (
@@ -185,14 +182,14 @@ const LandingPage = () => {
                           key={organization.id}
                         />
                       ))}
-                    <div className="w-fit mx-auto my-8">
+                    <div className="mx-auto my-8 w-fit">
                       <Button
                         label="SEE ALL ORGANIZATIONS"
                         variant="outline"
                         fullWidth={false}
                         size="normal"
                         onClick={() =>
-                          router.push("organization/all-organizations")
+                          router.push('organization/all-organizations')
                         }
                       />
                     </div>
@@ -201,13 +198,13 @@ const LandingPage = () => {
               </section>
             </div>
 
-            <div className="lg:col-span-2 w-full hidden lg:flex flex-col space-y-8  border-none py-[5rem] relative h-full overflow-y-scroll scrollable-section ">
+            <div className="scrollable-section relative hidden h-full w-full flex-col  space-y-8 overflow-y-scroll border-none py-[5rem] lg:col-span-2 lg:flex ">
               <aside className="w-full rounded-[1.5rem] ">
-                <h3 className="text-orange-500 text-lg md:text-2xl font-sora font-semibold items-stretch justify-center py-1 border-b-neutral-200 border-b border-solid max-md:max-w-full mb-5">
+                <h3 className="text-orange-500 font-sora max-md:max-w-full mb-5 items-stretch justify-center border-b border-solid border-b-neutral-200 py-1 text-lg font-semibold md:text-2xl">
                   EVENTS
                 </h3>
 
-                <section className="flex flex-col lg:gap-[0.1rem] gap-[3rem]  py-1">
+                <section className="flex flex-col gap-[3rem] py-1  lg:gap-[0.1rem]">
                   {isEventsError && <p>Error fetching Events</p>}
                   {isEventsLoading ? (
                     [1, 2, 3, 4].map((event: any, id: number) => (
@@ -219,19 +216,19 @@ const LandingPage = () => {
                     <NoContent
                       message="No events yet."
                       buttonText={
-                        isAuthenticated ? "Add events" : "Login to add"
+                        isAuthenticated ? 'Add events' : 'Login to add'
                       }
                       buttonLink={
                         isAuthenticated
-                          ? () => router.push("/events/create")
-                          : () => router.push("/account/login")
+                          ? () => router.push('/events/create')
+                          : () => router.push('/account/login')
                       }
                     />
                   ) : (
                     !isEventsLoading &&
                     !isEventsError && (
                       <>
-                        <div className="w-full md:w-[95%] mx-auto flex justify-center  flex-wrap ]">
+                        <div className="] mx-auto flex w-full flex-wrap  justify-center md:w-[95%]">
                           {Array.isArray(events?.content) &&
                             events?.content
                               ?.slice(0, 5)
@@ -239,13 +236,13 @@ const LandingPage = () => {
                                 <EventCard key={event.id} event={event} />
                               ))}
                         </div>
-                        <div className="w-fit mx-auto my-8">
+                        <div className="mx-auto my-8 w-fit">
                           <Button
                             label="SEE MORE EVENTS"
                             variant="outline"
                             fullWidth={false}
                             size="normal"
-                            onClick={() => router.push("/events")}
+                            onClick={() => router.push('/events')}
                           />
                         </div>
                       </>
@@ -254,7 +251,7 @@ const LandingPage = () => {
                 </section>
               </aside>
 
-              <aside className="w-full py-4 rounded-[1.5rem] ">
+              <aside className="w-full rounded-[1.5rem] py-4 ">
                 {/* <h3 className="text-orange-500 text-2xl font-sora font-bold items-stretch self-stretch justify-center px-5 py-2.5 border-b-neutral-200 border-b border-solid -mt-[50px]">
                   NEWS CENTER
                 </h3> */}
@@ -281,12 +278,12 @@ const LandingPage = () => {
           </section>
 
           {/* Discussions */}
-          <section className="bg-[#F0EBD6] self-stretch z-2 flex w-full flex-col pt-20 font-quickSand  relative">
-            <div className="w-[90%] mx-auto">
-              <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
+          <section className="z-2 font-quickSand relative flex w-full flex-col self-stretch bg-[#F0EBD6]  pt-20">
+            <div className="mx-auto w-[90%]">
+              <h3 className="font-sora text-primary text-center text-2xl font-semibold md:text-5xl">
                 Community Discussions
               </h3>
-              <p className="text-gray-100 my-8 md:text-center text-left text-base self-center">
+              <p className="text-gray-100 my-8 self-center text-left text-base md:text-center">
                 A platform that seeks to help Women thrive in their own
                 environment,
                 <br /> a free space to share with people who can relate, a
@@ -294,24 +291,24 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="gap-5 py-6 flex items-start flex-nowrap scrollable-section no-scrollbar overflow-x-scroll lg:overflow-x-hidden px-4 md:px-16 w-auto">
-              {communityDiscussionTopics.map((discussion) => (
+            <div className="scrollable-section no-scrollbar flex w-auto flex-nowrap items-start gap-5 overflow-x-scroll px-4 py-6 md:px-16 lg:overflow-x-hidden">
+              {communityDiscussionTopics.map(discussion => (
                 <div
                   key={discussion.id}
-                  className="justify-center items-stretch bg-primaryWhite flex-col space-y-4 aspect-square w-full md:w-1/2 lg:w-[25%] xl:w-[24%] h-[25rem] shadow-lg pt-6 px-6 rounded-3xl "
+                  className="bg-primaryWhite aspect-square h-[25rem] w-full flex-col items-stretch justify-center space-y-4 rounded-3xl px-6 pt-6 shadow-lg md:w-1/2 lg:w-[25%] xl:w-[24%] "
                 >
-                  <div className="w-full bg-slate-200 h-[60%] overflow-hidden flex items-start">
+                  <div className="bg-slate-200 flex h-[60%] w-full items-start overflow-hidden">
                     <motion.img
                       loading="lazy"
                       srcSet={discussion.image}
-                      className="w-full aspect-square"
+                      className="aspect-square w-full"
                     />
                   </div>
-                  <div className="flex flex-col gap-2 h-[40%]">
-                    <h6 className="text-green-800 font-sora text-lg md:text-xl lg:text-2xl  font-semibold leading-5">
+                  <div className="flex h-[40%] flex-col gap-2">
+                    <h6 className="font-sora text-lg font-semibold leading-5 text-green-800  md:text-xl lg:text-2xl">
                       {discussion.topic}
                     </h6>
-                    <p className="text-xs md:text-sm  text-gray-200">
+                    <p className="text-gray-200 text-xs  md:text-sm">
                       {discussion.desc}
                     </p>
                   </div>
@@ -320,8 +317,8 @@ const LandingPage = () => {
             </div>
 
             <button
-              onClick={() => router.push("discussions")}
-              className="text-white-100 font-quickSand text-base font-medium justify-center items-center bg-green-800 self-center w-44 max-w-full mt-11 px-5 py-4 rounded-xl max-md:mt-10"
+              onClick={() => router.push('discussions')}
+              className="text-white-100 font-quickSand max-md:mt-10 mt-11 w-44 max-w-full items-center justify-center self-center rounded-xl bg-green-800 px-5 py-4 text-base font-medium"
             >
               Join Discussion
             </button>
@@ -343,12 +340,12 @@ const LandingPage = () => {
           </section>
 
           {/* Projects */}
-          <section className="bg-[#EEEEED] flex w-full flex-col pt-20 font-quickSand  relative z-2">
-            <div className="w-[90%] mx-auto">
-              <h3 className="font-sora text-center text-primary md:text-5xl text-2xl font-semibold">
+          <section className="font-quickSand z-2 relative flex w-full flex-col  bg-[#EEEEED] pt-20">
+            <div className="mx-auto w-[90%]">
+              <h3 className="font-sora text-primary text-center text-2xl font-semibold md:text-5xl">
                 Women Hub Projects
               </h3>
-              <p className="text-gray-100 my-8 md:text-center text-left text-base self-center">
+              <p className="text-gray-100 my-8 self-center text-left text-base md:text-center">
                 A platform that seeks to help Women thrive in their own
                 environment,
                 <br /> a free space to share with people who can relate, a
@@ -357,7 +354,6 @@ const LandingPage = () => {
             </div>
 
             <ProjectCarousel projects={projects} />
-
 
             <svg
               className="-mb-[45px]"
@@ -376,36 +372,36 @@ const LandingPage = () => {
           </section>
 
           {/* How this works */}
-          <div className="justify-center items-center bg-[#F9F2FF] self-stretch flex mt-0 w-full flex-col px-16 py-12 max-md:max-w-full max-md:px-5">
-            <div className="text-green-800 font-sora text-5xl font-semibold max-w-[379px] self-center mt-16 max-md:text-4xl max-md:mt-10">
+          <div className="max-md:max-w-full max-md:px-5 mt-0 flex w-full flex-col items-center justify-center self-stretch bg-[#F9F2FF] px-16 py-12">
+            <div className="font-sora max-md:text-4xl max-md:mt-10 mt-16 max-w-[379px] self-center text-5xl font-semibold text-green-800">
               How this works
             </div>
-            <div className="text-black font-quickSand text-opacity-90 text-center text-base leading-6 self-center max-w-[736px] mt-3 max-md:max-w-full">
+            <div className="text-black font-quickSand max-md:max-w-full mt-3 max-w-[736px] self-center text-center text-base leading-6 text-opacity-90">
               This platform serves as a comprehensive resource, bringing
               together all the organizations dedicated to supporting women in
               Nigeria.
             </div>
 
-            <div className="w-full my-[4rem] md:w-[90%] mx-auto flex flex-wrap items-center justify-center gap-10">
-              {howItWorks.map((item) => (
+            <div className="mx-auto my-[4rem] flex w-full flex-wrap items-center justify-center gap-10 md:w-[90%]">
+              {howItWorks.map(item => (
                 <div
                   style={{ backgroundColor: item.color }}
                   key={item.id}
-                  className="w-full md:w-[37rem] h-[17rem] p-8 grid grid-cols-1 md:grid-cols-5 gap-4 place-content-center rounded-[1rem] overflow-hidden"
+                  className="grid h-[17rem] w-full grid-cols-1 place-content-center gap-4 overflow-hidden rounded-[1rem] p-8 md:w-[37rem] md:grid-cols-5"
                 >
-                  <div className="w-full md:col-span-3 flex flex-col gap-2 items-start justify-start text-left">
-                    <h3 className="text-lg md:text-2xl font-bold text-left font-sora">
+                  <div className="flex w-full flex-col items-start justify-start gap-2 text-left md:col-span-3">
+                    <h3 className="font-sora text-left text-lg font-bold md:text-2xl">
                       {item.topic}
                     </h3>
-                    <h3 className="text-sm md:text-base text-left text-gray-200 font-quickSand">
+                    <h3 className="text-gray-200 font-quickSand text-left text-sm md:text-base">
                       {item.desc}
                     </h3>
                   </div>
-                  <div className="w-full md:col-span-2 flex items-center justify-center">
+                  <div className="flex w-full items-center justify-center md:col-span-2">
                     <motion.img
                       src={item.image}
                       alt={item.topic}
-                      className=" w-[6rem] md:w-[10rem] aspect-square object-contain bg-contain "
+                      className=" aspect-square w-[6rem] bg-contain object-contain md:w-[10rem] "
                     />
                   </div>
                 </div>
