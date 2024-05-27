@@ -69,7 +69,7 @@ const ProfileInfo = ({ organization }: Props) => {
             <div className="bg-btnWarning mt-1 h-1 w-[2rem] rounded" />
           </h3>
         </div>
-        <p className="text-gray-200 font-quickSand text-base font-medium">
+        <p className="text-gray-200 font-quickSand text-base font-medium flex-wrap break-words max-w-2xl">
           {organization.description}
         </p>
       </div>

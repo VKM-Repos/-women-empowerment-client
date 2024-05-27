@@ -13,22 +13,24 @@ export default function Tab({
   setSelectedProjectType,
 }: ProjectTabProps) {
   return (
-    <div>
-      <button
-        onClick={() => setSelectedProjectType(name)}
-        className={`${
-          selectedProjectType ? "text-primary" : "text-gray-300"
-        } text-2xl`}
-      >
-        <span className="relative z-10 font-light">{name}</span>
-      </button>
+ <div>
+    <button
+      onClick={() => setSelectedProjectType(name)}
+      className={`${
+        selectedProjectType
+          ? "text-primary"
+          : "text-gray-100 hover:text-btnWarning "
+      } text-base md:text-xl capitalize transition-colors relative flex flex-col items-center justify-center text-center`}
+    >
+      <span className="relative z-10 font-normal font-sora">{name}</span>
       {selectedProjectType && (
-        <div
-          className={`${
-            name == "All Projects" ? "w-[7.5rem]" : "w-[4rem]"
-          } h-1 rounded bg-btnWarning`}
-        />
+        <motion.span
+          layoutId="pill-tab"
+          transition={{ type: "spring", duration: 0.5 }}
+          className="absolute -bottom-1 w-full h-1 bg-btnWarning rounded-full"
+        ></motion.span>
       )}
+    </button>
     </div>
   );
 }

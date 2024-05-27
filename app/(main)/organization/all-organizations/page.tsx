@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { TransitionOpacity, TransitionParent } from "@/lib/utils/transition";
 import SearchForm from "@/components/LandingPage/SearchForm";
 import { OrgCardLoader } from "../components/OrgCardLoader";

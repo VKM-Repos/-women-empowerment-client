@@ -63,14 +63,10 @@ export function OrganizationMenu({ user }: any) {
                onClick={() => {setIsOpen(false); router.push(link)}}
                 className={cn(
                   'relative text-sm font-quickSand font-medium transition duration-300 ease-in-out hover:text-btnWarning hover:no-underline cursor-pointer',
-                  { ' link': !currentPath.startsWith(link) },
                   { 'text-btnWarning': currentPath.startsWith(link) }
                 )}
               >
                 {label}
-                {!currentPath.startsWith(link) && (
-                  <span className="absolute bottom-0 left-0 w-fit h-0.5 rounded-md bg-btnWarning transition duration-300 ease-in-out" />
-                )}
               </div>
             </li>
             {index !== organizationLinks.length - 1 && <Separator />}

@@ -1,27 +1,48 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import { useGET } from '@/lib/hooks/useGET.hook';
+import { TransitionParent } from '@/lib/utils/transition';
+import LoadingThinkingWomen from '@/components/Common/Loaders/LoadingThinkingWomen';
+import { usePATCH } from '@/lib/hooks/usePATCH.hook';
+import { usePOST } from '@/lib/hooks/usePOST.hook';
+import ImageWithFallback from '@/components/Common/ImageWithFallBack';
+import { BreadcrumbComponent } from '../../../components/WithBreadcrumb';
+import PopoverMenu from '../../components/PopoverMenu';
+import EditIcon from '../../components/EditIcon';
+import FormSelect from '@/components/Form/FormSelect';
+import { Input } from '@/components/UI/Input';
+import { FormDateTimePicker } from '@/components/Form/FormDateTimePicker';
+import { Textarea } from '@/components/UI/Textarea';
+import Button from '@/components/Common/Button/Button';
+import { useRouter } from 'next/navigation';
 
-import orgProfile from "@/public/images/org_profile.svg";
-import Image from "next/image";
-import orgProfile2 from "@/public/images/org_profile_2.svg";
-import { useGET } from "@/lib/hooks/useGET.hook";
-import { TransitionParent } from "@/lib/utils/transition";
-import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
-import { usePATCH } from "@/lib/hooks/usePATCH.hook";
-import { usePOST } from "@/lib/hooks/usePOST.hook";
+const menu = [
+  {
+    title: 'remove',
+    blank: false,
+    isButton: true,
+    onClick: () => {alert('removed')}
+  },
+  {
+    title: 'change image',
+    blank: false,
+    isButton: true,
+    onClick: () => {alert('changed')}
+  },
+];
+
 export default function EditEvent({ params }: { params: { id: string } }) {
   const eventId = params?.id;
-  const [contentType, setContentType] = useState<any>("");
-  const startDateRef = useRef<HTMLInputElement>(null);
-  const endDateRef = useRef<HTMLInputElement>(null);
+  const router = useRouter()
+  const [contentType, setContentType] = useState<any>('');
   const [formData, setFormData] = useState({
-    name: "",
-    type: "",
-    location: "",
-    link: "",
-    description: "",
-    startDate: "",
-    endDate: "",
+    name: '',
+    type: '',
+    location: '',
+    link: '',
+    description: '',
+    startDate: '',
+    endDate: '',
   });
   // console.log(eventId);
   const {
@@ -30,7 +51,7 @@ export default function EditEvent({ params }: { params: { id: string } }) {
     refetch,
   } = useGET({
     url: `/events/${eventId}`,
-    queryKey: ["GET_EVENT_DETAILS_EDIT_PAGER", eventId],
+    queryKey: ['GET_EVENT_DETAILS_EDIT_PAGER', eventId],
     withAuth: true,
     enabled: true,
   });
@@ -57,7 +78,7 @@ export default function EditEvent({ params }: { params: { id: string } }) {
   }, [event]);
   const handleOnChange = (event: any) => {
     const { name, value } = event?.target;
-    setFormData((prevFormData) => {
+    setFormData(prevFormData => {
       return {
         ...prevFormData,
         [name]: value,
@@ -66,13 +87,14 @@ export default function EditEvent({ params }: { params: { id: string } }) {
   };
 
   const updateEvent = (event: any) => {
-    setContentType("application/json");
+    setContentType('application/json');
     event.preventDefault();
     mutate(formData, {
       onSuccess: () => {
         refetch();
+        router.back()
       },
-      onError: (error) => {
+      onError: error => {
         console.log(error);
       },
     });
@@ -81,172 +103,209 @@ export default function EditEvent({ params }: { params: { id: string } }) {
     publishEvent(
       {},
       {
-        onSuccess: () => {},
+        onSuccess: () => {
+          router.back();
+        },
         onError: () => {},
       }
     );
 
-    console.log("Clicked publish event");
   };
-  console.log(event);
+
+
+  const [selectedOption, setSelectedOption] = useState<string>('');
+
+  const eventOptions: any[] = ['ONLINE', 'PHYSICAL'];
 
   return (
     <TransitionParent>
-      {isPending || updatingEvent || publishingEvent ? (
+      {updatingEvent || publishingEvent && (
         <LoadingThinkingWomen />
-      ) : (
-        <div className="flex flex-col items-stretch w-full ml-5 max-md:w-full max-md:ml-0">
-          <span className="relative bg-white flex grow flex-col w-full pb-7 rounded-2xl border border-gray-500 max-md:max-w-full max-md:mt-5">
-            <Image
-              src={orgProfile2}
-              layout="responsive"
-              alt="bg"
-              width={1000}
-              height={1000}
-              className="absolute inset-0"
-            />
-            <div className="z-10 flex justify-end pt-10">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d801c02f8092496b1acf27f38e7cfe019c05eff9870b0e957c1b7ca6ad1566?"
-                className="aspect-square object-contain object-center w-12 justify-center items-center overflow-hidden max-w-full mr-12 max-md:mr-2.5 cursor-pointer z-10 "
+      ) }
+        <div className="flex w-full flex-col items-stretch ">
+          <BreadcrumbComponent />
+          <div className="flex w-full items-center justify-start gap-4">
+            <div className="bg-white-100 relative z-10 aspect-square w-[10rem] overflow-hidden rounded-full border-8 lg:w-[15rem]">
+              <ImageWithFallback
+                src={
+                  event?.image || 'https://placehold.co/400x400?text=Women\n Hub'
+                }
+                fallbackSrc={'https://placehold.co/400x400?text=Women\n Hub'}
+                aspectRatio={{ width: 1, height: 1 }}
+                alt={event?.name}
+                className=""
               />
-            </div>
-            <span className="w-full flex flex-col px-2  max-md:max-w-full">
-              <div className="z-[1]  max-md:max-w-full  ">
-                <div className="gap-10 flex items-center px-10">
-                  <div className="flex flex-col justify-center w-full max-md:w-full text-white-100">
-                    <p className="text-sm font-light w-[550px] text-center">
-                      Add an image that clearly represents your Event. it will
-                      appear on your event page Your image should be at least
-                      1024x576 pixels. It will be cropped to a 16:9 ratio.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </span>
-            <form action="" onSubmit={updateEvent}>
-              <div className="flex flex-col gap-5  px-[100px] mt-[200px] font-quickSand">
-                <div className="flex items-center gap-5">
-                  <label className="font-sora flex-[0.5]" htmlFor="">
-                    Date of event
-                  </label>
-                  <div className="flex gap-2 flex-1">
-                    <input
-                      type="datetime-local"
-                      onChange={handleOnChange}
-                      value={formData?.startDate}
-                      name="startDate"
-                      className="font-quickSand text-sm border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-[185px]"
-                      placeholder="start date"
-                    />
 
-                    <input
-                      type="datetime-local"
-                      onChange={handleOnChange}
-                      value={formData?.endDate}
-                      name="endDate"
-                      className="font-quickSand text-sm border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-[185px]"
-                      placeholder="End date"
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center gap-5">
-                  <label className="font-sora flex-[0.5]" htmlFor="">
-                    Event Type
-                  </label>
-                  <select
-                    onChange={handleOnChange}
-                    value={formData?.type}
-                    name="type"
-                    id=""
-                    className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
-                  >
-                    <option value={formData?.type}>{formData?.type}</option>
-                    <option value="ONLINE">ONLINE</option>
-                    <option value="PHYSICAL">PHYSICAL</option>
-                  </select>
-                </div>
-                {formData?.type == "ONLINE" ? (
-                  <div className="flex items-center gap-5">
-                    <label className="font-sora flex-[0.5]" htmlFor="">
-                      Event Link
-                    </label>
-                    <input
-                      type="text"
-                      onChange={handleOnChange}
-                      value={formData?.link}
-                      name="link"
-                      className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
-                      placeholder="htttps://www.facebook.com/wrf"
-                    />
-                  </div>
+              <div className="hover:bg-black-100/70 absolute inset-0 z-0 flex items-center justify-center transition-opacity delay-150 duration-150 hover:z-20">
+                <PopoverMenu menu={menu} placeholder={<EditIcon />} />
+              </div>
+            </div>
+
+            <h3 className=" font-sora text-gray-200 w-4/5 text-lg font-semibold leading-tight lg:w-3/5 lg:text-3xl">
+              {event?.name}
+            </h3>
+          </div>
+
+          <form  onSubmit={updateEvent}>
+            <div className="font-quickSand w-[90%] mx-auto space-y-8 mt-6">
+              <div className="flex w-full flex-col items-start gap-5">
+                <FormBody
+                  title="Date of event"
+                  inputField={
+                    <span className="flex gap-5">
+                      <FormDateTimePicker
+                        placeholder="start date"
+                        date={formData.startDate}
+                        onChange={(value: Date | any) =>
+                          // setValue('startDate', value.toISOString().split('.')[0])
+                          handleOnChange
+                        }
+                      />
+                      <FormDateTimePicker
+                        placeholder="end date"
+                        date={formData.endDate}
+                        onChange={(value: Date | any) =>
+                          // setValue('startDate', value.toISOString().split('.')[0])
+                          handleOnChange
+                        }
+                      />
+                    </span>
+                  }
+                />
+
+                <FormBody
+                  title="Event title"
+                  inputField={
+                    <>
+                      <Input
+                        type="text"
+                        name="name"
+                        onChange={handleOnChange}
+                        value={formData?.name}
+                        className="placeholder:text-black/30 bg-[#F9F9F9] font-medium "
+                      />
+                    </>
+                  }
+                />
+                <FormBody
+                  title="Event Type"
+                  inputField={
+                    <>
+                      <FormSelect
+                        placeholder="Select event type"
+                        value={formData?.type}
+                        onChange={value => {
+                          handleOnChange;
+                          setSelectedOption(value);
+                        }}
+                        defaultValue={''}
+                        options={eventOptions?.map(option => ({
+                          label: option.toLowerCase().replace(/\s/g, '_'),
+                          value: option,
+                        }))}
+                      />
+                    </>
+                  }
+                />
+
+                {formData?.type == 'ONLINE' ? (
+                  <FormBody
+                    title="Event link"
+                    inputField={
+                      <>
+                        <Input
+                          type="text"
+                          name="link"
+                          onChange={handleOnChange}
+                          value={formData?.link}
+                          className="placeholder:text-black/30 bg-[#F9F9F9] font-medium "
+                        />
+                      </>
+                    }
+                  />
                 ) : (
-                  <div className="flex items-center gap-5">
-                    <label className="font-sora flex-[0.5]" htmlFor="">
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      onChange={handleOnChange}
-                      value={formData?.location}
-                      name="location"
-                      className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
-                      placeholder="Location"
-                    />
-                  </div>
+                  <FormBody
+                    title="Event location"
+                    inputField={
+                      <>
+                        <Input
+                          type="text"
+                          name="location"
+                          onChange={handleOnChange}
+                          value={formData?.location}
+                          className="placeholder:text-black/30 bg-[#F9F9F9] font-medium "
+                        />
+                      </>
+                    }
+                  />
                 )}
-                <div className="flex items-center gap-5">
-                  <label className="font-sora flex-[0.5]" htmlFor="">
-                    Event Title
-                  </label>
-                  <input
-                    type="text"
-                    onChange={handleOnChange}
-                    value={formData?.name}
-                    name="name"
-                    className="font-quickSand flex-1 border border-gray-500 px-10 py-3 focus:outline-none rounded-md w-full"
-                    placeholder="contact@womenresearchersfoundation.org"
+                <FormBody
+                  title="Event Description"
+                  inputField={
+                    <>
+                      <Textarea
+                        className="placeholder:text-gray-400 resize-none bg-[#F9F9F9] font-medium"
+                        placeholder={''}
+                        name="description"
+                        onChange={handleOnChange}
+                        value={formData?.description}
+                      />
+                    </>
+                  }
+                />
+              </div>
+
+              {event?.status == 'DRAFTS' ? (
+                <div className="flex justify-center gap-5">
+                  <Button
+                    variant="primary"
+                    state="active"
+                    fullWidth={false}
+                    size="medium"
+                    label="Publish"
+                    onClick={handlePublishEvent}
+                  />
+                  <Button
+                    variant="outline"
+                    state="active"
+                    fullWidth={false}
+                    size="medium"
+                    label="Update"
                   />
                 </div>
-
-                <div className="flex gap-5">
-                  <label className="font-sora flex-[0.5]" htmlFor="">
-                    Event Description
-                  </label>
-                  <textarea
-                    name="description"
-                    onChange={handleOnChange}
-                    value={formData?.description}
-                    className="font-quickSand flex-1 border border-gray-500 rounded-md w-full px-9 py-3 h-[180px] focus:outline-none"
-                  ></textarea>
+              ) : (
+                <div className="flex justify-center">
+                  <Button
+                    variant="primary"
+                    state="active"
+                    fullWidth={false}
+                    size="medium"
+                    label="Update"
+                  />
                 </div>
-
-                {event?.status == "DRAFTS" ? (
-                  <div className="flex justify-center gap-5">
-                    <button
-                      type="button"
-                      onClick={handlePublishEvent}
-                      className="bg-btnWarning text-white-100 px-3 py-1 rounded-md"
-                    >
-                      Publish
-                    </button>
-                    <button className="border border-btnWarning px-3 py-1 rounded-md">
-                      View
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex justify-center">
-                    <button className="bg-btnWarning text-white-100 px-3 py-1 rounded-md">
-                      Update
-                    </button>
-                  </div>
-                )}
-              </div>
-            </form>
-          </span>
+              )}
+            </div>
+          </form>
         </div>
-      )}
+
     </TransitionParent>
   );
 }
+
+interface FormBodyProps {
+  title: string;
+  inputField: React.ReactNode;
+}
+
+const FormBody = (item: FormBodyProps) => {
+  return (
+    <div className="grid w-full grid-cols-1 items-start justify-start gap-x-10 lg:grid-cols-12">
+      <span className="font-sora text-gray-200 col-span-3 hidden h-12 w-full items-center overflow-hidden text-left  text-base font-semibold lg:flex">
+        {item?.title}
+      </span>
+      <span className="min-h-12 w-full overflow-hidden lg:col-span-6">
+        {item?.inputField}
+      </span>
+    </div>
+  );
+};

@@ -11,7 +11,24 @@ import { usePATCH } from "@/lib/hooks/usePATCH.hook";
 import { usePOST } from "@/lib/hooks/usePOST.hook";
 import { useAppContext } from "@/lib/context/app-context";
 import Link from "next/link";
-export default function EditEvent({ params }: { params: { id: string } }) {
+
+const menu = [
+  {
+    title: 'remove',
+    blank: false,
+    isButton: true,
+    onClick: () => {alert('removed')}
+  },
+  {
+    title: 'change image',
+    blank: false,
+    isButton: true,
+    onClick: () => {alert('changed')}
+  },
+];
+
+
+export default function EditProject({ params }: { params: { id: string } }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { categories } = useAppContext();
   const projectId = params?.id;

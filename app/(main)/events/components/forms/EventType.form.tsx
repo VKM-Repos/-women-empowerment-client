@@ -124,8 +124,8 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               }}
               defaultValue={''}
               options={eventOptions?.map((option) => ({
-                label: option,
-                value: option.toLowerCase().replace(/\s/g, '_'),
+                label: option.toLowerCase().replace(/\s/g, '_'),
+                value: option,
               }))}
             />
             {errors && errors.type && (
@@ -165,7 +165,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                   placeholder="start date"
                   date={eventStartDate}
                   onChange={(value: Date | any) =>
-                    setValue('startDate', value.toISOString())
+                    setValue('startDate', value.toISOString().split('.')[0])
                   }
                 />
                 {errors && errors.startDate && (
@@ -179,7 +179,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                   placeholder="end date"
                   date={eventEndDate}
                   onChange={(value: Date | any) =>
-                    setValue('endDate', value.toISOString())
+                    setValue('endDate', value.toISOString().split('.')[0])
                   }
                 />
                 {errors && errors.endDate && (

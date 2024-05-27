@@ -16,7 +16,6 @@ import EventType from "../components/forms/EventType.form";
 import EventImage from "../components/forms/EventImage.form";
 import { useModal } from "@/lib/context/modal-context";
 import SuccessModal from "@/app/(main)/events/components/forms/SuccessModal";
-import Loading from "../../loading";
 import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 
 function CreateEventPage() {
