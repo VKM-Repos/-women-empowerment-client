@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
 import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import { useEventFormStore } from '@/lib/store/createEventForm.store';
@@ -16,23 +16,25 @@ interface EventTypeProps {
 }
 
 interface EventTypeFormData {
-  type: string;
-  link: string;
-  location: string;
+  type: 'ONLINE' | 'PHYSICAL';
+  link?: string | null;
+  location?: string | null;
   startDate: string;
   endDate: string;
 }
 
+const urlRegex = /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(\#[-a-zA-Z\d_]*)?$/;
+
 const schema = z.object({
-  type: z.string().min(1, 'Event type is required'),
-  link: z
-    .string(),
-  location: z.string(),
+  type: z.enum(['ONLINE', 'PHYSICAL']),
+  link: z.string().optional().nullable().refine((link) => {
+    if (!link) return true; // allow null or empty string
+    return urlRegex.test(link);
+  }, 'Invalid URL'),
+  location: z.string().optional().nullable(),
   startDate: z.string().min(1, 'Start date is required'),
-  endDate: z
-    .string()
-    .min(1, 'End date is required')
-});
+  endDate: z.string().min(1, 'End date is required'),
+})
 
 const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
   const { data, setData } = useEventFormStore();
@@ -40,37 +42,86 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
 
   const form = useForm<z.infer<typeof schema>>({
     defaultValues: {
-      type: data.eventDetails.type || '',
+      type: data.eventDetails.type as 'ONLINE' | 'PHYSICAL' || undefined,
       link: data.eventDetails.link || '',
       location: data.eventDetails.location || '',
       startDate: data.eventDetails.startDate || '',
       endDate: data.eventDetails.endDate || '',
     },
-    mode: 'onChange',
+    mode: 'all',
   });
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
     register,
     setValue,
     watch,
+    clearErrors,
   } = form;
 
-  let eventType = watch('type');
-  let eventStartDate = watch('startDate');
-  let eventEndDate = watch('endDate');
+  const eventType = watch('type');
+  const eventStartDate = watch('startDate');
+  const eventEndDate = watch('endDate');
 
-  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData: EventTypeFormData) => {
+  const validateDates = (start: string, end: string) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const now = new Date();
+
+    if (startDate < now) {
+      return 'Start date must be in the future';
+    }
+    if (endDate <= startDate) {
+      return 'End date must be after the start date';
+    }
+    if (endDate > new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())) {
+      return 'End date must be within one year from now';
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    clearErrors('startDate');
+    clearErrors('endDate');
+  }, [eventStartDate, eventEndDate]);
+
+  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
     try {
       schema.parse(formData);
+      let formattedLinkValue = formData.link?.trim() ?? '';
+      if (
+        formattedLinkValue &&
+        !formattedLinkValue.startsWith('http://') &&
+        !formattedLinkValue.startsWith('https://')
+      ) {
+        formattedLinkValue = `https://${formattedLinkValue}`;
+      }
+
+      if (eventType === 'ONLINE' && !formattedLinkValue) {
+        setError('link', { type: 'manual', message: 'URL is required for online events' });
+        return;
+      }
+
+      if (eventType === 'PHYSICAL' && !formData.location) {
+        setError('location', { type: 'manual', message: 'Location is required for physical events' });
+        return;
+      }
+
+      const dateError = validateDates(formData.startDate, formData.endDate);
+      if (dateError) {
+        setError('startDate', { type: 'manual', message: dateError });
+        setError('endDate', { type: 'manual', message: dateError });
+        return;
+      }
+
       setData({
         eventDetails: {
           ...data.eventDetails,
           type: formData.type,
-          link: formData.link,
-          location: formData.location,
+          link: formattedLinkValue || '',
+          location: formData.location || '',
           startDate: formData.startDate,
           endDate: formData.endDate,
         },
@@ -80,7 +131,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
       if (error instanceof ZodError) {
         error.errors.forEach((err) => {
           const path = err.path[0];
-          setError(path as keyof typeof formData, {
+          setError(path as keyof z.infer<typeof schema>, {
             type: 'manual',
             message: err.message,
           });
@@ -93,6 +144,17 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
 
   const isFormValid = eventType && eventStartDate && eventEndDate && Object.keys(errors).length === 0;
 
+  const formatDateTime = (date: Date): string => {
+  const pad = (num: number) => num.toString().padStart(2, '0');
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1); // Months are zero-indexed
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+};
   return (
     <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-center gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
       <div className="hidden w-full flex-col gap-5 place-self-start lg:col-span-2 lg:flex">
@@ -113,101 +175,106 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
         </h1>
         <Form {...form}>
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col">
-            <FormLabel label="Select event type" />
-            <FormSelect
-              placeholder="Select event type"
-              value={eventType}
-              onChange={(value) => {
-                setValue('type', value);
-                setSelectedOption(value);
-              }}
-              defaultValue={''}
-              options={eventOptions?.map((option) => ({
-                label: option.toLowerCase().replace(/\s/g, '_'),
-                value: option,
-              }))}
-            />
-            {errors && errors.type && (
-              <p className="text-error mt-0 text-xs font-medium">
-                {errors.type.message}
-              </p>
-            )}
-          </div>
-
-          <div className={cn('mt-4', !eventType ? 'hidden' : 'block')}>
-            {eventType === 'online' && (
-              <div className="flex flex-col gap-0">
-                <FormInput
-                  label="Url link"
-                  placeholder="https://"
-                  {...register('link')}
-                />
-              </div>
-            )}
-
-            {eventType === 'physical' && (
-              <div className="flex flex-col gap-0">
-                <FormInput
-                  label="location"
-                  placeholder="Enter event location"
-                  {...register('location')}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="mt-4">
-            <FormLabel label="Select date range" />
-            <div className="flex gap-5 pb-8">
-              <span>
-                <FormDateTimePicker
-                  placeholder="start date"
-                  date={eventStartDate}
-                  onChange={(value: Date | any) =>
-                    setValue('startDate', value.toISOString().split('.')[0])
-                  }
-                />
-                {errors && errors.startDate && (
-                  <p className="text-error mt-0 text-xs font-medium">
-                    {errors.startDate.message}
-                  </p>
-                )}
-              </span>
-              <span>
-                <FormDateTimePicker
-                  placeholder="end date"
-                  date={eventEndDate}
-                  onChange={(value: Date | any) =>
-                    setValue('endDate', value.toISOString().split('.')[0])
-                  }
-                />
-                {errors && errors.endDate && (
-                  <p className="text-error mt-0 text-xs font-medium">
-                    {errors.endDate.message}
-                  </p>
-                )}
-              </span>
+            <div className="flex flex-col">
+              <FormLabel label="Select event type" />
+              <FormSelect
+                placeholder="Select event type"
+                value={eventType}
+                onChange={(value) => {
+                  setValue('type', value);
+                  setSelectedOption(value);
+                }}
+                defaultValue={''}
+                options={eventOptions?.map((option) => ({
+                  label: option.toLowerCase().replace(/\s/g, '_'),
+                  value: option,
+                }))}
+              />
+              {errors.type && (
+                <p className="text-error mt-0 text-xs font-medium">
+                  {errors.type.message}
+                </p>
+              )}
             </div>
-          </div>
 
-          <span className="flex gap-10">
-            <Button
-              label="Go Back"
-              variant="secondary"
-              fullWidth={false}
-              size="medium"
-              onClick={handleGoBack}
-            />
-            <Button
-              label="Continue"
-              variant="primary"
-              fullWidth={false}
-              size="medium"
-              state={isFormValid ? 'active' : 'disabled'}
-            />
-          </span>
-        </form>
+            <div className={cn('mt-4', !eventType ? 'hidden' : 'block')}>
+              {eventType === 'ONLINE' && (
+                <div className="flex flex-col gap-0">
+                  <FormInput
+                    label="Url link"
+                    placeholder="https://"
+                    {...register('link')}
+                  />
+                  {errors?.link && (
+                    <p className="text-error mt-0 text-xs font-medium">
+                      {errors?.link.message?.toString()}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {eventType === 'PHYSICAL' && (
+                <div className="flex flex-col gap-0">
+                  <FormInput
+                    label="location"
+                    placeholder="Enter event location"
+                    {...register('location')}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4">
+              <FormLabel label="Select date range" />
+              <div className="flex gap-5 pb-8">
+                <span>
+                  <FormDateTimePicker
+                    placeholder="start date"
+                    date={eventStartDate}
+                    onChange={(value: Date | any) =>
+                      setValue('startDate', formatDateTime(value))
+                    }
+                  />
+                  {errors.startDate && (
+                    <p className="text-error mt-0 text-xs font-medium">
+                      {errors.startDate.message}
+                    </p>
+                  )}
+                </span>
+                <span>
+                  <FormDateTimePicker
+                    placeholder="end date"
+                    date={eventEndDate}
+                    onChange={(value: Date | any) =>
+                      setValue('endDate', formatDateTime(value))
+                    }
+                  />
+                  {/* {errors.endDate && (
+                    <p className="text-error mt-0 text-xs font-medium">
+                      {errors.endDate.message}
+                    </p>
+                  )} */}
+                </span>
+              </div>
+            </div>
+
+            <span className="flex gap-10">
+              <Button
+                label="Go Back"
+                variant="secondary"
+                fullWidth={false}
+                size="medium"
+                onClick={handleGoBack}
+              />
+              <Button
+                label="Continue"
+                variant="primary"
+                fullWidth={false}
+                size="medium"
+                state={isFormValid ? 'active' : 'disabled'}
+              />
+            </span>
+          </form>
         </Form>
       </div>
     </div>
