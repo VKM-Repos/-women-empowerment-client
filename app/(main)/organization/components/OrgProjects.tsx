@@ -79,21 +79,18 @@ const OrgProjects = ({ organization }: Props) => {
                       key={project.id}
                       className="border-gray-500 hover:bg-primary/10 grid w-full transform grid-cols-12  items-center gap-4 border rounded-md p-2 drop-shadow-sm transition-all duration-75 ease-in-out hover:rounded"
                     >
-                      <div className="col-span-2 w-full">
-                        <ImageWithFallback
-                          src={
-                            project.image ||
-                            'https://placehold.co/200x200?text=Women\n Hub'
-                          }
-                          fallbackSrc={
-                            'https://placehold.co/200x200?text=Women\n Hub'
-                          }
-                          aspectRatio={{ width: 100, height: 100 }}
-                          alt={project?.title}
-                          className="aspect-square w-full  rounded object-contain "
-                        />
-                      </div>
-                      <div className="col-span-10 flex w-full flex-col items-start gap-0 md:col-span-10">
+                    <div className="col-span-4 relative aspect-square w-[6rem] overflow-hidden rounded lg:w-[7rem]">
+                      <ImageWithFallback
+                        src={
+                          project?.image || 'https://placehold.co/400x400?text=Women\n Hub'
+                        }
+                        fallbackSrc={'https://placehold.co/400x400?text=Women\n Hub'}
+                        aspectRatio={{ width: 1, height: 1 }}
+                        alt={`Image ${project?.id}`}
+                        className=""
+                      />
+                    </div>
+                      <div className="col-span-8 flex w-full flex-col items-start gap-0">
                         <h5 className="text-gray-100 font-sora block w-full truncate whitespace-nowrap text-sm font-medium">
                           {project.title}
                         </h5>
