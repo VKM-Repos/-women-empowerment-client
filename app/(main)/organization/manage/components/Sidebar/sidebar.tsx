@@ -135,7 +135,7 @@ export const menus = [
     },
     {
       link: "/organization/manage/projects",
-      title: "Project",
+      title: "Projects",
       icon: (
         <svg
           width="24"
