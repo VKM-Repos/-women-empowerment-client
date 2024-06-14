@@ -10,6 +10,7 @@ import { Form } from '@/components/UI/Form';
 import FormInput from '@/components/Form/FormInput';
 import FormLabel from '@/components/Form/FormLabel';
 import FormSelect from '@/components/Form/FormSelect';
+import { z, ZodError } from 'zod';
 
 interface OrgLinksFormProps {
   handleNext: () => void;
@@ -21,6 +22,18 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
   handleGoBack,
 }) => {
   const { data, setData } = useOrganizationFormStore();
+
+  const linkSchema = z.object({
+    linkType: z.string(),
+    linkValue: z.string().refine(
+      value => {
+        const regex =
+          /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+        return regex.test(value);
+      },
+      { message: 'Invalid URL format' }
+    ),
+  });
 
   const form = useForm<{ linkType: string; linkValue: string }>({
     defaultValues: {
@@ -42,35 +55,43 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
   const onSubmit: SubmitHandler<{
     linkType: string;
     linkValue: string;
-  }> = formData => {
-    const { linkType, linkValue } = formData;
+  }> = async formData => {
+    try {
+      const validatedData = linkSchema.parse(formData);
 
-    // Append "https://" prefix for URL if necessary
-    let formattedLinkValue = linkValue.trim();
-    if (
-      !formattedLinkValue.startsWith('http://') &&
-      !formattedLinkValue.startsWith('https://')
-    ) {
-      formattedLinkValue = `https://${formattedLinkValue}`;
-    }
+      let formattedLinkValue = validatedData.linkValue.trim();
+      if (
+        !formattedLinkValue.startsWith('http://') &&
+        !formattedLinkValue.startsWith('https://')
+      ) {
+        formattedLinkValue = `https://${formattedLinkValue}`;
+      }
 
-    // Perform specific validation for Facebook URLs
-    if (linkType === 'facebook') {
-      if (!formattedLinkValue.includes('facebook.com/')) {
-        toast.error('Invalid Facebook URL. Must include facebook.com/.');
-        return;
+      if (validatedData.linkType === 'facebook') {
+        if (!formattedLinkValue.includes('facebook.com/')) {
+          toast.error('Invalid Facebook URL. Must include facebook.com/.');
+          return;
+        }
+      }
+
+      setData({
+        organizationDetails: {
+          ...data.organizationDetails,
+          [validatedData.linkType]: formattedLinkValue,
+        },
+      });
+
+      handleNext();
+    } catch (error) {
+      if (error instanceof ZodError) {
+        error.errors.forEach(validationError => {
+          setError(validationError.path[0] as keyof typeof formData, {
+            type: 'manual',
+            message: validationError.message,
+          });
+        });
       }
     }
-
-    // Update the store with the entered values
-    setData({
-      organizationDetails: {
-        ...data.organizationDetails,
-        [linkType]: formattedLinkValue,
-      },
-    });
-
-    handleNext();
   };
 
   const linkType = useWatch({ control: form.control, name: 'linkType' });
@@ -123,7 +144,9 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     <FormInput
                       label="Website Url"
                       placeholder="https://"
-                      {...register('linkValue')}
+                      {...register('linkValue', {
+                        required: 'This field is required',
+                      })}
                     />
                   </div>
                 )}
@@ -133,7 +156,9 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
                     <FormInput
                       label="Facebook Url"
                       placeholder="https://facebook.com/"
-                      {...register('linkValue')}
+                      {...register('linkValue', {
+                        required: 'This field is required',
+                      })}
                     />
                   </div>
                 )}
