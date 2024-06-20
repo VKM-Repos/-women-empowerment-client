@@ -89,12 +89,12 @@ export const siteNavigation = {
       icon: 'profile-icon',
       alt: 'profile',
     },
-    notification: {
-      label: 'Notification',
-      link: '/notification',
-      icon: 'notification-icon',
-      alt: 'notification',
-    },
+    // notification: {
+    //   label: 'Notification',
+    //   link: '/notification',
+    //   icon: 'notification-icon',
+    //   alt: 'notification',
+    // },
     logout: {
       label: 'Logout',
       link: '/account/logout',
