@@ -25,7 +25,7 @@ export function ProfileMenu({user}: any) {
           <Tooltip>
             <TooltipTrigger asChild>
               <span className='relative flex gap-1 items-center'>
-              <Badge className="absolute left-1 -bottom-3 bg-black-100 text-white-100 z-10">New</Badge>
+              {/* <Badge className="absolute left-1 -bottom-3 bg-black-100 text-white-100 z-10">New</Badge> */}
               <Avatar>
                 <AvatarImage
                   src={user?.photoUrl || ""}
@@ -62,9 +62,9 @@ export function ProfileMenu({user}: any) {
                 >
                   {label}
                 </div>
-             {key === 'notification' && (
+             {/* {key === 'notification' && (
                     <Badge className="absolute -right-12 bottom-0 bg-black-100 text-[10px] text-white-100 z-10">New</Badge>
-                  )}
+                  )} */}
             </li>
             {key !== Object.keys(siteNavigation.profileNav).pop() && <Separator />}
             </React.Fragment>
