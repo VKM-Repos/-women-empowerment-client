@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 type Props = {
@@ -75,6 +76,9 @@ const OrganizationForm = ({ organization, onUpdateOrganization }: Props) => {
           <button className="text-white-100 font-light font-sora rounded bg-btnWarning mt-6 px-4 py-2">
             Update 
           </button>
+          {/* <Link href='#'  className="text-gray-100 font-light font-sora  mt-6 px-4 py-2">
+            View organization
+          </Link> */}
         </div>
       </div>
     </form>
