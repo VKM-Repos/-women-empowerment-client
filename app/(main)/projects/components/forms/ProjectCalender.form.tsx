@@ -93,6 +93,12 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({
   });
 const isFormValid = status && startDate && endDate && Object.keys(errors).length === 0;
 
+const LocalDatestring = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 
   return (
@@ -123,8 +129,8 @@ const isFormValid = status && startDate && endDate && Object.keys(errors).length
                 defaultValue={data.projectDetails.status || ""}
                 placeholder="Choose status"
                 options={statusOptions?.map(option => ({
-                  label: option,
-                  value: option.toLowerCase().replace(/\s/g, '_'),
+                  label: option.toLowerCase().replace(/\s/g, '_'),
+                  value: option,
                 }))}
               />
               {errors && errors.status && (
@@ -140,7 +146,7 @@ const isFormValid = status && startDate && endDate && Object.keys(errors).length
                   <FormDatePicker
                   placeholder="start date"
                   date={projectStartDate}
-                  onChange={(value: Date | any) => setValue('startDate', value.toISOString().split('.')[0])}
+                  onChange={(value: Date | any) => setValue('startDate', LocalDatestring(value))}
                 />
                 {errors && errors.startDate && (
                   <p className="text-error mt-0 text-xs font-medium">
@@ -152,7 +158,7 @@ const isFormValid = status && startDate && endDate && Object.keys(errors).length
                   <FormDatePicker
                   placeholder="end date"
                   date={projectEndDate}
-                  onChange={(value: Date | any) => setValue('endDate', value.toISOString().split('.')[0])}
+                  onChange={(value: Date | any) => setValue('endDate', LocalDatestring(value))}
              
                 />
                 {errors && errors.endDate && (
