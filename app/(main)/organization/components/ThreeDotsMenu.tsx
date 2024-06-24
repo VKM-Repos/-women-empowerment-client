@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/UI/Popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/UI/Popover';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/UI/Tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/UI/Tooltip';
 import ThreeDots from '@/components/Common/Icons/ThreeDots';
-
 
 type MenuItem = {
   title: string;
@@ -21,7 +28,10 @@ type ThreeDotsMenuProps = {
   label?: React.ReactNode;
 };
 
-const ThreeDotsMenu: React.FC<ThreeDotsMenuProps> = ({ menu, label = "options menu" }) => {
+const ThreeDotsMenu: React.FC<ThreeDotsMenuProps> = ({
+  menu,
+  label = 'options menu',
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,7 +40,7 @@ const ThreeDotsMenu: React.FC<ThreeDotsMenuProps> = ({ menu, label = "options me
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className='w-12 aspect-square relative flex items-center justify-center rounded-full hover:bg-primary/20'>
+              <span className="hover:bg-primary/20 relative flex aspect-square w-12 items-center justify-center rounded-full">
                 <ThreeDots />
               </span>
             </TooltipTrigger>
@@ -45,7 +55,7 @@ const ThreeDotsMenu: React.FC<ThreeDotsMenuProps> = ({ menu, label = "options me
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="bg-primaryWhite absolute right-7 -top-[24px] w-48 overflow-hidden rounded shadow-md"
+        className="bg-primaryWhite absolute -top-[24px] right-7 w-48 overflow-hidden rounded shadow-md"
       >
         <ul className="font-quickSand text-gray-200 flex flex-col items-start justify-center gap-2">
           {menu.map((item, index) => {
@@ -53,28 +63,29 @@ const ThreeDotsMenu: React.FC<ThreeDotsMenuProps> = ({ menu, label = "options me
             return (
               <React.Fragment key={index}>
                 {item.isButton ? (
-                  <li className="w-full flex items-center justify-start gap-2 whitespace-nowrap">
-                    {item.icon}
+                  <li className="flex w-full items-center justify-start gap-2 whitespace-nowrap">
                     <button
                       onClick={() => {
                         item.onClick && item.onClick();
                         setIsOpen(false);
                       }}
-                      className="font-quickSand hover:text-btnWarning relative text-xs font-medium transition duration-300 ease-in-out cursor-pointer hover:no-underline"
+                      className="font-quickSand text-primary hover:text-btnWarning relative flex cursor-pointer gap-4 text-xs font-medium transition duration-300 ease-in-out hover:no-underline"
                     >
+                      {item.icon}
+
                       {item.title}
                     </button>
                   </li>
                 ) : (
-                  <li className="w-full flex items-center justify-start gap-2 whitespace-nowrap">
-                    {item.icon}
+                  <li className="flex w-full items-center justify-start whitespace-nowrap">
                     <Link
                       href={item.link || ''}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        ' font-quickSand hover:text-btnWarning relative text-xs font-medium transition duration-300 ease-in-out hover:no-underline'
+                        ' font-quickSand text-primary hover:text-btnWarning relative flex gap-4 text-xs font-medium transition duration-300 ease-in-out hover:no-underline'
                       )}
                     >
+                      {item.icon}
                       {item.title}
                     </Link>
                   </li>

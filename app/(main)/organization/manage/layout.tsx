@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <aside className="hidden lg:block lg:w-[25%] relative">
               <Sidebar />
             </aside>
-            <div className="lg:w-[75%] w-full md:border rounded-[1rem] md:shadow-sm overflow-hidden p-4 lg:p-0">
+            <div className="lg:w-[75%] w-full md:border rounded-[1rem] md:shadow-sm overflow-hidden p-4 lg:p-0 lg:pb-8">
               {children}
             </div> 
       </section>
