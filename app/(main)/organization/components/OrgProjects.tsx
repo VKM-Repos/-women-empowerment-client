@@ -77,7 +77,7 @@ const OrgProjects = ({ organization }: Props) => {
                     <Link
                       href={`/projects/${project.id}`}
                       key={project.id}
-                      className="border-gray-500 hover:bg-primary/10 grid w-full transform grid-cols-12  items-center gap-4 border rounded-md p-2 drop-shadow-sm transition-all duration-75 ease-in-out hover:rounded"
+                      className="border-gray-500 hover:bg-primary/10 grid w-full transform grid-cols-12  items-center gap-4 border rounded-[1rem] p-2 drop-shadow-sm transition-all duration-75 ease-in-out hover:rounded"
                     >
                     <div className="col-span-4 relative aspect-square w-[6rem] overflow-hidden rounded lg:w-[7rem]">
                       <ImageWithFallback

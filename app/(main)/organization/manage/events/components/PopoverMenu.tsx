@@ -67,28 +67,29 @@ const PopoverMenu: React.FC<PopoverMenuProps> = ({
               <React.Fragment key={index}>
                 {item.isButton ? (
                   <li className="w-full flex items-center justify-start gap-2 whitespace-nowrap">
-                    {item.icon}
                     <button
                       onClick={() => {
                         item.onClick && item.onClick();
                         setIsOpen(false);
                       }}
-                      className="font-quickSand hover:text-btnWarning relative cursor-pointer text-xs font-medium transition duration-300 ease-in-out hover:no-underline"
-                    >
+                      className="font-quickSand text-primary flex gap-4 hover:text-btnWarning relative cursor-pointer text-xs font-medium transition duration-300 ease-in-out hover:no-underline"
+                      >
+                      {item.icon}
                       {item.title}
                     </button>
                   </li>
                 ) : (
                   <li className="w-full flex items-center justify-start gap-2 whitespace-nowrap">
-                    {item.icon}
+                   
                     <Link
                       href={item.link || ''}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        ' font-quickSand hover:text-btnWarning relative text-xs font-medium transition duration-300 ease-in-out hover:no-underline'
+                        ' font-quickSand text-primary flex gap-4 hover:text-btnWarning relative text-xs font-medium transition duration-300 ease-in-out hover:no-underline'
                       )}
                     >
                       {item.title}
+                       {item.icon}
                     </Link>
                   </li>
                 )}
