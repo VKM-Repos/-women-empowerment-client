@@ -29,6 +29,7 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
     formState: { errors },
     setValue,
     setError,
+    clearErrors,
     watch,
   } = useForm<{ image: string | null; imagePreview: string | null }>();
 
@@ -42,6 +43,8 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors('image'); // Clear errors when a new image is selected
+
     const imageFile: any = e.target.files?.[0];
 
     if (imageFile) {
@@ -69,6 +72,7 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
   };
 
   const removeImage = () => {
+    clearErrors('image'); // Clear errors when the image is removed
     setData({ imagePreview: '' });
   };
 
