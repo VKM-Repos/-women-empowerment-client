@@ -30,8 +30,9 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     formState: { errors },
     setValue,
     setError,
+    clearErrors,
     watch,
-  } = useForm<{ logo: File | null; logoPreview: string | null }>();
+  } = useForm<{ logo: FileList | null; logoPreview: string | null }>();
 
   // Set default value from the store on initial render
   useEffect(() => {
@@ -39,10 +40,12 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
   }, [data.logoPreview, setValue]);
 
   const handleChooseFile = () => {
+    clearErrors('logo');
     inputRef.current?.click();
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors('logo');
     const imageFile: any = e.target.files?.[0];
 
     if (imageFile) {
@@ -66,15 +69,21 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
       const imageUrl = URL.createObjectURL(imageFile);
       setData({ logoPreview: imageUrl });
       setData({ logo: imageFile });
+      clearErrors('logo'); // Clear errors if image selection is valid
     }
   };
 
   const removeImage = () => {
+    clearErrors('logo');
     setData({ logoPreview: '' });
   };
 
-  const onSubmit: SubmitHandler<{ logo: File | null }> = () => {
-    handleNext();
+  const onSubmit: SubmitHandler<{ logo: FileList | null }> = (formData) => {
+    if (formData.logo) {
+      handleNext();
+    } else {
+      // Handle case where no logo is selected
+    }
   };
 
   return (

@@ -28,7 +28,7 @@ const urlRegex = /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-z
 const schema = z.object({
   type: z.enum(['ONLINE', 'PHYSICAL']),
   link: z.string().optional().nullable().refine((link) => {
-    if (!link) return true; // allow null or empty string
+    if (!link) return true; 
     return urlRegex.test(link);
   }, 'Invalid URL'),
   location: z.string().optional().nullable(),
@@ -37,8 +37,10 @@ const schema = z.object({
 })
 
 const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
+ 
   const { data, setData } = useEventFormStore();
   const [selectedOption, setSelectedOption] = useState<string>('');
+
 
   const form = useForm<z.infer<typeof schema>>({
     defaultValues: {
@@ -53,7 +55,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
 
   const {
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     setError,
     register,
     setValue,
@@ -70,22 +72,31 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     const endDate = new Date(end);
     const now = new Date();
 
+    // Check if start date is in the past
     if (startDate < now) {
-      return 'Start date must be in the future';
+      return 'Event cannot start in the past, please choose a future date.';
     }
+
+    // Check if end date is before start date
     if (endDate <= startDate) {
-      return 'End date must be after the start date';
+      return 'End date must be after the start date.';
     }
+
+    // Optionally, check if end date is within a year from now
     if (endDate > new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())) {
-      return 'End date must be within one year from now';
+      return 'End date must be within one year from now.';
     }
+
     return null;
   };
 
   useEffect(() => {
     clearErrors('startDate');
     clearErrors('endDate');
-  }, [eventStartDate, eventEndDate]);
+    clearErrors('type');
+         clearErrors('link');
+        clearErrors('location');
+  }, [eventStartDate, eventEndDate, eventType, location,]);
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
     try {
@@ -101,11 +112,20 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
 
       if (eventType === 'ONLINE' && !formattedLinkValue) {
         setError('link', { type: 'manual', message: 'URL is required for online events' });
+        clearErrors('startDate');
+        clearErrors('endDate');
+        clearErrors('type');
+        clearErrors('location');
         return;
       }
 
       if (eventType === 'PHYSICAL' && !formData.location) {
-        setError('location', { type: 'manual', message: 'Location is required for physical events' });
+        setError('location', { type: 'manual', message: 'Please enter the location for physical events' });
+        clearErrors('startDate');
+        clearErrors('endDate');
+        clearErrors('type');
+             clearErrors('link');
+
         return;
       }
 
@@ -142,19 +162,20 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
 
   const eventOptions: any[] = ['ONLINE', 'PHYSICAL'];
 
-  const isFormValid = eventType && eventStartDate && eventEndDate && Object.keys(errors).length === 0;
+  const isFormValid =
+    eventType && eventStartDate && eventEndDate && Object.keys(errors).length === 0;
 
   const formatDateTime = (date: Date): string => {
-  const pad = (num: number) => num.toString().padStart(2, '0');
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1); // Months are zero-indexed
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
+    const pad = (num: number) => num.toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // Months are zero-indexed
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
 
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-};
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  };
   return (
     <div className="font-quickSand mx-auto grid w-full grid-cols-1 items-center gap-10 p-4 md:w-3/4 lg:grid-cols-5 lg:p-12">
       <div className="hidden w-full flex-col gap-5 place-self-start lg:col-span-2 lg:flex">
@@ -235,9 +256,9 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                       setValue('startDate', formatDateTime(value))
                     }
                   />
-                  {errors.startDate && (
+                  {errors.startDate && errors.endDate && (
                     <p className="text-error mt-0 text-xs font-medium">
-                      {errors.startDate.message}
+                      {errors.startDate.message ? errors.startDate.message : errors.endDate?.message}
                     </p>
                   )}
                 </span>
