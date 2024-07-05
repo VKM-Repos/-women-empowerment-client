@@ -59,6 +59,9 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({ handleNext, handleGoB
       if (startDate > now) {
         return 'Start date cannot be in the future for ongoing projects';
       }
+      if (endDate < now) {
+        return 'End date cannot be in the past for ongoing projects';
+      }
       if (endDate < startDate) {
         return 'End date must be after the start date for ongoing projects';
       }
