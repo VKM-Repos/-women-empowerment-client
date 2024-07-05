@@ -52,11 +52,14 @@ const ProjectCalender: React.FC<ProjectCalenderProps> = ({ handleNext, handleGoB
       if (startDate <= now) {
         return 'Start date must be in the future for upcoming projects';
       }
+      if (endDate < startDate) {
+        return 'End date must be after the start date for upcoming projects';
+      }
     } else if (status === 'ONGOING') {
       if (startDate > now) {
         return 'Start date cannot be in the future for ongoing projects';
       }
-      if (endDate <= startDate) {
+      if (endDate < startDate) {
         return 'End date must be after the start date for ongoing projects';
       }
     } else if (status === 'COMPLETED') {
