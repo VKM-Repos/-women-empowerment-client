@@ -23,28 +23,31 @@ interface EventTypeFormData {
   endDate: string;
 }
 
-const urlRegex = /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(\#[-a-zA-Z\d_]*)?$/;
+const urlRegex =
+  /^(https?:\/\/)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-zA-Z\d%_.~+]*)*(\?[;&a-zA-Z\d%_.~+=-]*)?(\#[-a-zA-Z\d_]*)?$/;
 
 const schema = z.object({
   type: z.enum(['ONLINE', 'PHYSICAL']),
-  link: z.string().optional().nullable().refine((link) => {
-    if (!link) return true; 
-    return urlRegex.test(link);
-  }, 'Invalid URL'),
+  link: z
+    .string()
+    .optional()
+    .nullable()
+    .refine(link => {
+      if (!link) return true;
+      return urlRegex.test(link);
+    }, 'Invalid URL'),
   location: z.string().optional().nullable(),
   startDate: z.string().min(1, 'Start date is required'),
   endDate: z.string().min(1, 'End date is required'),
-})
+});
 
 const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
- 
   const { data, setData } = useEventFormStore();
   const [selectedOption, setSelectedOption] = useState<string>('');
 
-
   const form = useForm<z.infer<typeof schema>>({
     defaultValues: {
-      type: data.eventDetails.type as 'ONLINE' | 'PHYSICAL' || undefined,
+      type: (data.eventDetails.type as 'ONLINE' | 'PHYSICAL') || undefined,
       link: data.eventDetails.link || '',
       location: data.eventDetails.location || '',
       startDate: data.eventDetails.startDate || '',
@@ -83,7 +86,9 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     }
 
     // Optionally, check if end date is within a year from now
-    if (endDate > new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())) {
+    if (
+      endDate > new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())
+    ) {
       return 'End date must be within one year from now.';
     }
 
@@ -94,11 +99,11 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
     clearErrors('startDate');
     clearErrors('endDate');
     clearErrors('type');
-         clearErrors('link');
-        clearErrors('location');
-  }, [eventStartDate, eventEndDate, eventType, location,]);
+    clearErrors('link');
+    clearErrors('location');
+  }, [eventStartDate, eventEndDate, eventType, location]);
 
-  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
+  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async formData => {
     try {
       schema.parse(formData);
       let formattedLinkValue = formData.link?.trim() ?? '';
@@ -111,7 +116,10 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
       }
 
       if (eventType === 'ONLINE' && !formattedLinkValue) {
-        setError('link', { type: 'manual', message: 'URL is required for online events' });
+        setError('link', {
+          type: 'manual',
+          message: 'URL is required for online events',
+        });
         clearErrors('startDate');
         clearErrors('endDate');
         clearErrors('type');
@@ -120,11 +128,14 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
       }
 
       if (eventType === 'PHYSICAL' && !formData.location) {
-        setError('location', { type: 'manual', message: 'Please enter the location for physical events' });
+        setError('location', {
+          type: 'manual',
+          message: 'Please enter the location for physical events',
+        });
         clearErrors('startDate');
         clearErrors('endDate');
         clearErrors('type');
-             clearErrors('link');
+        clearErrors('link');
 
         return;
       }
@@ -149,7 +160,7 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
       handleNext();
     } catch (error) {
       if (error instanceof ZodError) {
-        error.errors.forEach((err) => {
+        error.errors.forEach(err => {
           const path = err.path[0];
           setError(path as keyof z.infer<typeof schema>, {
             type: 'manual',
@@ -163,7 +174,10 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
   const eventOptions: any[] = ['ONLINE', 'PHYSICAL'];
 
   const isFormValid =
-    eventType && eventStartDate && eventEndDate && Object.keys(errors).length === 0;
+    eventType &&
+    eventStartDate &&
+    eventEndDate &&
+    Object.keys(errors).length === 0;
 
   const formatDateTime = (date: Date): string => {
     const pad = (num: number) => num.toString().padStart(2, '0');
@@ -201,12 +215,12 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
               <FormSelect
                 placeholder="Select event type"
                 value={eventType}
-                onChange={(value) => {
+                onChange={value => {
                   setValue('type', value);
                   setSelectedOption(value);
                 }}
                 defaultValue={''}
-                options={eventOptions?.map((option) => ({
+                options={eventOptions?.map(option => ({
                   label: option.toLowerCase().replace(/\s/g, '_'),
                   value: option,
                 }))}
@@ -258,7 +272,9 @@ const EventType: React.FC<EventTypeProps> = ({ handleNext, handleGoBack }) => {
                   />
                   {errors.startDate && errors.endDate && (
                     <p className="text-error mt-0 text-xs font-medium">
-                      {errors.startDate.message ? errors.startDate.message : errors.endDate?.message}
+                      {errors.startDate.message
+                        ? errors.startDate.message
+                        : errors.endDate?.message}
                     </p>
                   )}
                 </span>
