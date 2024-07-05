@@ -21,9 +21,10 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
   handleGoBack,
   handleSkip,
 }) => {
+
   const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
-   const [showInfo, setShowInfo] = useState<boolean>(true)
+  const [showInfo, setShowInfo] = useState<boolean>(true);
 
   const {
     register,
@@ -31,23 +32,24 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     formState: { errors },
     setError,
     setValue,
+    clearErrors,
     watch,
-  } = useForm<{ image: File | null; imagePreview: string }>(); // Change to FileList type
+  } = useForm<{ image: File | null; imagePreview: string }>(); 
 
-  // Set default value from the store on initial render
   useEffect(() => {
-    setValue("imagePreview", data.imagePreview); // Initialize with an empty FileList
+    setValue("imagePreview", data.imagePreview); 
   }, [data.imagePreview, setValue]);
 
   const handleChooseFile = () => {
     inputRef.current?.click();
   };
 
-   const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile: any = e.target.files?.[0];
+  const handleImagesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors("image");
+
+    const imageFile = e.target.files?.[0];
 
     if (imageFile) {
-
       if (imageFile.size > 2 * 1024 * 1024) {
         setError("image", {
           type: "manual",
@@ -71,16 +73,14 @@ const OrgImagesForm: React.FC<OrgImagesFormProps> = ({
     }
   };
 
-
   const removeImage = () => {
-    setData({ imagePreview: '' });
-    // setData({ images: updatedImages });
+    clearErrors("image");
+    setData({ imagePreview: "" });
   };
 
   const onSubmit: SubmitHandler<{ image: File | null }> = () => {
     handleNext();
   };
-
   return (
     <TransitionParent>
       <div className="w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-start lg:p-12 p-4 font-quickSand">
