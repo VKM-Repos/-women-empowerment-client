@@ -16,7 +16,6 @@ function ProjectSearchForm({ placeholder }: Props) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const { replace } = useRouter();
 
   const handleSearch = useDebouncedCallback((term: string) => {
@@ -38,7 +37,7 @@ function ProjectSearchForm({ placeholder }: Props) {
     }
   }, 500);
 
-  console.log(pathname);
+ 
 
 
   return (
@@ -54,7 +53,7 @@ function ProjectSearchForm({ placeholder }: Props) {
         className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
       />
       <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md">
-        <Icon name="img_search" className="" />
+        <Icon name="img_search" className="size-8" />
       </button>
     </div>
   );
