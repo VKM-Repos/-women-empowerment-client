@@ -8,6 +8,7 @@ import { useOrganizationFormStore } from '@/lib/store/createOrgForm.store';
 import Icon from '@/components/Common/Icons/Icon';
 import AlertIcon from '../AlertIcon';
 import InfoIcon from '../InfoIcon';
+import toast from 'react-hot-toast';
 
 interface OrgLogoFormProps {
   handleNext: () => void;
@@ -20,7 +21,7 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
   handleGoBack,
   handleSkip,
 }) => {
-  const { data, setData } = useOrganizationFormStore();
+const { data, setData } = useOrganizationFormStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [showInfo, setShowInfo] = useState<boolean>(true);
 
@@ -32,7 +33,12 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
     setError,
     clearErrors,
     watch,
-  } = useForm<{ logo: FileList | null; logoPreview: string | null }>();
+  } = useForm<{ logo: File | null; logoPreview: string | null }>({
+    defaultValues: {
+      logo: data.logo,
+      logoPreview: data.logoPreview,
+    },
+  });
 
   // Set default value from the store on initial render
   useEffect(() => {
@@ -69,20 +75,25 @@ const OrgLogoForm: React.FC<OrgLogoFormProps> = ({
       const imageUrl = URL.createObjectURL(imageFile);
       setData({ logoPreview: imageUrl });
       setData({ logo: imageFile });
-      clearErrors('logo'); // Clear errors if image selection is valid
+      setValue('logo', imageFile); 
+      setValue('logoPreview', imageUrl); 
+      clearErrors('logo');
     }
   };
 
   const removeImage = () => {
     clearErrors('logo');
     setData({ logoPreview: '' });
+    setValue('logo', null); 
+    setValue('logoPreview', null); 
   };
 
-  const onSubmit: SubmitHandler<{ logo: FileList | null }> = (formData) => {
+  const onSubmit: SubmitHandler<{ logo: File | null }> = (formData) => {
     if (formData.logo) {
       handleNext();
     } else {
       // Handle case where no logo is selected
+      toast.error('No logo selected');
     }
   };
 
