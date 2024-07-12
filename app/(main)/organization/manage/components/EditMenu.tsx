@@ -13,7 +13,7 @@ type MenuItem = {
   link?: string;
   isButton?: boolean;
   condition?: boolean;
-  onClick?: () => void;
+  onClick?: () => any;
 };
 
 type EditMenuProps = {
@@ -21,7 +21,7 @@ type EditMenuProps = {
   label?: React.ReactNode;
 };
 
-const EditMenu: React.FC<EditMenuProps> = ({ menu, label = "options menu" }) => {
+const EditMenu: React.FC<EditMenuProps> = ({ menu, label = "action" }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
