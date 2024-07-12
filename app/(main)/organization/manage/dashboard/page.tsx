@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useGET } from '@/lib/hooks/useGET.hook';
 import { useAppContext } from '@/lib/context/app-context';
 import { usePATCH } from '@/lib/hooks/usePATCH.hook';
@@ -12,7 +12,7 @@ import { BreadcrumbComponent } from '../components/WithBreadcrumb';
 export default function OrganizationDetails() {
   const { user } = useAppContext();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string>('');
   const [contentType, setContentType] = useState<string>('application/json');
   const [imageToUpdate, setImageToUpdate] = useState<string>('');
 
@@ -68,16 +68,17 @@ export default function OrganizationDetails() {
     mutate(imageFile, {
       onSuccess: () => {
         refetch();
+        setCoverImagePreview('');
       },
     });
   };
 
   const handleRemoveCoverImage = () => {
-    setCoverImagePreview(null);
+    setCoverImagePreview('');
     setImageToUpdate('cover-image');
     setContentType('application/json');
     mutate(
-      { coverImage: null },
+      { coverImage: '' },
       {
         onSuccess: () => {
           refetch();
@@ -87,7 +88,7 @@ export default function OrganizationDetails() {
   };
 
   const handleUpdateOrganization = (formData: any) => {
-    setImageToUpdate('');
+    setImageToUpdate('cover-image');
     setContentType('application/json');
     mutate(formData, {
       onSuccess: () => {
@@ -98,9 +99,9 @@ export default function OrganizationDetails() {
 
   return (
     <TransitionParent>
-     <div className="mb-4">
-       <BreadcrumbComponent />
-     </div>
+      <div className="mb-4">
+        <BreadcrumbComponent />
+      </div>
       <div className="relative -mt-4">
         <CoverImage
           organization={organization}
@@ -114,7 +115,9 @@ export default function OrganizationDetails() {
             onUpdateProfileImage={handleUpdateProfileImage}
             onRemoveProfileImage={handleRemoveProfileImage}
           />
-          { <h3 className=' lg:text-3xl text-base leading-tight font-semibold font-sora w-4/5 lg:w-3/5 text-primaryWhite'>{organization?.name}</h3>}
+          <h3 className='lg:text-3xl text-base leading-tight font-semibold font-sora w-4/5 lg:w-3/5 text-primaryWhite'>
+            {organization?.name}
+          </h3>
         </div>
       </div>
       <div className="mt-[7rem]">
