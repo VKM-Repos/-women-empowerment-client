@@ -77,15 +77,15 @@ export function BreadcrumbComponent() {
                 align="end"
                 className="bg-primaryWhite absolute -top-[24px] right-7 w-48 rounded shadow-md"
               >
-                <ul className="font-quickSand text-gray-200 flex flex-col items-start justify-center gap-2">
+                <div className="font-quickSand text-gray-200 flex flex-col items-start justify-center gap-2">
                   {breadcrumbItems.map((item, index) => (
                     <React.Fragment key={index}>
-                      <li className="flex items-center justify-start gap-4 whitespace-nowrap">
+                      <span className="flex items-center justify-start gap-4 whitespace-nowrap">
                         {item}
-                      </li>
+                      </span>
                     </React.Fragment>
                   ))}
-                </ul>
+                </div>
               </PopoverContent>
             </Popover>
           </BreadcrumbItem>

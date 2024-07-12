@@ -12,7 +12,7 @@ const CommentCard: React.FC<{
 
   return (
     <div key={comment.id} className="grid w-full grid-cols-8 gap-4">
-      <span className="col-span-1 aspect-square w-[2rem] overflow-hidden rounded-full md:w-[2.5rem]">
+      <span className="col-span-1 aspect-square w-[2rem] border-2 border-btnWarning overflow-hidden rounded-full md:w-[2.5rem]">
         <ImageWithFallback
           src={comment?.user?.photoUrl ? comment?.user?.photoUrl : ''}
           fallbackSrc={'https://placehold.co/100x100?text=Women\n Hub'}

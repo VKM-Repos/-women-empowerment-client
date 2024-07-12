@@ -8,23 +8,23 @@ import toast from 'react-hot-toast';
 
 
 type Props = {
-    eventId: string
+    projectId: string
 }
 
-const DeleteEventModal = ({eventId}: Props) => {
+const DeleteProjectModal = ({projectId}: Props) => {
   const { hideModal } = useModal();
 
 
-  const { mutate: deleteEvent, isPending: deletingProject } = useDELETE(
+  const { mutate: deleteProject, isPending: deletingProject } = useDELETE(
     true
   );
 
-  const handleDeleteEvent = (event: any) => {
+  const handleDeleteProject = (event: any) => {
     event.preventDefault();
-    deleteEvent(`events/${eventId}`, {
+    deleteProject( `projects/${projectId}`, {
       onSuccess: () => {
         hideModal();
-        window.location.href = "/organization/manage/events";
+        window.location.href = "/organization/manage/projects";
       },
       onError: (error: any) => {
         toast.error("could not delete")
@@ -82,15 +82,15 @@ const DeleteEventModal = ({eventId}: Props) => {
                 </div>
                 <div className="flex flex-col items-center gap-3">
                   <h1 className="text-primary text-3xl font-bold font-sora">
-                    Delete Event
+                    Delete Project
                   </h1>
                   <h2 className="text-black-100 font-quickSand text-lg">
-                    Are sure you want to delete this event?
+                    Are sure you want to delete this project?
                   </h2>
                 </div>
                 <div className="flex gap-10">
                   <button
-                    onClick={handleDeleteEvent}
+                    onClick={handleDeleteProject}
                     className="bg-btnWarning px-8 py-3 rounded-md text-white-100 text-base font-quickSand font-semibold"
                   >
                     Delete
@@ -111,4 +111,4 @@ const DeleteEventModal = ({eventId}: Props) => {
   )
 }
 
-export default DeleteEventModal
+export default DeleteProjectModal

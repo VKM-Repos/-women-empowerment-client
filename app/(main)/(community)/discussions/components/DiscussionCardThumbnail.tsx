@@ -28,7 +28,7 @@ const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
         onClick={() => (window.location.href = `/discussions/${discussion.id}`)}
         className="border-gray-500 hover:bg-primary/10 my-2 grid w-full transform cursor-pointer grid-cols-8 items-center gap-4 rounded-[0.5rem] border p-2 drop-shadow-sm        transition-all duration-75 ease-in-out hover:scale-[99%]"
       >
-        <span className="col-span-1 aspect-square w-[2rem] overflow-hidden rounded-full md:w-[3rem]">
+        <span className="col-span-1 aspect-square w-[2rem] border overflow-hidden rounded-full md:w-[3rem]">
           <ImageWithFallback
             src={
               discussion?.createdBy.photoUrl

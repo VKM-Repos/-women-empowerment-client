@@ -12,7 +12,6 @@ type Props = {
 };
 
 function SearchForm({ placeholder }: Props) {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -52,7 +51,7 @@ function SearchForm({ placeholder }: Props) {
         }}
         className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
       />
-      <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md">
+      <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-3 md:p-5 rounded-br-md rounded-tr-md">
         <Icon name="img_search" className="" />
       </button>
     </div>
