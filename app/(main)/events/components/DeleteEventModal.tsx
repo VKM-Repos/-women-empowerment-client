@@ -16,12 +16,12 @@ const DeleteEventModal = ({eventId}: Props) => {
 
 
   const { mutate: deleteEvent, isPending: deletingProject } = useDELETE(
-    `events/${eventId}`
+    true
   );
 
   const handleDeleteEvent = (event: any) => {
     event.preventDefault();
-    deleteEvent("", {
+    deleteEvent(`events/${eventId}`, {
       onSuccess: () => {
         hideModal();
         window.location.href = "/organization/manage/events";
