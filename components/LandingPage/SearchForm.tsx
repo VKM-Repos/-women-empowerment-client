@@ -12,7 +12,6 @@ type Props = {
 };
 
 function SearchForm({ placeholder }: Props) {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
