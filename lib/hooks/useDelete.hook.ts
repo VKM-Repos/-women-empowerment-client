@@ -1,25 +1,21 @@
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-import { authApi, publicApi } from "@/lib/config/axiosInstance";
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+import { authApi, publicApi } from '@/lib/config/axiosInstance';
 
-export const useDELETE = (
-  url: string,
-  withAuth = true,
-  storeCallback = undefined
-) => {
+export const useDELETE = (withAuth = true, storeCallback = undefined) => {
   const { mutate, isPending, isError, isSuccess, data, error } = useMutation({
-    mutationFn: async (values: any) => {
+    mutationFn: async (url: string) => {
       const axiosInstance = withAuth ? authApi : publicApi;
-      const response = await axiosInstance.delete(url, { data: values });
-      return response;
+      const response = await axiosInstance.delete(url);
+      return response?.data;
     },
-    onSuccess: (returnedData) => {
-      toast.success(returnedData?.data?.message || "Deleted successfully");
+    onSuccess: returnedData => {
+      toast.success(returnedData?.message || 'Deleted successfully');
       // storeCallback && storeCallback(returnedData);
     },
-    onError: (err) => {
-      // toast.error(err?.data?.message);
+    onError: err => {
       console.log(err);
+      toast.error(err?.message || 'Error deleting image');
     },
   });
 
