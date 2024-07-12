@@ -1,12 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Tab from "./components/Tab";
-import orgLogo from "@/public/images/wtn.svg";
-import Link from "next/link";
 import { useGET } from "@/lib/hooks/useGET.hook";
 import { useAppContext } from "@/lib/context/app-context";
 import { TransitionParent } from "@/lib/utils/transition";
-import LoadingThinkingWomen from "@/components/Common/Loaders/LoadingThinkingWomen";
 import { BreadcrumbComponent } from "../components/WithBreadcrumb";
 import Button from "@/components/Common/Button/Button";
 import NoContent from "@/components/EmptyStates/NoContent";

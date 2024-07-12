@@ -1,8 +1,6 @@
 'use-client';
-import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { Menu } from '@/components/Common/ModalMenu/Menu';
 import Icon from '@/components/Common/Icons/Icon';
 import ImageWithFallback from '@/components/Common/ImageWithFallBack';
 import ThreeDotsMenu from '../../../components/ThreeDotsMenu';
@@ -91,7 +89,7 @@ export default function Project({ project, projectStatus }: ProjectCardProps) {
       </div>
 
       <div className="absolute right-[2px] my-auto lg:right-2">
-        <ThreeDotsMenu menu={menu} label="Quick action" />
+        <ThreeDotsMenu menu={menu} label="action" />
       </div>
     </div>
   );
