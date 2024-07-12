@@ -1,8 +1,5 @@
-import { create, StateCreator } from "zustand";
-import {
-  persist,
-  PersistOptions,
-} from "zustand/middleware";
+import { create, StateCreator } from 'zustand';
+import { persist, PersistOptions } from 'zustand/middleware';
 
 export interface OrganizationFormStore {
   step: number;
@@ -25,7 +22,7 @@ export interface OrganizationFormStore {
     logoPreview: string;
   };
   setStep: (step: number) => void;
-  setData: (data: Partial<OrganizationFormStore["data"]>) => void;
+  setData: (data: Partial<OrganizationFormStore['data']>) => void;
   resetStore: () => void;
 }
 
@@ -36,55 +33,55 @@ type MyPersist = (
 
 export const useOrganizationFormStore = create<OrganizationFormStore>(
   (persist as MyPersist)(
-    (set) => ({
+    set => ({
       step: 1,
       data: {
         organizationDetails: {
-          name: "",
+          name: '',
           categoryIds: [],
-          website: "",
-          facebook: "",
-          state: "",
-          postalCode: "",
-          street: "",
-          email: "",
-          phoneNumber: "",
-          description: "",
+          website: '',
+          facebook: '',
+          state: '',
+          postalCode: '',
+          street: '',
+          email: '',
+          phoneNumber: '',
+          description: '',
         },
         logo: null,
         image: null,
-        imagePreview: "",
-        logoPreview: "",
+        imagePreview: '',
+        logoPreview: '',
       },
-      setStep: (step) => set({ step }),
-      setData: (data) => set((state) => ({ data: { ...state.data, ...data } })),
+      setStep: step => set({ step }),
+      setData: data => set(state => ({ data: { ...state.data, ...data } })),
       resetStore: () => {
         set({
           step: 9,
           data: {
             organizationDetails: {
-              name: "",
+              name: '',
               categoryIds: [],
-              website: "",
-              facebook: "",
-              state: "",
-              postalCode: "",
-              street: "",
-              email: "",
-              phoneNumber: "",
-              description: "",
+              website: '',
+              facebook: '',
+              state: '',
+              postalCode: '',
+              street: '',
+              email: '',
+              phoneNumber: '',
+              description: '',
             },
             logo: null,
             image: null,
-            imagePreview: "",
-            logoPreview: "",
+            imagePreview: '',
+            logoPreview: '',
           },
         });
-        localStorage.removeItem("organizationFormStore");
+        localStorage.removeItem('organizationFormStore');
       },
     }),
     {
-      name: "organizationFormStore",
+      name: 'organizationFormStore',
     }
   )
 );
