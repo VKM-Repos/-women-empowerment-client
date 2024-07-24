@@ -33,7 +33,7 @@ const DiscussionCardThumbnail: React.FC<{ discussion: Discussion }> = ({
             src={
               discussion?.createdBy.photoUrl
                 ? discussion?.createdBy.photoUrl
-                : ''
+                : 'https://placehold.co/400x400?text=Women\n Hub'
             }
             fallbackSrc={'https://placehold.co/100x100?text=Women\n Hub'}
             aspectRatio={{ width: 100, height: 100 }}
