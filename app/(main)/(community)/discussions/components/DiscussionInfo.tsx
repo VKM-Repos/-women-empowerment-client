@@ -77,7 +77,7 @@ const DiscussionInfo: React.FC<DiscussionInfoProps> = ({ discussionId }) => {
             <div className="col-span-1 flex flex-col items-start justify-start gap-4 p-2">
              <div className="md:hidden items-center gap-4 flex">
                 <AuthorDetails
-                  photoUrl={discussion?.createdBy.photoUrl}
+                  photoUrl={discussion?.createdBy.photoUrl !== null ? discussion?.createdBy.photoUrl : 'https://placehold.co/400x400?text=Women\n Hub'}
                   name={discussion?.createdBy.name || 'Anonymous'}
                 />
               </div>
@@ -102,7 +102,7 @@ const DiscussionInfo: React.FC<DiscussionInfoProps> = ({ discussionId }) => {
             <div className="col-span-1 flex flex-col items-start justify-start gap-10">
               <div className="hidden items-center gap-4 md:flex">
                 <AuthorDetails
-                  photoUrl={discussion?.createdBy.photoUrl}
+                  photoUrl={discussion?.createdBy.photoUrl !== null ? discussion?.createdBy.photoUrl : 'https://placehold.co/400x400?text=Women\n Hub'}
                   name={discussion?.createdBy.name || 'Anonymous'}
                 />
               </div>
@@ -112,7 +112,7 @@ const DiscussionInfo: React.FC<DiscussionInfoProps> = ({ discussionId }) => {
                 </h5>
                 <ShareDiscussion
                   shareUrl={window.location.href}
-                  shareText={`Check out this awesome link - ${discussion.title}`}
+                  shareText={`Check out this awesome link - ${discussion?.title}`}
                 />
               </div>
               <div className="">
