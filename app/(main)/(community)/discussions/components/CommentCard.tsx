@@ -14,7 +14,7 @@ const CommentCard: React.FC<{
     <div key={comment.id} className="grid w-full grid-cols-8 gap-4">
       <span className="col-span-1 aspect-square w-[2rem] border-2 border-btnWarning overflow-hidden rounded-full md:w-[2.5rem]">
         <ImageWithFallback
-          src={comment?.user?.photoUrl ? comment?.user?.photoUrl : ''}
+          src={comment?.user?.photoUrl ? comment?.user?.photoUrl : 'https://placehold.co/400x400?text=Women\n Hub'}
           fallbackSrc={'https://placehold.co/100x100?text=Women\n Hub'}
           aspectRatio={{ width: 100, height: 100 }}
           alt={comment?.user?.name}
