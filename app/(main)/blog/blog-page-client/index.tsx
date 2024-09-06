@@ -25,14 +25,14 @@ const BlogPageClient = ({ data, perPage }: Props) => {
               community triumphs.
             </h1>
           </div>
-          <div className="z-1 absolute bottom-0 right-1/4 col-span-1 block md:right-0 lg:col-span-2">
+          <div className="z-1 absolute bottom-0 right-1/4 col-span-1 block md:right-3 lg:col-span-2">
             <Image src={BlogHero} alt="blog-hero" width={500} height={350} />
           </div>
         </section>
 
-        <section className="mx-auto flex w-full max-w-lg  flex-col items-center px-4">
+        <section className="mx-auto flex w-full max-w-xl  flex-col items-center px-4">
           <div className="mt-10 flex w-full flex-col gap-5 ">
-            <p className="text-gray-200 font-sora text-center">
+            <p className="text-gray-200 font-sora text-center text-base md:text-lg">
               Stay updated by subscribing to our newsletter for the latest
               stories and insights.
             </p>
