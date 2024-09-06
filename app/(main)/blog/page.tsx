@@ -27,16 +27,11 @@ const getAllPosts = async (): Promise<any> => {
   }
 };
 const Blog: React.FC = async () => {
-  const posts: any = [];
-
   const data = await getAllPosts();
-
-  console.log(data);
 
   if (!data) {
     return null;
   }
-  const entries = data?.content;
 
   return (
     <TransitionElement>

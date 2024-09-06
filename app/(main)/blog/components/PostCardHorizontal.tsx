@@ -37,11 +37,11 @@ const PostCardHorizontal = ({ data }: Props) => {
         />
       </span>
       <div className="col-span-1 flex flex-col gap-0 p-2">
-        <span className="text-primary flex gap-2 whitespace-nowrap text-sm font-semibold md:text-[0.8rem]">
+        <span className="font-quickSand text-primary flex gap-2 whitespace-nowrap text-sm font-semibold md:text-[0.8rem]">
           <p>{data?.author ?? ''}</p> &bull; <p>{data?.datePublished ?? ''}</p>
         </span>
         <span className="flex w-full items-center justify-between">
-          <h4 className="text-gray-200 overflow-hidden truncate text-base font-semibold group-hover:underline">
+          <h4 className="text-gray-200 font-sora overflow-hidden truncate text-base font-semibold group-hover:underline">
             {truncatedText(data?.title, 70)}
           </h4>
           <span className="opacity-0 group-hover:opacity-100">
@@ -65,10 +65,10 @@ const PostCardHorizontal = ({ data }: Props) => {
             </svg>
           </span>
         </span>
-        <p className="text-gray-300 flex truncate text-base ">
+        <p className="text-gray-300 font-quickSand flex truncate text-base ">
           {truncatedText(data?.description, 70)}
         </p>
-        <div className="text-gray-300 flex items-center gap-4">
+        <div className="text-gray-300 font-quickSand flex items-center gap-4">
           <span className="flex items-center gap-1">
             <svg
               className="aspect-square w-5 cursor-pointer"

@@ -29,11 +29,11 @@ const PostCardVertical = ({ data }: Props) => {
         />
       </span>
       <div className="flex w-full max-w-sm flex-col gap-1 overflow-hidden p-2 md:max-w-full">
-        <span className="text-primary flex gap-2 whitespace-nowrap text-sm font-semibold">
+        <span className="text-primary font-quickSand flex gap-2 whitespace-nowrap text-sm font-semibold">
           <p>{data?.author ?? ''}</p> &bull; <p>{data?.datePublished ?? ''}</p>
         </span>
         <span className="flex w-full items-start justify-between">
-          <h4 className="text-gray-200 text-[1.4rem] font-semibold group-hover:underline">
+          <h4 className="text-gray-200 font-sora text-[1.4rem] font-semibold group-hover:underline">
             {data?.title ?? ''}
           </h4>
           <span className="opacity-0 group-hover:opacity-100">
@@ -57,10 +57,10 @@ const PostCardVertical = ({ data }: Props) => {
             </svg>
           </span>
         </span>
-        <p className="text-gray-300 flex max-w-sm whitespace-pre-line break-words text-base">
+        <p className="text-gray-300 font-quickSand flex max-w-sm whitespace-pre-line break-words text-base">
           {data.description ?? ''}
         </p>
-        <div className="text-gray-300 flex items-center gap-4">
+        <div className="text-gray-300 font-quickSand flex items-center gap-4">
           <span className="flex items-center gap-1">
             <svg
               className="aspect-square w-5 cursor-pointer"
