@@ -9,17 +9,6 @@ type Props = {
   data: any;
 };
 
-//   id: 5,
-//   title: 'Healthy Eating Tips',
-//   author: 'Kanyinsola Akanbi',
-//   description: 'This is just the basic description on how to create a blog post from the admin section',
-//   coverImageUrl: 'https://dev.womenhub.org/api/images/null',
-//   category: [Object],
-//   body:
-//   datePublished: '2024-08-21',
-//   numberOfLikes: 0,
-//   numberOfComments: 0
-
 const PostCardVertical = ({ data }: Props) => {
   return (
     <Link
@@ -39,12 +28,12 @@ const PostCardVertical = ({ data }: Props) => {
           className=""
         />
       </span>
-      <div className="flex flex-col gap-1 p-2">
-        <span className="text-primary flex gap-4 text-sm font-semibold md:text-base">
+      <div className="flex w-full max-w-sm flex-col gap-1 overflow-hidden p-2 md:max-w-full">
+        <span className="text-primary flex gap-2 whitespace-nowrap text-sm font-semibold">
           <p>{data?.author ?? ''}</p> &bull; <p>{data?.datePublished ?? ''}</p>
         </span>
-        <span className="flex w-full items-center justify-between">
-          <h4 className="text-gray-200 text-large font-semibold group-hover:underline">
+        <span className="flex w-full items-start justify-between">
+          <h4 className="text-gray-200 text-[1.4rem] font-semibold group-hover:underline">
             {data?.title ?? ''}
           </h4>
           <span className="opacity-0 group-hover:opacity-100">
@@ -68,7 +57,9 @@ const PostCardVertical = ({ data }: Props) => {
             </svg>
           </span>
         </span>
-        <p className="text-gray-300 text-base">{data.description ?? ''}</p>
+        <p className="text-gray-300 flex max-w-sm whitespace-pre-line break-words text-base">
+          {data.description ?? ''}
+        </p>
         <div className="text-gray-300 flex items-center gap-4">
           <span className="flex items-center gap-1">
             <svg
@@ -80,36 +71,28 @@ const PostCardVertical = ({ data }: Props) => {
               <path
                 d="M10.7504 21.1975L10.7496 21.1969C7.60326 18.3438 5.03218 16.0116 3.24167 13.8225C1.45691 11.6405 0.5 9.66166 0.5 7.52391C0.5 4.04866 3.22366 1.325 6.69891 1.325C8.66681 1.325 10.5634 2.24354 11.7992 3.69476L12.1798 4.14179L12.5605 3.69476C13.7963 2.24354 15.6929 1.325 17.6608 1.325C21.136 1.325 23.8597 4.04866 23.8597 7.52391C23.8597 9.66166 22.9028 11.6405 21.1179 13.8242C19.3314 16.0099 16.7679 18.3394 13.6312 21.1898L13.6107 21.2084L13.6096 21.2094L12.1811 22.5L10.7504 21.1975Z"
                 stroke="currentColor"
-                strokeOpacity="0.4"
+                strokeOpacity=""
+                strokeWidth={2.5}
               />
-            </svg>{' '}
+            </svg>
             {data?.numberOfLikes ?? '0'}
           </span>
           <span className="flex items-center gap-1">
             <svg
-              width="25"
-              height="25"
-              viewBox="0 0 25 25"
+              width="23"
+              height="22"
+              viewBox="0 0 23 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M8.30859 6.58594L12.3086 2.58594L16.3086 6.58594"
-                stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                d="M11.0935 1.82031C9.89808 1.82031 8.71436 2.05577 7.60994 2.51324C6.50551 2.97071 5.502 3.64123 4.65671 4.48652C2.94957 6.19366 1.9905 8.50905 1.9905 10.9233C1.98254 13.0253 2.71036 15.0638 4.04778 16.6855L2.22718 18.5061C2.10087 18.6341 2.0153 18.7967 1.98128 18.9733C1.94726 19.1499 1.96631 19.3326 2.03602 19.4983C2.11162 19.6621 2.23419 19.7998 2.38816 19.8938C2.54213 19.9878 2.72056 20.0339 2.9008 20.0263H11.0935C13.5078 20.0263 15.8232 19.0673 17.5303 17.3601C19.2374 15.653 20.1965 13.3376 20.1965 10.9233C20.1965 8.50905 19.2374 6.19366 17.5303 4.48652C15.8232 2.77938 13.5078 1.82031 11.0935 1.82031ZM11.0935 18.2057H5.09463L5.94121 17.3591C6.11075 17.1886 6.20591 16.9579 6.20591 16.7174C6.20591 16.4769 6.11075 16.2462 5.94121 16.0756C4.74925 14.885 4.00698 13.3179 3.84086 11.6414C3.67475 9.96481 4.09506 8.28254 5.0302 6.88115C5.96534 5.47975 7.35744 4.44594 8.96933 3.95585C10.5812 3.46576 12.3132 3.54971 13.8701 4.19339C15.4271 4.83707 16.7127 6.00066 17.5079 7.48592C18.3031 8.97118 18.5588 10.6862 18.2313 12.3388C17.9038 13.9915 17.0135 15.4794 15.712 16.5492C14.4104 17.619 12.7783 18.2044 11.0935 18.2057Z"
+                fill="currentColor"
               />
               <path
-                d="M16.3086 10.5859H18.3086C18.5738 10.5859 18.8282 10.6913 19.0157 10.8788C19.2032 11.0664 19.3086 11.3207 19.3086 11.5859V20.5859C19.3086 20.8512 19.2032 21.1055 19.0157 21.293C18.8282 21.4806 18.5738 21.5859 18.3086 21.5859H6.30859C6.04338 21.5859 5.78902 21.4806 5.60149 21.293C5.41395 21.1055 5.30859 20.8512 5.30859 20.5859V11.5859C5.30859 11.3207 5.41395 11.0664 5.60149 10.8788C5.78902 10.6913 6.04338 10.5859 6.30859 10.5859H8.30859"
-                stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12.3086 2.58594V15.5859"
-                stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                d="M11.0935 1.82031C9.89808 1.82031 8.71436 2.05577 7.60994 2.51324C6.50551 2.97071 5.502 3.64123 4.65671 4.48652C2.94957 6.19366 1.9905 8.50905 1.9905 10.9233C1.98254 13.0253 2.71036 15.0638 4.04778 16.6855L2.22718 18.5061C2.10087 18.6341 2.0153 18.7967 1.98128 18.9733C1.94726 19.1499 1.96631 19.3326 2.03602 19.4983C2.11162 19.6621 2.23419 19.7998 2.38816 19.8938C2.54213 19.9878 2.72056 20.0339 2.9008 20.0263H11.0935C13.5078 20.0263 15.8232 19.0673 17.5303 17.3601C19.2374 15.653 20.1965 13.3376 20.1965 10.9233C20.1965 8.50905 19.2374 6.19366 17.5303 4.48652C15.8232 2.77938 13.5078 1.82031 11.0935 1.82031ZM11.0935 18.2057H5.09463L5.94121 17.3591C6.11075 17.1886 6.20591 16.9579 6.20591 16.7174C6.20591 16.4769 6.11075 16.2462 5.94121 16.0756C4.74925 14.885 4.00698 13.3179 3.84086 11.6414C3.67475 9.96481 4.09506 8.28254 5.0302 6.88115C5.96534 5.47975 7.35744 4.44594 8.96933 3.95585C10.5812 3.46576 12.3132 3.54971 13.8701 4.19339C15.4271 4.83707 16.7127 6.00066 17.5079 7.48592C18.3031 8.97118 18.5588 10.6862 18.2313 12.3388C17.9038 13.9915 17.0135 15.4794 15.712 16.5492C14.4104 17.619 12.7783 18.2044 11.0935 18.2057Z"
+                fill="currentColor"
+                fill-opacity="0.2"
               />
             </svg>
 
