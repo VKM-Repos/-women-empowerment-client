@@ -9,7 +9,7 @@ type Props = {
 const RecentPosts = ({ data }: Props) => {
   return (
     <section className="w-full space-y-2">
-      <h2 className="lg:text-large text-base font-semibold">
+      <h2 className="lg:text-large font-sora text-base font-semibold">
         Recent blog posts
       </h2>
       <div className="grid w-full grid-cols-1 gap-12 md:grid-cols-2">

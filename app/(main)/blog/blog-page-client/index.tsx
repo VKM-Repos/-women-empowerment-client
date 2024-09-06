@@ -32,14 +32,14 @@ const BlogPageClient = ({ data, perPage }: Props) => {
 
         <section className="mx-auto flex w-full max-w-lg  flex-col items-center px-4">
           <div className="mt-10 flex w-full flex-col gap-5 ">
-            <p className="text-center">
+            <p className="text-gray-200 font-sora text-center">
               Stay updated by subscribing to our newsletter for the latest
               stories and insights.
             </p>
-            <div className="flex gap-5">
+            <div className="font-quickSand flex gap-5">
               <input
                 type="text"
-                className="border-gray-500 w-[80%] rounded-md border px-5 py-2 focus:outline-none"
+                className="border-gray-500 font-quickSand w-[80%] rounded-md border px-5 py-2 focus:outline-none"
                 placeholder="sarahbling@gmail.com"
               />
               <button className="text-white-100 bg-btnWarning rounded-md px-5 py-2.5">

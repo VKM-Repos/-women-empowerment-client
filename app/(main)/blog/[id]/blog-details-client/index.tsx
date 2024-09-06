@@ -71,7 +71,7 @@ const BlogDetailsClient = ({ data }: Props) => {
             <span className=" bg-btnWarning text-white-100 font-quickSand rounded-lg p-1 px-2 text-xs">
               {data?.category.name ?? ''}
             </span>
-            <h2 className="text-white-100 max-w-lg text-pretty text-lg font-semibold leading-none md:text-[2.3rem]">
+            <h2 className="text-white-100 font-sora max-w-lg text-pretty text-lg font-semibold leading-none md:text-[2.3rem]">
               {data?.title ? data?.title : ''}
             </h2>
             <p className="font-extra-light text-white-100/80 text-sm">
@@ -79,7 +79,7 @@ const BlogDetailsClient = ({ data }: Props) => {
               <strong>{data?.author ? data?.author : 'Women Hub'}</strong> •{' '}
               {data?.datePublished}
             </p>
-            <p className="font-light text-white-100 text-sm">
+            <p className="font-light text-white-100 font-quickSand text-sm">
               {readTime} mins Read
             </p>
           </div>
