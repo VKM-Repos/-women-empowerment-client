@@ -74,7 +74,7 @@ const BlogDetailsClient = ({ data }: Props) => {
             <h2 className="text-white-100 font-sora max-w-lg text-pretty text-lg font-semibold leading-none md:text-[2.3rem]">
               {data?.title ? data?.title : ''}
             </h2>
-            <p className="font-extra-light text-white-100/80 text-sm">
+            <p className="font-extra-light font-quickSand text-white-100/80 text-sm">
               Published by:{' '}
               <strong>{data?.author ? data?.author : 'Women Hub'}</strong> •{' '}
               {data?.datePublished}
