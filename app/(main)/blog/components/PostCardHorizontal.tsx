@@ -1,14 +1,23 @@
-import Icon from '@/components/Common/Icons/Icon';
+'use client';
 import ImageWithFallback from '@/components/Common/ImageWithFallBack';
 import FallBack from '@/public/images/blog-fallback.png';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 type Props = {
   data: any;
 };
 
 const PostCardHorizontal = ({ data }: Props) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
+  const truncatedText = (text: string, maxLength: number) => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  };
   return (
     <Link
       href={`/blog/${data.id}`}
@@ -27,13 +36,13 @@ const PostCardHorizontal = ({ data }: Props) => {
           className=""
         />
       </span>
-      <div className="col-span-1 flex flex-col gap-1 p-2">
-        <span className="text-primary flex gap-4 text-sm font-semibold md:text-lg">
+      <div className="col-span-1 flex flex-col gap-0 p-2">
+        <span className="text-primary flex gap-2 whitespace-nowrap text-sm font-semibold md:text-[0.8rem]">
           <p>{data?.author ?? ''}</p> &bull; <p>{data?.datePublished ?? ''}</p>
         </span>
         <span className="flex w-full items-center justify-between">
-          <h4 className="text-gray-200 text-base font-semibold group-hover:underline">
-            {data?.title ?? ''}
+          <h4 className="text-gray-200 overflow-hidden truncate text-base font-semibold group-hover:underline">
+            {truncatedText(data?.title, 70)}
           </h4>
           <span className="opacity-0 group-hover:opacity-100">
             <svg
@@ -56,7 +65,9 @@ const PostCardHorizontal = ({ data }: Props) => {
             </svg>
           </span>
         </span>
-        <p className="text-gray-300 text-base">{data.description ?? ''}</p>
+        <p className="text-gray-300 flex truncate text-base ">
+          {truncatedText(data?.description, 70)}
+        </p>
         <div className="text-gray-300 flex items-center gap-4">
           <span className="flex items-center gap-1">
             <svg
