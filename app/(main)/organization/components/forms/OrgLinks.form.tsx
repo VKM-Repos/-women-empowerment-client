@@ -28,7 +28,7 @@ const OrgLinksForm: React.FC<OrgLinksFormProps> = ({
     linkValue: z.string().refine(
       value => {
         const regex =
-          /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+          /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?(\?.*)?$/;
         return regex.test(value);
       },
       { message: 'Invalid URL format' }
