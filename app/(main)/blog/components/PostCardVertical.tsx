@@ -12,7 +12,7 @@ type Props = {
 const PostCardVertical = ({ data }: Props) => {
   return (
     <Link
-      href={`/blog/${data.id}`}
+      href={`/blog/${data?.id}`}
       className="group flex flex-col items-start justify-start gap-3"
     >
       <span className=" aspect-video w-full overflow-hidden rounded-md">
