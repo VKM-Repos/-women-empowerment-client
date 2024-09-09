@@ -10,7 +10,7 @@ interface ResultsPageProps {
 
 const Blog = async ({ searchParams }: ResultsPageProps) => {
   const page = Number(searchParams['page']) || 0;
-  const per_page = Number(searchParams['per_page']) || 10;
+  const per_page = Number(searchParams['per_page']) || 9;
 
   const getAllPosts = async (): Promise<any> => {
     try {

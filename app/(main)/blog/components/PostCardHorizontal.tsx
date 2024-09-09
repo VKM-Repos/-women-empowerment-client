@@ -16,11 +16,11 @@ const PostCardHorizontal = ({ data }: Props) => {
   };
 
   const truncatedText = (text: string, maxLength: number) => {
-    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+    return text?.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
   };
   return (
     <Link
-      href={`/blog/${data.id}`}
+      href={`/blog/${data?.id}`}
       className="group grid grid-cols-2 items-start justify-start gap-3"
     >
       <span className="col-span-1 aspect-video w-full overflow-hidden rounded-md">
