@@ -103,7 +103,7 @@ const BlogDetailsClient = ({ data }: Props) => {
 
         <article className="mx-auto mt-[5rem] w-[80%] space-y-10">
           <div
-            className=" space-y-6 text-base md:text-lg"
+            className=" font-quickSand space-y-6 text-base font-medium md:text-lg"
             dangerouslySetInnerHTML={{
               __html: data?.body ? data?.body : '',
             }}
