@@ -32,7 +32,30 @@ const Blog = async ({ searchParams }: ResultsPageProps) => {
     }
   };
 
-  const data = await getAllPosts();
+  const getInitialRecentPosts = async (): Promise<any[]> => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}blogs?page=0&size=3`,
+        {
+          cache: 'no-store',
+        }
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch recent posts');
+      }
+
+      const data = await response.json();
+      return data.content || [];
+    } catch (error) {
+      console.error('Error fetching recent posts:', error);
+      return [];
+    }
+  };
+
+  const [data, initialRecentPosts] = await Promise.all([
+    getAllPosts(),
+    getInitialRecentPosts(),
+  ]);
 
   if (!data) {
     return null;
@@ -41,7 +64,11 @@ const Blog = async ({ searchParams }: ResultsPageProps) => {
   return (
     <TransitionElement>
       <Suspense fallback={<LoadingThinkingWomen />}>
-        <BlogPageClient data={data} perPage={per_page} />
+        <BlogPageClient
+          data={data}
+          perPage={per_page}
+          initialRecentPosts={initialRecentPosts}
+        />
       </Suspense>
     </TransitionElement>
   );

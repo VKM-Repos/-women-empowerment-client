@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type blogCardProps = {
   width: string;
@@ -20,7 +20,7 @@ export default function BlogCard({
         />
         <div
           className={`${
-            flexType == "flex-col" ? `w-[${imageWidth}]` : `w-[500px]`
+            flexType == 'flex-col' ? `w-[${imageWidth}]` : `w-[500px]`
           } flex flex-col gap-2`}
         >
           <p className="text-primary font-sora text-sm font-semibold">
@@ -28,10 +28,10 @@ export default function BlogCard({
           </p>
           <p
             className={`flex items-center ${
-              flexType == "flex-col" ? "gap-7" : "gap-5"
-            } text-lg text-gray-200 font-sora font-bold`}
+              flexType == 'flex-col' ? 'gap-7' : 'gap-5'
+            } text-gray-200 font-sora text-lg font-bold`}
           >
-            Ongoing TFVA discussions{" "}
+            Ongoing TFVA discussions{' '}
             <span>
               <svg
                 width="36"
@@ -41,8 +41,8 @@ export default function BlogCard({
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M26.3572 9.33077C26.9362 9.90983 26.9362 10.8487 26.3572 11.4277L10.0469 27.738C9.4678 28.3171 8.52897 28.3171 7.94991 27.738C7.37086 27.159 7.37086 26.2201 7.94991 25.6411L24.2603 9.33077C24.8393 8.75172 25.7782 8.75172 26.3572 9.33077Z"
                   fill="#65655E"
                 />
@@ -54,14 +54,14 @@ export default function BlogCard({
             </span>
           </p>
           <p
-            className={`text-gray-300 text-sm font-quickSand ${
-              flexType == "flex-row" ? "w-[220px]" : `w-[${imageWidth}]`
+            className={`text-gray-300 font-quickSand text-sm ${
+              flexType == 'flex-row' ? 'w-[220px]' : `w-[${imageWidth}]`
             }`}
           >
             The unveiling of the official name to which technology facilitated
-            violence and abuse...{" "}
+            violence and abuse...{' '}
           </p>
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             <span className="flex gap-1">
               <svg
                 width="25"
@@ -76,11 +76,11 @@ export default function BlogCard({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>{" "}
+              </svg>{' '}
               3.5K
             </span>
             <span>
-              {" "}
+              {' '}
               <svg
                 width="25"
                 height="25"

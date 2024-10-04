@@ -42,27 +42,32 @@ export async function generateMetadata({
 
     return {
       title: blog?.title || 'Default Title',
-      description: blog?.description || 'Default Description',
+      description: blog?.description || '',
       openGraph: {
         type: 'article',
         locale: 'en_US',
-        url: `https://womenhub.org/blogs/${params.id}`,
-        title: blog?.title || 'Default Title',
-        description: blog?.content || 'Default Description',
+        url: blog?.coverImageUrl,
+        title: blog?.title || 'Blog post',
+        description: blog?.description || '',
         images: [
           {
-            url: blog?.createdBy?.photoUrl || '',
+            url:
+              blog?.coverImageUrl ||
+              'https://placehold.co/800x600?text=Women\n Hub',
             width: 800,
             height: 600,
-            alt: blog?.createdBy?.name || 'Default Alt Text',
+            alt: blog?.title || '',
           },
         ],
         siteName: 'Women Hub',
       },
       twitter: {
-        title: blog?.title || 'Default Title',
-        description: blog?.description || 'Default Description',
-        images: blog?.coverPhotoUrl || '',
+        card: 'summary_large_image',
+        title: blog?.title || '',
+        description: blog?.description || '',
+        images:
+          blog?.coverImageUrl ||
+          'https://placehold.co/500x500?text=Women\n Hub',
       },
     };
   } catch (error) {

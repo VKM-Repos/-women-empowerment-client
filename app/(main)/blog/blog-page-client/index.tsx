@@ -1,6 +1,7 @@
+'use client';
 import { TransitionParent } from '@/lib/utils/transition';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BlogHero from '@/public/images/blog-hero.png';
 import RecentPosts from '../components/RecentPosts';
 import AllPosts from '../components/AllPosts';
@@ -8,16 +9,22 @@ import PaginationControls from '@/components/Common/Pagination/PaginationControl
 
 type Props = {
   data: any;
-  perPage: any;
+  perPage: number;
+  initialRecentPosts: any[];
 };
 
-const BlogPageClient = ({ data, perPage }: Props) => {
-  const recentBlogPosts = data?.content.slice(0, 3);
+const BlogPageClient = ({ data, perPage, initialRecentPosts }: Props) => {
+  const [allBlogPosts, setAllBlogPosts] = useState<any[]>(data?.content || []);
 
-  const allBlogPosts = data?.content.slice(3);
+  useEffect(() => {
+    if (data?.content.length > 0) {
+      setAllBlogPosts(data?.content);
+    }
+  }, [data]);
+
   return (
     <TransitionParent>
-      <div className="mx-auto  min-h-screen w-[95vw] space-y-[2rem] pb-[5rem]">
+      <div className="mx-auto min-h-screen w-[95vw] space-y-[2rem] pb-[5rem]">
         <section className="bg-primary relative mx-auto grid h-[23rem] w-[92%] grid-cols-1 place-content-start items-center overflow-hidden rounded-[1rem] p-4 md:w-[95%] md:place-content-center md:p-16 lg:h-[25rem] lg:grid-cols-5 ">
           <div className="relative z-10 col-span-1 flex w-full flex-col items-start gap-2 lg:col-span-3">
             <h1 className="text-primaryWhite font-sora text-pretty text-left text-[29px]  font-semibold leading-tight tracking-normal md:text-[40px]">
@@ -30,8 +37,8 @@ const BlogPageClient = ({ data, perPage }: Props) => {
           </div>
         </section>
 
-        <section className="mx-auto flex w-full max-w-xl  flex-col items-center px-4">
-          <div className="mt-10 flex w-full flex-col gap-5 ">
+        <section className="mx-auto flex w-full max-w-xl flex-col items-center px-4">
+          <div className="mt-10 flex w-full flex-col gap-5">
             <p className="text-gray-200 font-sora text-center text-base md:text-lg">
               Stay updated by subscribing to our newsletter for the latest
               stories and insights.
@@ -49,16 +56,23 @@ const BlogPageClient = ({ data, perPage }: Props) => {
           </div>
         </section>
 
-        {data?.content.length > 0 ? (
-          <div className=" mx-auto w-full space-y-[2rem] md:w-[90%]">
-            <RecentPosts data={recentBlogPosts} />
-            <>
-              <AllPosts data={allBlogPosts} />
-              <PaginationControls
-                totalPages={Math.ceil(data.totalElements / perPage)}
-                currentPage={data.page}
-              />
-            </>
+        {initialRecentPosts.length > 0 ? (
+          <div className="mx-auto w-full space-y-[4rem] md:w-[90%]">
+            <RecentPosts data={initialRecentPosts} />
+
+            {allBlogPosts.length > 0 ? (
+              <>
+                <AllPosts data={allBlogPosts} />
+                <PaginationControls
+                  totalPages={Math.ceil(data.totalElements / perPage)}
+                  currentPage={data.page}
+                />
+              </>
+            ) : (
+              <span className="text-center">
+                There are no more blog posts to display.
+              </span>
+            )}
           </div>
         ) : (
           <span className="text-center">There are no blog posts yet</span>

@@ -53,8 +53,8 @@ const PostCardHorizontal = ({ data }: Props) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M26.3572 9.33077C26.9362 9.90983 26.9362 10.8487 26.3572 11.4277L10.0469 27.738C9.4678 28.3171 8.52897 28.3171 7.94991 27.738C7.37086 27.159 7.37086 26.2201 7.94991 25.6411L24.2603 9.33077C24.8393 8.75172 25.7782 8.75172 26.3572 9.33077Z"
                 fill="#65655E"
               />
@@ -95,20 +95,20 @@ const PostCardHorizontal = ({ data }: Props) => {
               <path
                 d="M8.30859 6.58594L12.3086 2.58594L16.3086 6.58594"
                 stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M16.3086 10.5859H18.3086C18.5738 10.5859 18.8282 10.6913 19.0157 10.8788C19.2032 11.0664 19.3086 11.3207 19.3086 11.5859V20.5859C19.3086 20.8512 19.2032 21.1055 19.0157 21.293C18.8282 21.4806 18.5738 21.5859 18.3086 21.5859H6.30859C6.04338 21.5859 5.78902 21.4806 5.60149 21.293C5.41395 21.1055 5.30859 20.8512 5.30859 20.5859V11.5859C5.30859 11.3207 5.41395 11.0664 5.60149 10.8788C5.78902 10.6913 6.04338 10.5859 6.30859 10.5859H8.30859"
                 stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M12.3086 2.58594V15.5859"
                 stroke="#787878"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
 
