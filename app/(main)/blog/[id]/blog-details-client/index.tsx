@@ -14,6 +14,7 @@ import Image from 'next/image';
 import PostCardVertical from '../../components/PostCardVertical';
 import { useGET } from '@/lib/hooks/useGET.hook';
 import Link from 'next/link';
+import { siteConfig } from '@/lib/config/siteConfig';
 
 type Props = {
   data: any;
@@ -30,7 +31,7 @@ const BlogDetailsClient = ({ data }: Props) => {
     const readTime = Math.ceil(words / wordsPerMinute);
     return readTime;
   };
-  const urlToShare = `https://womenhub.org/blog/${data?.id}`;
+  const urlToShare = `${typeof window !== 'undefined' ? window.location.origin : siteConfig.url}/blog/${data?.id}`;
   const readTime = calculateReadTime(data?.body ? data?.body : '');
 
   const { showModal } = useModal();
@@ -95,7 +96,7 @@ const BlogDetailsClient = ({ data }: Props) => {
                 fallbackSrc={FallBack.src}
                 aspectRatio={{ width: 100, height: 55 }}
                 alt={data?.title}
-                className="relative z-[15] mx-auto aspect-video w-full overflow-hidden rounded-[1rem] object-cover"
+                className="bg-white-100 relative z-[15] mx-auto aspect-video w-full overflow-hidden rounded-[1rem] object-cover"
               />
             </span>
           </div>
@@ -103,7 +104,7 @@ const BlogDetailsClient = ({ data }: Props) => {
 
         <article className="mx-auto mt-[5rem] w-[80%] space-y-10">
           <div
-            className=" space-y-6 text-base md:text-lg"
+            className=" font-quickSand space-y-6 text-base font-medium md:text-lg"
             dangerouslySetInnerHTML={{
               __html: data?.body ? data?.body : '',
             }}

@@ -8,11 +8,11 @@ type Props = {
 
 const RecentPosts = ({ data }: Props) => {
   return (
-    <section className="w-full space-y-2">
+    <section className="w-full space-y-8">
       <h2 className="lg:text-large font-sora text-base font-semibold">
         Recent blog posts
       </h2>
-      <div className="grid w-full grid-cols-1 gap-12 md:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-[4rem] md:grid-cols-2">
         <div className="col-span-1">
           <PostCardVertical data={data[0]} />
         </div>

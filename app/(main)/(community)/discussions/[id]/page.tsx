@@ -11,11 +11,16 @@ export default function DiscussionDetailsPage({
   return <DiscussionInfo discussionId={params.id} />;
 }
 
-const fetchDiscussionById = async (discussionId: string): Promise<Discussion> => {
+const fetchDiscussionById = async (
+  discussionId: string
+): Promise<Discussion> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}discussions/${discussionId}`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}discussions/${discussionId}`,
+      {
+        cache: 'no-store',
+      }
+    );
 
     if (!response.ok) {
       throw new Error('Failed to fetch discussion');
@@ -43,7 +48,7 @@ export async function generateMetadata({
       openGraph: {
         type: 'article',
         locale: 'en_US',
-        url: `https://womenhub.org/discussions/${params.id}`,
+        url: discussion.createdBy.photoUrl,
         title: discussion?.title || 'Default Title',
         description: discussion?.content || 'Default Description',
         images: [
