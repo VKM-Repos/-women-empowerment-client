@@ -14,6 +14,7 @@ import GoBackBtn from '@/components/Common/GoBackBtn';
 import Icon from '@/components/Common/Icons/Icon';
 import { useModal } from '@/lib/context/modal-context';
 import DeleteEventModal from '../components/DeleteEventModal';
+import { siteConfig } from '@/lib/config/siteConfig';
 
 const menu = [
   {
@@ -61,7 +62,7 @@ export default function EventsDetailsPage({
     enabled: true,
   });
 
-  const urlToShare = `https://womenhub.org/events/${eventId}`;
+  const urlToShare = `${typeof window !== 'undefined' ? window.location.origin : siteConfig.url}/events/${eventId}`;
   return (
     <>
       {isPending ? (

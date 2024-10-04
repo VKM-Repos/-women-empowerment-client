@@ -1,7 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import ShareDropdown from "@/components/LandingPage/ShareDropDown";
+'use client';
+import React from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import ShareDropdown from '@/components/LandingPage/ShareDropDown';
+import { siteConfig } from '@/lib/config/siteConfig';
 
 interface MenuProps {
   menuItems: any[];
@@ -12,7 +14,6 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
   if (!showMenu) {
     return null;
   }
-  console.log(menuItems);
 
   return (
     <motion.div
@@ -21,17 +22,20 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
     >
       <div
         className={`absolute ${
-          menuItems.length > 2 ? "-right-5" : "right-[2%]"
-        } mt-1 transform -translate-x-1/2`}
+          menuItems.length > 2 ? '-right-5' : 'right-[2%]'
+        } mt-1 -translate-x-1/2 transform`}
       >
-        <div className="bg-primaryWhite px-5 py-2 rounded-md text-sm cursor-pointer">
+        <div className="bg-primaryWhite cursor-pointer rounded-md px-5 py-2 text-sm">
           {menuItems?.map((item, index) => {
-            if (item?.title == "Share") {
+            if (item?.title == 'Share') {
               return (
-                <button className="flex items-center -ml-1 text-primary">
+                <button
+                  key={index}
+                  className="text-primary -ml-1 flex items-center"
+                >
                   <ShareDropdown
-                    text={""}
-                    urlToShare={`https://womenhub.org/organization/${item?.organizationId}`}
+                    text={''}
+                    urlToShare={`${typeof window !== 'undefined' ? window.location.origin : siteConfig.url}/organization/${item?.organizationId}`}
                   />
                   Share
                 </button>
@@ -40,13 +44,13 @@ export const Menu: React.FC<MenuProps> = ({ menuItems, showMenu }) => {
               return (
                 <Link
                   key={index}
-                  className={`flex items-center gap-2 text-primary py-3 px-2${
+                  className={`text-primary flex items-center gap-2 py-3 px-2${
                     index !== menuItems.length - 1
-                      ? " border-b border-stone-800 border-solid border-opacity-10"
-                      : ""
+                      ? ' border-stone-800 border-b border-solid border-opacity-10'
+                      : ''
                   }`}
                   href={`${item.link}`}
-                  target={item?.blank ? "_blank" : ""}
+                  target={item?.blank ? '_blank' : ''}
                 >
                   <span>{item.icon}</span> {item.title}
                 </Link>

@@ -1,43 +1,84 @@
-'use client';
 import React from 'react';
-import { TransitionParent } from '@/lib/utils/transition';
-import { useGET } from '@/lib/hooks/useGET.hook';
-import LoadingThinkingWomen from '@/components/Common/Loaders/LoadingThinkingWomen';
-import OrganizationProfile from '../components/OrganizationProfile';
-import ActivityPane from '../components/ActivityPane';
-import OrgProjects from '../components/OrgProjects';
+import { Metadata } from 'next';
+import OrganizationDetails from './page-client';
+import { Organization } from '@/lib/types/organization.types';
 
+const fetchOrganizationDetails = async (id: string): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}organizations/${id}`,
+      {
+        cache: 'no-store',
+        credentials: 'include',
+      }
+    );
 
+    if (!response.ok) {
+      throw new Error('Failed to fetch details of the organization');
+    }
 
-export default function OrganizationDetails({
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching details:', error);
+    throw error;
+  }
+};
+
+export default async function OrganizationDetailsPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { data: organization, isPending } = useGET({
-    url: `organizations/${params?.id}`,
-    queryKey: ['GET_ORGANIZATION_DETAILS', params?.id],
-    withAuth: true,
-    enabled: true,
-  });
+  const data = await fetchOrganizationDetails(params.id);
+  return <OrganizationDetails organization={data} />;
+}
 
-  return (
-    <TransitionParent className='w-full'>
-      {isPending ? (
-        <LoadingThinkingWomen />
-      ) : (
-        <div className="mx-auto mb-[300px] w-full p-2 lg:w-[90%] flex gap-10">
-            <div className="flex w-full flex-col items-stretch gap-10 lg:basis-4/6">
-              <OrganizationProfile organization={organization} />
-              <ActivityPane organization={organization} />
-            </div>
-            <aside className="hidden flex-col items-stretch lg:flex lg:basis-2/6">
-              <div className="w-full rounded-[1.5rem] border  p-2">
-                <OrgProjects organization={organization} />
-              </div>
-            </aside>
-        </div>
-      )}
-    </TransitionParent>
-  );
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  try {
+    const organization: Organization = await fetchOrganizationDetails(
+      params.id
+    );
+
+    return {
+      title: organization?.name || '',
+      description: organization?.description || '',
+      openGraph: {
+        type: 'article',
+        locale: 'en_US',
+        url: `https://womenhub.org/organizations/${params.id}`,
+        title: organization?.name || '',
+        description: organization?.description || '',
+        images: [
+          {
+            url:
+              organization?.coverImage ||
+              'https://placehold.co/800x600?text=Women\n Hub',
+            width: 800,
+            height: 600,
+            alt: organization?.name || '',
+          },
+        ],
+        siteName: 'Women Hub',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: organization?.name || '',
+        description: organization?.description || '',
+        images:
+          organization?.coverImage ||
+          'https://placehold.co/500x500?text=Women\n Hub',
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'Error',
+      description: 'Error generating metadata',
+    };
+  }
 }

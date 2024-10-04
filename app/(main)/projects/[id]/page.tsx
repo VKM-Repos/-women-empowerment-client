@@ -11,6 +11,7 @@ import { useModal } from '@/lib/context/modal-context';
 import ThreeDotsMenu from '../../organization/components/ThreeDotsMenu';
 import ImageWithFallback from '@/components/Common/ImageWithFallBack';
 import DeleteProjectModal from '../components/DeleteProjectModal';
+import { siteConfig } from '@/lib/config/siteConfig';
 
 export default function ProjectDetailsPage({
   params,
@@ -40,7 +41,7 @@ export default function ProjectDetailsPage({
     enabled: true,
   });
 
-  const urlToShare = `https://womenhub.org/projects/${projectId}`;
+  const urlToShare = `${typeof window !== 'undefined' ? window.location.origin : siteConfig.url}/projects/${projectId}`;
 
   const getStatusColor = (status: string) => {
     switch (status) {
