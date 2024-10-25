@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
 
 type Props = {
-    size?: string;
+  size?: string;
+  color?: "#515151" | "#106840";
 };
 
-const Twitter = ({size = '24'}: Props) => {
+const Twitter = ({ size = "24", color = "#106840" }: Props) => {
   return (
     <svg
       width={size}
@@ -15,14 +16,14 @@ const Twitter = ({size = '24'}: Props) => {
     >
       <path
         d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147"
-        stroke="currentColor"
+        stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147"
-        stroke="currentColor"
+        stroke={color}
         strokeOpacity="0.2"
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -30,7 +31,7 @@ const Twitter = ({size = '24'}: Props) => {
       />
       <path
         d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147"
-        stroke="currentColor"
+        stroke={color}
         strokeOpacity="0.2"
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -38,7 +39,7 @@ const Twitter = ({size = '24'}: Props) => {
       />
       <path
         d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147"
-        stroke="currentColor"
+        stroke={color}
         strokeOpacity="0.2"
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -46,7 +47,7 @@ const Twitter = ({size = '24'}: Props) => {
       />
       <path
         d="M17.0312 32.9688L23.7147 26.2853M23.7147 26.2853L17.0312 17.0312H21.4583L26.2853 23.7147M23.7147 26.2853L28.5417 32.9688H32.9688L26.2853 23.7147M32.9688 17.0312L26.2853 23.7147"
-        stroke="currentColor"
+        stroke={color}
         strokeOpacity="0.2"
         strokeWidth="2.5"
         strokeLinecap="round"
