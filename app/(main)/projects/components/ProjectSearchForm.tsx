@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -6,7 +5,6 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useDebouncedCallback } from 'use-debounce';
 import Icon from '@/components/Common/Icons/Icon';
-
 
 type Props = {
   placeholder: string;
@@ -22,11 +20,10 @@ function ProjectSearchForm({ placeholder }: Props) {
     console.log(`Searching... ${term}`);
 
     if (searchQuery.length >= 3) {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams.toString());
       if (searchQuery) {
         params.set('title', searchQuery);
         params.set('page', '0');
-
       } else {
         params.delete('title');
         params.delete('page');
@@ -37,22 +34,22 @@ function ProjectSearchForm({ placeholder }: Props) {
     }
   }, 500);
 
- 
-
-
   return (
-    <div className="w-full flex justify-center items-center font-quickSand">
+    <div className="font-quickSand flex w-full items-center justify-center">
       <input
         type="text"
         placeholder={placeholder}
         value={searchQuery}
-        onChange={(e) => {
+        onChange={e => {
           setSearchQuery(e.target.value);
           handleSearch(e.target.value);
         }}
-        className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
+        className="border-primaryWhite bg-primaryWhite text-gray-100 focus:outline-btnWarning w-[95%] rounded-l border p-2 py-2 text-sm md:py-4 md:text-base"
       />
-      <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-2 md:p-4 rounded-br-md rounded-tr-md">
+      <button
+        onClick={() => handleSearch(searchQuery)}
+        className="bg-btnWarning rounded-br-md rounded-tr-md p-2 md:p-4"
+      >
         <Icon name="img_search" className="size-8" />
       </button>
     </div>
@@ -60,4 +57,3 @@ function ProjectSearchForm({ placeholder }: Props) {
 }
 
 export default ProjectSearchForm;
-
