@@ -9,6 +9,8 @@ interface PaginationControlsProps {
   currentPage: number;
 }
 
+// fix done
+
 const PaginationControls: FC<PaginationControlsProps> = ({
   totalPages,
   currentPage,
