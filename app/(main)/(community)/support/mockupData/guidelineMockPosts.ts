@@ -1,0 +1,81 @@
+import guidelineImag1 from "./guidelineImag 1.png";
+import guidelineImag2 from "./guidelineImag 2.png";
+import guidelineImag3 from "./guidelineImag 3.png";
+import guidelineImag4 from "./guidelineImag 4.png";
+import guidelineImag5 from "./guidelineImag 5.png";
+import guidelineImag6 from "./guidelineImag 6.png";
+
+export const guidelineMockPosts = [
+  {
+    id: "1",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag1,
+    date: "May 8, 2024",
+    status: "Draft",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+  {
+    id: "2",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag2,
+    date: "May 8, 2024",
+    status: "Published",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+  {
+    id: "3",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag3,
+    date: "May 8, 2024",
+    status: "Draft",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+  {
+    id: "4",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag4,
+    date: "May 8, 2024",
+    status: "Draft",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+  {
+    id: "5",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag5,
+    date: "May 8, 2024",
+    status: "Draft",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+  {
+    id: "6",
+    title: "How to Create an organization on WomenHu",
+    content: "sdjfgubswvyhdgbsyubudsayvchsd",
+    image: guidelineImag6,
+    date: "May 8, 2024",
+    status: "Draft",
+    editor: `Editor s Name`,
+    description: "brgtbnrgbrtgbrbgrrg",
+    created_at: "2024-09-06T13:47:16.876Z",
+    updated_at: "2024-09-06T13:47:16.876Z",
+  },
+];

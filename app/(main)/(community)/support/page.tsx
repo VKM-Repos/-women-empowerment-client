@@ -7,7 +7,7 @@ import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
 // import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
-import { guideCardData } from "./components/guideCard-mockup-data";
+import { guideCardData } from "./mockupData/guideCard-mockup-data";
 import GuideCard from "./components/GuideCard";
 import Phone from "@/components/Common/Icons/social-media-icons/Phone";
 import Mail from "@/components/Common/Icons/social-media-icons/Mail";

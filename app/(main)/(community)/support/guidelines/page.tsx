@@ -6,11 +6,24 @@ import guideline from "@/public/images/guideline.png";
 // import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
 // import Button from "@/components/Common/Button/Button";
+import BubbleChat from "@/components/Common/Icons/BubbleChat";
+import { useModal } from "@/lib/context/modal-context";
+import Concern from "../components/Concern";
+import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+import AllGuidelinesPosts from "../components/AllGuidelinesPosts";
+import { useRouter } from "next/navigation";
+import { guidelineMockPosts } from "../mockupData/guidelineMockPosts";
 
 export default function Guidelines() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
+  const { showModal } = useModal();
+  // const [email, setEmail] = useState<string>("");
+  // const [question, setQuestion] = useState<string>("");
+
+  const router = useRouter();
+  const handleConcern = () => {
+    showModal(<Concern />);
+  };
 
   const handleSearchInputChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -34,6 +47,8 @@ export default function Guidelines() {
     // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
+
+  const mockData = guidelineMockPosts;
 
   return (
     <TransitionParent>
@@ -90,27 +105,50 @@ export default function Guidelines() {
           </div>
         </div>
 
-        {/* <div className="w-[95%] mx-auto pb-[7rem] ">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            Help Line
-          </h3>
-          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
-            {Array.from({ length: 15 }, (_, i) => (
-              <div
-                key={i}
-                className="w-full flex flex-col items-center text-center justify-center p-4"
+        <div className="w-[95%] mx-auto">
+          <div className="flex flex-row justify-between mb-10 items-center">
+            <h1 className=" text-primary md:text-left font-sora text-[32px] font-[700]">
+              Articles
+            </h1>
+            <div className="font-quickSand font-[600]">
+              <button
+                onClick={router.back}
+                className="bg-[#FCFCFC] border-2 border-blue text-[15px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
               >
-                <p className="text-base font-light text-gray-100 flex items-center justify-center space-x-2 font-sora">
-                  <span className="">Domestic violence</span>
-                  <span>-</span>
-                  <span className="text-primary font-quickSand font-semibold">
-                    0808000123456
-                  </span>
-                </p>
-              </div>
-            ))}
+                Back to support center
+              </button>
+            </div>
           </div>
-        </div> */}
+          <div className="mx-auto w-full space-y-[4rem] md:w-[90%]">
+            {/* {allBlogPosts.length > 0 ? ( */}
+            <>
+              <AllGuidelinesPosts data={mockData} />
+            </>
+            {/* ) : (
+              <span className="text-center">
+                There are no blog posts yet
+              </span>
+            )} */}
+          </div>
+        </div>
+
+        <PaginationControls
+          // totalPages={Math.ceil(data.totalElements / per_page)}
+          // currentPage={data.page}
+          totalPages={5}
+          currentPage={1}
+        />
+
+        <div className="w-full flex-1">
+          <div className="flex justify-end">
+            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-16 mt-8">
+              <BubbleChat />{" "}
+              <span className="ml-4" onClick={handleConcern}>
+                Have concerns ? Talk to us
+              </span>
+            </button>
+          </div>
+        </div>
       </section>
     </TransitionParent>
   );
