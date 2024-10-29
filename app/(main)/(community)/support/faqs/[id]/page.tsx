@@ -2,17 +2,18 @@
 import React, { useState } from "react";
 import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
 import Image from "next/image";
-import helpline from "@/public/images/helpline.png";
-// import Connect from "@/public/images/connect.png";
+import faq from "@/public/images/faq.png";
+import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-// import Button from "@/components/Common/Button/Button";
-import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+import Button from "@/components/Common/Button/Button";
+import { useRouter } from "next/navigation";
 
-export default function Helplines() {
+export default function FAQs() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [question, setQuestion] = useState<string>("");
 
+  const router = useRouter();
   const handleSearchInputChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
@@ -42,7 +43,7 @@ export default function Helplines() {
         <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] flex flex-row justify-around items-center  relative overflow-hidden">
           <div className="w-[690px] md:col-span-1 flex flex-col  justify-start  gap-2 md:gap-4 relative left-0 z-20">
             <h1 className="text-[48px] font-semibold text-primaryWhite text-center md:text-left font-sora">
-              Helplines
+              FAQs
             </h1>
             <div className="flex items-center justify-start relative w-[541.49px] font-quickSand">
               <input
@@ -82,7 +83,7 @@ export default function Helplines() {
           {/* <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10"> */}
           <div className=" flex items-center justify-between">
             <Image
-              src={helpline}
+              src={faq}
               alt="rubik"
               width={446.19}
               height={334.11}
@@ -91,33 +92,41 @@ export default function Helplines() {
           </div>
         </div>
 
-        <div className="w-[95%] mx-auto pb-[7rem] ">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            Help Line
-          </h3>
-          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
-            {Array.from({ length: 15 }, (_, i) => (
+        <div className="w-[95%] mx-auto">
+          <div className="flex flex-row ">
+            <h1 className=" md:text-4xl text-primary md:text-left font-sora">
+              These questions are generated from user feedback and are updated
+              frequently
+            </h1>
+            <div>
+              <button
+                onClick={router.back}
+                className="bg-[#FCFCFC] px-[20px] py-[12px] rounded-[12px]"
+              >
+                Back to support center
+              </button>
+            </div>
+          </div>
+          {/* <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
+            {Array.from({ length: 9 }, (_, i) => (
               <div
                 key={i}
-                className="w-full flex flex-col items-center text-center justify-center p-4"
+                className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-start justify-center gap-2 drop-shadow-md p-4"
               >
-                <p className="text-base font-light text-gray-100 flex items-center justify-center space-x-2 font-sora">
-                  <span className="">Domestic violence</span>
-                  <span>-</span>
-                  <span className="text-primary font-quickSand font-semibold">
-                    0808000123456
-                  </span>
+                <h6 className="text-base font-semibold text-gray-200 font-sora">
+                  Can i add multiple organizations?
+                </h6>
+                <p className="text-xs font-semibold text-btnWarning font-quickSand">
+                  Answer
+                </p>
+                <p className="text-sm text-gray-100 font-quickSand">
+                  Yes, you can add multiple organizations by clicking &lsquo;Add
+                  Organization&rsquo; button and entering their details.
                 </p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
-        <PaginationControls
-          // totalPages={Math.ceil(data.totalElements / per_page)}
-          // currentPage={data.page}
-          totalPages={5}
-          currentPage={1}
-        />
       </section>
     </TransitionParent>
   );

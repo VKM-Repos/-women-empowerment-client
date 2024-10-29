@@ -16,9 +16,13 @@ import Facebook from "@/components/Common/Icons/social-media-icons/Facebook";
 import Twitter from "@/components/Common/Icons/social-media-icons/Twitter";
 import Instagram from "@/components/Common/Icons/social-media-icons/Instagram";
 import LinkedIn from "@/components/Common/Icons/social-media-icons/LinkedIn";
+import BubbleChat from "@/components/Common/Icons/BubbleChat";
+import { useModal } from "@/lib/context/modal-context";
+import Concern from "./components/Concern";
 
 const SupportPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const { showModal } = useModal();
   const [email, setEmail] = useState<string>("");
   const [question, setQuestion] = useState<string>("");
 
@@ -26,6 +30,10 @@ const SupportPage = () => {
 
   const handleSearchInputChange = (event: any) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleConcern = () => {
+    showModal(<Concern />);
   };
 
   const searchTerms = [
@@ -50,12 +58,12 @@ const SupportPage = () => {
   return (
     <TransitionParent>
       <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] pb-[14rem] ">
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
-          <div className="w-full md:col-span-1 flex flex-col  justify-start py-4 gap-2 md:gap-4 relative left-0 z-20">
-            <h1 className="text-2xl md:text-4xl font-semibold text-primaryWhite text-center md:text-left font-sora">
+        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] flex flex-row justify-around items-center  relative overflow-hidden">
+          <div className="w-[690px] md:col-span-1 flex flex-col  justify-start  gap-2 md:gap-4 relative left-0 z-20">
+            <h1 className="text-[48px] font-semibold text-primaryWhite text-center md:text-left font-sora">
               Hi, Need some help?
             </h1>
-            <div className="flex items-center justify-start relative w-full font-quickSand">
+            <div className="flex items-center justify-start relative w-[541.49px] font-quickSand">
               <input
                 type="text"
                 name=""
@@ -91,7 +99,7 @@ const SupportPage = () => {
           </div>
 
           {/* <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10"> */}
-          <div className="md:col-span-1 flex items-center justify-between">
+          <div className=" flex items-center justify-between">
             <Image
               src={Support}
               alt="rubik"
@@ -163,16 +171,16 @@ const SupportPage = () => {
           </div>
         </div> */}
 
-        <div className="w-screen py-[2rem] grid grid-cols-1 md:grid-cols-2 gap-10 bg-[#F0EBD6] items-center">
-          <div className="p-8">
+        <div className="w-screen py-[2rem] flex flex-row justify-around  bg-[#F0EBD6] items-center">
+          <div className="w-[549.48p]">
             <Image
               src={Connect}
               alt="connect"
-              className="md:w-3/4 w-full aspect-square mx-auto object-contain"
+              className="md:w-3/4 w-full h-[441.4px] aspect-square mx-auto object-contain"
             />
           </div>
-          <div className="w-full flex flex-col items-center justify-center gap-5">
-            <h4 className="text-[32px] md:text-2xl font-normal text-primary font-sora">
+          <div className="w-[372px] h-[425px] flex flex-col justify-center gap-5">
+            <h4 className="text-[32px] font-normal text-primary font-sora mb-4">
               Contact Information
             </h4>
 
@@ -196,7 +204,7 @@ const SupportPage = () => {
                 <div>Plot c114, platinum plaza, first avenue gwarinpa</div>
               </div>
             </div>
-            <div className="text-btnWarning py-10">
+            <div className="text-btnWarning text-[16px] font-[600] py-6 font-quickSand">
               Follow our social media page to get updates
             </div>
             <div className="my-4 flex w-auto items-center justify-center text-[#106840]">
@@ -225,6 +233,16 @@ const SupportPage = () => {
                 <Instagram size="40" color="#515151" />
               </a>
             </div>
+          </div>
+        </div>
+        <div className="w-full flex-1">
+          <div className="flex justify-end">
+            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6">
+              <BubbleChat />{" "}
+              <span className="ml-4" onClick={handleConcern}>
+                Have concerns ? Talk to us
+              </span>
+            </button>
           </div>
         </div>
 

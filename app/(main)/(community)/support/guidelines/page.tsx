@@ -37,21 +37,21 @@ export default function Guidelines() {
 
   return (
     <TransitionParent>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] pb-[14rem]">
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
-          <div className="w-full md:col-span-1 flex flex-col items-start justify-start py-4 gap-2 md:gap-4 relative left-0 z-20">
-            <h1 className="text-2xl md:text-4xl font-semibold text-primaryWhite text-center md:text-left font-sora">
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] pb-[14rem] ">
+        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] flex flex-row justify-around items-center  relative overflow-hidden">
+          <div className="w-[690px] md:col-span-1 flex flex-col  justify-start  gap-2 md:gap-4 relative left-0 z-20">
+            <h1 className="text-[48px] font-semibold text-primaryWhite text-center md:text-left font-sora">
               A Guide to Women Hub
             </h1>
-            <div className="flex items-center justify-start relative w-full font-quickSand">
+            <div className="flex items-center justify-start relative w-[541.49px] font-quickSand">
               <input
                 type="text"
                 name=""
                 id=""
-                placeholder="Ask a question"
+                placeholder="Search a question"
                 value={searchTerm}
                 onChange={handleSearchInputChange}
-                className="w-[95%] py-3 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
+                className="w-[95%] py-2 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
               />
               <button
                 onClick={(e) => handleSearch(searchTerm, e)}
@@ -78,20 +78,16 @@ export default function Guidelines() {
             </div>
           </div>
 
-          <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
+          {/* <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10"> */}
+          <div className=" flex items-center justify-between">
             <Image
               src={guideline}
               alt="rubik"
-              width={1000}
-              height={1000}
+              width={446.19}
+              height={334.11}
               className="lg:w-[25rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
-          {/* <Image
-        src={Support}
-        alt="support"
-        className="absolute bottom-0 right-10 w-4/5 md:w-1/4 opacity-20 md:opacity-100 aspect-square object-cover"
-      /> */}
         </div>
 
         {/* <div className="w-[95%] mx-auto pb-[7rem] ">
