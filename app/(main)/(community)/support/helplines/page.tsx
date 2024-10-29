@@ -5,13 +5,26 @@ import Image from "next/image";
 import helpline from "@/public/images/helpline.png";
 // import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
+import BubbleChat from "@/components/Common/Icons/BubbleChat";
+import { useModal } from "@/lib/context/modal-context";
+import Concern from "../components/Concern";
+import { useRouter } from "next/navigation";
+import FormSelect from "@/components/Form/FormSelect";
+import { Form } from "@/components/UI/Form";
+
 // import Button from "@/components/Common/Button/Button";
-import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+// import PaginationControls from "@/components/Common/Pagination/PaginationControls";
 
 export default function Helplines() {
+  const { showModal } = useModal();
   const [searchTerm, setSearchTerm] = useState<string>("");
   // const [email, setEmail] = useState<string>("");
   // const [question, setQuestion] = useState<string>("");
+  const router = useRouter();
+
+  const handleConcern = () => {
+    showModal(<Concern />);
+  };
 
   const handleSearchInputChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -92,10 +105,34 @@ export default function Helplines() {
         </div>
 
         <div className="w-[95%] mx-auto pb-[7rem] ">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            Help Line
-          </h3>
-          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
+          <div className="flex flex-row justify-between mb-10 items-center">
+            <div className="">
+              <select
+                name="cars"
+                id="cars"
+                className="border-2 rounded-[8px] px-[32px] py-[16px] w-[451px]  text-[14px] font-quickSand font-[400]"
+              >
+                <option disabled>Select State</option>
+                <option value="volvo">F.C.T</option>
+                <option value="saab">OYO</option>
+                <option value="mercedes">Kaduna</option>
+                <option value="audi">Kano</option>
+                <option value="audi">Lagos</option>
+                <option value="audi">Ondo</option>
+              </select>
+            </div>
+
+            <div className="font-quickSand font-[600]">
+              <button
+                onClick={router.back}
+                className="bg-[#FCFCFC] border-2 border-blue text-[15px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
+              >
+                Back to support center
+              </button>
+            </div>
+          </div>
+          <h1 className="font-sora font-[400] text-[32px] mb-4">Help Lines</h1>
+          <div className="w-full  md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
             {Array.from({ length: 15 }, (_, i) => (
               <div
                 key={i}
@@ -112,12 +149,25 @@ export default function Helplines() {
             ))}
           </div>
         </div>
-        <PaginationControls
-          // totalPages={Math.ceil(data.totalElements / per_page)}
-          // currentPage={data.page}
-          totalPages={5}
-          currentPage={1}
-        />
+        <div className="w-[80%] py-[2rem] flex flex-row justify-between  bg-[#F0EBD6] items-center rounded-[16px] px-[24px] py-[32px]">
+          <div className="">
+            <div className="font-quickSand font-[600] text-[20px] p-2">
+              Still have questions?
+            </div>
+            <div className="font-sora font-[400] text-[16px] p-2">
+              Can’t find the answer to your question? Chat with our support
+              team.
+            </div>
+          </div>
+          <div className="">
+            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6">
+              <BubbleChat />{" "}
+              <span className="ml-4" onClick={handleConcern}>
+                Have concerns ? Talk to us
+              </span>
+            </button>
+          </div>
+        </div>
       </section>
     </TransitionParent>
   );

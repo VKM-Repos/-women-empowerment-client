@@ -93,15 +93,15 @@ export default function FAQs() {
         </div>
 
         <div className="w-[95%] mx-auto">
-          <div className="flex flex-row ">
-            <h1 className=" md:text-4xl text-primary md:text-left font-sora">
+          <div className="flex flex-row justify-between mb-10 items-center">
+            <h1 className="  text-primary md:text-left font-quickSand text-[20px] font-[500]">
               These questions are generated from user feedback and are updated
               frequently
             </h1>
-            <div>
+            <div className="font-quickSand font-[600]">
               <button
                 onClick={router.back}
-                className="bg-[#FCFCFC] px-[20px] py-[12px] rounded-[12px]"
+                className="bg-[#FCFCFC] border-2 border-blue text-[15px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
               >
                 Back to support center
               </button>

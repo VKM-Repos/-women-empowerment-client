@@ -3,17 +3,25 @@ import React, { useState } from "react";
 import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
 import Image from "next/image";
 import faq from "@/public/images/faq.png";
-import Connect from "@/public/images/connect.png";
+// import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-import Button from "@/components/Common/Button/Button";
+// import Button from "@/components/Common/Button/Button";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/Common/Pagination/PaginationControls";
 import Link from "next/link";
+import BubbleChat from "@/components/Common/Icons/BubbleChat";
+import { useModal } from "@/lib/context/modal-context";
+import Concern from "../components/Concern";
 
 export default function FAQs() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
+  const { showModal } = useModal();
+  // const [email, setEmail] = useState<string>("");
+  // const [question, setQuestion] = useState<string>("");
+
+  const handleConcern = () => {
+    showModal(<Concern />);
+  };
 
   const router = useRouter();
   const handleSearchInputChange = (event: any) => {
@@ -95,21 +103,21 @@ export default function FAQs() {
         </div>
 
         <div className="w-[95%] mx-auto">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between mb-10 items-center">
             <h1 className="  text-primary md:text-left font-quickSand text-[20px] font-[500]">
               These questions are generated from user feedback and are updated
               frequently
             </h1>
-            <div className="font-quickSand text-[15px] font-[600]">
+            <div className="font-quickSand font-[600]">
               <button
                 onClick={router.back}
-                className="bg-[#FCFCFC] w-[202px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
+                className="bg-[#FCFCFC] border-2 border-blue text-[15px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
               >
                 Back to support center
               </button>
             </div>
           </div>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-10 ">
             {Array.from({ length: 9 }, (_, i) => (
               <Link href={`/support/faqs/${i}`}>
                 <div
@@ -138,6 +146,17 @@ export default function FAQs() {
           totalPages={5}
           currentPage={1}
         />
+
+        <div className="w-full flex-1">
+          <div className="flex justify-end">
+            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-16 mt-8">
+              <BubbleChat />{" "}
+              <span className="ml-4" onClick={handleConcern}>
+                Have concerns ? Talk to us
+              </span>
+            </button>
+          </div>
+        </div>
       </section>
     </TransitionParent>
   );

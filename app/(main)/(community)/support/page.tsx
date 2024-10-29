@@ -23,8 +23,8 @@ import Concern from "./components/Concern";
 const SupportPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { showModal } = useModal();
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
+  // const [question, setQuestion] = useState<string>("");
 
   const guides: any = guideCardData;
 
@@ -146,30 +146,6 @@ const SupportPage = () => {
             );
           })}
         </div>
-        {/* <div className="w-[95%] mx-auto">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            FAQ
-          </h3>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
-            {Array.from({ length: 9 }, (_, i) => (
-              <div
-                key={i}
-                className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-start justify-center gap-2 drop-shadow-md p-4"
-              >
-                <h6 className="text-base font-semibold text-gray-200 font-sora">
-                  Can i add multiple organizations?
-                </h6>
-                <p className="text-xs font-semibold text-btnWarning font-quickSand">
-                  Answer
-                </p>
-                <p className="text-sm text-gray-100 font-quickSand">
-                  Yes, you can add multiple organizations by clicking &lsquo;Add
-                  Organization&rsquo; button and entering their details.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div> */}
 
         <div className="w-screen py-[2rem] flex flex-row justify-around  bg-[#F0EBD6] items-center">
           <div className="w-[549.48p]">
@@ -245,28 +221,6 @@ const SupportPage = () => {
             </button>
           </div>
         </div>
-
-        {/* <div className="w-[95%] mx-auto pb-[7rem] ">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            Help Line
-          </h3>
-          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
-            {Array.from({ length: 15 }, (_, i) => (
-              <div
-                key={i}
-                className="w-full flex flex-col items-center text-center justify-center p-4"
-              >
-                <p className="text-base font-light text-gray-100 flex items-center justify-center space-x-2 font-sora">
-                  <span className="">Domestic violence</span>
-                  <span>-</span>
-                  <span className="text-primary font-quickSand font-semibold">
-                    0808000123456
-                  </span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </section>
     </TransitionParent>
   );
