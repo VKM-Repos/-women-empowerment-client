@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -21,11 +20,10 @@ function SearchForm({ placeholder }: Props) {
     console.log(`Searching... ${term}`);
 
     if (searchQuery.length >= 3) {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams.toString());
       if (searchQuery) {
         params.set('query', searchQuery);
         params.set('page', '0');
-
       } else {
         params.delete('query');
         params.delete('page');
@@ -38,20 +36,22 @@ function SearchForm({ placeholder }: Props) {
 
   console.log(pathname);
 
-
   return (
-    <div className="w-full flex justify-center items-center font-quickSand">
+    <div className="font-quickSand flex w-full items-center justify-center">
       <input
         type="text"
         placeholder={placeholder}
         value={searchQuery}
-        onChange={(e) => {
+        onChange={e => {
           setSearchQuery(e.target.value);
           handleSearch(e.target.value);
         }}
-        className="w-[95%] py-2 md:py-4 border border-primaryWhite bg-primaryWhite rounded-l text-sm md:text-base text-gray-100 focus:outline-btnWarning p-2"
+        className="border-primaryWhite bg-primaryWhite text-gray-100 focus:outline-btnWarning w-[95%] rounded-l border p-2 py-2 text-sm md:py-4 md:text-base"
       />
-      <button onClick={() => handleSearch(searchQuery)} className="bg-btnWarning p-3 md:p-5 rounded-br-md rounded-tr-md">
+      <button
+        onClick={() => handleSearch(searchQuery)}
+        className="bg-btnWarning rounded-br-md rounded-tr-md p-3 md:p-5"
+      >
         <Icon name="img_search" className="" />
       </button>
     </div>
@@ -59,4 +59,3 @@ function SearchForm({ placeholder }: Props) {
 }
 
 export default SearchForm;
-
