@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import { AspectRatio } from "@/components/UI/AspectRatio";
 import Image from "next/image";
 
 interface ImageWithFallbackProps {
-  src: string;
+  src: string | any;
   fallbackSrc: string;
   aspectRatio: {
     width: number;
@@ -20,7 +20,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   alt,
   className,
 }) => {
-  const aspectRatioValue = aspectRatio.width / aspectRatio.height
+  const aspectRatioValue = aspectRatio.width / aspectRatio.height;
   return (
     <AspectRatio ratio={aspectRatioValue}>
       <div className="w-full h-0">
