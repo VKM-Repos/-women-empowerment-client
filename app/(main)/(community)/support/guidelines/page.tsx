@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import guideline from "@/public/images/guideline.png";
 // import Connect from "@/public/images/connect.png";
