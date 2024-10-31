@@ -207,11 +207,12 @@ const SupportPage = () => {
         </div>
         <div className="w-full flex-1">
           <div className="flex justify-end">
-            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6">
+            <button
+              className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6"
+              onClick={handleConcern}
+            >
               <BubbleChat />{" "}
-              <span className="ml-4" onClick={handleConcern}>
-                Have concerns ? Talk to us
-              </span>
+              <span className="ml-4">Have concerns ? Talk to us</span>
             </button>
           </div>
         </div>
