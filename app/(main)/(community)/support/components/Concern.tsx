@@ -1,27 +1,16 @@
 "use client";
 
 import Button from "@/components/Common/Button/Button";
-// import LoadingDots from "@/components/Common/Loaders/LoadingDots";
 import Modal from "@/components/Common/Modal/Modal";
-// import LoginFirst from "@/components/ErrorMessage/LoginFirst";
-// import { useAppContext } from "@/lib/context/app-context";
 import { useModal } from "@/lib/context/modal-context";
-
-// import { useGET } from "@/lib/hooks/useGET.hook";
-// import { Category } from "@/lib/types/category.types";
-// import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-// import { SubmitHandler, useForm } from "react-hook-form";
-// import toast from "react-hot-toast";
+
+import React from "react";
 
 type Props = {};
 
 export default function Concern({}: Props) {
-  // const [isPending, setIsPending] = useState(false);
   const { hideModal } = useModal();
-  // const router = useRouter();
 
   return (
     <Modal onClose={hideModal} isOpen={true}>

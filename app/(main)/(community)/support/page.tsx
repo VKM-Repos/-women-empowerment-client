@@ -5,7 +5,6 @@ import Image from "next/image";
 import Support from "@/public/images/support.png";
 import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-// import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
 import { guideCardData } from "./mockupData/guideCard-mockup-data";
 import GuideCard from "./components/GuideCard";
@@ -23,8 +22,6 @@ import Concern from "./components/Concern";
 const SupportPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { showModal } = useModal();
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
 
   const guides: any = guideCardData;
 
@@ -49,9 +46,6 @@ const SupportPage = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 

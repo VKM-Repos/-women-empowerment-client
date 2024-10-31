@@ -1,25 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import helpline from "@/public/images/helpline.png";
-// import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
 import BubbleChat from "@/components/Common/Icons/BubbleChat";
 import { useModal } from "@/lib/context/modal-context";
 import Concern from "../components/Concern";
 import { useRouter } from "next/navigation";
-// import FormSelect from "@/components/Form/FormSelect";
-// import { Form } from "@/components/UI/Form";
-
-// import Button from "@/components/Common/Button/Button";
-// import PaginationControls from "@/components/Common/Pagination/PaginationControls";
 
 export default function Helplines() {
   const { showModal } = useModal();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
+
   const router = useRouter();
 
   const handleConcern = () => {
@@ -43,9 +36,6 @@ export default function Helplines() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 

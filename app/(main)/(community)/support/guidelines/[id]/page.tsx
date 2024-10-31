@@ -1,41 +1,10 @@
 "use client";
-import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
-import Image from "next/image";
-import faq from "@/public/images/faq.png";
-import Connect from "@/public/images/connect.png";
-import Icon from "@/components/Common/Icons/Icon";
-import Button from "@/components/Common/Button/Button";
+import React from "react";
+import { TransitionParent } from "@/lib/utils/transition";
 import { useRouter } from "next/navigation";
 
 export default function FAQs() {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
-
   const router = useRouter();
-  const handleSearchInputChange = (event: any) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const searchTerms = [
-    "Technology",
-    "can i add multiple organizations",
-    "Sensitization",
-    "Feminism",
-    "How to add an organization",
-  ];
-
-  const handleSearch = (
-    selectedTerm: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
-    console.log(`Searching for: '${selectedTerm}'`);
-  };
 
   return (
     <TransitionParent>
