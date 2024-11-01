@@ -179,7 +179,7 @@ const SupportPage = () => {
             </div>
             <div className="my-4 flex w-auto items-center justify-center text-[#106840]">
               <a
-                href="https://x.com/TheWomen_hub?t=GzIJ8w21eTToumkHJfvQTA&s=09"
+                href="https://www.facebook.com/p/women-hub-61559159979751/"
                 target="__blank"
               >
                 <Facebook size="40" color="#515151" />
