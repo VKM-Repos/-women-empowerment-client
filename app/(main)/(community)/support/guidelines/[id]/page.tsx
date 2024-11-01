@@ -2,6 +2,7 @@
 import React from "react";
 import { TransitionParent } from "@/lib/utils/transition";
 import { useRouter } from "next/navigation";
+import guidelineImage1 from "../../mockupData/guidelineImag 1.png";
 
 export default function FAQs() {
   const router = useRouter();
@@ -31,13 +32,14 @@ export default function FAQs() {
           </button>
         </div>
 
-        <div className="flex flex-col justify-center ">
+        <div className="flex flex-col justify-center items-center gap-y-6 ">
           <h1 className="font-sora text-[24px] font-[600]">
-            How to create an Organization
+            How to Create an organization on WomenHu
           </h1>
-          <span className="text-center font-quickSand text-[14px] font-[500] text-[#515151]">
+          <span className="text-center font-quickSand text-[14px] font-[500] text-[#515151] ">
             Last updated 22 May 2024. 3 min read
           </span>
+          {/* <img src={guidelineImage1} alt="" className="w-[639px] h-[360px]" /> */}
         </div>
 
         <article className=" mx-auto mt-[5rem] w-[95%] max-w-[80%] space-y-10">

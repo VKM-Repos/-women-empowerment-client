@@ -17,6 +17,7 @@ const GuidelineCard = ({ data }: Props) => {
   return (
     <Link
       href={`/support/guidelines/${data?.id}`}
+      // state={data}
       className="group flex flex-col items-start justify-start gap-3"
     >
       <span className=" aspect-video w-full overflow-hidden rounded-md">
