@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import guideline from "@/public/images/guideline.png";
-// import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-// import Button from "@/components/Common/Button/Button";
 import BubbleChat from "@/components/Common/Icons/BubbleChat";
 import { useModal } from "@/lib/context/modal-context";
 import Concern from "../components/Concern";
@@ -17,8 +15,6 @@ import { guidelineMockPosts } from "../mockupData/guidelineMockPosts";
 export default function Guidelines() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { showModal } = useModal();
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
 
   const router = useRouter();
   const handleConcern = () => {
@@ -42,9 +38,6 @@ export default function Guidelines() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
