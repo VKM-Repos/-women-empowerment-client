@@ -5,19 +5,9 @@ import Image from "next/image";
 import faq from "@/public/images/faq.png";
 import Icon from "@/components/Common/Icons/Icon";
 import { useRouter } from "next/navigation";
-import PaginationControls from "@/components/Common/Pagination/PaginationControls";
-import Link from "next/link";
-import BubbleChat from "@/components/Common/Icons/BubbleChat";
-import { useModal } from "@/lib/context/modal-context";
-import Concern from "../components/Concern";
 
 export default function FAQs() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const { showModal } = useModal();
-
-  const handleConcern = () => {
-    showModal(<Concern />);
-  };
 
   const router = useRouter();
   const handleSearchInputChange = (event: any) => {
@@ -82,6 +72,7 @@ export default function FAQs() {
               </span>
             </div>
           </div>
+
           <div className=" flex items-center justify-between">
             <Image
               src={faq}
@@ -107,45 +98,6 @@ export default function FAQs() {
                 Back to support center
               </button>
             </div>
-          </div>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-10 ">
-            {Array.from({ length: 9 }, (_, i) => (
-              <Link href={`/support/faqs/${i}`}>
-                <div
-                  key={i}
-                  className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-start justify-center gap-2 drop-shadow-md p-4"
-                >
-                  <h6 className="text-base font-semibold text-gray-200 font-sora">
-                    Can i add multiple organizations?
-                  </h6>
-                  <p className="text-xs font-semibold text-btnWarning font-quickSand">
-                    Answer
-                  </p>
-                  <p className="text-sm text-gray-100 font-quickSand">
-                    Yes, you can add multiple organizations by clicking
-                    &lsquo;Add Organization&rsquo; button and entering their
-                    details.
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <PaginationControls
-          // totalPages={Math.ceil(data.totalElements / per_page)}
-          // currentPage={data.page}
-          totalPages={5}
-          currentPage={1}
-        />
-
-        <div className="w-full flex-1">
-          <div className="flex justify-end">
-            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-16 mt-8">
-              <BubbleChat />{" "}
-              <span className="ml-4" onClick={handleConcern}>
-                Have concerns ? Talk to us
-              </span>
-            </button>
           </div>
         </div>
       </section>

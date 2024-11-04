@@ -1,16 +1,44 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import helpline from "@/public/images/helpline.png";
-// import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-// import Button from "@/components/Common/Button/Button";
+import BubbleChat from "@/components/Common/Icons/BubbleChat";
+import { useModal } from "@/lib/context/modal-context";
+import Concern from "../components/Concern";
+import { useRouter } from "next/navigation";
+import FormSelect from "@/components/Form/FormSelect";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { Form } from "@/components/UI/Form";
+
+const schema = z.object({
+  state: z.string(),
+});
 
 export default function Helplines() {
+  const { showModal } = useModal();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
+  const stateOptions = ["F.C.T", "OYO", "Kaduna", "Kano", "Lagos", "Ondo"];
+
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof schema>>({
+    defaultValues: {
+      state: "",
+    },
+  });
+
+  const { setValue, watch } = form;
+
+  const state = watch("state");
+
+  const handleConcern = () => {
+    showModal(<Concern />);
+  };
 
   const handleSearchInputChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -29,29 +57,26 @@ export default function Helplines() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
   return (
     <TransitionParent>
-      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] pb-[14rem]">
-        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] grid grid-cols-1 lg:grid-cols-2 place-content-start lg:place-content-center items-center p-2 md:p-16 relative overflow-hidden">
-          <div className="w-full md:col-span-1 flex flex-col items-start justify-start py-4 gap-2 md:gap-4 relative left-0 z-20">
-            <h1 className="text-2xl md:text-4xl font-semibold text-primaryWhite text-center md:text-left font-sora">
+      <section className=" w-screen mx-auto flex flex-col items-center justify-start space-y-[3rem] pb-[14rem] ">
+        <div className="bg-primary w-[98%] md:w-[95%] lg:h-[25rem] h-[26rem] rounded-[1rem] flex flex-row justify-around items-center  relative overflow-hidden">
+          <div className="w-[690px] md:col-span-1 flex flex-col  justify-start  gap-2 md:gap-4 relative left-0 z-20">
+            <h1 className="text-[48px] font-semibold text-primaryWhite text-center md:text-left font-sora">
               Helplines
             </h1>
-            <div className="flex items-center justify-start relative w-full font-quickSand">
+            <div className="flex items-center justify-start relative w-[541.49px] font-quickSand">
               <input
                 type="text"
                 name=""
                 id=""
-                placeholder="Ask a question"
+                placeholder="Search a question"
                 value={searchTerm}
                 onChange={handleSearchInputChange}
-                className="w-[95%] py-3 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
+                className="w-[95%] py-2 border border-primaryWhite bg-primaryWhite rounded-l text-base md:text-lg text-gray-100 focus:outline-btnWarning p-2 "
               />
               <button
                 onClick={(e) => handleSearch(searchTerm, e)}
@@ -78,27 +103,56 @@ export default function Helplines() {
             </div>
           </div>
 
-          <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10">
+          {/* <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10"> */}
+          <div className=" flex items-center justify-between">
             <Image
               src={helpline}
               alt="rubik"
-              width={1000}
-              height={1000}
+              width={446.19}
+              height={334.11}
               className="lg:w-[25rem] w-[15rem] mx-auto aspect-auto rounded-br-xl"
             />
           </div>
-          {/* <Image
-        src={Support}
-        alt="support"
-        className="absolute bottom-0 right-10 w-4/5 md:w-1/4 opacity-20 md:opacity-100 aspect-square object-cover"
-      /> */}
         </div>
 
         <div className="w-[95%] mx-auto pb-[7rem] ">
-          <h3 className="font-semibold text-xl md:text-4xl text-primary py-4 font-sora">
-            Help Line
-          </h3>
-          <div className="w-[95%] mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
+          <div className="flex flex-row justify-between mb-10 items-center">
+            <div className="w-[451px]">
+              <Form {...form}>
+                <form
+                  className="w-full"
+                  //  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <div className="flex flex-col">
+                    <FormSelect
+                      placeholder="Select State"
+                      value={state}
+                      onChange={(value) => {
+                        setValue("state", value);
+                        setSelectedOption(value);
+                      }}
+                      defaultValue={""}
+                      options={stateOptions?.map((option) => ({
+                        label: option.toLowerCase().replace(/\s/g, "_"),
+                        value: option,
+                      }))}
+                    />
+                  </div>
+                </form>
+              </Form>
+            </div>
+
+            <div className="font-quickSand font-[600]">
+              <button
+                onClick={router.back}
+                className="bg-[#FCFCFC] border-2 border-blue text-[15px] px-[20px] py-[12px] rounded-[12px] border-2 border-[#EFEFEF]"
+              >
+                Back to support center
+              </button>
+            </div>
+          </div>
+          <h1 className="font-sora font-[400] text-[32px] mb-4">Help Lines</h1>
+          <div className="w-full  md:mx-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-gray-500 rounded-lg">
             {Array.from({ length: 15 }, (_, i) => (
               <div
                 key={i}
@@ -113,6 +167,25 @@ export default function Helplines() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="w-[80%] py-[2rem] flex flex-row justify-between  bg-[#F0EBD6] items-center rounded-[16px] px-[24px] py-[32px]">
+          <div className="">
+            <div className="font-quickSand font-[600] text-[20px] p-2">
+              Still have questions?
+            </div>
+            <div className="font-sora font-[400] text-[16px] p-2">
+              Can’t find the answer to your question? Chat with our support
+              team.
+            </div>
+          </div>
+          <div className="">
+            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6">
+              <BubbleChat />{" "}
+              <span className="ml-4" onClick={handleConcern}>
+                Have concerns ? Talk to us
+              </span>
+            </button>
           </div>
         </div>
       </section>
