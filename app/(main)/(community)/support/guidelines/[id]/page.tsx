@@ -1,41 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
-import Image from "next/image";
-import faq from "@/public/images/faq.png";
-import Connect from "@/public/images/connect.png";
-import Icon from "@/components/Common/Icons/Icon";
-import Button from "@/components/Common/Button/Button";
+import React from "react";
+import { TransitionParent } from "@/lib/utils/transition";
 import { useRouter } from "next/navigation";
+import guidelineImage1 from "../../mockupData/guidelineImag 1.png";
 
 export default function FAQs() {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
-
   const router = useRouter();
-  const handleSearchInputChange = (event: any) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const searchTerms = [
-    "Technology",
-    "can i add multiple organizations",
-    "Sensitization",
-    "Feminism",
-    "How to add an organization",
-  ];
-
-  const handleSearch = (
-    selectedTerm: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
-    console.log(`Searching for: '${selectedTerm}'`);
-  };
 
   return (
     <TransitionParent>
@@ -62,13 +32,14 @@ export default function FAQs() {
           </button>
         </div>
 
-        <div className="flex flex-col justify-center ">
+        <div className="flex flex-col justify-center items-center gap-y-6 ">
           <h1 className="font-sora text-[24px] font-[600]">
-            How to create an Organization
+            How to Create an organization on WomenHu
           </h1>
-          <span className="text-center font-quickSand text-[14px] font-[500] text-[#515151]">
+          <span className="text-center font-quickSand text-[14px] font-[500] text-[#515151] ">
             Last updated 22 May 2024. 3 min read
           </span>
+          {/* <img src={guidelineImage1} alt="" className="w-[639px] h-[360px]" /> */}
         </div>
 
         <article className=" mx-auto mt-[5rem] w-[95%] max-w-[80%] space-y-10">

@@ -1,17 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import faq from "@/public/images/faq.png";
-import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-import Button from "@/components/Common/Button/Button";
 import { useRouter } from "next/navigation";
 
 export default function FAQs() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
 
   const router = useRouter();
   const handleSearchInputChange = (event: any) => {
@@ -31,9 +27,6 @@ export default function FAQs() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
@@ -80,7 +73,6 @@ export default function FAQs() {
             </div>
           </div>
 
-          {/* <div className="md:col-span-1 relative md:absolute bottom-0 right-0 block z-10"> */}
           <div className=" flex items-center justify-between">
             <Image
               src={faq}
@@ -107,25 +99,6 @@ export default function FAQs() {
               </button>
             </div>
           </div>
-          {/* <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
-            {Array.from({ length: 9 }, (_, i) => (
-              <div
-                key={i}
-                className="w-full mx-auto h-[15rem] bg-[#DFEBF7] border border-gray-400 rounded-lg flex flex-col items-start justify-center gap-2 drop-shadow-md p-4"
-              >
-                <h6 className="text-base font-semibold text-gray-200 font-sora">
-                  Can i add multiple organizations?
-                </h6>
-                <p className="text-xs font-semibold text-btnWarning font-quickSand">
-                  Answer
-                </p>
-                <p className="text-sm text-gray-100 font-quickSand">
-                  Yes, you can add multiple organizations by clicking &lsquo;Add
-                  Organization&rsquo; button and entering their details.
-                </p>
-              </div>
-            ))}
-          </div> */}
         </div>
       </section>
     </TransitionParent>

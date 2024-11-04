@@ -1,26 +1,40 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import helpline from "@/public/images/helpline.png";
-// import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
 import BubbleChat from "@/components/Common/Icons/BubbleChat";
 import { useModal } from "@/lib/context/modal-context";
 import Concern from "../components/Concern";
 import { useRouter } from "next/navigation";
 import FormSelect from "@/components/Form/FormSelect";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { Form } from "@/components/UI/Form";
 
-// import Button from "@/components/Common/Button/Button";
-// import PaginationControls from "@/components/Common/Pagination/PaginationControls";
+const schema = z.object({
+  state: z.string(),
+});
 
 export default function Helplines() {
   const { showModal } = useModal();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
+  const stateOptions = ["F.C.T", "OYO", "Kaduna", "Kano", "Lagos", "Ondo"];
+
   const router = useRouter();
+
+  const form = useForm<z.infer<typeof schema>>({
+    defaultValues: {
+      state: "",
+    },
+  });
+
+  const { setValue, watch } = form;
+
+  const state = watch("state");
 
   const handleConcern = () => {
     showModal(<Concern />);
@@ -43,9 +57,6 @@ export default function Helplines() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
@@ -106,20 +117,29 @@ export default function Helplines() {
 
         <div className="w-[95%] mx-auto pb-[7rem] ">
           <div className="flex flex-row justify-between mb-10 items-center">
-            <div className="">
-              <select
-                name="cars"
-                id="cars"
-                className="border-2 rounded-[8px] px-[32px] py-[16px] w-[451px]  text-[14px] font-quickSand font-[400]"
-              >
-                <option disabled>Select State</option>
-                <option value="volvo">F.C.T</option>
-                <option value="saab">OYO</option>
-                <option value="mercedes">Kaduna</option>
-                <option value="audi">Kano</option>
-                <option value="audi">Lagos</option>
-                <option value="audi">Ondo</option>
-              </select>
+            <div className="w-[451px]">
+              <Form {...form}>
+                <form
+                  className="w-full"
+                  //  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <div className="flex flex-col">
+                    <FormSelect
+                      placeholder="Select State"
+                      value={state}
+                      onChange={(value) => {
+                        setValue("state", value);
+                        setSelectedOption(value);
+                      }}
+                      defaultValue={""}
+                      options={stateOptions?.map((option) => ({
+                        label: option.toLowerCase().replace(/\s/g, "_"),
+                        value: option,
+                      }))}
+                    />
+                  </div>
+                </form>
+              </Form>
             </div>
 
             <div className="font-quickSand font-[600]">

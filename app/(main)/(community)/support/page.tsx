@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { TransitionParent, TransitionFromBottom } from "@/lib/utils/transition";
+import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import Support from "@/public/images/support.png";
 import Connect from "@/public/images/connect.png";
 import Icon from "@/components/Common/Icons/Icon";
-// import Button from "@/components/Common/Button/Button";
 import Link from "next/link";
 import { guideCardData } from "./mockupData/guideCard-mockup-data";
 import GuideCard from "./components/GuideCard";
@@ -23,8 +22,6 @@ import Concern from "./components/Concern";
 const SupportPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { showModal } = useModal();
-  // const [email, setEmail] = useState<string>("");
-  // const [question, setQuestion] = useState<string>("");
 
   const guides: any = guideCardData;
 
@@ -49,9 +46,6 @@ const SupportPage = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    // Call the API using the selected search term (selectedTerm)
-
-    // Update the state or perform any other necessary actions based on the API response
     console.log(`Searching for: '${selectedTerm}'`);
   };
 
@@ -185,7 +179,7 @@ const SupportPage = () => {
             </div>
             <div className="my-4 flex w-auto items-center justify-center text-[#106840]">
               <a
-                href="https://x.com/TheWomen_hub?t=GzIJ8w21eTToumkHJfvQTA&s=09"
+                href="https://www.facebook.com/p/women-hub-61559159979751/"
                 target="__blank"
               >
                 <Facebook size="40" color="#515151" />
@@ -213,11 +207,12 @@ const SupportPage = () => {
         </div>
         <div className="w-full flex-1">
           <div className="flex justify-end">
-            <button className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6">
+            <button
+              className="flex flex-row bg-[#E3FFF4] text-primary px-[24px] py-[14px] rounded-[12px] mr-6"
+              onClick={handleConcern}
+            >
               <BubbleChat />{" "}
-              <span className="ml-4" onClick={handleConcern}>
-                Have concerns ? Talk to us
-              </span>
+              <span className="ml-4">Have concerns ? Talk to us</span>
             </button>
           </div>
         </div>
