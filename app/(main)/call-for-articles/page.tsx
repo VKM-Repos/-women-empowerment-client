@@ -76,7 +76,7 @@ const CallForArticlesPage = () => {
                         </ul>
                     </div>
                     <div className="flex flex-col gap-3 justify-center relative">
-                        <div className="absolute top-[10%]">
+                        <div className="absolute top-[-20%] left-[60%] md:top-[-35%] md:left-[30%]">
                             <Image src={Pointing} alt="" />
                         </div>
                         <h3 className="font-sora font-semibold text-[#106840] text-4xl">Additional Notes</h3>
@@ -86,7 +86,7 @@ const CallForArticlesPage = () => {
                             ))}
                         </ul>
                     </div>
-                    <div className="text-center mt-10 mb-48">
+                    <div className="text-center mt-10 mb-20 md:mb-48">
                         <h3 className="text-2xl font-montserrat text-[#FF7400] font-medium italic">Women Hub reserves the right to select articles to feature.</h3>
                     </div> 
                 </div> 
