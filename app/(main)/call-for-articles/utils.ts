@@ -14,7 +14,7 @@ export const themes_of_interest = [
 
 export const guidelines = [
     {
-       " Content and Requirements": [
+       " Content Requirements": [
             "Articles should focus on above mentioned themes.",
             "All articles must be original, and written in English.",
             "Submissions must demonstrate clarity, thought-provoking content, and relevance to the selected theme.",
