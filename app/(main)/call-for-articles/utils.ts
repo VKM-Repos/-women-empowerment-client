@@ -6,6 +6,7 @@ export const themes_of_interest = [
     "Politics and Education",
     "Digital Violence",
     "Climate Change",
+    "Gender-Based Violence",
     "Entreneurship and Finance",
     "AI and Technology",
     "Media, Art and Lifestyle",
