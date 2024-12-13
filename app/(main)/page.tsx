@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import doddles from '@/public/images/img_circledoodle.png';
 import womenInPower from '@/public/images/img_womeninpower1.svg';
 import WomenHubProjects from '@/public/images/women-hub-projects.png';
-import { TransitionElement, TransitionParent } from '@/lib/utils/transition';
+import { TransitionElement, TransitionFromTopAlone, TransitionParent, TransitionSlideDown } from '@/lib/utils/transition';
 import { OrganizationCard } from '@/components/LandingPage/OrganizationCard';
 import Image from 'next/image';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
@@ -31,6 +31,7 @@ import { Project } from '@/lib/types/project.types';
 import { ProjectCard } from './projects/components/ProjectCard';
 import ProjectCarousel from '@/components/LandingPage/ProjectCarousel';
 import EventCard from './(community)/discussions/components/EventCard';
+import Banner from "@/public/images/banner.png"
 
 const LandingPage = () => {
   const handleSearch = (
@@ -108,41 +109,54 @@ const LandingPage = () => {
   return (
     <main className="w-full">
       <TransitionParent>
-        <section className=" flex w-screen flex-col items-center justify-start">
-          <div className="absolute left-0 top-5 z-10 block">
-            <Image
-              src={doddles}
-              alt="doodles"
-              width={200}
-              height={200}
-              className="aspect-auto w-[6rem] lg:w-[10rem]"
-            />
-          </div>
+        <section className="flex w-screen flex-col items-center justify-start">
+          <div className='w-full relative'>
+            <TransitionFromTopAlone>
+              <Link href="/call-for-articles">
+                <Image 
+                  src={Banner}
+                  alt="banner"/>
+              </Link> 
+            </TransitionFromTopAlone>
+            <TransitionSlideDown>
+              <div className="absolute left-0 top-[-5%] z-10 block">
+                  <Image
+                    src={doddles}
+                    alt="doodles"
+                    width={200}
+                    height={200}
+                    className="aspect-auto w-[6rem] lg:w-[10rem]"
+                  />
+                </div>
 
-          {/* Hero */}
-          <section className="bg-primary relative grid h-[22rem] w-[92%] grid-cols-1 place-content-start items-center overflow-hidden rounded-[1rem] p-4 md:w-[95%] md:place-content-center md:p-16 lg:h-[26rem] lg:grid-cols-2">
-            <div className="relative left-0 z-20 mt-[2.5rem] flex w-full flex-col items-start justify-center gap-2 md:col-span-1 md:gap-4 lg:left-[5%]">
-              <AnimatedTitle title="Together we are" />
-              <p className="text-white-100 font-light font-quickSand text-left text-sm md:text-base">
-                Discover and learn about women organizations with only one
-                click.
-              </p>
-              <SearchForm placeholder="Search for organization" />
-              <SearchTerm
-                searchTerms={searchTerms}
-                handleSearch={handleSearch}
-              />
-            </div>
-            <div className="relative bottom-0 right-0 z-10 mt-2 block md:col-span-1 lg:absolute">
-              <Image
-                src={womenInPower}
-                alt="group of women"
-                width={100}
-                height={100}
-                className="mx-auto aspect-auto w-[15rem] rounded-br-xl lg:w-[30rem]"
-              />
-            </div>
-          </section>
+              {/* Hero */}
+              <section className=" mx-auto bg-primary relative grid h-[22rem] w-[92%] grid-cols-1 place-content-start items-center overflow-hidden rounded-[1rem] p-4 md:w-[95%] md:place-content-center md:p-16 lg:h-[26rem] lg:grid-cols-2">
+                <div className="relative left-0 z-20 mt-[2.5rem] flex w-full flex-col items-start justify-center gap-2 md:col-span-1 md:gap-4 lg:left-[5%]">
+                  <AnimatedTitle title="Together we are" />
+                  <p className="text-white-100 font-light font-quickSand text-left text-sm md:text-base">
+                    Discover and learn about women organizations with only one
+                    click.
+                  </p>
+                  <SearchForm placeholder="Search for organization" />
+                  <SearchTerm
+                    searchTerms={searchTerms}
+                    handleSearch={handleSearch}
+                  />
+                </div>
+                <div className="relative bottom-0 right-0 z-10 mt-2 block md:col-span-1 lg:absolute">
+                  <Image
+                    src={womenInPower}
+                    alt="group of women"
+                    width={100}
+                    height={100}
+                    className="mx-auto aspect-auto w-[15rem] rounded-br-xl lg:w-[30rem]"
+                  />
+                </div>
+              </section>
+            </TransitionSlideDown>
+          </div>
+       
+         
 
           {/* Organizations, events and news  */}
           <section className="relative mx-auto grid w-full grid-cols-1 gap-10 px-4 md:w-[95%] lg:grid-cols-6">

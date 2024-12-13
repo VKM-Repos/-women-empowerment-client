@@ -45,10 +45,10 @@ function AnimatedTitle({ title }: TitleProps) {
   }, []);
 
   return (
-    <h1 className="md:text-[48px] text-[20px] text-left text-primaryWhite font-sora font-semibold flex whitespace-nowrap items-start justify-center gap-0">
+    <h1 className="relative md:text-[48px] text-[20px] text-left text-primaryWhite font-sora font-semibold flex whitespace-nowrap items-start justify-center gap-0">
       {title}
       <AnimatePresence mode="wait" initial={false}>
-        <span className="inline-block overflow-hidden">
+        <span className=" w-[12rem] overflow-hidden">
           <motion.span
             style={{ display: "inline-block" }}
             key={words[currentWordIndex]}

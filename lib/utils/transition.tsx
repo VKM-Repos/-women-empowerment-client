@@ -201,7 +201,7 @@ export const TransitionSlideDown: React.FC<TransitionProps> = ({ children, addCl
     <motion.div
       variants={{
         initial: { y: 0 },
-        animate: { y: 25, transition: { duration: 2 } },
+        animate: { y: 25, transition: { duration: 3 } },
         exit: { y: 0, transition: { duration: 1.5 } },
       }}
       initial="initial"
