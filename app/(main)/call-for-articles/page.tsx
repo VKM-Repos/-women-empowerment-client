@@ -40,13 +40,13 @@ const CallForArticlesPage = () => {
                             <Image src={IdeaMobile} alt="" className="md:hidden block"/>
                         </div>
                         <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">About the WomenHub Call for Articles</h3>
-                        <p className="font-quickSand text-xs md:text-md text-[#65655E]">The Women Hub serves as a centralized resource center and melting pot for diverse women’s issues. It is a platform for informed conversations, storytelling, and learning. We aim to amplify voices, share transformative stories, and drive impactful change for women globally."</p>
+                        <p className="font-quickSand text-xs md:text-lg text-[#65655E]">The Women Hub serves as a centralized resource center and melting pot for diverse women’s issues. It is a platform for informed conversations, storytelling, and learning. We aim to amplify voices, share transformative stories, and drive impactful change for women globally."</p>
                     </div>
                     <div className="flex flex-col gap-3.5 justify-center relative">
                         <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Themes of Interest</h3>
                         <ul className="list-disc mx-6 font-quickSand">
                             {themes_of_interest.map((theme) => (
-                                <li className="text-xs md:text-md">{theme}</li>
+                                <li className="text-xs md:text-lg">{theme}</li>
                             ))}
 
                         </ul>
@@ -69,10 +69,10 @@ const CallForArticlesPage = () => {
                                const [header, items] = Object.entries(section)[0];
                                return (
                                 <div key={index}>
-                                    <p className="font-quickSand text-xs md:text-md">{header}</p>
+                                    <p className="font-quickSand text-xs md:text-lg">{header}</p>
                                     <ul className="list-disc mx-6">
                                         {items.map((item: string[], index: number) => (
-                                            <li key={index} className="text-xs md:text-md">{item}</li>
+                                            <li key={index} className="text-xs md:text-lg">{item}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -84,7 +84,7 @@ const CallForArticlesPage = () => {
                         <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Why write for Women Hub?</h3>
                         <ul className="list-disc mx-6 font-quickSand">
                             {purpose.map((purp, index) => (
-                                <li key={index} className="text-xs md:text-md">{purp}</li>
+                                <li key={index} className="text-xs md:text-lg">{purp}</li>
                             ))}  
                         </ul>
                     </div>
@@ -96,7 +96,7 @@ const CallForArticlesPage = () => {
                         <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Additional Notes</h3>
                         <ul className="list-disc mx-5 font-quickSand">
                             {notes.map((note, index) => (
-                                <li key={index} className="text-xs md:text-md">{note}</li>
+                                <li key={index} className="text-xs md:text-lg">{note}</li>
                             ))}
                         </ul>
                     </div>
