@@ -195,3 +195,22 @@ export const TransitionFromRightAlone: React.FC<TransitionProps> = (props) => {
     </motion.div>
   );
 };
+
+export const TransitionSlideDown: React.FC<TransitionProps> = ({ children, addClass, onClick }) => {
+  return (
+    <motion.div
+      variants={{
+        initial: { y: 0 },
+        animate: { y: 25, transition: { duration: 2 } },
+        exit: { y: 0, transition: { duration: 1.5 } },
+      }}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className={`${addClass ?? ""}`}
+      onClick={onClick}
+    >
+      {children}
+    </motion.div>
+  );
+};
