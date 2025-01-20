@@ -31,7 +31,7 @@ import { Project } from '@/lib/types/project.types';
 import { ProjectCard } from './projects/components/ProjectCard';
 import ProjectCarousel from '@/components/LandingPage/ProjectCarousel';
 import EventCard from './(community)/discussions/components/EventCard';
-import Banner from "@/public/images/banner.png"
+import Banner from "@/public/images/articles-banner.png"
 
 const LandingPage = () => {
   const handleSearch = (
