@@ -19,7 +19,7 @@ export const guidelines = [
             "Articles should focus on above mentioned themes.",
             "All articles must be original, and written in English.",
             "Submissions must demonstrate clarity, thought-provoking content, and relevance to the selected theme.",
-            "No AI generated content allowed"
+            "No AI generated content allowed."
         ],
     },
    
@@ -27,14 +27,14 @@ export const guidelines = [
         "Formatting": [
             "Category: Specify the relevant topic",
             "Length: Maximum 300 words.",
-            "Format: Submit in Word or PDF format",
-            "Content Details: Include the title, writer’s full name, email address, and social media handles",
+            "Format: Submit in Word or PDF format.",
+            "Content Details: Include the title, writer’s full name, email address, and social media handles.",
         ]
     },
     {
         "Submission Process": [
             "All submissions should be sent to social@womenhub.org.",
-            "Submissions are accepted on a rolling basis and open to all genders"
+            "Submissions are accepted on a rolling basis and open to all genders."
         ],
     }
    

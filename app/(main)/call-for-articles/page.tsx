@@ -71,9 +71,22 @@ const CallForArticlesPage = () => {
                                 <div key={index}>
                                     <p className="font-quickSand text-xs md:text-lg">{header}</p>
                                     <ul className="list-disc mx-6">
-                                        {items.map((item: string[], index: number) => (
-                                            <li key={index} className="text-xs md:text-lg">{item}</li>
-                                        ))}
+                                        {items.map((item: any, idx: any) => (
+                                        <li key={idx} className="text-xs md:text-lg">
+                                            {header === "Submission Process"  && item.includes('social@womenhub.org') ? (
+                                                item.split('social@womenhub.org').map((part: any, idx: any) => (
+                                                <>
+                                                    {part}
+                                                    {idx === 0 ? (
+                                                    <a className="text-blue-800 underline" href="mailto:articles@womenhub.org">articles@womenhub.org</a>
+                                                    ) : null}
+                                                </>
+                                                ))
+                                            ) : (
+                                                item
+                                            )}
+                                        </li>
+                                    ))}
                                     </ul>
                                 </div>
                                )
