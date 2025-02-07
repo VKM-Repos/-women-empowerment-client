@@ -2,7 +2,7 @@
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import React from "react";
-import CallBannerDesktop from "@/public/images/call-banner (2).png";
+import CallBannerDesktop from "@/public/images/call-banner-resized.jpg";
 import CallBannerMobile from "@/public/images/call-banner (1).png";
 import IdeaImg from "@/public/images/idea-image.png";
 import PencilImg from "@/public/images/pencil-image.png";
