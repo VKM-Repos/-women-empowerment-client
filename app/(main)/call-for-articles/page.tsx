@@ -107,8 +107,8 @@ const CallForArticlesPage = () => {
                             ))}
                         </ul>
                     </div>
-                    <div className="text-btnWarning mb-20 md:mb-48 font-sora">
-                        <h3 className="text-base md:text-2xl font-medium italic font-sora">Terms and Conditions</h3>
+                    <div className="text-btnWarning  font-medium mb-20 md:mb-48 font-sora">
+                        <h3 className="text-base md:text-2xl font-semibold font-sora">Terms and Conditions</h3>
                         <ul className="list-disc mx-5 text-xs italic font-sora">
                             <li>Women Hub reserves the right to select articles to feature.</li>
                             <li>All information captured are protected see <a href="" className="text-primary underline">privacy policy</a></li>
