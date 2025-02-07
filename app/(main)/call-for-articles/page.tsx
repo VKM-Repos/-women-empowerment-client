@@ -33,7 +33,7 @@ const CallForArticlesPage = () => {
                 <div className="w-full relative max-w-[85%] flex flex-col gap-10 mx-auto">
                     
                     <div className="flex flex-col gap-3 justify-center relative">
-                        <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">About the WomenHub Call for Articles</h3>
+                        {/* <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">About the WomenHub Call for Articles</h3> */}
                         <p className="font-quickSand text-xs md:text-lg text-[#65655E]">The Women Hub serves as a centralized resource center and melting pot for diverse women’s issues. It is a platform for informed conversations, storytelling, and learning. We aim to amplify voices, share transformative stories, and drive impactful change for women globally."</p>
                     </div>
                     <div className="flex flex-col gap-3.5 justify-center relative">
@@ -63,7 +63,7 @@ const CallForArticlesPage = () => {
                                const [header, items] = Object.entries(section)[0];
                                return (
                                 <div key={index}>
-                                    <p className="font-quickSand text-xs md:text-lg">{header}</p>
+                                    <p className="font-quickSand text-xs md:text-lg font-semibold">{header}</p>
                                     <ul className="list-disc mx-6">
                                         {items.map((item: any, idx: any) => (
                                         <li key={idx} className="text-xs md:text-lg">
@@ -107,11 +107,11 @@ const CallForArticlesPage = () => {
                             ))}
                         </ul>
                     </div>
-                    <div className="text-btnWarning  font-medium mb-20 md:mb-48 font-sora">
-                        <h3 className="text-base md:text-2xl font-semibold font-sora">Terms and Conditions</h3>
+                    <div className="text-btnWarning  font-medium mb-20 md:mb-48 font-sora flex flex-col gap-2">
+                        <h3 className="text-base md:text-2xl font-semibold font-sora">Terms & Conditions</h3>
                         <ul className="list-disc mx-5 text-xs italic font-sora">
                             <li>Women Hub reserves the right to select articles to feature.</li>
-                            <li>All information captured are protected see <a href="" className="text-primary underline">privacy policy</a></li>
+                            <li>All information captured are protected see <a href="" className="text-primary underline pointer-events-none">privacy policy</a></li>
                         </ul>
                     </div> 
                 </div> 
