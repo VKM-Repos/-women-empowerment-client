@@ -16,7 +16,7 @@ export const themes_of_interest = [
 export const guidelines = [
     {
        " Content Requirements": [
-            "Articles should focus on above mentioned themes.",
+            "Articles can focus on above mentioned themes.",
             "All articles must be original, and written in English.",
             "Submissions must demonstrate clarity, thought-provoking content, and relevance to the selected theme.",
             "No AI generated content allowed."
@@ -27,8 +27,8 @@ export const guidelines = [
         "Formatting": [
             "Category: Specify the relevant topic",
             "Length: Maximum 300 words.",
-            "Format: Submit in Word or PDF format.",
-            "Content Details: Include the title, writer’s full name, email address, and social media handles.",
+            "Format: Submit in Word or PDF.",
+            "Content Details: Include the title, writer’s full name, valid phone number, email address, nationality and social media handles.",
         ]
     },
     {
@@ -37,9 +37,8 @@ export const guidelines = [
             "Submissions are accepted on a rolling basis and open to all genders."
         ],
     }
-   
-
 ]
+
 export const purpose = [
     "Feature your work on a growing platform.",
     "Contribute to meaningful conversations.",
