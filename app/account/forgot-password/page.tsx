@@ -141,7 +141,7 @@ const ForgotPassword: React.FC = () => {
                   <div className="text-green-800 text-sm  self-center whitespace-nowrap mt-4">
                     <span className=" text-black">Return to </span>
                     <Link
-                      href="/account/sign-up"
+                      href="/account/login"
                       className="font-medium underline text-green-800"
                     >
                       Log in
