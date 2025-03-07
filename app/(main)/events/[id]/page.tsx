@@ -1,36 +1,36 @@
-'use client';
-import { AnimatePresence, motion } from 'framer-motion';
-import EventDetailsLoader from '../components/EventDetailsLoader';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useGET } from '@/lib/hooks/useGET.hook';
-import { formatDateTime } from '@/lib/utils/helperFunctions';
-import { CameraIcon } from '@/components/Common/Icons/Camera.icon';
-import { LocationIcon } from '@/components/Common/Icons/Location.icon';
-import ShareDropdown from '@/components/LandingPage/ShareDropDown';
-import Link from 'next/link';
-import ImageWithFallback from '@/components/Common/ImageWithFallBack';
-import ThreeDotsMenu from '../../organization/components/ThreeDotsMenu';
-import GoBackBtn from '@/components/Common/GoBackBtn';
-import Icon from '@/components/Common/Icons/Icon';
-import { useModal } from '@/lib/context/modal-context';
-import DeleteEventModal from '../components/DeleteEventModal';
-import { siteConfig } from '@/lib/config/siteConfig';
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
+import EventDetailsLoader from "../components/EventDetailsLoader";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import { formatDateTime } from "@/lib/utils/helperFunctions";
+import { CameraIcon } from "@/components/Common/Icons/Camera.icon";
+import { LocationIcon } from "@/components/Common/Icons/Location.icon";
+import ShareDropdown from "@/components/LandingPage/ShareDropDown";
+import Link from "next/link";
+import ImageWithFallback from "@/components/Common/ImageWithFallBack";
+import ThreeDotsMenu from "../../organization/components/ThreeDotsMenu";
+import GoBackBtn from "@/components/Common/GoBackBtn";
+import Icon from "@/components/Common/Icons/Icon";
+import { useModal } from "@/lib/context/modal-context";
+import DeleteEventModal from "../components/DeleteEventModal";
+import { siteConfig } from "@/lib/config/siteConfig";
 
 const menu = [
   {
-    title: 'Edit',
+    title: "Edit",
     blank: false,
     isButton: true,
     onClick: () => {
-      alert('removed');
+      alert("removed");
     },
   },
   {
-    title: 'delete',
+    title: "delete",
     blank: false,
     isButton: true,
     onClick: () => {
-      alert('changed');
+      alert("changed");
     },
   },
 ];
@@ -41,7 +41,7 @@ export default function EventsDetailsPage({
   params: { id: string };
 }) {
   const router = useRouter();
-  const eventId = params?.id?.replace(/\(\.\)/g, '');
+  const eventId = params?.id?.replace(/\(\.\)/g, "");
   const { showModal, hideModal } = useModal();
 
   const handleDeleteModal = () => {
@@ -50,24 +50,25 @@ export default function EventsDetailsPage({
 
   // when owner wants to delete
   const searchParams = useSearchParams();
-  const deleteQuery = searchParams.get('query') === 'delete';
+  const deleteQuery = searchParams.get("query") === "delete";
 
   // when owner wants to preview
-  const previewQuery = searchParams.get('query') === 'preview';
+  const previewQuery = searchParams.get("query") === "preview";
 
   const { data: event, isPending } = useGET({
     url: `events/${eventId}`,
-    queryKey: ['GET_EVENT_DETAILS_EVENT_DETAILS_PAGE', eventId],
+    queryKey: ["GET_EVENT_DETAILS_EVENT_DETAILS_PAGE", eventId],
     withAuth: false,
     enabled: true,
   });
 
-  const urlToShare = `${typeof window !== 'undefined' ? window.location.origin : siteConfig.url}/events/${eventId}`;
+  const urlToShare = `${
+    typeof window !== "undefined" ? window.location.origin : siteConfig.url
+  }/events/${eventId}`;
   return (
     <>
       {isPending ? (
-        // <EventDetailsLoader />
-        'loading'
+        <EventDetailsLoader />
       ) : (
         <AnimatePresence initial={false} mode="wait">
           <div className="font-sora relative mx-auto w-full rounded-[1rem] p-4 pb-[7rem] pt-8 lg:w-3/4 ">
@@ -78,15 +79,17 @@ export default function EventsDetailsPage({
             <div className="my-6 grid grid-cols-1 justify-start justify-items-stretch gap-10 md:grid-cols-2">
               <div className="col-span-1 flex w-full flex-col items-start justify-items-stretch gap-5 ">
                 <div className="h-3/5 w-full overflow-hidden rounded-md">
-                  <ImageWithFallback
-                    src={event?.image}
-                    fallbackSrc={
-                      'https://placehold.co/600x500?text=Women\n Hub'
-                    }
-                    aspectRatio={{ width: 6, height: 5 }}
-                    alt={event?.name}
-                    className=""
-                  />
+                  {event?.image !== null && (
+                    <ImageWithFallback
+                      src={event?.image}
+                      fallbackSrc={
+                        "https://placehold.co/600x500?text=Women\n Hub"
+                      }
+                      aspectRatio={{ width: 6, height: 5 }}
+                      alt={event?.name}
+                      className=""
+                    />
+                  )}
                 </div>
                 <h3 className="text-primary font-sora h-fit w-full text-base font-bold uppercase">
                   {event?.name}
@@ -97,15 +100,17 @@ export default function EventsDetailsPage({
                 <div className="bg-primaryWhite flex w-full flex-col gap-5 rounded-lg p-4">
                   <div className=" flex items-center gap-4">
                     <span className="border-gray-500 aspect-square w-[3rem] overflow-hidden rounded-full border">
-                      <ImageWithFallback
-                        src={event?.organization?.logo}
-                        fallbackSrc={
-                          'https://placehold.co/100x100?text=Women\n Hub'
-                        }
-                        aspectRatio={{ width: 1, height: 1 }}
-                        alt={event?.organization?.name}
-                        className=""
-                      />
+                      {event?.organization?.logo !== null && (
+                        <ImageWithFallback
+                          src={event?.organization?.logo}
+                          fallbackSrc={
+                            "https://placehold.co/100x100?text=Women\n Hub"
+                          }
+                          aspectRatio={{ width: 1, height: 1 }}
+                          alt={event?.organization?.name}
+                          className=""
+                        />
+                      )}
                     </span>
                     <h5 className="text-gray-200 font-quickSand text-base font-semibold">
                       {event?.organization?.name}
@@ -113,6 +118,7 @@ export default function EventsDetailsPage({
                   </div>
                   <div className="flex items-center gap-4">
                     {/* <Icon name="" size={20} /> */}
+                    {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
                     <svg
                       width="23"
                       height="24"
@@ -168,24 +174,24 @@ export default function EventsDetailsPage({
                           fill="#106840"
                         />
                       </svg> */}
-                    {event?.type == 'ONLINE' ? (
+                    {event?.type === "ONLINE" ? (
                       <CameraIcon className="aspect-square w-6" />
                     ) : (
                       <LocationIcon className="aspect-square w-6" />
                     )}
                     <p className="text-gray-200 font-sora text-sm">
-                      {event?.type == 'ONLINE' ? (
+                      {event?.type == "ONLINE" ? (
                         <p>
                           <a href={event?.link} className="underline">
                             {event?.link}
-                          </a>{' '}
+                          </a>{" "}
                           ({event?.type})
                         </p>
                       ) : (
                         <p>
                           {event?.location} ({event?.type})
                         </p>
-                      )}{' '}
+                      )}{" "}
                     </p>
                   </div>
                 </div>
@@ -200,9 +206,11 @@ export default function EventsDetailsPage({
             <div className="font-quickSand my-4 flex justify-center gap-10">
               {deleteQuery ? (
                 <button
+                  type="button"
                   onClick={handleDeleteModal}
                   className="border-error bg-error text-primaryWhite flex items-center space-x-2 rounded-md border px-6 py-4 text-xs md:text-base"
                 >
+                  {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
                   <svg
                     width="16"
                     height="16"
@@ -239,16 +247,23 @@ export default function EventsDetailsPage({
                 </button>
               ) : (
                 <>
-                  <button className="border-primary text-primary flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base">
-                    <ShareDropdown text={'Share'} urlToShare={urlToShare} />
+                  <button
+                    type="button"
+                    className="border-primary text-primary flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base"
+                  >
+                    <ShareDropdown text={"Share"} urlToShare={urlToShare} />
                   </button>
-                  <button className="border-primary bg-primary text-primaryWhite flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base">
+                  <button
+                    type="button"
+                    className="border-primary bg-primary text-primaryWhite flex items-center space-x-2 rounded-md border px-4 py-1 text-xs md:text-base"
+                  >
                     <Link
                       className="flex items-center gap-2"
                       href={event?.organization?.website}
                       target="_blank"
                     >
                       <span>Visit Website</span>
+                      {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
                       <svg
                         width="16"
                         height="16"

@@ -21,6 +21,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   className,
 }) => {
   const aspectRatioValue = aspectRatio.width / aspectRatio.height;
+  if (typeof window === "undefined") return null;
   return (
     <AspectRatio ratio={aspectRatioValue}>
       <div className="w-full h-0">
