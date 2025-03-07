@@ -1,37 +1,43 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import doddles from '@/public/images/img_circledoodle.png';
-import womenInPower from '@/public/images/img_womeninpower1.svg';
-import WomenHubProjects from '@/public/images/women-hub-projects.png';
-import { TransitionElement, TransitionFromTopAlone, TransitionParent, TransitionSlideDown } from '@/lib/utils/transition';
-import { OrganizationCard } from '@/components/LandingPage/OrganizationCard';
-import Image from 'next/image';
-import { AnimatePresence, motion, useAnimation } from 'framer-motion';
-import Link from 'next/link';
+"use client";
+import type React from "react";
+import { useEffect, useState } from "react";
+import doddles from "@/public/images/img_circledoodle.png";
+import womenInPower from "@/public/images/img_womeninpower1.svg";
+import WomenHubProjects from "@/public/images/women-hub-projects.png";
+import {
+  TransitionElement,
+  TransitionFromTopAlone,
+  TransitionParent,
+  TransitionSlideDown,
+} from "@/lib/utils/transition";
+import { OrganizationCard } from "@/components/LandingPage/OrganizationCard";
+import Image from "next/image";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import Link from "next/link";
 import {
   communityDiscussionTopics,
   featuredProjects,
   howItWorks,
   searchTerms,
-} from '@/lib/utils/constants';
-import Button from '@/components/Common/Button/Button';
-import AnimatedTitle from '@/components/LandingPage/AnimatedTitle';
-import { useGET } from '@/lib/hooks/useGET.hook';
-import { Organization } from '@/lib/types/organization.types';
-import { Event } from '@/lib/types/events.types';
-import { OrgCardLoader } from './organization/components/OrgCardLoader';
-import EventCardLoader from './events/components/EventCardLoader';
-import SearchForm from '@/components/LandingPage/SearchForm';
-import SearchTerm from '@/components/LandingPage/SearchTerm';
-import { useRouter } from 'next/navigation';
-import NoContent from '@/components/EmptyStates/NoContent';
-import { useAppContext } from '@/lib/context/app-context';
-import { ProjectCardLoader } from './projects/components/ProjectCardLoader';
-import { Project } from '@/lib/types/project.types';
-import { ProjectCard } from './projects/components/ProjectCard';
-import ProjectCarousel from '@/components/LandingPage/ProjectCarousel';
-import EventCard from './(community)/discussions/components/EventCard';
-import Banner from "@/public/images/articles-banner.png"
+} from "@/lib/utils/constants";
+import Button from "@/components/Common/Button/Button";
+import AnimatedTitle from "@/components/LandingPage/AnimatedTitle";
+import { useGET } from "@/lib/hooks/useGET.hook";
+import type { Organization } from "@/lib/types/organization.types";
+import type { Event } from "@/lib/types/events.types";
+import { OrgCardLoader } from "./organization/components/OrgCardLoader";
+import EventCardLoader from "./events/components/EventCardLoader";
+import SearchForm from "@/components/LandingPage/SearchForm";
+import SearchTerm from "@/components/LandingPage/SearchTerm";
+import { useRouter } from "next/navigation";
+import NoContent from "@/components/EmptyStates/NoContent";
+import { useAppContext } from "@/lib/context/app-context";
+import { ProjectCardLoader } from "./projects/components/ProjectCardLoader";
+import { Project } from "@/lib/types/project.types";
+import { ProjectCard } from "./projects/components/ProjectCard";
+import ProjectCarousel from "@/components/LandingPage/ProjectCarousel";
+import EventCard from "./(community)/discussions/components/EventCard";
+import Banner from "@/public/images/articles-banner.png";
 
 const LandingPage = () => {
   const handleSearch = (
@@ -70,8 +76,8 @@ const LandingPage = () => {
     isError: isOrganizationError,
     refetch: refetchOrganization,
   } = useGET({
-    url: 'organizations/top',
-    queryKey: ['top_organizations'],
+    url: "organizations/top",
+    queryKey: ["top_organizations"],
     withAuth: false,
     enabled: true,
   });
@@ -86,8 +92,8 @@ const LandingPage = () => {
     isLoading: isEventsLoading,
     isError: isEventsError,
   } = useGET({
-    url: 'events',
-    queryKey: ['events'],
+    url: "events",
+    queryKey: ["events"],
     withAuth: false,
     enabled: true,
   });
@@ -98,36 +104,32 @@ const LandingPage = () => {
     isError: isProjectsError,
     refetch: refetchProjects,
   } = useGET({
-    url: 'projects',
-    queryKey: ['projects'],
+    url: "projects",
+    queryKey: ["projects"],
     withAuth: false,
     enabled: false,
   });
-
-  // console.log(projects, "this is the project");
 
   return (
     <main className="w-full">
       <TransitionParent>
         <section className="flex w-screen flex-col items-center justify-start">
-          <div className='w-full relative'>
+          <div className="w-full relative">
             <TransitionFromTopAlone>
               <Link href="/call-for-articles">
-                <Image 
-                  src={Banner}
-                  alt="banner"/>
-              </Link> 
+                <Image src={Banner} alt="banner" />
+              </Link>
             </TransitionFromTopAlone>
             <TransitionSlideDown>
               <div className="absolute left-0 top-[-5%] z-10 block">
-                  <Image
-                    src={doddles}
-                    alt="doodles"
-                    width={200}
-                    height={200}
-                    className="aspect-auto w-[6rem] lg:w-[10rem]"
-                  />
-                </div>
+                <Image
+                  src={doddles}
+                  alt="doodles"
+                  width={200}
+                  height={200}
+                  className="aspect-auto w-[6rem] lg:w-[10rem]"
+                />
+              </div>
 
               {/* Hero */}
               <section className=" mx-auto bg-primary relative grid h-[22rem] w-[92%] grid-cols-1 place-content-start items-center overflow-hidden rounded-[1rem] p-4 md:w-[95%] md:place-content-center md:p-16 lg:h-[26rem] lg:grid-cols-2">
@@ -155,8 +157,6 @@ const LandingPage = () => {
               </section>
             </TransitionSlideDown>
           </div>
-       
-         
 
           {/* Organizations, events and news  */}
           <section className="relative mx-auto grid w-full grid-cols-1 gap-10 px-4 md:w-[95%] lg:grid-cols-6">
@@ -178,12 +178,12 @@ const LandingPage = () => {
                   <NoContent
                     message="No organization yet."
                     buttonText={
-                      isAuthenticated ? 'Add organization' : 'Login to add'
+                      isAuthenticated ? "Add organization" : "Login to add"
                     }
                     buttonLink={
                       isAuthenticated
-                        ? () => router.push('/organization/create')
-                        : () => router.push('/account/login')
+                        ? () => router.push("/organization/create")
+                        : () => router.push("/account/login")
                     }
                   />
                 ) : (
@@ -203,7 +203,7 @@ const LandingPage = () => {
                         fullWidth={false}
                         size="normal"
                         onClick={() =>
-                          router.push('organization/all-organizations')
+                          router.push("organization/all-organizations")
                         }
                       />
                     </div>
@@ -230,12 +230,12 @@ const LandingPage = () => {
                     <NoContent
                       message="No events yet."
                       buttonText={
-                        isAuthenticated ? 'Add events' : 'Login to add'
+                        isAuthenticated ? "Add events" : "Login to add"
                       }
                       buttonLink={
                         isAuthenticated
-                          ? () => router.push('/events/create')
-                          : () => router.push('/account/login')
+                          ? () => router.push("/events/create")
+                          : () => router.push("/account/login")
                       }
                     />
                   ) : (
@@ -256,7 +256,7 @@ const LandingPage = () => {
                             variant="outline"
                             fullWidth={false}
                             size="normal"
-                            onClick={() => router.push('/events')}
+                            onClick={() => router.push("/events")}
                           />
                         </div>
                       </>
@@ -306,7 +306,7 @@ const LandingPage = () => {
             </div>
 
             <div className="scrollable-section no-scrollbar flex w-auto flex-nowrap items-start gap-5 overflow-x-scroll px-4 py-6 md:px-16 lg:overflow-x-hidden">
-              {communityDiscussionTopics.map(discussion => (
+              {communityDiscussionTopics?.map((discussion) => (
                 <div
                   key={discussion.id}
                   className="bg-primaryWhite aspect-square h-[25rem] w-full flex-col items-stretch justify-center space-y-4 rounded-3xl px-6 pt-6 shadow-lg md:w-1/2 lg:w-[25%] xl:w-[24%] "
@@ -331,12 +331,14 @@ const LandingPage = () => {
             </div>
 
             <button
-              onClick={() => router.push('discussions')}
+              type="button"
+              onClick={() => router.push("discussions")}
               className="text-white-100 font-quickSand max-md:mt-10 mt-11 w-44 max-w-full items-center justify-center self-center rounded-xl bg-green-800 px-5 py-4 text-base font-medium"
             >
               Join Discussion
             </button>
 
+            {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
             <svg
               className=" relative -bottom-10 z-20"
               width="88"
@@ -369,6 +371,7 @@ const LandingPage = () => {
 
             <ProjectCarousel projects={projects} />
 
+            {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
             <svg
               className="-mb-[45px]"
               width="88"
@@ -397,7 +400,7 @@ const LandingPage = () => {
             </div>
 
             <div className="mx-auto my-[4rem] flex w-full flex-wrap items-center justify-center gap-10 md:w-[90%]">
-              {howItWorks.map(item => (
+              {howItWorks.map((item) => (
                 <div
                   style={{ backgroundColor: item.color }}
                   key={item.id}
@@ -423,6 +426,7 @@ const LandingPage = () => {
             </div>
           </div>
 
+          {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
           <svg
             className="w-screen"
             width="1440"

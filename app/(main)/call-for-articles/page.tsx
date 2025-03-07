@@ -2,15 +2,13 @@
 import { TransitionParent } from "@/lib/utils/transition";
 import Image from "next/image";
 import React from "react";
-import CallBannerDesktop from "@/public/images/call-banner (2).png";
-import CallBannerMobile from "@/public/images/call-banner (1).png";
-import IdeaImg from "@/public/images/idea-image.png";
+import CallBannerDesktop from "@/public/images/call-banner-resized.jpg";
+import CallBannerMobile from "@/public/images/call-banner-mobile.png";
+import IdeaImg from "@/public/images/ideas-image.jpg";
 import PencilImg from "@/public/images/pencil-image.png";
 import ClockImg from "@/public/images/clock-image.png";
-import IdeaMobile from "@/public/images/idea-mobile.png";
 import PencilMobile from "@/public/images/pencil-mobile.png";
 import ClockMobile from "@/public/images/clock-mobile.png";
-import YenImg from "@/public/images/yen-image.png";
 import Pointing from "@/public/images/pointing-image.png";
 import PointMobile from "@/public/images/pointing-mobile.png";
 import { guidelines, notes, purpose, themes_of_interest } from "./utils";
@@ -35,15 +33,11 @@ const CallForArticlesPage = () => {
                 <div className="w-full relative max-w-[85%] flex flex-col gap-10 mx-auto">
                     
                     <div className="flex flex-col gap-3 justify-center relative">
-                        <div className="absolute right-0 top-[-15%] md:top-0 ">
-                            <Image src={IdeaImg} alt="" className="hidden md:block"/>
-                            <Image src={IdeaMobile} alt="" className="md:hidden block"/>
-                        </div>
-                        <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">About the WomenHub Call for Articles</h3>
+                        {/* <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">About the WomenHub Call for Articles</h3> */}
                         <p className="font-quickSand text-xs md:text-lg text-[#65655E]">The Women Hub serves as a centralized resource center and melting pot for diverse women’s issues. It is a platform for informed conversations, storytelling, and learning. We aim to amplify voices, share transformative stories, and drive impactful change for women globally."</p>
                     </div>
                     <div className="flex flex-col gap-3.5 justify-center relative">
-                        <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Themes of Interest</h3>
+                        <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">Themes of Interest</h3>
                         <ul className="list-disc mx-6 font-quickSand">
                             {themes_of_interest.map((theme) => (
                                 <li className="text-xs md:text-lg">{theme}</li>
@@ -54,7 +48,7 @@ const CallForArticlesPage = () => {
                             <Image src={PencilImg} alt="" className="hidden md:block"/>
                             <Image src={PencilMobile} alt="" className="block md:hidden"/>
                             <div className="absolute right-[10%]">
-                                <Image src={YenImg} alt="" className="hidden md:block"/>
+                                <Image src={IdeaImg} alt="" />
                             </div>
                         </div>
                         <div className="absolute bottom-[5%] left-[-10%]">
@@ -63,13 +57,13 @@ const CallForArticlesPage = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-5 justify-center relative mb-6">
-                        <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Submission and Guidelines</h3>
+                        <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">Submission and Guidelines</h3>
                         <ul className="font-quickSand">
                             {guidelines.map((section, index) => {
                                const [header, items] = Object.entries(section)[0];
                                return (
                                 <div key={index}>
-                                    <p className="font-quickSand text-xs md:text-lg">{header}</p>
+                                    <p className="font-quickSand text-xs md:text-lg font-semibold">{header}</p>
                                     <ul className="list-disc mx-6">
                                         {items.map((item: any, idx: any) => (
                                         <li key={idx} className="text-xs md:text-lg">
@@ -94,7 +88,7 @@ const CallForArticlesPage = () => {
                         </ul>
                     </div>
                     <div className="flex flex-col gap-3 justify-center">
-                        <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Why write for Women Hub?</h3>
+                        <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">Why write for Women Hub?</h3>
                         <ul className="list-disc mx-6 font-quickSand">
                             {purpose.map((purp, index) => (
                                 <li key={index} className="text-xs md:text-lg">{purp}</li>
@@ -106,15 +100,19 @@ const CallForArticlesPage = () => {
                             <Image src={Pointing} alt="" className="hidden md:block"/>
                             <Image src={PointMobile} alt="" className="block md:hidden"/>
                         </div>
-                        <h3 className="font-sora font-semibold text-[#106840] text-2xl md:text-4xl">Additional Notes</h3>
+                        <h3 className="font-sora font-semibold text-primary text-2xl md:text-4xl">Additional Notes</h3>
                         <ul className="list-disc mx-5 font-quickSand">
                             {notes.map((note, index) => (
                                 <li key={index} className="text-xs md:text-lg">{note}</li>
                             ))}
                         </ul>
                     </div>
-                    <div className="text-center mt-10 mb-20 md:mb-48">
-                        <h3 className="text-base md:text-2xl font-montserrat text-[#FF7400] font-medium italic">Women Hub reserves the right to select articles to feature.</h3>
+                    <div className="text-btnWarning  font-medium mb-20 md:mb-48 font-sora flex flex-col gap-2">
+                        <h3 className="text-base md:text-2xl font-semibold font-sora">Terms & Conditions</h3>
+                        <ul className="list-disc mx-5 text-xs italic font-sora">
+                            <li>Women Hub reserves the right to select articles to feature.</li>
+                            <li>All information captured are protected see <a href="" className="text-primary underline pointer-events-none">privacy policy</a></li>
+                        </ul>
                     </div> 
                 </div> 
             </section>
