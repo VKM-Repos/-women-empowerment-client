@@ -115,11 +115,11 @@ const LandingPage = () => {
       <TransitionParent>
         <section className="flex w-screen flex-col items-center justify-start">
           <div className="w-full relative">
-            <TransitionFromTopAlone>
+            {/* <TransitionFromTopAlone>
               <Link href="/call-for-articles">
                 <Image src={Banner} alt="banner" />
               </Link>
-            </TransitionFromTopAlone>
+            </TransitionFromTopAlone> */}
             <TransitionSlideDown>
               <div className="absolute left-0 top-[-5%] z-10 block">
                 <Image
